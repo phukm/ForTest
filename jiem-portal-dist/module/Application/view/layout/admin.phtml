@@ -1,0 +1,257 @@
+<?php echo $this->doctype(); ?>
+<html lang="en">
+    <?php
+    $orgName = !empty($this->awesomeUser['organizationName']) ? $this->escapeHtml($this->awesomeUser['organizationName']) : $this->escapeHtml($this->awesomeUser['organizationNo']);
+    $nameKanji = $this->escapeHtml($this->awesomeUser['firstName']) . $this->escapeHtml($this->awesomeUser['lastName']);
+    $totalLengthHeader = mb_strlen($orgName, 'utf-8') + mb_strlen($nameKanji, 'utf-8');
+    ?>
+    <head>
+        <meta charset="utf-8">
+        <meta
+            content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'
+            name='viewport' />
+        <meta name="viewport" content="width=device-width" />
+        <meta http-equiv="X-UA-Compatible" content="IE=9">
+        <?php echo $this->headTitle('英検団体サポートシステム')->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?php
+        echo $this->headMeta()
+                ->appendName('viewport', '')
+                ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+        <?php
+        echo $this->headLink(array(
+                    'rel' => 'shortcut icon',
+                    'type' => 'image/vnd.microsoft.icon',
+                    'href' => $this->basePath() . '/img/favicon.ico'
+                ))
+                ->prependStylesheet($this->basePath('css/admin-page.css'))
+                ->prependStylesheet($this->basePath('css/JIEM-masterpage.css'))
+                ->prependStylesheet($this->basePath('css/icon-awesome.css'))
+                ->prependStylesheet($this->basePath('css/JIEMStyle.css'))
+                ->prependStylesheet($this->basePath('css/non-responsive.css'))
+                ->prependStylesheet($this->basePath('css/bootstrap.min.css'))
+                ->prependStylesheet($this->basePath('css/jquery-ui.css'))
+                ->appendStylesheet($this->basePath('css/ie9hack.css'), 'screen', 'lt IE 10')
+                ->appendStylesheet($this->basePath('css/JIEMForms.css'));
+        ?>
+
+        <!-- Scripts -->
+        <?php
+        echo $this->headScript()
+                ->prependFile($this->basePath('js/messages/common-message.js'))
+                ->prependFile($this->basePath('js/localization/jiem.messages_ja.js'))
+                ->prependFile($this->basePath('js/localization/messages_ja.js'))
+                ->prependFile($this->basePath('js/bootstrap.min.js'))
+                ->prependFile($this->basePath('js/app.js'))
+                ->prependFile($this->basePath('js/common.js'))
+                ->prependFile($this->basePath('js/jquery.validate.js'))
+                ->prependFile($this->basePath('js/validate.min.js'))
+                ->prependFile($this->basePath('js/html5shiv.js'), 'text/javascript', array(
+                    'conditional' => 'lt IE 9'
+                ))
+                ->prependFile($this->basePath('js/respond.min.js'), 'text/javascript', array(
+                    'conditional' => 'lt IE 9'
+                ))
+                ->prependFile($this->basePath('js/jquery.min.js'));
+        ?>
+        <!--[if lt IE 9]>
+        <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="navbar navbar-static-top top-navbar">
+                <div class="container">
+                    <div class="navbar-header">
+                        <a href="<?php echo $this->url('home-page/default', array('controller' => 'homepage', "action" => 'default')) ?>">
+                            <img class="header-logo" src="<?php echo $this->basePath("img/eiken-logo.jpg"); ?>">
+                        </a>
+                        <a href="<?php echo $this->url('home-page/default', array('controller' => 'homepage', "action" => 'default')) ?>">
+                            <p class="header-text">英検団体サポートシステム</p>
+                        </a>
+                    </div>
+                    <div class="navbar" style="float:right">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a
+                                    style="display: table-cell; padding: 0px 10px; vertical-align: middle;"
+                                    href="#"><i class="awesome question-sign"></i> 使い方</a></li>
+                            <li><a
+                                    style="display: table-cell; padding: 0px 10px; vertical-align: middle;"
+                                    href="#"><i class="awesome comment-sign"></i> お問い合わせ</a></li>
+                            <li class="dropdown user-option">
+                                <a href="#" style="display: table-cell; padding: 0px 10px; vertical-align: middle;" class="dropdown-toggle" data-toggle="dropdown"> 
+                                    <span class="left" title="<?php echo (mb_strlen($orgName, 'utf-8') > 20 && $totalLengthHeader > 26) ? $orgName : ''; ?>">
+                                        <?php
+                                        echo (mb_strlen($orgName, 'utf-8') > 20 && $totalLengthHeader > 26) ? mb_substr($orgName, 0, 20, 'utf-8') . '...' : $orgName;
+                                        ?>
+                                    </span> 
+                                    <span class="right" title="<?php echo (mb_strlen($nameKanji, 'utf-8') > 6 && $totalLengthHeader > 26) ? $nameKanji : ''; ?>">
+                                        <?php
+                                        echo (mb_strlen($nameKanji, 'utf-8') > 6 && $totalLengthHeader > 26) ? mb_substr($nameKanji, 0, 6, 'utf-8') . '...' : $nameKanji;
+                                        ?>
+                                        <i class="caret"></i>
+                                    </span> 
+                                    <!--<span class="right"><?php //echo $this->escapeHtml($this->awesomeUser['role']);         ?>
+                                        <i class="caret"></i>
+                                    </span>-->
+                                </a>
+                                <ul class="dropdown-menu user-popup">
+                                    <li>
+                                        <button class="btn" id="btnUserProfile"
+                                                style="float: left; margin-left: 25px;">
+                                            <i class="user-sign"></i> ユーザ情報管理
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="button" id="btnlogout" data-toggle="modal"
+                                                style="float: left; margin-left: 25px; margin-top: 15px;"
+                                                data-target="#logoutModal" class="btn user-popup-btn-second">
+                                            <i class="sign-out"></i> ログアウト
+                                        </button>
+                                    </li>
+                                </ul></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- Second Nav -->
+            <div class="mid-navbar navbar">
+                <div class="container">
+                    <ul class="nav navbar-nav admin-navbar" style="margin-top: -1px;">
+                        <li><a href="/admin-page" class="first"><span
+                                    class="awesome home home-sign"></span>団体検索</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Logout Modal -->
+            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+                 aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <p class="modal-title">ログアウト</p>
+                        </div>
+                        <div class="modal-body">
+                            <p>ログアウトします。よろしいですか？</p>
+                        </div>
+                        <div class="modal-footer">
+                            <a class="btn btn-large-180" id="btnCancelModel">キャンセル</a> <a
+                                href="<?php echo $this->url('logout'); ?>"
+                                class="btn btn-large-180 btn-red"><i class="sign-out-w"></i>ログアウト</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-wrapper">
+                <div class="content">
+                    <?php echo $this->navigation('navigation')->breadcrumbs()->setMinDepth(0)->setPartial('partial/breadcrumbs.phtml', 'Application'); ?>
+                    <div class="row jiem-error" style="display: none;"></div>
+                    <?php echo $this->content; ?>
+                </div>
+            </div>
+            <footer class="main-footer">
+                <div class="top">
+                    <div class="col1 col-sm-1">
+                        <p>お問い合わせ先</p>
+                        <p>英検サービスセンター（団体受付）</p>
+                    </div>
+                    <div class="col2 col-sm-1">
+                        <p>電話番号</p>
+                        <p>03-3266-8010</p>
+                    </div>
+                    <div class="col3 col-sm-5">
+                        <p>受付時間</p>
+                        <p>平日9:30～17:00（土・日・祝日を除く）</p>
+                    </div>
+                </div>
+                <div class="midder"></div>
+                <div class="bottom">
+                    <div class="col1 col-sm-1">
+                        サイトマップ<span>個人情報保護方針</span><span>サイトポリシー</span>
+                    </div>
+                    <div class="col2 col-sm-1">Copyright © Eiken Foundation of Japan All
+                        rights reserved.</div>
+                </div>
+            </footer>
+        </div>
+
+        <!-- loading Modal -->
+        <div class="modal fade ajax-loader" id="loadingModal"
+             data-backdrop="static" tabindex="-1" role="dialog"
+             aria-labelledby="mySmallModalLabel" aria-hidden="true"
+             style="display: none;">
+            <img src="/img/ajax-loader.gif" />
+        </div>
+    </body>
+    <style>
+        .sign-out-w {
+            background: url('/img/white/svg/sign-out.svg') no-repeat;
+            background-size: cover;
+            display: inline-block;
+            position: relative;
+            vertical-align: middle;
+            outline: none;
+            height: 18px;
+            width: 18px !important;
+            margin-bottom: 3px;
+        }
+
+        .user-sign {
+            background: url('/img/black/svg/user.svg') no-repeat;
+            background-size: cover;
+            display: inline-block;
+            position: relative;
+            vertical-align: middle;
+            outline: none;
+            height: 15px;
+            width: 15px !important;
+            margin-bottom: 3px;
+        }
+
+        .sign-out {
+            background: url('/img/black/svg/sign-out.svg') no-repeat;
+            background-size: cover;
+            display: inline-block;
+            position: relative;
+            vertical-align: middle;
+            outline: none;
+            height: 15px;
+            width: 15px !important;
+            margin-bottom: 3px;
+        }
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#btnCancelModel').click(function () {
+                $("#btnlogout").click();
+            });
+            $('#btnLogoutModal').click(function () {
+                window.location.href = '<?php echo $this->url("logout"); ?>';
+            });
+            $('#btnUserProfile').click(function () {
+                window.location.href = '<?php echo $this->url("profile"); ?>';
+            });
+            var path = window.location.pathname;
+
+            if ('/org/orgschoolyear/index' == path || '/org/class/index' == path || '/pupil/pupil/index' == path
+                    || '/org/user/index' == path || '/invitation/standard/index' == path || 'org/org/show' == path) {
+                $('.menu-large').removeClass('active-page');
+                $('.n7').addClass('active-page');
+            } else if ('/invitation/setting/index' == path || '/invitation/generate/index' == path || '/invitation/recommended/index' == path) {
+                $('.menu-large').removeClass('active-page');
+                $('.n3').addClass('active-page');
+            } else if ('/eiken/eikenorg/index' == path) {
+                $('.menu-large').removeClass('active-page');
+                $('.n4').addClass('active-page');
+            } else if ('/' == path) {
+                $('.menu-large').removeClass('active-page');
+                $('.n1').addClass('active-page');
+            }
+
+        });
+    </script>
+</html>
+
+

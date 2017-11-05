@@ -1,0 +1,35 @@
+<!-- Styles -->
+<?php
+if ($isMobile) {
+    $this->headLink()->prependStylesheet($this->basePath('css/home-static-mobile.css'));
+}
+else {
+    $this->headLink()->appendStylesheet($this->basePath('css/home-static.css'));
+};
+?>
+<!-- Scripts -->
+<div class="panel panel-default <?php echo ($isMobile) ? 'mobile' : 'pc' ?>">
+    <?php if (!$isMobile) { ?>
+        <div class="box eiken-policy">
+            <div class="box-header">
+                <strong>使い方 </strong>
+            </div>
+        </div>
+    <?php } ?>
+    <div class="box box-last col-md-12 col-xs-12">
+        <div class="col-md-6 col-xs-12">
+            <div class="box-header border-none">
+                <strong>受験者サポート</strong>
+            </div>
+            <div class="navigator padr5 padl20">
+                <ul class="padl20">
+                    <li><a href="/help/jukensha-support_login_logout_v06.pdf"><span>ログイン・ログアウト</span></a></li>
+                    <li><a href="/help/jukensha-support_top_page_v06.pdf"><span>トップページ</span></a></li>
+                    <li><a href="/help/jukensha-support_eiken_application_v06.pdf"><span>英検のお申し込み</span></a></li>
+                    <li><a href="/help/jukensha-support_ei-navi_v06.pdf"><span>英ナビ！の利用</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>

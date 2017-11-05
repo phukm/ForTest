@@ -1,0 +1,563 @@
+<?php echo $this->doctype(); ?>
+<?php $flagShowPopupEiken = json_encode(\Dantai\PrivateSession::getData('applyEikenShowPopup'));
+      \Dantai\PrivateSession::setData('applyEikenShowPopup',array('status'=>0));
+      $flagShowPopupIBA = json_encode(\Dantai\PrivateSession::getData('applyIBAShowPopup'));
+      \Dantai\PrivateSession::setData('applyIBAShowPopup',array('status'=>0));
+?>
+<html lang="en">
+    <?php
+    $orgName = !empty($this->awesomeUser['organizationName']) ? $this->escapeHtml($this->awesomeUser['organizationName']) : $this->escapeHtml($this->awesomeUser['organizationNo']);
+    $nameKanji = $this->escapeHtml($this->awesomeUser['firstName']) . $this->escapeHtml($this->awesomeUser['lastName']);
+    $totalLengthHeader = mb_strlen($orgName, 'utf-8') + mb_strlen($nameKanji, 'utf-8');
+    ?>
+    <head>
+        <meta charset="utf-8">
+        <meta
+            content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'
+            name='viewport' />
+        <meta name="viewport" content="width=device-width" />
+        <meta http-equiv="X-UA-Compatible" content="IE=9">
+        <?php echo $this->headTitle('英検団体サポートシステム')->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?php echo $this->headMeta()->appendName('viewport', '')->appendHttpEquiv('X-UA-Compatible', 'IE=edge') ?>
+        <?php
+        echo $this->headMeta()
+            ->appendName('viewport', '')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')?>
+        <?php
+        echo $this->headLink(array(
+            'rel' => 'shortcut icon',
+            'type' => 'image/vnd.microsoft.icon',
+            'href' => $this->basePath() . '/img/favicon.ico'
+        ))
+            ->prependStylesheet($this->basePath('css/JIEM-masterpage.css'))
+            ->prependStylesheet($this->basePath('css/icon-awesome.css'))
+            ->prependStylesheet($this->basePath('css/JIEMStyle.css'))
+            ->prependStylesheet($this->basePath('css/non-responsive.css'))
+            ->prependStylesheet($this->basePath('css/bootstrap.min.css'))
+            ->prependStylesheet($this->basePath('css/jquery-ui.css'))
+            ->prependStylesheet($this->basePath('css/ie-only.css'), 'screen', 'IE')
+            ->appendStylesheet($this->basePath('css/ie9hack.css'), 'screen', 'lt IE 10')
+            ->appendStylesheet($this->basePath('css/JIEMForms.css'));
+        ?>
+
+        <!-- Scripts -->
+        <?php
+        echo $this->headScript()
+            ->prependFile($this->basePath('js/messages/common-message.js'))
+            ->prependFile($this->basePath('js/localization/jiem.messages_ja.js'))
+            ->prependFile($this->basePath('js/localization/messages_ja.js'))
+            ->prependFile($this->basePath('js/bootstrap.min.js'))
+            ->prependFile($this->basePath('js/app.js'))
+            ->prependFile($this->basePath('js/common.js'))
+            ->prependFile($this->basePath('js/jquery.validate.js'))
+            ->prependFile($this->basePath('js/validate.min.js'))
+            ->prependFile($this->basePath('js/html5shiv.js'), 'text/javascript', array(
+            'conditional' => 'lt IE 9'
+        ))
+            ->prependFile($this->basePath('js/respond.min.js'), 'text/javascript', array(
+            'conditional' => 'lt IE 9'
+        ))
+            ->prependFile($this->basePath('js/jquery.min.js'))
+            ->appendFile('//css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js', 'text/javascript', array(
+            'conditional' => 'lt IE 9'
+        ));
+        ?>
+
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="navbar navbar-static-top top-navbar">
+                <div class="container">
+                    <div class="navbar-header">
+                        <a
+                            href="<?php echo $this->url('home-page/default', array('controller' => 'homepage')) ?>">
+                            <img class="header-logo"
+                                 src="<?php echo $this->basePath("img/eiken-logo.jpg"); ?>">
+                        </a> <a
+                            href="<?php echo $this->url('home-page/default', array('controller' => 'homepage')) ?>">
+                            <p class="header-text">英検団体サポートシステム</p>
+                        </a>
+                    </div>
+                    <div class="navbar right">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/homepage/homepage/user-manual" class="top-menu-icon"><i class="awesome question-sign"></i> 使い方</a></li>
+                            <li><a target="_blank" href="http://faq.eiken.or.jp/category/show/75" class="top-menu-icon"><i class="awesome question-sign"></i>よくあるご質問</a></li>
+                            <li><a target="_blank" href="http://www.eiken.or.jp/eiken/contact/" class="top-menu-icon" target="_blank"><i class="awesome comment-sign"></i> お問い合わせ</a></li>
+                            <li class="dropdown user-option">
+                                <a href="#" class="top-menu-icon" class="dropdown-toggle" data-toggle="dropdown"> 
+                                    <span class="left" title="<?php echo (mb_strlen($orgName, 'utf-8') > 10 && $totalLengthHeader > 16) ? $orgName : ''; ?>">
+                                        <?php
+                                        echo (mb_strlen($orgName, 'utf-8') > 10 && $totalLengthHeader > 16) ? mb_substr($orgName, 0, 10, 'utf-8') . '...' : $orgName;
+                                        ?>
+                                    </span> 
+                                    <span class="right" title="<?php echo (mb_strlen($nameKanji, 'utf-8') > 6 && $totalLengthHeader > 16) ? $nameKanji : ''; ?>">
+                                        <?php
+                                        echo (mb_strlen($nameKanji, 'utf-8') > 6 && $totalLengthHeader > 16) ? mb_substr($nameKanji, 0, 6, 'utf-8') . '...' : $nameKanji;
+                                        ?>
+                                        <i class="caret"></i>
+                                    </span> 
+                                </a>
+                                <ul class="dropdown-menu user-popup">
+                                    <li>
+                                        <button class="btn" id="btnUserProfile">
+                                            <i class="user-sign"></i> ユーザ情報管理
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="button" id="btnlogout" data-toggle="modal" data-target="#logoutModal" class="btn user-popup-btn-second">
+                                            <i class="sign-out"></i> ログアウト
+                                        </button>
+                                    </li>
+                                </ul></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- Second Nav -->
+            <div class="mid-navbar navbar <?php $role = isset($this->awesomeUser['TransformRoleId']) ? intval($this->awesomeUser['TransformRoleId']) :  intval($this->awesomeUser['roleId']); if (\Dantai\PublicSession::isRole12()) echo 'role-12';?>">
+                <div class="container">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/homepage/homepage" class="first"><i
+                                    class="awesome home home-sign"></i>ホーム</a></li>
+                        <li class="dropdown menu-large n3">
+                            <a href="#" class="dropdown-toggle bootstrap-tooltip" data-placement="bottom" data-toggle="dropdown">各種検定申込</a>
+                            <ul class="dropdown-menu megamenu row megamenu-3">
+                                <div class="container">
+                                    <li class="col-xs-2 eik-li-menu dropdown-submenu w-22">
+                                        <a href="javascript:;" data-keepOpenOnClick>
+                                            <ul>
+                                                <li class="dropdown-header">団体で一括して払い込む場合</li>
+                                                <li class="dropdown-article">                                                    
+                                                    <span>
+                                                        英検の受験料を団体で一括して払い込みます。<br/>
+                                                        準会場受験の場合は、級別の人数の入力が必要となります。<br/>
+                                                        本会場受験の場合は、受験者情報の入力が必要となります。</span>
+                                                </li>
+                                            </ul>
+                                        </a>
+                                        <ul class="dropdown-menu jiem-dropdown-menu">
+                                            <a 
+                                                href="javascript:;" 
+                                                <?php echo $this->applyEikenStatus['hasApplyEikenOrg'] || \Dantai\PublicSession::isViewerRole()? "class = 'disabled'":'onclick="COMMON.checkValidApplyEikenDate();"'; ?>>
+                                                <li class="">↓申込（級別人数登録）</li>
+                                            </a>
+                                            <a 
+                                                <?php echo !$this->applyEikenStatus['hasApplyEikenOrg'] || \Dantai\PublicSession::isViewerRole()? 'class = "disabled" href="javascript:;"': (!empty($this->applyEikenStatus['statusApplyEikenOrg']) && $this->applyEikenStatus['statusApplyEikenOrg'] == 'N/A' ?  'href="/eiken/eikenorg/index"' :  'href="/eiken/eikenorg"' ); ?>>
+                                                <li data-toggle="tooltip"
+                                                title="級別人数を入力して申し込みます。確定するまで変更できます。">申込状況確認・編集・確定</li>
+                                            </a>
+                                            <a 
+                                                href="<?php echo $this->applyEikenStatus['hasInvitationSetting']? '/invitation/setting/index':'/invitation/setting/add?trans=2'?>">
+                                                <li data-toggle="tooltip"
+                                                title="学校や学年単位で汎用的に利用できる受験案内状を作成します。">学校・学年別受験案内状作成</li>
+                                            </a>
+                                            <a href="javascript:;"
+                                                onclick="MENU_THREEBUTTON_MESSAGE.show('<?php echo $this->applyEikenStatus['hasInvitationSetting']? 1:0?>')">
+                                                <li data-toggle="tooltip" title="①生徒がスマホ/PCから受験級を申請するための案内状や、②切取用の申込票の付いた案内状を作成します。" >個人別受験案内状作成</li>
+                                            </a>
+                                        </ul>
+                                    </li>
+                                    <li class="col-xs-2 eik-li-menu dropdown-submenu w-22">
+                                        <a href="javascript:;" data-keepOpenOnClick>
+                                            <ul>
+                                                <li class="dropdown-header">受験者が個別に払込む</li>
+                                                <li class="dropdown-article">
+                                                    <span>準会場・本会場ともに英検の受験料は個人（生徒）がコンビニ・ゆうちょ銀行・クレジットカードで払い込みます。申込責任者は入金と級別の人数を確認し、申込を確定させます。</span>                                                    
+                                                </li>
+                                            </ul>
+                                        </a>
+                                        <ul class="dropdown-menu jiem-dropdown-menu">
+                                            <a href="javascript:;" 
+                                                onclick="MENU_THREEBUTTON_MESSAGE.show('<?php echo $this->applyEikenStatus['hasInvitationSetting']? 1:0?>')">
+                                                <li data-toggle="tooltip" title="個人で支払うための個人別受験案内状を作成します。">↓個人別受験案内状作成</li>
+                                            </a>
+<!--                                            <a href="/eiken/payment/paymentstatus">
+                                                <li title="誰がいつ何級を申し込んだか・支払ったかを確認できます。" data-toggle="tooltip">↓支払状況確認</li>
+                                            </a>-->
+                                            <a 
+                                                href="javascript:;" 
+                                                <?php echo $this->applyEikenStatus['hasApplyEikenOrg']? "class = 'disabled'":'onclick="COMMON.checkValidApplyEikenDate(1);"'; ?>>
+                                                <li title="申込・支払状況をもとに級別人数を確定させ、申し込みます。" data-toggle="tooltip">↓申込登録（級別人数登録）</li>
+                                            </a>
+                                            <a <?php echo !$this->applyEikenStatus['hasApplyEikenOrg'] || \Dantai\PublicSession::isViewerRole()? 'class = "disabled" href="javascript:;"': (!empty($this->applyEikenStatus['statusApplyEikenOrg']) && $this->applyEikenStatus['statusApplyEikenOrg'] == 'N/A' ?  'href="/eiken/eikenorg/index"' :  'href="/eiken/eikenorg"' ); ?>>
+                                                <li class="">申込状況確認・編集・確定</li>
+                                            </a>
+                                        </ul>
+                                    </li>
+                                    <li class="col-xs-2 eik-li-menu dropdown-submenu w-112">
+                                        <a href="/eiken/exemption/list">
+                                            <ul>                             
+                                                <li class="dropdown-header">一免者参照</li>
+                                                <li class="dropdown-article">
+                                                    <span></span>                                                    
+                                                </li>                                                
+                                            </ul>
+                                        </a>
+                                    </li>                                    
+                                    <li class="col-xs-2 eik-li-menu dropdown-submenu w-22">
+                                        <a href="javascript:;" data-keepOpenOnClick>
+                                            <ul>
+                                                <li class="dropdown-header">受験案内状編集・印刷</li>
+                                                <li class="dropdown-article">
+                                                    <span>個人別にメッセージを編集することが出来ます。<br/>
+                                                                                                                                                           受験案内状をダウンロード出来ます。</span>
+                                                </li>
+                                            </ul>
+                                        </a>
+                                        <ul class="dropdown-menu jiem-dropdown-menu">
+                                            <a href="/invitation/setting/index">
+                                                <li>受験案内状設定・編集</li>
+                                            </a>
+                                            <a href="/invitation/generate/index">
+                                                <li>受験案内状作成・印刷</li>
+                                            </a>
+                                            <a href="/invitation/recommended/index">
+                                                <li>目標級設定</li>
+                                            </a>
+                                        </ul>
+                                    </li>
+                                    <li class="col-xs-2 eik-li-menu w-22 last">
+                                        <a <?php echo 'href="'.$this->url('i-b-a/default', array('controller' => 'iba', 'action' => 'policy')).'"' ?>>
+                                            <ul>
+                                                <li class="dropdown-header">英検IBA団体申込</li>
+                                                <li class="dropdown-article">
+                                                    <span>英検IBAの団体申込を行います。<br/>                                                           試験実施日については、申込内容を協会で確認してご連絡させていただきます。</span>
+                                                </li>
+                                            </ul>
+                                        </a>
+                                    </li>
+                                </div>
+                            </ul>
+                        </li>
+                        <li class="dropdown menu-large n4">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">申込履歴・試験結果</a>
+                            <ul class="dropdown-menu megamenu row megamenu-2">
+                                <div class="container">
+                                    <li class="col-xs-5">
+                                        <a href="<?php echo $this->url('eikenorg', array('action' => 'index')); ?>">
+                                            <ul>
+                                                <li class="dropdown-header">申込履歴照会</li>
+                                                <li class="dropdown-article">英検と英検IBAの申込情報を確認することが出来ます。</li>
+                                            </ul>
+                                        </a>
+                                    </li>
+                                    <li class="col-xs-5 eik-li-menu dropdown-submenu">
+                                        <a href="javascript:;" data-keepOpenOnClick>
+                                            <ul>
+                                                <li class="dropdown-header">試験結果照会</li>
+                                                <li class="dropdown-article">英検と英検IBAの試験結果を確認することが出来ます。</li>
+                                            </ul>
+                                        </a>
+                                    </li>
+                                    <li class="col-xs-2">
+                                        <ul class="linkn4">
+                                            <a href="/history/eiken/exam-result" class="dropdown-link ">
+                                                <li class="dropdown-header text-left">団体試験結果</li>
+                                            </a>
+                                            <a href="/history/eiken/exam-history-list" class="dropdown-link ">
+                                                <li class="dropdown-header  text-left">個人試験結果</li>
+                                            </a>
+                                        </ul>
+                                    </li>
+                                </div>
+                            </ul>
+                        </li>
+					<li class="dropdown menu-large n5"><a href="#"
+						class="dropdown-toggle" data-toggle="dropdown">学習進捗管理</a>
+						<ul class="dropdown-menu megamenu row megamenu-2">
+							<div class="container">
+								<li class="col-xs-6">
+    								<a href="/goalsetting/studygear/index">
+    									<ul>
+    										<li class="dropdown-header">スタギア学習進捗照会（個人）</li>
+    										<li class="dropdown-article">生徒個人別のスタディギアの学習進捗を確認することが出来ます。スタディギア内の模擬試験を受けていればその合否結果も表示されます。</li>
+    									</ul>
+    								</a>
+								</li>
+								<li class="col-xs-6 last"><a
+									href="/goalsetting/studygear/listhistorystudy">
+										<ul>
+											<li class="dropdown-header">スタギア学習進捗照会（学年・クラス）</li>
+											<li class="dropdown-article">学年やクラス別に集計されたスタディギアの学習進捗を確認することが出来ます。スタディギア内の模擬試験を受けていればその合否結果も表示されます。</li>
+										</ul>
+								</a></li>
+							</div>
+						</ul></li>
+                        <!--Menu analytic-->
+                        <?php $styleClass = (\Dantai\PublicSession::isHighSchool()) ? 'col-xs-4' : 'col-xs-4 border-menu'; ?>
+                        <li class="dropdown menu-large n6">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">成績分析</a>
+                            <ul class="dropdown-menu megamenu row megamenu-2">
+                                <div class="container">
+                                    <li class="<?php echo $styleClass;?>"><a
+                                            href="/homepage/homepage/detailc" class="dropdown-link">
+                                            <ul>
+                                                <li class="dropdown-header">英検受験実績</li>
+                                                <li class="dropdown-article">過去3年の英検受験者を確認できます。</li>
+                                            </ul>
+                                        </a></li>
+                                    <li class="<?php echo $styleClass;?>"><a
+                                            href="/homepage/homepage/detailb1" class="dropdown-link">
+                                            <ul>
+                                                <li class="dropdown-header">英検合格実績</li>
+                                                <li class="dropdown-article">英検の合格率・合格者を開催回別・級別・学年別に確認できます。</li>
+                                            </ul>
+                                        </a></li>
+<!--                                    --><?php //if(\Dantai\PublicSession::isHighSchool()){?>
+<!--                                        <li class="--><?php //echo $styleClass;?><!--">-->
+<!--                                            <a href="/homepage/homepage/detailb2">-->
+<!--                                                <ul>-->
+<!--                                                    <li class="dropdown-header">英検取得状況</li>-->
+<!--                                                    <li class="dropdown-article">英検級の取得率・取得者を確認できます。</li>-->
+<!--                                                </ul>-->
+<!--                                            </a></li>-->
+<!--                                    --><?php //} ?>
+<!--                                    <li class="--><?php //echo $styleClass;?><!--">-->
+<!--                                        <a href="/homepage/homepage/achieve-goal">-->
+<!--                                            <ul>-->
+<!--                                                <li class="dropdown-header">目標達成状況</li>-->
+<!--                                                <li class="dropdown-article">設定した取得率目標に対する実績を確認できます。</li>-->
+<!--                                            </ul>-->
+<!--                                        </a></li>-->
+                                    <li class="<?php echo $styleClass;?> last"><a
+                                            href="/report/report/csescoretotal">
+                                            <ul>
+                                                <li class="dropdown-header">CSEスコア推移</li>
+                                                <!--update text for : #GNCCNCJDR5-771-->
+                                                <li class="dropdown-article">英検および英検IBAのCSEスコアを確認できます。</li>
+                                            </ul>
+                                        </a>
+                                    </li>
+                                </div>
+                            </ul>
+                        </li>
+                        <!--End menu analytic-->
+                        <li class="dropdown menu-large n2"><a href="#"
+                                                              class="dropdown-toggle"
+                                                              data-toggle="dropdown">目標設定・学習計画</a>
+                            <ul class="dropdown-menu megamenu row megamenu-2">
+                                <div class="container">
+<!--                                    <li class="col-xs-6"><a-->
+<!--                                            href="--><?php //echo $this->url('goal-setting/default', array('controller' => 'graduationgoalsetting', 'action' => 'index')); ?><!--">-->
+<!--                                            <ul>-->
+<!--                                                <li class="dropdown-header">目標設定</li>-->
+<!--                                                <li class="dropdown-article">-->
+<!--                                                    英検級の取得目標を学年別、級別に登録することが出来ます。入学年度毎の卒業時、または各学年の年次の目標のどちらかを設定します。-->
+<!--                                                </li>-->
+<!--                                            </ul>-->
+<!--                                        </a></li>-->
+                                    <li class="col-xs-12 last" style="border-left: 1px solid #DADADA"><a
+                                            href="<?php echo $this->url('goal-setting/default', array('controller' => 'eikenscheduleinquiry', 'action' => 'index')); ?>">
+                                            <ul>
+                                                <li class="dropdown-header">学習計画</li>
+                                                <li class="dropdown-article">
+                                                    英検の年間スケジュールを確認することが出来ます。また英検IBAの実施予定を年間スケジュールに登録することが出来ます。
+                                                </li>
+                                            </ul>
+                                        </a></li>
+                                </div>
+                            </ul>
+                        </li>
+					<li class="dropdown menu-large n7 <?php $role = intval($this->awesomeUser['roleId']); echo \Dantai\PublicSession::isRole1236() ? 'role-123':'role-normal';?>">
+                        <a href="#"
+						  class="dropdown-toggle" data-toggle="dropdown">マスタ設定</a>
+						<ul class="dropdown-menu megamenu row megamenu-3">
+							<div class="container">
+								<li class="col-xs-2"><a
+									href="<?php echo $this->url('org-mnt/default', array('controller' => 'orgschoolyear', 'action' => 'index')); ?>">
+										<ul>
+											<li class="dropdown-header font-menu-ex">学年登録</li>
+											<li class="dropdown-article">学年の名称を登録することが出来ます。</li>
+
+                                            </ul>
+                                        </a></li>
+                                    <li class="col-xs-2"><a
+                                            href="<?php echo $this->url('invitation-mnt/default', array('controller' => 'standard', 'action' => 'index')); ?>">
+                                            <ul>
+                                                <li class="dropdown-header font-menu-ex">基準級登録</li>
+                                                <li class="dropdown-article">学年毎の基準級を登録することが出来ます。</li>
+
+                                            </ul>
+                                        </a></li>
+                                    <li class="col-xs-2"><a
+                                            href="<?php echo $this->url('org-mnt/default', array('controller' => 'class', 'action' => 'index')); ?>">
+                                            <ul>
+                                                <li class="dropdown-header font-menu-ex">クラス登録</li>
+                                                <li class="dropdown-article">クラスの名称と人数を登録することが出来ます。</li>
+                                            </ul>
+                                        </a></li>
+                                    <li class="col-xs-2"><a
+                                            href="<?php echo $this->url('pupil-mnt/default', array('controller' => 'pupil', 'action' => 'index')); ?>">
+                                            <ul>
+                                                <li class="dropdown-header font-menu-ex">生徒情報登録</li>
+                                                <li class="dropdown-article">生徒の情報を登録することが出来ます。</li>
+                                            </ul>
+                                        </a></li>
+                                    <li class="col-xs-2"><a
+                                            href="<?php echo $this->url('org-mnt/default', array('controller' => 'org', 'action' => 'show', 'id' => $this->awesomeUser['organizationId'])); ?>">
+                                            <ul>
+                                                <li class="dropdown-header font-menu-ex">団体情報参照</li>
+                                                <li class="dropdown-article">団体情報を参照することが出来ます。</li>
+                                            </ul>
+                                        </a></li>
+
+                                    <?php
+                                        if (\Dantai\PublicSession::isRole1236()) {
+                                    ?>
+                                        <li class="col-xs-2"><a
+                                                href="<?php echo $this->url('org-mnt/default', array('controller' => 'user', 'action' => 'index')); ?>">
+                                                <ul>
+                                                    <li class="dropdown-header font-menu-ex">ユーザ情報管理</li>
+                                                    <li class="dropdown-article">団体のユーザ情報を管理することが出来ます。</li>
+                                                </ul>
+                                            </a></li>
+                                        <li class="col-xs-2 eik-li-menu dropdown-submenu">
+                                            <a href="javascript:;" data-keepopenonclick="">
+                                                <ul>
+                                                    <li class="dropdown-header font-menu-ex">団体検索</li>
+                                                    <li class="dropdown-article"></li>
+                                                </ul>
+                                            </a>
+                                            
+                                            <ul class="dropdown-menu">
+                                                <a href="/org/org/index">
+                                                    <li>一般検索</li>
+                                                </a>
+                                                <a <?php echo ( $this->isOrgSupervisorRole)?' href="javascript:;" class="disabled"':'href="/org/org/undetermined" '?>>
+                                                    <li>未確定団体検索</li>
+                                                </a>
+                                                <a <?php echo ( !\Dantai\PublicSession::isRole1236())?' href="javascript:;" class="disabled"':'href="/logs/apply-eiken/index" '?>>
+                                                    <li>申込確定後の変更情報</li>
+                                                </a>
+                                            </ul>
+                                        </li>
+                                    <?php } else { ?>
+                                        <li class="col-xs-2"><a
+                                                href="<?php echo $this->url('org-mnt/default', array('controller' => 'user', 'action' => 'index')); ?>">
+                                                <ul>
+                                                    <li class="dropdown-header font-menu-ex">ユーザ情報管理</li>
+                                                    <li class="dropdown-article">団体のユーザ情報を管理することが出来ます。</li>
+                                                </ul>
+                                            </a></li>
+                                        
+                                    <?php } ?>
+                                            <li class="col-xs-2 last "><a
+                                                    href="<?php echo $this->url('logs/default', array('controller' => 'activity', 'action' => 'index')); ?>">
+                                                    <ul>
+                                                        <li class="dropdown-header font-menu-ex">操作ログ </li>
+                                                        <li class="dropdown-article"></li>
+                                                    </ul>
+                                                </a></li>
+                                </div>
+                            </ul></li>
+                    </ul>
+
+
+
+                </div>
+            </div>
+            <!-- Logout Modal -->
+            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+                 aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <p class="modal-title">ログアウト</p>
+                        </div>
+                        <div class="modal-body">
+                            <p>ログアウトします。よろしいですか？</p>
+                        </div>
+                        <div class="modal-footer">
+                            <a class="btn btn-large-180" id="btnCancelModel">キャンセル</a> <a
+                                href="<?php echo $this->url('logout'); ?>"
+                                class="btn btn-large-180 btn-red"><i class="sign-out-w"></i>ログアウト
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-wrapper">
+                <div class="content">
+                    <?php echo $this->navigation('navigation')->breadcrumbs()->setMinDepth(0)->setPartial('partial/breadcrumbs.phtml', 'Application'); ?>
+                    <div class="row jiem-error layout-hidden-item"></div>
+                    <?php echo $this->content; ?>
+                </div>
+            </div>
+            <footer class="main-footer">
+                <div class="top">
+                    <div class="col1 col-xs-1">
+                        <p>お問い合わせ先</p>
+                        <p>英検サービスセンター（団体受付）</p>
+                    </div>
+                    <div class="col2 col-xs-1">
+                        <p>電話番号</p>
+                        <p>03-3266-8010</p>
+                    </div>
+                    <div class="col3 col-xs-5">
+                        <p>受付時間</p>
+                        <p>平日9:30～17:00（土・日・祝日を除く）</p>
+                    </div>
+                </div>
+                <div class="midder"></div>
+                <div class="bottom">
+                    <div class="col1 col-xs-1">
+                        <a href="/homepage/homepage/site-map">サイトマップ</a> 
+                        <a href="/homepage/homepage/privacy-policy">個人情報保護方針</a>
+                        <a href="/homepage/homepage/policy">サイトポリシー</a>
+                        <a href="/homepage/homepage/terms-of-use">システム利用規程</a>
+                    </div>
+                    <div class="col2 col-xs-1">Copyright © Eiken Foundation of Japan All
+                        rights reserved.</div>
+                </div>
+            </footer>
+        </div>
+
+        <!-- loading Modal -->
+        <div class="modal fade ajax-loader layout-hidden-item" id="loadingModal"
+             data-backdrop="static" tabindex="-1" role="dialog"
+             aria-labelledby="mySmallModalLabel" aria-hidden="true">
+            <img src="/img/ajax-loader.gif" />
+        </div>
+        <script type="text/javascript">
+            var flagShowPopupEiken = <?php echo $flagShowPopupEiken?>;
+            if(flagShowPopupEiken.status === 1)
+            {
+                CONFIRM_MESSAGE.show(flagShowPopupEiken.msg, function () {
+                    window.open(location.protocol+ '//' + location.hostname + '/history/eiken/eiken-mapping-result/year/'+flagShowPopupEiken.year+'/kai/'+flagShowPopupEiken.kai,'_blank');  
+                }, function(){
+                    false;
+                },'','<i class="arrow-circle-right-w"></i>次へ'); 
+            } else if(flagShowPopupEiken.status === 2){
+                ERROR_MESSAGE.popupMessage(flagShowPopupEiken.msg, function () {});
+            }
+            
+            var flagShowPopupIBA = <?php echo $flagShowPopupIBA?>;
+            if(flagShowPopupIBA.status === 1)
+            {
+                CONFIRM_MESSAGE.show(flagShowPopupIBA.msg, function () {
+                    window.open(location.protocol+ '//' + location.hostname + '/history/eiken/exam-result');
+                }, function(){
+                    false;
+                },'','結果を見る','後で見る');
+            } else if(flagShowPopupIBA.status === 2){
+                ERROR_MESSAGE.show(flagShowPopupIBA.msg, function () {});
+            }
+            
+            $(document).ready(function () {
+                COMMON.initLayout();
+                if(window.location.hostname == 'teacher-support.eiken.or.jp'){
+                    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+                    ga('create', 'UA-70841181-2', 'auto');
+                    ga('send', 'pageview');
+                }
+            });
+        </script>
+    </body>
+</html>
+
+

@@ -1,0 +1,69 @@
+<?php
+    $this->headLink()
+    ->prependStylesheet($this->basePath('css/OrgInforManagement.css'))
+    ->prependStylesheet($this->basePath('css/studentandclass.css'))
+    ->prependStylesheet($this->basePath('css/ImportStudent.css'))?>
+
+<div class="show-schoolyear">
+	<div class="box">
+		<div class="box-header">
+			<strong><?php echo $this->translate('学年情報詳細') ;?></strong>
+		</div>
+		<div class="box-body">
+			<div data-example-id="bordered-table">
+				<!-- WARNING: HARD STYLE ------------------------------------------->
+				<div class="row" style="color: red;"><?php echo $mess;?></div>
+				<div class="row">
+					<!-- WARNING: HARD STYLE ------------------------------------------->
+					<div class="col1" style="float: left; margin-right: 20px;">
+						<b><?php echo $this->translate('学年一般名称') ;?></b>
+					</div>
+					<div class="fl col2"
+						style="float: left; width: 300px; margin-right: 20px;"><?php
+
+    if (is_null($schoolyear_id)) {
+        echo _NULL;
+    } else {
+        echo $this->escapehtml($schoolyear_id->getName());
+    }
+    ?>
+                    </div>
+					<div class="col1" style="float: left; margin-right: 20px;">
+						<b><?php echo $this->translate('学年') ;?></b>
+					</div>
+					<div class="fl col2" style="float: left;"><?php echo $this->escapehtml($orgschoolyear->getDisplayName()); ?></div>
+				</div>
+				<!-- ------------------------------------------------------------- -->
+			</div>
+		</div>
+		<div class="box-footer">
+			<?php $disableBtn = \Dantai\PublicSession::isViewerRole() ?>
+			<div class="text-left col-sm-4">
+				<a class="btn btn-large-180"
+					href="<?php echo $this->url('org-mnt/default', array('controller' => 'orgschoolyear', 'action' => 'index')) ?>">
+					<i class="arrow-circle-left"></i>
+    <?php echo $this->translate('戻る') ;?></a>
+			</div>
+			<div class="text-right col-sm-8">
+				<a class="btn btn-large-180 first" <?php echo $disableBtn ? 'disabled' : ''; ?>
+				   href="<?php echo $this->url('org-mnt/default', array('controller' => 'orgschoolyear', 'action' => 'edit', 'id' => $orgschoolyear->getId())) ?>">
+					<i class="pencil-square"></i>
+					<?php echo $this->translate('編集'); ?>
+				</a>
+				<button class="btn btn-large-180 margin_edit" <?php echo $disableBtn ? 'disabled' : ''; ?> onclick="deleteclassdetail()">
+					<i class="trash-inline"></i>
+					<?php echo $this->translate('削除'); ?>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+    var link = '<?php echo $this->url('org-mnt/default', array('controller' => 'orgschoolyear', 'action' => 'delete', 'id' => $orgschoolyear->getId())); ?>';
+    function deleteclassdetail(){
+    	CONFIRM_MESSAGE.show('選択したアイテムを削除します。よろしいですか？', function(){window.location.replace(link);});
+    }
+    $(document).ready(function () {
+    	$('.box-footer .btn.btn-large-180:first').focus();
+    });
+</script>

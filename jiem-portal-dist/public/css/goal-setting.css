@@ -1,0 +1,180 @@
+@CHARSET "UTF-8";
+
+/*Helper*/
+.required {
+	color: red;
+}
+
+/*
+APPLY TO Study Goal Of Years
+BY ThanhNX6
+*/
+.table-header-study-goal {
+	background-color: #e6e6e6 !important;
+	height: 45px !important;
+	text-align: center;
+}
+
+.row-style {
+	background-color: #e5f7fd;
+}
+
+.hidden-row {
+	visibility: hidden;
+	border: none !important;
+}
+
+.tbl-study-goal .table {
+	margin-bottom: 0px !important;
+	border: none;
+}
+
+.tbl-study-goal .table>caption+thead>tr:first-child>td, .tbl-study-goal .table>caption+thead>tr:first-child>th,
+	.tbl-study-goal .table>colgroup+thead>tr:first-child>td,
+	.tbl-study-goal .table>colgroup+thead>tr:first-child>th,
+	.tbl-study-goal .table>thead:first-child>tr:first-child>td,
+	.tbl-study-goal .table>thead:first-child>tr:first-child>th {
+	width: 110px;
+}
+
+.tbl-study-goal .table tr td:first-child {
+	background-color: #e6e6e6 !important;
+	font-weight: bold;
+	padding: 10px 7px;
+}
+
+.tbl-study-goal .table tbody tr:nth-child(1) {
+	font-weight: bold;
+}
+
+.tbl-study-goal .table tbody tr:nth-child(1n) td {
+	width: 63px;
+	text-align: right;
+}
+.tbl-study-goal .table tbody tr:nth-child(1n) td:first-child {
+	width: 110px;
+    text-align: left !important;
+    padding-left: 10px;
+}
+.tbl-study-goal .table tbody tr:first-child td
+{
+	text-align: center;
+	
+}
+/*
+source: tuan bycode
+APPLY TO Study Goal Of Years
+Use and modify BY ThanhNX6
+*/
+
+/*class*/
+.classmanaer {
+	font-size: 12px
+}
+
+.classmanaer .class-tite {
+	font-size: 14px
+}
+
+/*listclass*/
+.tbl-chart-goal .box-search {
+	/*border-bottom: 1px solid #dadada;*/
+	display: block;
+	font-size: 15px;
+	font-weight: bold;
+	line-height: 18px;
+	padding: 10px 20px 0px 20px;
+}
+
+.fl {
+	float: left
+}
+
+/* class */
+
+.tbl-chart-goal .seacrch-row .col-sm-1 {
+	width: 50px;
+}
+
+.tbl-chart-goal .seacrch-row .col-sm-2 {
+	width: 130px;
+}
+
+.tbl-chart-goal .seacrch-row .col-sm-2 select {
+	width: 100px;
+	font-weight: 400 ;
+}
+
+.tbl-chart-goal .seacrch-row .col-sm-3 {
+	width: 50px;
+}
+
+.tbl-chart-goal .seacrch-row .col-sm-4 {
+	width: 365px;
+}
+
+.tbl-chart-goal .seacrch-row .col-sm-4 select {
+	width: 140px;
+	font-weight: 400;
+}
+
+.tbl-chart-goal .seacrch-row .col-sm-5 {
+	width: 300px;
+}
+.tbl-chart-goal .seacrch-row .col-sm-5 .btn-small-180{
+    margin-bottom: 5px;
+}
+.tbl-chart-goal .seacrch-row .col-sm-5 .cl2 {
+	width: 120px;
+}
+
+.tbl-chart-goal .seacrch-row .col-sm-5 .cl2 .btn {
+	width: 100px;
+	display: inline-block;
+}
+
+.tbl-chart-goal .btn .awesome {
+	margin-right: 4px;
+	margin-top: 1px;
+}
+.tbl-chart-goal .box .box-header
+{
+	height: 38px;
+}
+.tbl-chart .table>tbody>tr>td, .tbl-chart .table>tbody>tr>th, .tbl-chart .table>tfoot>tr>td, .tbl-chart .table>tfoot>tr>th, .tbl-chart .table>thead>tr>td, .tbl-chart .table>thead>tr>th{
+	text-align: center;
+}
+
+/*apply for chart*/
+.pull-right
+{
+	position: absolute;
+    z-index: 1;
+    top: 55px;
+    right: 20px;
+}
+#chart {
+    margin-bottom: -10px;
+    border-bottom: 1px solid#333;
+}
+.chart-legend {
+	margin-bottom: 25px;
+}
+.chart-legend li{
+	list-style: none;
+	float: left;
+	margin-left: 20px;
+}
+.chart-legend li .rectangle {	
+	width: 12px;
+	height: 12px;
+	display: inline-table;
+}
+
+.ajax-loader{
+    display: none!important;
+}
+.modal-backdrop.in {
+    opacity: 0;
+    display: none;
+}

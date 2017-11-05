@@ -1,0 +1,667 @@
+.importstd-breadcrumb {
+	
+}
+
+.margin-left1 {
+	margin-left: -5px;
+}
+
+.classrow {
+	margin-bottom: 10px;
+}
+.active{
+	background-color: grey;
+}
+
+.box-header1 {
+	font-size: 18px;
+	vertical-align: middle;
+}
+
+.active1 {
+	background-color: #e6e6e6;
+}
+
+.sizebutton {
+	width: 130px;
+}
+
+.colortext {
+	color: #000000;
+}
+
+.paddingrow {
+	margin-bottom: 28px !important;
+}
+
+.paddingbutton {
+	padding-bottom: 10px;
+}
+.marginleft1{
+	  margin-left:40px;	
+}
+
+.width445{
+	width: 445px;
+	
+}
+.width170 {
+	width: 170px;
+}
+
+.width270 {
+	width: 270px;
+}
+
+.width255 {
+	width: 255px;
+}
+
+.width205 {
+	width: 205px;
+	padding-left: 10px !important;
+}
+
+.width300 {
+	width: 300px;
+}
+
+.width125 {
+	width: 125px;
+}
+
+.width215 {
+	width: 215px;
+}
+
+.width95 {
+	width: 95px;
+}
+.search-box>div>div>div>select#txteet {
+	height: 25px;
+	width: 300px;
+}
+
+.search-box>div>div>div>div>#datetimepicker1 input, #datetimepicker2 input,
+	#datetimepicker3 input {
+	width: 125px;
+	height: 25px;
+}
+
+.search-box #datetimepicker1, #datetimepicker2 {
+	width: 120px;
+	height: 25px;
+}
+
+.bodypadding {
+	padding-bottom: 10px !important;
+}
+
+.datemargin {
+	
+}
+
+.label1 {
+	margin-left: -10px;
+}
+
+.btn-margin {
+	margin-right: 5px
+}
+
+.pagging1 {
+	margin-bottom: -3px;
+}
+.pagging1 .pagination .active a {
+	background: #EEEEEE;
+	border: none;
+	border-bottom: 1px solid #DADADA;
+	border-top: 1px solid #DADADA;
+}
+/*
+.search-box .ui-datepicker-trigger{
+    border:none;
+    background-image: url(../img/calendarButton.png);
+    width: 15px;
+    height: 16px;
+}*/
+.input-group-addon {
+	border: 0px solid #FFF !important;
+}
+
+.search-margin {
+	padding-top: 15px !important;
+}
+
+.paddingclass {
+	margin-top: 4px !important;
+	margin-bottom: 4px !important;
+}
+
+.row10 {
+	margin-top: 11px !important;
+	margin-bottom: 11px !important;
+}
+
+.box-body1 {
+	margin-top: -35px !important;
+}
+
+.search-footer {
+	border-top: 1px solid #DADADA;
+	padding: 15px 0px 0px 0px;
+}
+
+.btn1 {
+
+	-moz-border-bottom-colors: none;
+	-moz-border-left-colors: none;
+	-moz-border-right-colors: none;
+	-moz-border-top-colors: none;
+	background-color: #f5f5f5;
+	background-image: linear-gradient(to bottom, #fff, #e6e6e6);
+	background-repeat: repeat-x;
+	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) #a2a2a2;
+	border-image: none;
+	border-radius: 0px;
+	border-style: solid;
+	border-width: 1px;
+	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px
+		rgba(0, 0, 0, 0.05);
+	cursor: pointer;
+	display: inline-block;
+	font-size: 12px;
+	line-height: 20px;
+	margin-bottom: 0;
+	padding: 4px 12px;
+	text-align: center;
+	text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+	vertical-align: middle;
+	min-width: 75px;
+	height: 25px;
+}
+
+.btn1:hover, .btn1:active, .btn1.active, .btn1.disabled, .btn1[disabled]
+	{
+	background-color: #e6e6e6;
+}
+
+.btn1:active, .btn1.active {
+	
+}
+
+.btn1:first-child {
+	
+}
+
+.btn1:hover {
+	background-color: #e6e6e6;
+	background-position: 0 -15px;
+	text-decoration: none;
+	transition: background-position 0.1s linear 0s;
+}
+
+.btn1:focus {
+	outline: thin dotted #333;
+	outline-offset: -2px;
+}
+
+.btn1.active, .btn1:active {
+	background-color: #e6e6e6;
+	background-image: none;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15) inset, 0 1px 2px
+		rgba(0, 0, 0, 0.05);
+	outline: 0 none;
+}
+
+.btn1.disabled, .btn1[disabled] {
+	background-color: #e6e6e6;
+	background-image: none;
+	box-shadow: none;
+	cursor: default;
+	opacity: 0.65;
+}
+.lable2
+{
+	  margin-left: -7px!important;
+	
+	
+}
+.btn1 {
+	border-color: rgba(0, 0, 0, 0.15) rgba(0, 0, 0, 0.15)
+		rgba(0, 0, 0, 0.25);
+}
+.title-org-name{
+	width:auto;
+	margin-left:51px;
+	margin-right: 26px;
+}
+.input-org-name{
+	width: auto;
+	margin-left: -5px;
+}
+.input-org-name input{
+	width: 140px;
+}
+.title-org-name2{
+	width:auto;
+	margin-left:51px;
+	margin-right: 18px;
+}
+.input-org-name2{
+	width: auto;
+}
+.input-org-name2 input{
+	width: 140px;
+}
+.title-txtOrgNumber{width: 91px; }
+.input-txtOrgNumber{
+	width: auto;
+	margin-left: -5px;
+}
+.input-txtOrgNumber input{
+	width: 140px;
+}
+.title-teet{
+	width: auto;
+	margin-left: 55px;
+}
+.search-form{
+	padding-top:20px;	
+}
+.search-form25{
+padding-top:30px;	
+}
+.search-form15
+{
+    margin-top: -10px;
+    width: 940px;
+}
+.input-teet{
+	width:auto;
+	margin-left: 37px;
+}
+.input-teet select{
+	width: 140px;
+}
+.title-date-1{
+	width: auto;
+	margin-right: 33px;
+	margin-left: 45px;
+}
+.input-date-1{
+	width: 123px !important;
+	margin-left: -5px;
+}
+.input-group-addon{
+	padding-left: 5px;
+	padding-right: 10px;
+	padding-top:4px;
+}
+.label1{
+	width: auto;
+}
+.marginlabel {
+	margin-left: 3px;
+	
+	
+}
+
+.input-date-2{
+	margin-left: 46px;
+}
+.lable-title{
+	margin-left:38px;
+	width: auto;
+}
+.search-org .r1{
+	margin-bottom: 5px;
+}
+.search-org .r2{
+	margin-top: 0;
+}
+.search-org .r2 input{
+	width: 110px;
+}
+.frm-detail .org-footer-search{
+	padding-bottom: 15px;        
+}
+.search-org .lable-title{
+	font-weight: normal;
+}
+.search-org label.label1{
+	font-weight: normal;
+}
+.search-org label{
+	line-height: 22px;
+}
+.search-org .r1{
+	padding-bottom: 10px;
+}
+.search-org .r2{
+	margin-bottom: 1px;
+}
+.btn-org .margin-right-10{
+	margin-right: 14px;
+}
+.bd-search-org table thead tr th{
+	height: 45px;
+	padding-top: 0;
+	padding-bottom: 0;
+}
+.bd-search-org table>tbody>tr>td{
+	height: 43px;
+	padding-top: 7px;
+	padding-bottom: 7px;
+}
+.bd-search-org table thead th.width170{
+	width: 83px;
+	max-width:83px;
+}
+.bd-search-org table .data-orgno {
+	text-align:right;
+	padding-left: 0px;
+	padding-right: 6px;
+}
+.bd-search-org table .center {
+	text-align: center;
+}
+.bd-search-org table thead th.width270{
+	width: 125px;
+	min-width: 125px;
+	max-width: 125px;
+}
+.bd-search-org table thead th.width255{
+	width: 126px;
+	min-width: 125px;
+	max-width: 126px;
+	padding-right:0px;
+}
+.bd-search-org table thead th.empty{
+	width: 365px;
+	max-width: 365px;
+}
+.bd-search-org table thead th.width205{
+	width: 243px;
+	max-width: 243px;
+	padding-left: 10px !important;
+}
+.bd-search-org table {
+	width: 900px;
+}
+.bd-search-org .btn-small-74{
+	width: 74px;
+	height: 25px;
+	margin-right: 10px;
+	font-size: 12px;
+}
+.bd-search-org .btn-small-98{
+	width: 115px;
+	height: 25px;
+	font-size: 12px;
+	padding-left:10px;
+	padding-right:10px;
+}
+.bd-search-org .btn-small-76{
+    width: 71px;
+    height: 25px;
+    font-size: 12px;
+    padding-left:10px;
+    padding-right:10px;
+}
+.bd-detail-org label.col-sm-2{
+	width: 140px;
+}
+.bd-detail-org .box-body .row>div.col-sm-4{
+	width: 340px;
+}
+.bd-detail-org .box-body .row>label.col-sm-3{
+	width: 138px;
+}
+.bd-detail-org .box-body .row>div.col-sm-3{
+	width: 277px;
+}
+.bd-detail-org .line{
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+.bd-detail-org {
+	margin-top: 10px;
+}
+.search-org .r2 input.datetimepicker1{
+	width: 118px;
+	margin-left: -2px;
+}
+.r2 label.label1,.lable1{
+	padding-top: 1px !important;
+}
+.r1 .title-teet{
+	margin-left: 48px;
+}
+.r1 .input-teet input{
+	width: 140px;
+}
+.r1 .input-teet{
+	margin-left: 22px;
+}
+.r2 .title_ex{
+	width: 85px;
+}
+.r2 .select_ex{
+	width: 140px;
+}
+.r2 select.txteet{
+	width: 140px;
+}
+
+/* School year list */
+.schoolyear .student_manager tbody tr td{
+	text-align: left;
+}
+
+.schoolyear .checkbox_list .checkbox-class{
+	width: 34px;
+	text-align: center;
+}
+
+.schoolyear .checkbox_list .year-school-class{
+	width: 190px;
+	padding-left: 15px;
+}
+
+.schoolyear .checkbox_list .display-name-class{
+	width: 190px;
+	padding-left: 15px
+}
+
+.schoolyear .space-class{
+	width: 500px;
+}
+
+.schoolyear .checkbox_list .view-class{
+	width: 110px;
+	padding-left: 15px;
+}
+
+.schoolyear .checkbox_list .checkbox1{
+   /* padding-left: 10px; */ 
+    padding-top: 4px;
+}
+
+.checkbox-holder{
+    text-align: center !important;
+}
+
+.schoolyear .checkbox_list .year-school-class-content{
+	font-weight: normal;
+}
+
+.schoolyear .checkbox_list .view-class-content{
+	text-align: center;
+}
+
+.schoolyear .checkbox_list .view-label{
+    width: 85px !important;
+}
+
+.schoolyear .row{
+	margin-bottom: 0px;
+}
+
+.schoolyear .table{
+	margin-bottom: 0px;
+}
+
+/* School year show */
+.show-schoolyear .box-body{
+	padding: 0 20px 10px 20px;
+}
+
+.show-schoolyear .col1{
+	float: left;
+	margin-right: 112px;
+}
+
+.show-schoolyear .first{
+	margin-right: 6px;
+}
+
+/* School year edit */
+.edit-schoolyear .box-body{
+    padding: 20px 20px 10px 20px;
+}
+
+.edit-schoolyear .col1{
+	margin-right: 78px;
+}
+
+.edit-schoolyear .col2{
+	margin-right: 84px;
+}
+
+.edit-schoolyear .col3{
+	margin-right: 20px;
+}
+
+.edit-schoolyear .col4{
+	float: left; 
+	width: 212px ; 
+	margin-right: 20px;
+}
+
+.edit-schoolyear .styled-select {
+	float: left; 
+	width: 212px ; 
+	margin-right: 80px;
+}
+
+/* School year new */
+.new-schoolyear .box-body{
+	padding: 20px 20px 10px 20px;
+}
+
+.new-schoolyear .col3{
+	margin-right: 30px;
+}
+
+.new-schoolyear .styled-select {
+	float: left; 
+	width: 140px ; 
+	margin-right: 100px;
+}
+
+.new-schoolyear .col4{
+	float: left; 
+	width: 140px ; 
+	margin-right: 20px;
+}
+form.search-form .row{
+	margin-top: 2px;
+}
+input.datetimepicker1{
+	width:120px !important;
+}
+.prototype-breadcrumbs{
+	margin-top: -5px;
+}
+.icon-calendar{
+	margin-left: 0px;
+}
+.pagination>li>a{
+    color: #000000 ;
+}
+.pagination li.active a{
+    background-color: #dddddd;
+    border-color: #dddddd;
+    color: #000000;
+}
+.pagination li.active a:hover{
+    background-color: #dddddd !important;
+    border-color: #dddddd !important;
+    color: #000000;
+    cursor :default;
+}
+.msgnull{
+	margin-top: 10px;
+}
+.box-body label.title-date-1{
+    padding-top: 2px;
+
+}
+label {
+	max-width: none;
+}
+
+.advanced-search{
+    color: blue;
+}
+
+.lblRefundStatus{
+    width: 54px;
+    margin-top: 3px;
+}
+
+.search-attribute {
+	color: red;
+}
+.alert{
+	margin-bottom: 0;
+}
+
+.lbl-public-funding{   
+    width: 55px;
+    margin-left: 45px;
+}
+
+.lbl-payment-bill{   
+    width: 200px;
+    margin-left: 45px;
+    margin-right: 10px;
+}
+
+.select-public-funding{
+    width: 140px;
+}
+
+.content{
+    min-height: 0px;
+}
+.lblRefundStatus{
+    width:279px;
+}
+.lbl-public-funding{
+    margin-left:0;
+}
+.select-refund{
+    width:262px;
+}
+#refundStatus{
+    width:311px;
+}
+.liststd-button-group .btn-org i{
+    top: -4px;
+}
+.policy-grade-class p{
+    margin: 0;
+    line-height: 20px;
+}

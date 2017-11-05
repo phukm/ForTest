@@ -1,0 +1,258 @@
+/*Eiken*/
+
+.fl {
+	float:left;
+}
+
+.fr{
+	float: right;
+	line-height: 30px;
+	margin-top: 15px; 
+	margin-bottom: 10px;
+}
+
+.inquiryeiken .btn-clear{
+    width: 100px;
+    margin-right: 16px;
+}
+
+.inquiryeiken table
+{
+    /*border-collapse: separate;*/
+    margin-top: 8px;
+}
+
+.inquiryeiken .trhead th {
+} 
+
+.inquiryeiken .trbody td {
+    position: static;
+} 
+
+.inquiryeiken .box-search{
+    display: block;
+    line-height: 18px;
+    padding: 10px 20px 10px 20px;
+}
+
+.inquiryeiken .box-submit{
+	padding: 7px 20px 7px 20px;
+}
+
+.inquiryeiken .input-name{
+	margin-top: 3px;
+}
+
+.inquiryeiken .search_list .col1 {
+	margin-top: 3px;
+	width: 55px;
+}
+
+.inquiryeiken .search_list .col3 {
+    width: 72px;
+    margin: 3px 0 0 29px;
+}
+
+.inquiryeiken .search_list .col5 {
+    width: 55px;
+    margin: 3px 6px 0 23px;
+}
+
+.inquiryeiken .search_list .col2,.inquiryeiken .search_list .col4{
+	width: 166px;
+}
+
+.inquiryeiken .styled-select{
+	width: 150px;
+}
+
+.inquiryeiken .search_list .col2 select,.inquiryeiken .search_list .col4 select{
+	width: 140px;
+}
+.inquiryeiken .search_list .col6{
+	width: 250px
+}
+
+.inquiryeiken .inquiryeiken-list .table > tbody > tr{
+    height: 43px;
+}
+
+.inquiryeiken-list .trhead{
+	height: 46px;
+	max-width: 898px;
+}
+
+.inquiryeiken .view-label{
+	padding: 2px 12px 0 12px;
+}
+
+.inquiryeiken .trbody .view-button{
+    text-align: center;
+}
+
+.inquiryeiken .r2 .cl2{width: 717px;padding-right: 20px;}
+.inquiryeiken .r2 .cl2 a{width: 100px;float: right;display: inline-block;margin: 0px;}
+.inquiryeiken .r2 .cl3 a{width: 198px;float: right;display: inline-block;margin: 0px}
+.inquiryeiken .r2 .cl3 a .awesome{margin-right: 5px;}
+.inquiryeiken .cl3 a {margin-top: 0px};
+.inquiryeiken .liststd-button-group{margin-bottom: 10px;}
+.inquiryeiken .liststd-button .awesome-lage,.student_manager .std_list .col-sm-5 .awesome-lage{display: block;margin-top: 4px;margin-left: 16px;}
+.inquiryeiken .r2 .cl3 .btn-search-list{
+    width: 180px;
+}
+
+.inquiryeiken .table > thead > tr > th{
+	padding:10px 0;
+}
+
+.inquiryeiken .trhead th {
+	font-weight: bold;
+}
+
+.inquiryeiken .trbody td {
+    padding: 5px;
+}
+
+.inquiryeiken .trhead .orgclassfication {
+	min-width: 53px !important;
+	max-width: 53px !important;
+	width: 53px !important;
+	text-align:center;
+}
+.inquiryeiken .trhead .schoolyear {
+    min-width: 80px !important;
+    max-width: 80px !important;
+    width: 80px !important;
+    text-align:center;
+}
+.inquiryeiken .trhead .class {
+    min-width: 55px !important;
+    max-width: 55px !important;
+    width: 55px !important;
+    text-align:center;
+}
+.inquiryeiken .trhead .number {
+    min-width: 37px !important;
+    max-width: 37px !important;
+    width: 37px !important;
+    text-align:center;
+}
+.inquiryeiken .trhead .namekacomme {
+    min-width: 75px !important;
+    max-width: 75px !important;
+    width: 75px !important;
+    text-align:center;
+}
+.inquiryeiken .trhead .eikenlevel {
+    min-width: 45px !important;
+    max-width: 45px !important;
+    width: 45px !important;
+    text-align:center;
+}
+.inquiryeiken .trhead .passfail1 {
+    min-width: 60px !important;
+    max-width: 60px !important;
+    width: 60px !important;
+    text-align:center;
+}
+.inquiryeiken .trhead .eikentotal1 {
+    min-width: 46px !important;
+    max-width: 46px !important;
+    width: 55px !important;
+    text-align:center;
+}
+.inquiryeiken .trhead .passfail2 {
+    min-width: 55px !important;
+    max-width: 55px !important;
+    width: 55px !important;
+    padding-left: 3px !important;
+    text-align:center;
+}
+.inquiryeiken .trhead .eikentotal2 {
+    min-width: 46px !important;
+    max-width: 46px !important;
+    width: 55px !important;
+    text-align:center;
+}
+.inquiryeiken .trhead .eikenBand1 {
+    min-width: 65px !important;
+    max-width: 65px !important;
+    width: 55px !important;
+    text-align:center;
+}
+.inquiryeiken .trhead .eikenBand2 {
+    min-width: 65px !important;
+    max-width: 65px !important;
+    width: 65px !important;
+    text-align:center;
+}
+.inquiryeiken .trhead .action {
+    min-width: 60px !important;
+    max-width: 60px !important;
+    width: 60px !important;
+    text-align:center;
+}
+.inquiryeiken .trhead .eikenlevel {
+    min-width: 50px !important;
+    max-width: 50px !important;
+    text-align:center;
+}
+.inquiryeiken td.view-button a{
+    width: 80px;
+    padding-left: 5px;
+}
+.inquiryeiken td.view-button{
+    width: 100px !important;
+}
+
+.inquiryeiken .trbody .view-button{
+	padding-left: 0px;
+	padding-right: 0px;
+}
+.inquiryeiken .trbody .schoolyear {
+    text-align: left;
+}
+.inquiryeiken .trbody .class {
+    text-align: left;
+}
+.inquiryeiken .trbody .number {
+	text-align: right;
+}
+.inquiryeiken .trbody .eikenlevel {
+    text-align: right;
+}
+.inquiryeiken .trbody .eikentotal1 {
+    text-align: right;
+}
+.inquiryeiken .trbody .eikentotal2 {
+    text-align: right;
+}
+
+.pagination_inquiryeiken_color .pagination a {
+    color: black;
+}
+
+.inquiryeiken .pagination .active a {
+    background: #dddddd;
+    border: none;
+    border-bottom: 1px solid #dddddd;
+    border-top: 1px solid #dddddd;
+}
+
+.box_padding .pagination li a {
+    height: 32px
+}
+.inquiryeiken .noresult {
+    padding-bottom: 0px;
+}
+
+.inquiryeiken .box_padding nav{
+	padding: 0px;
+}
+.inquiryeiken .marginleft
+{
+	margin-left: -7px;
+}
+.paging{
+    height:53px;
+}

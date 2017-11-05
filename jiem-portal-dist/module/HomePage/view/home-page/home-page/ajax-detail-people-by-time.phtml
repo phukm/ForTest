@@ -1,0 +1,232 @@
+<?php
+$tabIndex = 4;
+    ?>
+<!-- Load Number By Class -->
+<div class="wrap-num-detail-c">
+
+	<ul class="nav nav-tabs">
+            <?php
+            $sum = 0;
+            $countOther = 0;
+            $countNotMap = 0;
+            
+            foreach ($dataClass as $key => $item) {
+
+                $sum += (int) $item['countElement'];
+//                update function for : #GNCCNCJDM-304
+                if ($item['schoolYearCode'] !== '' && $item['schoolYearCode'] !== null) {
+                    ?>
+            <li tabindex="<?php echo $tabIndex++;?>"
+			class=" detail-table-c <?php if($key == $activeKey) echo 'active';?>"
+			data-detail="<?php echo $this->escapehtml($item['schoolYearCode']);?>"
+            data-schoolclassification = "<?php echo $this->escapehtml($item['schoolClassification']);?>" 
+			data-schoolyearcode = "<?php echo $this->escapehtml($item['schoolYearCode']);?>" 
+			data-notmap = "<?php echo $this->escapehtml(isset($item['notMap'])?$item['notMap']:null);?>"
+			data-count="<?php echo $this->escapehtml($item['countElement']);?>"><a data-toggle="tab"
+			href="#detail-box<?php echo $this->escapehtml($item['schoolYearName']); ?>">
+				<div class="col-sm-3 border-box h-75 detailb-box">
+					<div class="box-header h-25 title-head clear-bgr detailc-title">
+						<p><?php echo isset($schoolCode[$this->escapehtml($item['schoolClassification'])]) ?  $schoolCode[$this->escapehtml($item['schoolClassification'])] . ' - ' . $this->escapehtml($item['schoolYearCode']) : $this->escapehtml($item['schoolYearCode']); ?></p>
+					</div>
+					<div class="detail-margin">
+						<span class="box-l"><?php echo $item['countElement'];?><span>名</span></span>
+					</div>
+				</div>
+		</a></li>
+            <?php
+                } else {
+//                    update function for : #GNCCNCJDM-304
+                    if($item['schoolYearCode'] == '' || $item['schoolYearCode'] == null){
+                        $countOther += $item['countElement'];                       
+                    }            
+                }
+            }              
+              if ($countOther) {                  
+              ?>
+            <li class=" detail-table-c <?php if(strval($activeKey) == 'other') echo 'active'; ?>" tabindex="<?php echo $tabIndex++;?>"
+			data-detail="other" data-count="<?php echo $countOther;?>"><a
+			data-toggle="tab" href="#detail-box-all">
+				<div class="col-sm-3 border-box h-75 detailb-box">
+					<div class="box-header h-25 title-head clear-bgr detailc-title">
+						<p>その他</p>
+					</div>
+					<div class="detail-margin">
+						<span class="box-l"><?php echo $countOther;?><span>名</span></span>
+					</div>
+				</div>
+		</a></li>
+            <?php }?>
+            <li class=" detail-table-c" tabindex="<?php echo $tabIndex++;?>"
+			data-detail="all" data-count="<?php echo $sum;?>"><a
+			data-toggle="tab" href="#detail-box-all">
+				<div class="col-sm-5 border-box h-75 detailb-box">
+					<div class="box-header h-25 title-head clear-bgr detailc-title">
+						<p>合計</p>
+					</div>
+					<div class="detail-margin">
+						<span class="box-l"><?php echo $sum;?><span>名</span></span>
+					</div>
+				</div>
+		</a></li>
+
+	</ul>
+
+</div>
+<!-- End Load Number By Class -->
+<!-- Data Table -->
+			<div class="tab-content">
+				<div id="detail-box1" class="tab-pane fade in active">
+					<div class="detail-page-margin" id="detail-exam-table-c">
+						<table class="table table-bordered tbl-striped">
+							<thead>
+								<tr>
+									<th width="75"><ul class="nav">
+											<li class="dropdown">
+												<div class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $this->translate('学年'); ?>
+            							
+												</div>
+
+											</li>
+										</ul></th>
+									<th width="60"><ul class="nav">
+											<li class="dropdown">
+												<div class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $this->translate('組'); ?>
+            							
+												</div>
+
+											</li>
+										</ul></th>
+									<th width="65"><ul class="nav">
+											<li class="dropdown">
+												<div class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $this->translate('番号'); ?>
+            							
+												</div>
+
+											</li>
+										</ul></th>
+									<th width="90"><ul class="nav">
+											<li class="dropdown">
+												<div class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $this->translate('氏名'); ?>
+            							
+												</div>
+
+											</li>
+										</ul></th>
+									<th width="120"><ul class="nav">
+											<li class="dropdown">
+												<div class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $this->translate('検定回'); ?>
+            							
+												</div>
+
+											</li>
+										</ul></th>
+
+									<th width="95"><ul class="nav">
+											<li class="dropdown">
+												<div class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $this->translate('受験級'); ?>
+            							
+												</div>
+
+											</li>
+										</ul></th>
+									<th width="100"><ul class="nav">
+											<li class="dropdown">
+												<div class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $this->translate('一次合否'); ?>
+            							
+												</div>
+
+											</li>
+										</ul></th>
+
+									<th width="100"><ul class="nav">
+											<li class="dropdown">
+												<div class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $this->translate('二次合否'); ?>
+            							
+												</div>
+
+											</li>
+										</ul></th>
+                                                                        <th width="100"><ul class="nav">
+                                                                               <li class="dropdown">
+                                                                                       <div class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $this->translate('突合状況'); ?>
+                                                                                       </div>
+
+                                                                               </li>
+                                                                       </ul></th>
+									<th class="" style=""></th>
+									<!-- width: 388px; -->
+								</tr>
+							</thead>
+							<tbody>
+            			<?php
+            			if(!empty($dataTableC)){
+            			   foreach ($dataTableC as $item) {
+                                ?>
+                        			    <tr>
+        									<td class="text-left"><?php echo $this->escapehtml($item['schoolYearName']); ?></td>
+        									<td class="text-left"><?php echo $this->escapehtml($item['className']); ?></td>
+        									<td class="text-right"><?php echo $this->escapehtml($item['pupilNo']); ?></td>
+        									<td class="text-left"><?php echo $this->escapehtml($item['tempNameKanji']); ?></td>
+        									<td class="text-left"><?php echo $item['year'].'&nbsp;&nbsp;&nbsp;第'.$item['kai'].'回'; ?></td>
+        									<td class="text-right"><?php 
+        									if($item['eikenLevelId'] && isset($listMappingLevel[$item['eikenLevelId']])){
+        									    echo $this->escapehtml($listMappingLevel[$item['eikenLevelId']]);
+        									}
+        									
+        									?>
+        									</td>
+    										<td class="text-left">
+                                			<?php 
+                                			if ($item['oneExemptionFlag'] == 1) {
+                                			    echo '一次免除';
+                                			} else{
+                                			    if ($item['primaryPassFailFlag'] == 1) {
+                                			        echo '合格';
+                                			    } elseif ($item['primaryPassFailFlag'] === 0) {
+                                			        echo '不合格';
+                                			    } else {
+                                			        echo '&nbsp';
+                                			    }
+                                			}
+                                			?></td>
+                                			<td class="text-left">
+                                			<?php 
+                                			    if ($item['secondPassFailFlag'] == 1) {
+                                			        echo '合格';
+                                			    } elseif ($item['secondPassFailFlag'] === 0){
+                                			        echo '不合格';
+                                			    }
+                                			
+                                			?></td>
+                                                        <td class="text-left"><?php echo $item['confirmmappingStatus'] ?> </td>
+        									<td></td>
+        								</tr>
+                        			    <?php
+                            }
+            			}
+                        
+                        ?>
+                        <?php if(empty($dataClass)): ?>
+                            <?php echo '<tr><td class="left" colspan="10">検索条件に一致するデータがありません。</td></tr>';?>
+                        <?php endif ?>
+            			</tbody>
+						</table>
+
+					</div>
+            <?php
+            if(!empty($paginator)):
+                $paging = $this->paginationHelper($paginator, $page, '', $numPerPage);
+                if ( count($paginator) > $numPerPage):?>
+                <div class="box_padding text-center pagination_student_color rcm-padding-top-5">
+    				<ul class="pagination ">
+    				    <?php echo $paging; ?>
+                    </ul>
+    			</div>
+                <?php endif ?>
+            <?php endif ?>
+            </div>
+				<!-- end table -->
+			</div>
+			<!-- End Data Table -->
+
+  

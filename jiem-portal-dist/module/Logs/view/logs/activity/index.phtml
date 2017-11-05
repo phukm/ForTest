@@ -1,0 +1,170 @@
+<?php
+$paging = $this->eikenPaginationHelper($paginator, $page, '/logs/activity/index', $pageLimit, (empty($param)) ? '' : '/search/' . $param);
+$this->headLink();
+$this->headLink()->prependStylesheet($this->basePath('css/OrgInforManagement.css'));
+$this->headLink()->appendStylesheet($this->basePath('css/logs/activity-logs.css'));
+$this->headScript()->appendFile($this->basePath('js/logs/activity-logs.js'));
+$this->headScript()->appendFile($this->basePath('js/jquery-ui.js'));
+$isViewer = \Dantai\PublicSession::isViewerRole();
+?>
+<?php
+    $form->setAttribute('action', $this->url('logs/default', array(
+        'controller' => 'activity',
+        'action' => 'index'
+    )));
+    $form->prepare();
+    echo $this->form()->openTag($form); 
+?>
+<input type="hidden" name="sortKey" id="sortKey">
+<input type="hidden" name="sortOrder" id="sortOrder" value="<?php echo $sortOrder; ?>">
+<input type="hidden" name="searchVisible" id="searchVisible" value="<?php echo $searchVisible; ?>">
+<div class="activity-logs">
+    <div class="box">
+        <div class="box-header" id="search-header" data-toggle="collapse" data-target="#search-box">
+            <div class="search-header  sorting-field">
+                <i class="search-chevron-down"></i>
+                <b><?php echo $this->translate('検索条件') ;?></b>
+            </div>
+        </div>
+        <div id="search-box" aria-expanded="true" class="collapse in">
+            <div class="box-body">
+                <div class="row first-row">
+                    <div class="col1">
+                        <label><?php echo $this->translate('団体番号') ;?></label>
+                    </div>
+                    <div class="col2">
+                        <?php echo $this->formrow($form->get('orgno')); ?>
+                    </div>
+                    <div class="col3">
+                        <label><?php echo $this->translate('団体名') ;?></label>
+                    </div>
+                    <div class="col4">
+                        <?php echo $this->formrow($form->get('orgname')); ?>
+                    </div>
+                    <div class="col5">
+                        <label><?php echo $this->translate('ユーザID') ;?></label>
+                    </div>
+                    <div class="col6">
+                        <?php echo $this->formrow($form->get('userid')); ?>
+                    </div>
+                </div>
+                <div class="row 2nd-row">
+                    <div class="col1">
+                        <label><?php echo $this->translate('操作') ;?></label>
+                    </div>
+                    <div class="col2 styled-select">
+                        <?php echo $this->formselect($form->get('actiontype')); ?>
+                    </div>
+                    <div class="col3">
+                        <label>実施日</label>
+                    </div>
+                    <div class="col7">
+                        <div class="form-group">
+                            <div class='input-group date' id="divStartDate">
+                                <?php echo $this->formRow($form->get('datetime1')); ?>
+                                <span class="input-group-addon">
+                                    <span class="icon-calendar" onclick="ACTIVITY_LOGS.showCalendar(1)"></span>（から）
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col6">
+                        <div class="form-group">
+                            <div class='input-group date' id="divEndDate">
+                                <?php echo $this->formRow($form->get('datetime2')); ?>
+                                <span class="input-group-addon">
+                                    <span class="icon-calendar" onclick="ACTIVITY_LOGS.showCalendar(2)"></span>（まで）
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="box-footer box-submit">
+			<div class="row fr">
+				<a href="javascript:void(0)" id="btnClear"
+					class="btn btn-small btn-clear"><?php echo $this->translate("クリア"); ?></a>
+				<a class="btn btn-small btn-search-list" href="javascript:void(1);"
+					id="btnSearch"><i class="fa-search"></i> <?php echo $this->translate("検索"); ?></a>
+			</div>
+		</div>
+		</div>
+    </div>
+    <div class="box list">
+        <div class="box-header" id="list-header">
+            <b><?php echo $this->translate('アクセス、操作ログ') ;?></b>
+        </div>
+        <div class="box-body" id="list-table">
+            <?php if($checkShowButtonExport){ ?>
+            <div class="row">
+                <div class="col-sm-12 text-right">
+                    <a <?php echo $isViewer ? 'disabled' : '' ?> href="/logs/activity/index<?php echo $param ? '/search/'.$param.'/isExportExcel/1' : '/isExportExcel/1'; ?>" class=" btn btn-red pull-right mrgt25">EXCEL出力</a>
+                </div>
+            </div>
+            <?php } ?>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th><?php echo $this->translate("団体番号"); ?></th>
+                        <th><?php echo $this->translate("団体名（漢字）"); ?></th>
+                        <th><?php echo $this->translate("日時"); ?></th>
+                        <th class="userid"><?php echo $this->translate("ユーザID"); ?></th>
+                        <th><?php echo $this->translate("氏名"); ?></th>
+                        <th><?php echo $this->translate("画面"); ?></th>
+                        <th><?php echo $this->translate("操作"); ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if (!empty($activitylist)): ?>
+                        <?php foreach ($activitylist as $key => $value): ?>
+                            <tr>
+                                <td class="org-no"><?php echo $this->escapehtml($value['organizationNo']) ?></td>
+                                <td class="org-name"><?php echo $this->escapehtml($value['organizationName']) ?></td>
+                                <td class="date-time">
+                                    <?php 
+                                        if($value['insertAt'] != ''){
+                                            echo date_format($value['insertAt'],"Y/m/d H:i");
+                                        }else{
+                                            echo '&nbsp';
+                                        }
+                                    ?>
+                                </td>
+                                <td class="user-id"><?php echo $this->escapehtml($value['userID']) ?></td>
+                                <td class="user-name"><?php echo $this->escapehtml($value['userName']) ?></td>
+                                <td class="screen"><?php echo $this->escapehtml($value['screenName']) ?></td>
+                                <td class="action"><?php echo $this->escapehtml($value['actionName']) ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr class="no-result">
+                        <td colspan="11" class="noresult">
+    								<p><?php echo $this->translate("MSG17");?></p></td>
+                        </tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+            <?php if (!empty($activitylist) && count($paginator) > $pageLimit) { ?>
+    			<div class="text-center paging">
+    				<nav>
+    					<ul class="pagination">
+                            <?php  echo $paging; ?>
+						</ul>
+    				</nav>
+    			</div>
+			<?php }?>
+        </div>
+    </div>
+</div>
+<?php echo $this->form()->closeTag(); ?>
+<script type="text/javascript">
+    var jsMessages_activity = <?php echo $jsMessages->jsonSerialize(); ?>;
+    var jsMessages = jsMessages_activity.data;
+    
+    $(document).ready(function() {
+    	ACTIVITY_LOGS.init();
+        var noRecordExcel = "<?php echo $noRecordExcel; ?>";
+        if(noRecordExcel.length > 0){
+            ERROR_MESSAGE.show(noRecordExcel);
+        }
+    });
+</script>

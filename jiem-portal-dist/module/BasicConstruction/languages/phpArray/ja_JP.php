@@ -1,0 +1,68 @@
+<?php
+
+// Viet Nam Fpt
+return [
+    // index search organization
+    'OrganizationNo' => '団体番号',
+    'UserId' => 'ユーザID',
+    'Password' => 'パスワード',
+    'Login' => 'ログイン',
+    'ForgotPassword' => 'パスワードを忘れた方',
+    'Msg_Error_Field_Is_Blank' => '必須入力項目です。',
+    'Msg_Error_Wrong_Account' => 'ユーザID、またはパスワードが違います。',
+    'Msg_Error_Disable_Account' => 'ユーザIDが無効です。システム管理者に連絡してください。',
+    'Msg_Error_Password_Wrong_6_Times_Continuously' => 'セキュリティ上の理由で、入力したユーザIDは一時的にロックされています。',
+    'Msg_Error_Locked_Account' => 'セキュリティ上の理由で、入力したユーザIDは一時的にロックされています。',
+    'Msg_Error_Vaild_Password' => 'パスワードは以下の規則に準拠している必要があります。<br/>・文字数が6～32文字。<br/>・半角の大文字、小文字、数字の組合せ。<br/>・ユーザIDと一致しない。<br/>・過去3回のパスワードと一致しない。<br/>',
+    'Msg_Error_Wrong_Old_Password' => '旧パスワードが違います。',
+    'Msg_Error_Exist_UserId' => 'ユーザIDがすでに存在します。',
+    'Msg_Error_Vaild_UserId' => 'ユーザIDは以下の規則に準拠している必要があります。<br/> ・4～31文字。<br/>・半角英数字とハイフン（-）、アンダーバー（_）。<br/>・先頭の1文字目は半角英字。<br/>',
+    'Msg_Error_Vaild_Email_Edit_Profile' => 'メールアドレスの形式が正しくありません。',
+    'Msg_Error_Vaild_Email' => 'メールアドレスの形式が正しくありません。',
+    'Msg_Error_User_Not_Agree_Policy' => '	ポリシーを確認するためにチェックボックスをチェックしてください。',
+    'Msg_Error_Not_Match_Password_And_Confirm_Password' => 'パスワードが一致しません。',
+    'Msg_Error_Access_Denied' => '	アクセスがサイトに拒否されました。',
+    'Msg_Confirm_Change_Pass' => '	パスワードを変更します。よろしいでしょうか ?',
+    'Msg_Change_Pass_Success' => 'パスワードが変更されました。',
+    'Msg_Error_Account_Is_Inactivated' => 'ユーザIDが無効化されました。団体責任者に連絡してください。',
+    'Msg_Error_Login_Past_3_Days' => 'パスワードの有効期限が切れています。',
+    'Msg_Do_You_Want_Change_Password' => 'パスワードを変更しますか',
+    'PleaseLogin' => 'ログインしてください',
+    'ChangePassword' => 'パスワード変更',
+    'OldPassword' => '仮パスワード',
+    'NewPassword' => '新パスワード',
+    'ConfirmNewPassword' => '新パスワード（確認）',
+    'EmailAddress' => 'メールアドレス',
+    'Back' => '戻る',
+    'Change' => '変更',
+    'Enable' => '有効',
+    'Disable' => '無効',
+    'radio-forgot-userID' => 'ユーザIDがわからない。',
+    'radio-forgot-password' => 'パスワードがわからない。',
+    'forgot-password-submit-button' => '提出',
+    'forgot-password-cancel-button' => 'キャンセル',
+    'MSG1-forgot-password-mandatory' => '必須入力項目です。',
+    'MSG7-forgot-password-email-field' => 'メールアドレスが無効です。',
+    'MSG7-forgot-password-mail-forgot-userid-title' => '【英検団体サポート】ユーザID確認通知',
+    'MSG7-forgot-password-mail-forgot-password-title' => '【英検団体サポート】パスワードリセット通知',
+    'MSG7-forgot-password-mail-forgot-alert' => '%sにメールを送信しました。メールに記載された情報を確認してください。',
+    'MSG7-forgot-password-mail-expired-time' => 'このパスワード再設定URLは、発行から２４時間が経過したため無効になりました。ログイン画面より、再度「パスワードリセット」ボタンを押してください。 ',
+    'MSG7-forgot-password-mail-ok-button' => 'もう一度リセットを行う',
+    'MSG7-forgot-password-mail-cancel-button' => 'キャンセル',
+    'MSG31-forgot-password-validate-password'  => 'パスワードは以下の規則に準拠している必要があります。</br>・文字数が6～32文字</br>・大文字、小文字、数字の組合せ</br>・ユーザIDと一致しない<br>・過去3回のパスワードと一致しない。',
+    'MSG31-forgot-password-validate-password_FREE_STYLE' => 'パスワードは以下の規則に準拠している必要があります。
+    ・文字数が6～32文字
+    ・大文字、小文字、数字の組合せ
+    ・ユーザIDと一致しない
+    ・過去3回のパスワードと一致しない。',
+    'MSG1-forgot-password-validate-required'  => '必須入力項目です。',
+    'MSG10-forgot-password-validate-not-same' => 'パスワードが一致しません。',
+    'forgot-password-change-password-button' => '保存',
+    'resetPasswordSuccess' => 'パスワードを変更しました。',
+    'forgot-form-title' => 'ユーザID・パスワード忘れ',
+    'forgot-form-email-title' => 'メールアドレス',
+    'login-form-forgot-link' => 'ユーザIDまたはパスワードを忘れた方はこちら',
+    'EmailIsUse' => 'このメールアドレスは既存のユーザアカウントに利用されています。新しいユーザアカウントを作るには、別のメールアドレスを利用してください。 ',
+];
+// 'Looked' => ''
+

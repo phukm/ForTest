@@ -1,0 +1,9 @@
+<script>
+    var urlRedirect = location.protocol + '//' + location.hostname + "/logout";
+    var msgInactived = 'ユーザIDが無効化されました。団体責任者に連絡してください。';
+    $(document).ready(function () {
+        ALERT_MESSAGE.show(msgInactived, function () {
+            window.location.href = urlRedirect;
+        });
+    });
+</script>

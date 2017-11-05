@@ -1,0 +1,157 @@
+@CHARSET "ISO-8859-1";
+
+.tab-content table td,.tab-content table th{/*border:1px solid black !important;*/height: 71px;}
+.table-pupil-manager th{
+	height: 117px !important;
+}
+.confirm-result{background-color: white;}
+.confirm-result .nav-confirm-result li a{line-height: 18px;border-radius:0;}
+span.title-result-exam, 
+.title-pupil-manager
+    {margin-bottom: 20px;margin-top: 10px;display: block;}
+    
+.confirm-result .data-result-exam table,
+.confirm-result .data-pupil-manager table
+{max-width: none !important;position: relative;}
+.confirm-result .data-result-exam table .jname,
+.confirm-result .data-pupil-manager table .jname,
+.confirm-result .data-result-exam table .jnameKana,
+.confirm-result .data-pupil-manager table .jnameKana
+{
+    width: 120px !important;
+}
+
+.jeiken-kyulv-total,
+.jeiken-kyulv-read,
+.jeiken-kyulv-listen
+{width: 150px; max-width: 150px;}
+th.jeiken{
+	text-align: center !important;
+	height: 46px !important;
+}
+
+.confirm-result .data-result-exam table .td-first,
+.confirm-result .data-pupil-manager table .td-first
+{height: 117px;border: none !important;}/* 43*/
+.confirm-result .data-result-exam table .jscore-listen,
+.confirm-result .data-result-exam table .jscore-read,
+
+.confirm-result .data-result-exam table .jscore-total,
+
+.confirm-result .data-result-exam table .jtestset-no,
+
+.confirm-result .data-result-exam table .jtestset,
+
+.confirm-result .data-result-exam table .jbirth-day,
+.confirm-result .data-pupil-manager table .jbirth-day
+{width: 110px; max-width: 110px;}
+
+
+.confirm-result .data-result-exam table .jpupil-id,
+.confirm-result .data-pupil-manager table .jpupil-id,
+.confirm-result .data-result-exam table .jeiken-lv-id,
+.confirm-result .data-pupil-manager table .jeiken-lv-id,
+.confirm-result .data-result-exam table .jeiken-id,
+.confirm-result .data-pupil-manager table .jeiken-id
+{width: 71px !important;}
+.confirm-result .data-result-exam table .jkumi,
+.confirm-result .data-pupil-manager table .jkumi,
+.confirm-result .data-result-exam table .jschool-year, 
+.confirm-result .data-pupil-manager table .jschool-year,
+
+.confirm-result .data-result-exam table .jpass-fail, 
+.confirm-result .data-pupil-manager table .jpass-fail,
+.confirm-result .data-result-exam table .jtotal,
+.confirm-result .data-pupil-manager table .jtotal,
+
+.confirm-result .data-result-exam table .jschool-org,
+.confirm-result .data-pupil-manager table .jschool-org
+{width: 125px; max-width: 125px;}
+
+.confirm-result .data-result-exam table thead,
+.confirm-result .data-pupil-manager table thead {
+    position: absolute;
+}
+#mapping-error .data-result-exam td,
+#mapping-error .data-pupil-manager td,
+#mapping-error input.form-control
+{color: red;text-decoration: none;word-wrap:break-word;}
+
+.confirm-result .nav-confirm-result .active a{font-weight:bold;}
+.confirm-result .nav-confirm-result a{color: #555;}
+.confirm-result span{font-weight:bold;}
+.tab-content{padding: 0 20px 0;}
+.data-result-exam, .data-pupil-manager {border-right: 1px solid #ddd;overflow-x: scroll;overflow-y: hidden; position: relative;/*height: auto;height: 996px; #ddd*/}
+.data-result-exam .table-result-exam{width: 1532px;border: 1px solid #DADADA;margin-bottom: 0px;border-right: none;border-top: none;}
+.data-pupil-manager .table-pupil-manager{width: 651px;border: 1px solid #DADADA;margin-bottom: 0px;border-right: none;border-top: none;}
+.data-result-exam .table-result-exam td,
+.data-pupil-manager .table-pupil-manager td
+{padding: 8px 10px;line-height: 26px;height: 43px;}
+.data-result-exam .table-result-exam td input,
+.data-pupil-manager .table-pupil-manager td input
+{width: 100px;}
+.data-result-exam .table-result-exam span,
+.data-pupil-manager .table-pupil-manager span
+{display: block;}
+
+#table-right-success .jnumber,
+#table-left-success .jnumber,
+#table-right .jnumber,
+#table-left .jnumber
+{
+	text-align: right !important;
+	width: 50px;
+	max-width: 50px;
+}
+.group-action a img{margin-right: 6px;}
+#mapping-error .col-left,
+#mapping-success .col-left
+{padding-right: 10px !important;}
+.pagination .active a:hover, .pagination .active a:focus {background-color: #dddddd; border-bottom: 1px solid #dddddd;border-top: 1px solid #dddddd;}
+input:focus{border-color: #4d4d4d;box-shadow: none;border: 1px solid #ccc;}
+#mapping-error input:focus{color: red;}
+
+.tt-input,.tt-hint{
+    font-weight: normal !important;
+}
+.twitter-typeahead pre{font-weight: normal !important;}
+.tt-menu{    width: 100px;
+    left: 0px;
+    text-align: left;
+    font-weight: normal !important;
+    padding-left: 10px;
+    border-right: 1px solid #ddd !important;
+    border-left: 1px solid #ddd !important;
+    background-color: #ddd !important;}
+
+.ui-autocomplete{
+    max-height: 245px;
+    overflow-y: scroll;width: 99px;
+}
+.box-footer{
+        padding: 20px 0px;    margin: 0 20px;
+}
+/*sticky header */
+
+/* Paginator*/
+.confirm-result .pagination .active a {
+    background: #dddddd;
+    border: none;
+    border-bottom: 1px solid #dddddd;
+    border-top: 1px solid #dddddd;
+}
+.paging{
+    height:53px;
+    margin-bottom: 20px;
+}
+#mapping-error .row,
+#mapping-success .row
+ {
+	margin-bottom: 0px;
+}
+#mapping-error .marginleft{
+	margin-left: -7px;
+}
+.nav-custom-grey{background-color: #f2f2f2;}
+.nav-custom-grey > li > a{background: #eee; border-color: #ddd; margin-right: 0px;}
+.nav-custom-grey > li + li a{margin-left:-1px;}

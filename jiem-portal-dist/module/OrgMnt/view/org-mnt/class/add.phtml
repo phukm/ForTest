@@ -1,0 +1,111 @@
+<script type="text/javascript">
+    var jsMessages = <?php echo $jsMessages; ?>;
+</script>
+<?php $this->headLink ()->prependStylesheet ( $this->basePath ( 'css/studentandclass.css?v=20161119' ) )?>
+<?php $this->headScript()->prependFile( $this->basePath ( 'js/org/class.js?v=20161119' ) )?>
+
+<div class="box classmanaer">
+	<div class="addclass">
+		<div class="box-header">
+			<strong><?php echo $this->translate('クラス情報登録') ;?></strong>
+		</div>
+		<?php  $form_class->setAttribute('action', $this->url('org-mnt/default', array('controller' => 'class', 'action' => 'save')));;?>
+		<?php  echo $this->form()->openTag($form_class); ?>
+		<div class="box-body">
+			<div class="top-mark">
+				<label class="font-mark"><?php echo $this->translate('設定した学年別のクラス数、クラス名、生徒数を登録します。');?> <br>
+					<?php echo $this->translate('「学年」を選んで、クラス数を入力または「＋」「－」で設定して、「追加」を押してください。');?><br>
+					<?php
+                                            $url = $this->url('org-mnt/default', array(
+                                                    'controller' => 'org',
+                                                    'action' => 'policy-grade-class'
+                                                ));
+                                            printf($this->translate('DescWarningClass'),$url);
+                                        ?>
+				</label>
+			</div>
+
+			<div class="row seacrch-row keyenter">
+				<div class="fl col1">
+					<div class="fl cl1">
+						<label class="lable-class-edit"><?php echo $this->translate("Year");?><span
+							class="star">*</span></label>
+					</div>
+
+					<div class="fl cl2 styled-select year-class-edit">
+						<?php echo $this->formRow($form_class->get('year')); ?>
+					</div>
+				</div>
+				<div class="fl col2">
+					<div class="fl cl1">
+						<label class="lable-class-edit"><?php echo $this->translate("SchoolYear");?><span
+							class="star">*</span></label>
+					</div>
+					<div class="fl cl2 styled-select">
+						<?php echo $this->formRow($form_class->get('school_year_add')); ?>
+					</div>
+				</div>
+				<div class="fl col3">
+					<div class="fl cl1">
+						<label class="lable-class-edit"><?php echo $this->translate("Number of  class");?><span
+							class="star">*</span></label>
+					</div>
+					<div class="fl cl2">
+						<a class="btn" onclick="ORG_CLASS.getNumber('-')"
+							href="javascript:void(0)"><i class="minus"></i></a>
+					</div>
+					<div class="fl cl3">
+						<input class="form-control" name="NumberOfClass" value=""
+							id="numberofclass" />
+					</div>
+					<div class="fl cl4">
+						<a class="btn" onclick="ORG_CLASS.getNumber('+')"
+							href="javascript:void(0);"><i class="plus"></i> </a>
+					</div>
+				</div>
+				<div class="fl col4">
+					<a onclick="ORG_CLASS.clearform()" href="javascript:void(0)"
+						class="btn btn-small" role="button"><strong><?php echo $this->translate("クリア");?></strong></a>
+				</div>
+				<div class="fl col5 class-add-btn-search">
+					<a id="" href="javascript:void(0)" class="btn btn-small"
+						role="button" onclick="ORG_CLASS.generateclass()"><i
+						class="chevron-circle-right"></i> <strong><?php echo $this->translate("追加");?></strong></a>
+				</div>
+			</div>
+			<hr />
+			<div class="row generror"></div>
+			<form id="showlistclass" action="" method="post">
+				<table
+					class="table table-bordered table-striped text-center center-input"
+					id="counts">
+					<thead>
+						<tr>
+							<th class="jyear">年度</th>
+							<th class="jschool-year">学年</th>
+							<th width="">クラス</th>
+							<th width="115">生徒数</th>
+							<th width="86">詳細</th>
+						</tr>
+					</thead>
+					<tbody id="loaddatalist">
+					</tbody>
+				</table>
+			</form>
+		</div>
+		<?php echo $this->form()->closeTag(); ?>
+		<!-- list -->
+		<div class="box-footer text-right">
+			<div class="row hidens">
+				<a class="btn btn-large-180 margin-right-4" href="index"> <i></i> <b><?php echo $this->translate('キャンセル') ;?></b>
+				</a> <a onclick="ORG_CLASS.edit()"
+					class="btn btn-red  btn-large-180 margin_edit"
+					href="javascript:void(0);"> <img
+					src="<?php echo $this->basePath('img/white/svg/download.svg') ?>" />
+					<b><?php echo $this->translate(' 保存') ;?></b>
+				</a>
+			</div>
+		</div>
+
+	</div>
+</div>

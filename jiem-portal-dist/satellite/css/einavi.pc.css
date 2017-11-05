@@ -1,0 +1,276 @@
+.note-password {
+    display: block;
+    font-weight: normal;
+    margin-bottom: 15px;
+    margin-top: 4px;
+    font-size: 14px;
+}
+
+label.lblbirthday {
+    font-weight: normal;
+    float: left;
+    padding-left: 7px;
+    padding-top: 20px;
+    margin: 0;
+}
+
+select#ddlMonth,select#ddlDay {
+    padding-left: 30%;
+}
+
+
+.lbl-policy-agree {
+    font-size: 20px;
+    font-weight: bold;    
+    margin-left: 20px;
+
+}
+
+input.checkbox-policy-agree {
+    width: 20px;
+    height: 20px;
+    margin-top: -1px;
+    position: absolute;
+    -moz-appearance: none;
+}
+
+.text-login-einavi {
+    font-size: 16px;
+    margin-bottom: 20px;
+    width: 550px;
+}
+
+.policy {
+    height: 450px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding: 20px;
+    padding-right: 25px;
+    font-size: 20px;
+    margin-right: -20px;
+    margin-left: -20px;
+    letter-spacing: 0px;
+}
+
+.line-shadow {
+    height: 3px;
+    box-shadow: 0 2px 2px silver;
+    margin-bottom: 2px;
+    margin-left: -20px;
+    margin-right: -20px;
+    margin-top: -3px;
+}
+
+.line {
+    margin-left: -20px;
+    margin-right: -20px;
+}
+
+
+input[type=radio].radio-receive {
+    width: 20px;
+    height: 20px;
+}
+
+.margin-left-10 {
+    margin-left: 10px;
+}
+
+.col-xs-1 strong {
+    margin: auto;
+    display: table;
+    margin-top: 15px;
+}
+
+.col-xs-4.birthdate {
+    /* width: 198px; */
+}
+
+.col-xs-4.birthdate:last-child {
+    width: 182px;
+}
+
+/* global */
+.form-control {
+    font-size: 16px;
+}
+
+input[type=text].form-control, input[type=password].form-control {
+    height: 60px;
+}
+
+select.form-control {
+    height: 60px;
+    width: 81%;
+    float: left;
+}
+
+label {
+    margin-bottom: 15px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.panel {
+    border-radius: 0;
+    margin-top: 20px;
+    box-shadow: 0px 1px 0px #ddd;
+}
+
+.panel-default>.panel-heading {
+    background-color: #ffffff;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.panel-body {
+    padding: 20px;
+}
+
+.row-no-padding [class^="col-"] {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    background-color: transparent !important;
+}
+
+hr {
+    border-color: #cccccc;
+}
+
+.color-red {
+    color: red;
+}
+
+legend {
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+}
+
+p {
+    font-size: 14px;
+}
+
+img.icon-key {
+    height: 16px;
+}
+
+a.for-got-pass {
+    font-size: 16px;
+    line-height: 40px;
+    text-Decoration: underline;
+}
+.panel-default>.panel-heading
+{
+    height: 38px;
+    padding-left: 20px;
+}
+.btn-login-group {
+    margin-top: 20px;
+}
+
+.des-receive {
+    font-size: 14px;
+    letter-spacing: -0.9px;
+    margin-top: -1px;
+}
+.jiem-breadcrumbs{
+    padding-bottom: 0;
+}
+
+input[type=radio].error,input[type=checkbox].error {
+    outline: 1px dashed red;
+}
+.text-normal{
+    font-weight: normal!important;
+    /* width: 60px; */
+}
+
+label{
+    position: relative;
+}
+
+label.lbl-sex {
+    margin-right: 54px;
+}
+
+.rdSex1{
+    width: 60px;
+}
+
+.form-group-gender {
+    margin-top: 21px;
+    margin-bottom: 0;
+    position: relative;
+}
+.form-group-birthdate .row,.form-group-postcode .row{
+    margin-top:0; 
+}
+.rdReceive {
+    font-size: 20px;
+    margin-right: 31px;
+    margin-left: 10px;
+    line-height: 20px;
+    vertical-align: top;
+}
+.des-receive-first
+{
+    margin-bottom: 16px;
+}
+
+.form-group-uid-login {
+    margin-bottom: 17px;
+}
+.minus:after {
+    content: '';
+    width: 7px;
+    border: 1px solid;
+    position: absolute;
+    right: 9%;
+    top: 50%;
+}
+.postcode input
+{
+    width: 81%;
+}
+.star{
+    font-size: 16px;
+}
+
+hr.register-line-one {
+    margin-bottom: 17px;
+}
+
+input#rdSex1,input#rdSex2 {
+    height: 20px;
+    width: 20px;
+    position: relative;
+    top: 4px;
+    -moz-appearance: none;
+}
+
+.rdsex {
+    padding-left: 8px;
+}
+
+input#rdReceive1,input#rdReceive2 {
+    position: relative;
+    height: 20px;
+    width: 20px;
+    bottom: 5px;
+    -moz-appearance: none;
+}
+.form-group-agree{
+    position: relative;
+}
+.parrent-description{
+    margin-bottom: -5px;
+    font-size: 18px;
+}
+a#forgot-password:focus{
+    text-decoration: underline;
+}
+.icon-key{
+    margin: -2px 10px 0 0;
+}

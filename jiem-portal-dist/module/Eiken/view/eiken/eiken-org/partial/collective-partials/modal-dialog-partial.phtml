@@ -1,0 +1,135 @@
+<div id="myModal" class="modal fade" data-backdrop="static" role="dialog"  aria-labelledby="mySmallModalLabel" aria-hidden="true" style="top: -240px;">
+    <div class="modal-dialog modal-lg common-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="modal-title"><?php echo $this->translate('titlePopupFeeTable'); ?></p>
+            </div>
+            <div class="modal-body radio-body">
+                <div class="modal-body">
+                    <table class="table table-bordered" id="table1">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th><p class="text-center">受験級</p></th>
+                                <th><p class="text-center">標準単価 </p></th>
+                                <?php if ($intanceOf['case3']) echo '<th><p>特別価格 </p></th>'; ?>
+                                <th style="width: 80px;"><p class="text-center">人数</p></th>
+                                <?php if ($intanceOf['case4']) echo '<th><p class="text-center">金額</p></th>';?>
+                                <?php if ($intanceOf['case3']) echo '<th><p>英検への支払額 </p></th>'; ?>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            if (!empty($detailPrice['mainHall'])) {
+                                foreach ($detailPrice['mainHall'] as $k => $detail) {
+                                    ?>
+                                    <tr>
+                                        <?php
+                                        if ($k == 0) {
+                                            ?>
+                                            <td rowspan="7" class="text-right classwhite"><p>本会場</p></p></td>
+                                            <?php
+                                        }
+                                        ?>
+                                        <!--Column 受験級-->
+                                        <td class="text-right"><p class="text-right"><?php echo $detail['name']; ?></p></td>
+                                        <?php
+                                        // Collumn 単価
+                                        if (!$intanceOf['case4']) {
+                                            echo '<td class="text-right"><p class="text-right">' . $detail['price'] . '</p></td>';
+                                        }
+
+                                        // Collumn Discounted Fee
+                                        if ($intanceOf['case3'] || $intanceOf['case4']) {
+                                            echo ($k == 0 || $k == 1) ?
+                                                    '<td class="text-right"><p class="text-right">' . $detail['price'] . '</p></td>' :
+                                                    '<td class="text-right"><p class="text-right">' . $detail['discountPrice'] . '</p></td>';
+                                        }
+                                        ?>
+                                        <td class="text-right"><p class="text-right"><?php echo $detail['total']; ?></p></td>
+                                        <?php
+                                        if (!$intanceOf['case4']) {
+//                                            echo '<td class="text-right"><p class="text-right">' . $detail['totalPrice'] . '</p></td>';
+                                        } else {
+                                            echo '<td class="text-right"><p class="text-right">' . $detail['totalDiscountPrice'] . '</p></td>';
+                                        }
+//                                        ?>
+                                        <?php
+                                        if ($intanceOf['case3']) {
+                                            echo '<td class="text-right"><p class="text-right">' . $detail['totalDiscountPrice'] . '</p></td>';
+                                        }
+                                        ?>
+                                    </tr>
+                                    <?php
+                                }
+                            }
+                            ?>
+
+                            <?php if (!empty($eikenOrgDetail['cd'])): ?>
+                                <?php if (!empty($detailPrice['standardHall'])): ?>
+                                    <?php
+                                    $i = 1;
+                                    foreach ($detailPrice['standardHall'] as $detail):
+                                        ?>
+                                        <?php
+                                        if (in_array($i, array(1, 2))) {
+                                            $i++;
+                                            continue;
+                                        }
+                                        ?>
+                                        <tr>
+                                            <?php if ($i == 3): ?>
+                                                <td rowspan="5"
+                                                    class="text-right classwhite"><p>準会場</p>
+                                                    </p></td>
+                                            <?php endif; ?>
+                                            <td class="text-right"><p class="text-right"><?php echo $detail['name']; ?></p></td>
+                                            <td class="text-right"><p class="text-right"><?php echo $detail['price']; ?></p></td>
+                                            <?php if ($intanceOf['case3']) { ?> <td class="text-right"><p class="text-right"></p></td>  <?php } ?>
+                                            <td class="text-right"><p class="text-right"><?php echo $detail['total']; ?></p></td>
+                                            <?php if ($intanceOf['case3'] || $intanceOf['case4']) { ?> <td class="text-right"><p class="text-right"><?php echo $detail['totalDiscountPrice']; ?></p></td>  <?php } ?>
+                                        </tr>
+                                        <?php
+                                        $i++;
+                                    endforeach;
+                                    ?>
+                                <?php endif; ?>
+                            <?php endif; ?>
+                            <?php
+                            if (!$intanceOf['case3'] && !$intanceOf['case4']) {
+                                ?>
+                                <tr>
+                                    <td class="text-left" colspan="4">検定料合計 <i class="color-red">①</i></td>
+                                    <td class="text-right"><p class="text-right"><?php echo number_format($detailPrice['totalPrice'], 0, '', ','); ?>円</p></td>
+                                </tr>       
+                                <?php
+                            }
+                            if ($intanceOf['case3']) {
+                                ?>
+                                <tr>
+                                    <td class="text-left total" colspan="5"><p>検定料合計 <i class="color-red">①</i></p></td>
+                                    <td class="text-right"><p><?php echo number_format($detailPrice['totalDiscountPrice'], 0, '', ','); ?>円</p></td>
+                                </tr>
+                                <?php
+                            }
+                            if ($intanceOf['case4']) {
+                                ?>
+                                <tr>
+                                    <td class="text-left" colspan="4">検定料合計 <i class="color-red">①</i></td>
+                                    <td class="text-right"><p class="text-right"><?php echo number_format($detailPrice['totalDiscountPrice'], 0, '', ','); ?>円</p></td>
+                                </tr>       
+                                <?php
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="cancelExportTypeTemplate" class="btn btn-large-180 btn-cancel" data-dismiss="modal">
+                        <strong>キャンセル</strong>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

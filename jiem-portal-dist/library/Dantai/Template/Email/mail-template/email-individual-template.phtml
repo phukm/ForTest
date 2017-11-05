@@ -1,0 +1,168 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta
+            content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'
+            name='viewport' />
+        <meta name="viewport" content="width=device-width" />
+        <meta http-equiv="X-UA-Compatible" content="IE=9">
+    </head>
+<style>
+    p {
+        margin: 0px !important;
+    }
+</style>
+    <body>
+        <div>
+            <p>---------------------------------------------------------------------</p>
+            <p>このメールは、英検団体サポートにご登録いただいたメールアドレス宛に自動送信しています。</p>
+            <p>そのため、お問合せ等のメッセージをご返信いただいても、回答できません。</p>
+            <p>※お心当たりがない場合は、お手数ですがメールの破棄をお願いいたします。</p>
+            <p>---------------------------------------------------------------------</p> 
+            <br>
+            <p><?php echo $orgInfo['orgName'] . ' ' . $orgInfo['orgRepresentatives']; ?> 様 </p>
+            <br>
+            <p>公益財団法人日本英語検定協会です。</p>
+            <p>この度はお申込みいただき誠にありがとうございます。</p>
+            <p>下記の内容でお申込みを受付けいたしましたのでご確認ください。</p>
+            <br>
+            <p>《リスニングＣＤについてご注意ください》</p>
+            <p>ＣＤは３枚で１セットとなっております。（ＣＤ１：２級 ＣＤ２：準２級／３級 ＣＤ３：４級／５級）</p>
+            <p>級別の使用教室数をご確認の上、必要ＣＤセット数をご確認ください。</p>
+            <p>ご申請のＣＤセット数は下記団体情報にてご確認ください。</p>
+            <p>不備がある場合は至急英検サービスセンター（03-3266-8010）までご連絡ください。</p>
+            <br>
+            <p>================================================================</p>
+            <p>ご登録の詳細</p>
+            <p>================================================================</p>
+            <p>受付日：<?php echo date('Y') ?>年<?php echo date('m'); ?>月<?php echo date('d'); ?>日</p>
+            <br>
+            <p>---------------------------------------------------------------------</p>
+            <p>団体情報 </p>
+            <p>---------------------------------------------------------------------</p>
+            <p>団体番号：<?php echo $orgInfo['orgNo'] ?></p>
+            <p>団体名：<?php echo $orgInfo['orgName'] ?></p>
+            <p>責任者名：<?php echo $orgInfo['orgRepresentatives'] ?></p>
+            <p>メールアドレス：<?php echo $orgInfo['orgEmail'] ?></p>
+            <p>郵便番号：<?php echo $orgInfo['orgPostalCode'] ?> </p>
+            <p>住所１：<?php echo $orgInfo['orgAddr1'] ?></p>
+            <p>住所２：<?php echo $orgInfo['orgAdd2'] ?></p>
+            <p>電話番号：<?php echo $orgInfo['orgPhoneNo'] ?></p>
+            <p>会場区分：<?php echo $orgInfo['hallType'] ?></p>
+            <?php if (!empty($eikenOrgDetail['cd']) && !empty($detailPrice['standardHall'])): ?>
+                <p>実施曜日：<?php echo $orgInfo['orgExamDate']; ?></p>
+                <p>ＣＤセット数：<?php echo $orgInfo['cdSet']; // CD number set  ?></p>
+                <p>実施区分：<?php echo $orgInfo['locationType'] ? '合同' : '単独'; // Implementation classification 単独／合同 ?></p>
+                <?php if ($orgInfo['locationType'] == 1): ?>
+                    <p>合流実施区分：<?php echo $orgInfo['locationType1'] == 1 ? '他団体を吸収する' : '他団体に合流する'; //他団体に合流する／他団体を吸収する ?></p>
+                    <?php if ($orgInfo['locationType1'] == 2): ?>
+                        <p>合流する団体番号：<?php echo $orgInfo['eikenOrgNo1']; ?></p>
+                        <p>合流する団体名：<?php echo $orgInfo['eikenOrgNo123'] ?></p>
+                    <?php else: ?>
+                        <p>吸収する団体名：<?php echo $orgInfo['eikenOrgNo2']; ?></p>
+                    <?php endif; ?>
+                <?php endif; ?>
+            <?php endif; ?>
+            <br>
+            <p>--------------------------------------------------------------------</p>
+            <p>お申込み情報</p>
+            <p>--------------------------------------------------------------------</p>
+            <p>&#9679;今回のお申込み内容</p>
+            <?php
+            if (!empty($detailPrice['mainHall'])) {
+                ?>
+                <p>■本会場</p>
+                <?php
+                foreach ($detailPrice['mainHall'] as $detail) {
+                    if ($detail['total'] > 0)
+                        echo '&nbsp;&nbsp;&nbsp;' . $detail['name'] . '：' . str_replace('人', '名', $detail['total']) . '<br/>';
+                }
+            }
+            ?>
+            <?php
+            if (!empty($eikenOrgDetail['cd']) && !empty($detailPrice['standardHall'])) {
+                ?>
+                <br>
+                <p>■準会場 </p>
+                <?php
+                foreach ($detailPrice['standardHall'] as $key => $detail) {
+                    if ($key > 1 && $detail['total'] > 0)
+                        echo '&nbsp;&nbsp;&nbsp;' . $detail['name'] . '：' . str_replace('人', '名', $detail['total']) . '<br/>';
+                }
+            }
+            ?>     
+            <br/>
+            <?php if (intval($semi) == 1 && intval($paymentType) == Eiken\EikenConst::PAYMENT_TYPE_IS_INVIDIUAL && intval($beneficiary) == Eiken\EikenConst::BENEFICIARY_IS_STUDENT) { ?>
+                <p>●合計志願者数・検定料</p>
+            <?php } ?>
+            <p>差引額</p>
+            &nbsp;&nbsp;&nbsp;本会場経費 = <?php echo number_format(isset($detailFee['TotlalFeeSt']) ? $detailFee['TotlalFeeSt'] : 0); ?>円 <br/>
+            &nbsp;&nbsp;&nbsp;準会場経費 = <?php echo number_format(isset($detailFee['TotlalFeeMa']) ? $detailFee['TotlalFeeMa'] : 0) ?>円 <br/>
+            <?php
+            if (intval($semi) == 1 && intval($paymentType) == Eiken\EikenConst::PAYMENT_TYPE_IS_INVIDIUAL && intval($beneficiary) == Eiken\EikenConst::BENEFICIARY_IS_DANTAI) {
+                $totalref = number_format($detailPrice['totalDecreasePrice']);
+                ?>
+                &nbsp;&nbsp;&nbsp;検定料の差引払い戻し額  = <?php echo isset($totalref) ? $totalref : 0 ?>円 <br/>
+            <?php } 
+            ?>
+            <p>------------------------------------------</p>
+            <p>&nbsp;&nbsp;&nbsp;
+            <?php
+            $total = 0;
+            if (intval($semi) == 0 && intval($paymentType) == Eiken\EikenConst::PAYMENT_TYPE_IS_INVIDIUAL && empty($beneficiary)) {
+                echo '払い戻し額 合計 = ';
+                $total = number_format((int)$detailFee['TotlalFeeSt'] + (int)$detailFee['TotlalFeeMa']);
+            } else if (intval($semi) == 1 && intval($paymentType) == Eiken\EikenConst::PAYMENT_TYPE_IS_INVIDIUAL && intval($beneficiary) == Eiken\EikenConst::BENEFICIARY_IS_DANTAI) {
+                echo '払い戻し額合計 = ';
+                $total = number_format((int)$detailFee['TotlalFeeSt'] + (int)$detailFee['TotlalFeeMa'] + (int)$detailPrice['totalDecreasePrice']);
+            } else if (intval($semi) == 1 && intval($paymentType) == Eiken\EikenConst::PAYMENT_TYPE_IS_INVIDIUAL && intval($beneficiary) == Eiken\EikenConst::BENEFICIARY_IS_STUDENT) {
+                echo '払い戻し額合計 = ';
+                $total = number_format((int)$detailFee['TotlalFeeSt'] + (int)$detailFee['TotlalFeeMa']);
+            } else {
+                echo '払い戻し額 合計 = ';
+                $total = number_format((int)$detailFee['TotlalFeeSt'] + (int)$detailFee['TotlalFeeMa']);
+            }
+            echo isset($total) ? $total : 0;
+            ?>円</p>
+            <br/>
+            <p>■■■■■合同実施される団体はご注意ください！■■■■■</p>
+            <p>上記準会場経費は貴校の申込人数に対しての金額です。</p>
+            <p>吸収校は、合流校の申込人数を含めた経費を差引いてお支払いください。</p>
+            <p>■■■■■■■■■■■■■■■■■■■■■■■■■■■■</p>
+        </p>
+        <br>
+        <p>=================================================================</p>
+        <p>検定料のお支払い方法</p>
+        <p>=================================================================</p>
+        <br>
+        <p>請求書はお送りしておりません。</p>
+        <p>団体申込書兼請求書１枚目の払込取扱票（送金手数料無料）等でお支払いください。</p>
+        <p>なお、会計処理上請求書が必要な場合は英検サービスセンター宛にご連絡ください。</p>
+        <br/><br/>
+<?php if (!empty($detailPrice['mainHall'])): ?>
+            <p><?php echo $this->escapeHtml('< 本会場申込み >'); ?></p>
+            <p>・受付通知ハガキ･･･順次郵送</p>
+<?php endif; ?>        
+<?php if (!empty($eikenOrgDetail['cd']) && !empty($detailPrice['standardHall'])): ?>
+            <p><?php echo $this->escapeHtml('< 準会場申込み >'); ?></p>       
+            <p>・受付通知・受験番号発行明細書･･･順次発送</p>
+<?php endif; ?>    
+        <br/>
+        <p>なお、追加申込み分は別送になります。</p>
+        <p>あらかじめご了承ください。</p>
+        <p>■■■■■■■■■■■■■■■■■■■■■■■■■■■■</p>
+        <p>海外準会場の場合は、一次試験終了後 準会場経費等を差引いて</p>
+        <p>別途請求書を お送りいたします。それまでお待ちく ださい。 </p>
+        <p>■■■■■■■■■■■■■■■■■■■■■■■■■■■■</p>
+        <br>
+        <p>================================================================</p>
+        <p>公益財団法人日本英語検定協会　英検サービスセンター</p>
+        <p>================================================================</p>
+        <p>URL：<a>http://www.eiken.or.jp/eiken/contact/</a></p>
+        <p>TEL：03-3266-8010</p>
+        <p>平日9:30～17:00</p>
+        <p>＜土日祝・年末年始を除く。試験前日および当日は17:30まで。＞</p>
+        <p>※メール本文の複製・転送等はご遠慮願います。</p>
+    </div>
+</body>
+</html>

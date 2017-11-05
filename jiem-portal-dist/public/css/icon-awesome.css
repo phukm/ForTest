@@ -1,0 +1,586 @@
+/*
+ *   Icon black thi name Class  === ten icon
+ *   Icon white thi name Class = ten icon + '-w'
+ */
+
+.caret-down {
+    background: url(/img/black/svg/caret-down.svg) no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 14px;
+    width: 14px;
+}
+.caret-right {
+    background: url(/img/black/svg/caret-right.svg) no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 14px;
+    width: 14px;
+}
+.fa-angle-right {
+    background: url(/img/black/svg/fa-angle-right.svg) no-repeat;
+    background-size: cover;
+    display: inline-block;
+    height: 18px;
+    width: 18px;
+    position: relative;
+    outline: none;
+    vertical-align: middle;
+    background-position: 0px -2px;
+}
+.fa-download-w {
+    background: url(/img/white/svg/download.svg) no-repeat;
+    background-size: cover;
+    display: inline-block;
+    height: 18px;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+}
+.fa-download {
+    background: url(/img/black/svg/download.svg) no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 18px;
+    width: 18px;
+    margin-top: 5px !important;
+}
+.icon-preview {
+    background: url('/img/black/svg/arrow-left.svg') no-repeat;
+    background-size: cover;
+    display: block;
+    height: 18px;
+    width: 18px;
+    position: absolute;
+    margin: 0px 0 0 3px;
+    outline: none;
+}
+.icon-next {
+    background: url('/img/black/svg/arrow-right.svg') no-repeat;
+    background-size: cover;
+    display: block;
+    height: 16px;
+    width: 16px;
+    position: absolute;
+    margin: 0px 25px 0 0px;
+    outline: none;
+}
+.icon-calendar {
+    background: url('/img/black/svg/calendar.svg') no-repeat;
+    background-size: cover;
+    height: 16px;
+    width: 16px;
+    display: inline-block;
+    outline: none;
+    vertical-align: middle;
+    margin: 0px 8px;
+}
+.fa-search {
+    background: url('/img/black/svg/search.svg') no-repeat;
+    background-size: 12px;
+    display: inline-block;
+    height: 15px;
+    width: 18px;
+    vertical-align: middle;
+    position: relative;
+    outline: none;
+    background-position: 0px 0px;
+}
+.fa-file-archive-o {
+    background: url(/img/black/svg/file-archive-o.svg) no-repeat;
+    background-size: cover;
+    display: inline-block;
+    height: 18px;
+    width: 18px;
+    position: relative;
+    outline: none;
+    vertical-align: middle;
+    margin-bottom: 3px;
+}
+.check-square {
+    background: url(/img/white/svg/check-square.svg) no-repeat;
+    background-size: cover;
+    display: inline-block;
+    height: 18px;
+    width: 18px;
+    position: relative;
+    outline: none;
+    vertical-align: middle;
+    margin-bottom: 3px;
+}
+.fa-plus-circle {
+    background: url('/img/black/svg/fa-plus-circle.svg') no-repeat;
+    background-size: cover;
+    height: 18px;
+    width: 18px;
+    margin: 5px auto 2px auto !important;
+}
+.fa-text-o {
+    background: url('/img/black/svg/file-text-o.svg') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 18px;
+    margin-bottom: 3px;
+}
+.plus-circle {
+    background: url('/img/black/svg/plus-circle.svg') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 18px;
+    width: 18px;
+    margin-top: 5px !important;
+    margin-bottom: 3px;
+}
+.arrow-circle-left {
+    background: url('/img/black/svg/arrow-circle-left.svg') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 18px;
+    width: 18px !important;
+    margin-bottom: 3px;
+}
+
+.arrow-down {
+    background: url('/img/black/svg/arrow-down.svg') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 14px;
+    width: 14px !important;
+    margin-bottom: 3px;
+}
+
+.pencil-square {
+    background: url('/img/black/svg/pencil-square.svg') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 18px;
+    width: 18px !important;
+    margin-bottom: 3px;
+}
+.fa-star {
+    background: url('/img/black/svg/star.svg') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 18px;
+    width: 18px;
+    margin-top: 5px !important;
+}
+.bar-chart {
+    background: url('/img/black/svg/bar-chart.svg') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 18px;
+    width: 18px;
+    margin-top: 5px !important;
+}
+.fa-chain {
+    background: url('/img/black/svg/chain.svg') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 18px;
+    width: 18px;
+    margin-top: 5px !important;
+}
+.fa-times {
+    background: url('/img/black/svg/times.svg') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 18px;
+    width: 18px;
+    margin-top: 5px !important;
+}
+.paper-plane {
+    background: url('/img/black/svg/paper-plane.svg') no-repeat;
+    background-size: cover;
+    vertical-align: middle;
+    position: relative;
+    outline: none;
+    height: 18px;
+    width: 18px;
+    margin-top: 5px !important;
+}
+.arrow-circle-right-w {
+    background: url('/img/white/svg/arrow-circle-right') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 18px;
+    width: 18px !important;
+    margin-bottom: 3px;
+}
+.arrow-circle-left-w {
+    background: url('/img/white/svg/arrow-circle-left') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 18px;
+    width: 18px !important;
+    margin-bottom: 3px;
+}
+.trash {
+    background: url('/img/black/svg/trash.svg') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 18px;
+    width: 18px;
+    margin-top: 5px !important;
+    margin-bottom: 3px;
+}
+.trash-inline {
+    background: url('/img/black/svg/trash.svg') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 18px;
+    margin-top: 0px !important;
+    width: 18px !important;
+    margin-bottom: 3px;
+}
+.minus {
+    background: url('/img/black/svg/minus.svg') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 12px;
+    width: 15px;
+    margin-top: -13px;
+    margin-left: -7px;
+}
+.plus {
+    background: url('/img/black/svg/plus.svg') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 14px;
+    width: 14px;
+    margin-top: -10px;
+    margin-left: -7px;
+}
+.chevron-circle-right {
+    background: url('/img/black/svg/chevron-circle-right.svg') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 15px;
+    width: 15px !important;
+    margin-bottom: 3px;
+}
+.chevron-circle-left {
+    background: url('/img/black/svg/chevron-circle-left.svg') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 15px;
+    width: 15px !important;
+    margin-bottom: 3px;
+}
+.fa-file-text {
+    background: url('/img/black/svg/file-text.svg') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 18px;
+    width: 18px;
+    margin-top: 5px !important;
+    margin-bottom: 3px;
+}
+.upload {
+    background: url('/img/black/svg/upload.svg') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 18px;
+    width: 18px;
+    margin-top: 5px !important;
+    margin-bottom: 3px;
+}
+.fa-download {
+    background: url('/img/black/svg/download.svg') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 18px;
+    width: 18px;
+    margin-top: 5px !important;
+    margin-bottom: 3px;
+}
+.refresh {
+    background: url('/img/black/svg/refresh.svg') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 18px;
+    width: 18px;
+    margin-top: 5px !important;
+    margin-bottom: 3px;
+}
+.user-plus {
+    background: url('/img/black/svg/user-plus.svg') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 18px;
+    width: 18px;
+    margin-top: 5px !important;
+    margin-bottom: 3px;
+}
+.arrow-circle-right {
+    background: url('/img/black/svg/arrow-circle-right.svg') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 18px;
+    width: 18px !important;
+    margin-bottom: 3px;
+}
+.fa-upload-small-w {
+    background: url(/img/white/svg/upload.svg) no-repeat;
+    background-size: cover;
+    display: inline-block;
+    height: 13px;
+    width: 13px;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    margin-right: 5px;
+}
+.folder-open-small {
+    background: url(/img/black/svg/folder-open.svg) no-repeat;
+    background-size: cover;
+    display: inline-block;
+    height: 13px;
+    width: 13px;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    margin-right: 5px;
+}
+.sign-out-w {
+    background: url('/img/white/svg/sign-out.svg') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 18px;
+    width: 18px !important;
+    margin-bottom: 3px;
+}
+.sign-in {
+    background: url('/img/white/svg/sign-in.svg') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 18px;
+    width: 18px !important;
+    margin-bottom: 3px;
+}
+.street-view {
+    background: url('/img/black/svg/street-view.svg') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    margin-top: 5px !important;
+    outline: none;
+    height: 18px;
+    width: 18px !important;
+    margin-bottom: 3px;
+}
+.file-archive-o {
+    background: url('/img/black/svg/file-archive-o.svg') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 18px;
+    width: 18px !important;
+    margin-bottom: 3px;
+}
+.download-w {
+    background: url('/img/black/svg/download.svg') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 18px;
+    width: 18px;
+    margin-top: 5px !important;
+}
+.search-chevron-down {
+    background: url('/img/black/svg/chevron-down.svg') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 10px;
+    width: 10px;
+}
+.search-chevron-up {
+    background: url('/img/black/svg/chevron-up.svg') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 10px;
+    width: 10px;
+}
+.search-chevron-right {
+    background: url('/img/black/svg/chevron-right.svg') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 10px;
+    width: 10px;
+}
+.search-long-arrow-down {
+    background: url('/img/black/svg/long-arrow-down.svg') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 10px;
+    width: 10px;
+}
+.search-long-arrow-up {
+    background: url('/img/black/svg/long-arrow-up.svg') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 10px;
+    width: 10px;
+}
+.star-yellow {
+    background: url("/img/star-yellow.png");
+    background-size: cover;
+    display: inline-block;
+    vertical-align: middle;
+    outline: none;
+    height: 16px;
+    width: 16px;
+}
+
+.search-plus-square-o-blue {
+    background: url('/img/black/svg/plus-square-o-blue.svg') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 13px;
+    width: 13px;
+    margin-bottom: 2px;
+}
+
+.search-minus-square-o-blue {
+    background: url('/img/black/svg/minus-square-o-blue.svg') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 13px;
+    width: 13px;
+    margin-bottom: 2px;
+}
+
+.fa-download-small-w {
+    background: url(/img/white/svg/download.svg) no-repeat;
+    background-size: cover;
+    display: inline-block;
+    height: 13px;
+    width: 13px;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    margin-right: 5px;
+}
+
+.icon-arrow-splite {
+    background: url('/img/black/svg/arrow-splite.svg') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 18px;
+    width: 18px;
+    margin-top: 5px !important;
+    margin-bottom: 3px;
+}

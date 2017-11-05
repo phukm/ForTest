@@ -1,0 +1,391 @@
+<?php
+echo $this->headLink()->prependStylesheet($this->basePath('css/Invitation.css'));
+$isViewer = \Dantai\PublicSession::isViewerRole();
+?>
+<?php
+
+if (! empty($inv_class)) {
+    $paging = $this->paginationHelper($inv_class, $page, $this->url('invitation-mnt/default', array(
+        'controller' => 'generate',
+        'action' => 'index'
+    )), 20);
+}
+?>
+<?php $escaper = new Zend\Escaper\Escaper('utf-8');?>
+<?php $form->setAttribute('action', $this->url('invitation-mnt/default', array('controller' => 'generate','action' => 'index')));?>
+<?php  echo $this->form()->openTag($form); ?>
+<div class="invitation">
+    <div class="box">
+        <div class="box-header"  data-toggle="collapse" data-target="#search-box">
+            <div class="search-header  sorting-field">
+                <i class="search-chevron-down"></i>
+                <b><?php echo $this->translate('検索条件'); ?></b>
+            </div>
+        </div>
+        <div id="search-box" aria-expanded="true" class="collapse in">
+            <div class="box-body box-search-print">
+                <div class="" style="">
+                    <div class="col1 col-sm-1">
+                        <label><?php echo $this->translate('INVMNT_Year'); ?><span class="star">*</span></label>
+                    </div>
+                    <div class="col2 col-sm-1 styled-select">
+                        <?php echo $this->formrow($form->get('ddbYear')->setAttribute('onChange', 'OnchangeYear();')); ?>
+                    </div>
+                    <div class="col3 col-sm-1 ">
+                        <label><?php echo $this->translate('INVMNT_Kai'); ?><span class="star">*</span></label>
+                    </div>
+                    <div class="col4 col-sm-1 styled-select">
+                        <?php echo $this->formrow($form->get('ddbKai')->setValue($request_kai)); ?>
+                    </div>
+                    <div class="col5 col-sm-1">
+                        <label><?php echo $this->translate('INVMNT_SchoolYear'); ?></label>
+                    </div>
+                    <div class="col6 col-sm-1 styled-select">
+                        <?php echo $this->formrow($form->get('ddbSchoolYear')->setAttribute('onChange', 'loadClass();')); ?>
+                    </div>
+                    <div class="col7 col-sm-1">
+                        <label><?php echo $this->translate('INVMNT_Class'); ?></label>
+                    </div>
+                    <div class="col8 col-sm-1 styled-select">
+                        <?php echo $this->formrow($form->get('ddbClass')); ?>
+                    </div>
+                    <div class="col9  col-sm-1 text-right">
+                        <a class="btn btn-small" id="searchInvClass"
+                           href="javascript:void(0);"> <i class="fa-search"></i> <b><?php echo $this->translate('INVMNT_Search'); ?></b></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php echo $this->form()->closeTag(); ?>
+<div class="print-invitation">
+	<div class="box">
+		<div class="box-header">受験案内状作成</div>
+		<div class="box-body">
+            
+			<div class="col-sm-2">
+				<a href="javascript://" <?php echo ($isViewer) ? 'disabled' : '' ; ?>
+					onclick="INVITATION_HELPER.isFirstGenerated()"
+					class="btn btn-higher"> <i class="paper-plane"></i> <?php echo $this->translate('INVMNT_GenInvitation');?>
+				</a>
+			</div>
+			<div class="col-sm-10 padding-mark">
+				<label class="font-mark">
+					<?php echo $this->translate('INVMNT_GenInvNotice');?>
+				</label>
+			</div>
+
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th class="jyear"><?php echo $this->translate('年度'); ?></th>
+						<th class="jtime"><?php echo $this->translate('回'); ?></th>
+						<th class="jschool-year"><?php echo $this->translate('学年'); ?></th>
+						<th width="65"><?php echo $this->translate('クラス'); ?></th>
+						<th></th>
+						<th width="198">操作</th>
+					</tr>
+				</thead>
+
+				<tbody id="load_dt_std">
+
+					<?php
+    
+    if (! empty($inv_class)) {
+        foreach ($inv_class as $key => $value) {
+            $urlDownload = $this->url('invitation-mnt/default', array(
+                'controller' => 'generate',
+                'action' => 'downloadClass',
+                'id' => '' . $value->getId(),
+                'year' => $value->getYear(),
+                'kai' => $kai[$request_kai]
+            ));
+            ?>
+
+                <tr>
+						<td><?php echo $escaper->escapeHtml($value->getYear());  ?></td>
+						<td class="text-right"><?php echo $escaper->escapeHtml($kai[$request_kai]) ?></td>
+						<td><?php echo $escaper->escapeHtml($value ->getOrgSchoolYear()->getDisplayName()); ?></td>
+						<td><?php echo $escaper->escapeHtml($value ->getClassName()); ?></td>
+						<td></td>
+						<td class="height-td-button"><a href="<?php echo $urlDownload;?>" <?php echo $isViewer ? 'disabled' : '' ; ?>
+							class="btn btn-small"><?php echo $this->translate('印刷'); ?></a> <a
+							href="<?php
+            echo $this->url('invitation-mnt/default', array(
+                'controller' => 'generate',
+                'action' => 'show',
+                'id' => '' . $value->getId(),
+                'year' => $value->getYear(),
+                'kai' => $kai[$request_kai]
+            ));
+            ?>"
+							class="btn btn-small btn-printpupil">生徒別編集</a></td>
+					</tr>
+      <?php }}?>
+        </tbody>
+			</table>
+			<?php if (! empty($mess) && is_string($mess)) {?>
+			<div class="row"></div>
+			<div class="row">
+				    <?php echo $mess;?>
+				</div>
+        <?php }?>
+				<?php
+    
+    if (! empty($inv_class)) {
+        if (count($inv_class) > 20 && count($inv_class) > 0) {
+            ?>
+				<div class="col-sm-12 text-center">
+				<nav>
+					<ul class="pagination">
+                            <?php  echo $paging; ?>
+						</ul>
+				</nav>
+			</div>
+	<?php } }?>
+		</div>
+	</div>
+</div>
+
+<?php $this->headScript()->appendFile($this->basePath('js/setting.invitation.js')); ?>
+<script type="text/javascript">
+var translate = <?php echo empty($Translate) ? '0' : $Translate; ?>;
+var INVITATION_PARAMETERS = <?php echo \Zend\Json\Json::encode($invitationParameters)?>;
+$(document).ready(function() {
+	if(INVITATION_PARAMETERS.noInvitationLetters){
+		ERROR_MESSAGE.show(INVITATION_PARAMETERS.noInvitationLetters, function(){},'inline');
+	}
+    $('form:first *:input[type!=hidden]:first').focus();
+});
+$(document).ready(function () {
+	var validator = $("#generateForm").validate({
+		onfocusout: false,
+        onkeyup: false,
+        onclick: false,
+        focusInvalid: false,
+        errorPlacement: function(error, element){},
+		showErrors: function(errorMap, errorList) {
+			this.defaultShowErrors();
+			ERROR_MESSAGE.show(errorList, function(){}, 'inline');
+        }
+	 });
+});
+
+var INVITATION_URLS = {
+generateInvitationLetter : '<?php
+                                echo $this->url('invitation-mnt/default', array(
+                                    'controller' => 'generate',
+                                    'action' => 'invitation-letter'
+                                ));
+                                ?>' , 
+isFirstGeneratedAction : '<?php
+                                echo $this->url('invitation-mnt/default', array(
+                                    'controller' => 'generate',
+                                    'action' => 'is-first-generated'
+                                ));
+                                ?>',
+urlGeneratedIndex : '<?php
+                                echo $this->url('invitation-mnt/default', array(
+                                    'controller' => 'generate',
+                                    'action' => 'index'
+                                ));
+                                ?>'
+};
+var INVITATION_HELPER = {
+        generateInvitationLeterAjax : function(){
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'json',
+                    url: INVITATION_URLS.generateInvitationLetter,
+                    data: {
+                        'year' : $('#ddbYear').val(),
+                        'kai' : $('#ddbKai').val()
+                    },
+                    success:INVITATION_HELPER.generateInvitationSucess,
+                    error:INVITATION_HELPER.generateInvitationError
+                });
+        },
+
+        generateInvitationSucess : function(data){
+            // TODO Notice user to check mail
+            if(data.success){
+                ERROR_MESSAGE.clear();
+                setTimeout($.proxy(function() {
+                    ALERT_MESSAGE.show(data.messages[0]);
+                }, this), 500);
+            }
+            else
+                ERROR_MESSAGE.show(data.messages[0], null, 'inline');
+        },
+        generateInvitationError : function(data){
+            // TODO Notice user to come back later
+        },
+        isFirstGenerated : function(){
+            var year = $('#ddbYear option:selected').val();
+            var scheduleId = $('#ddbKai option:selected').val();
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'json',
+                    url: INVITATION_URLS.isFirstGeneratedAction,
+                    data: {
+                        'eikenScheduleId' : $('#ddbKai').val()
+                    },
+                    success:function(data){
+                        if(data['success'] === 1){
+                            $.ajax({
+                                        type: "POST",
+                                        url: INVITATION_SETTING.isNotShowPopupUrl,
+                                        data:{
+                                                'year' : year,
+                                                'scheduleId' : scheduleId
+                                        },
+                                        success: function (result) {
+                                            var json = JSON.parse(result);
+                                                if (json.status === 0) {
+                                                CONFIRM_MESSAGE.show(translate.MSGPopupWaringGradeClassECSetting, function () {
+                                                   CONFIRM_MESSAGE.show(translate.MSGConfirmGenarateEx,
+                                                    function(){
+                                                        INVITATION_HELPER.generateInvitationLeterAjax();
+                                                    },
+                                                    function(){window.location.href = INVITATION_SETTING.settingEditUrl + data['id'];},
+                                                    null,
+                                                    translate.okConfirmGenarateEx,
+                                                    translate.cancelConfirmGenarateEx,'confirmGenarate');
+                                                }, function () {
+                                                    return false;
+                                                }, null, null, null, 'ConfirmSubmit');
+                                                $('#ConfirmSubmit #btnCancelConfirm-ConfirmSubmit').addClass('btn-red');
+                                                $('#ConfirmSubmit #btnAgreeConfirm-ConfirmSubmit').removeClass('btn-red');
+                                                    
+                                            } else {
+                                                CONFIRM_MESSAGE.show(translate.MSGConfirmGenarateEx,
+                                                function(){
+                                                    INVITATION_HELPER.generateInvitationLeterAjax();
+                                                },
+                                                function(){window.location.href = INVITATION_SETTING.settingEditUrl + data['id'];},
+                                                null,
+                                                translate.okConfirmGenarateEx,
+                                                translate.cancelConfirmGenarateEx,'confirmGenarate');
+                                            }
+                                        }
+                                    }); 
+                                return false;
+                        }else{
+                            $.ajax({
+                                    type: "POST",
+                                    url: INVITATION_SETTING.isNotShowPopupUrl,
+                                    data:{
+                                            'year' : year,
+                                            'scheduleId' : scheduleId
+                                    },
+                                    success: function (result) {
+                                        var json = JSON.parse(result);
+                                            if (json.status === 0) {
+                                            CONFIRM_MESSAGE.show(translate.MSGPopupWaringGradeClassECSetting, function () {
+                                               INVITATION_HELPER.generateInvitationLeterAjax();
+                                            }, function () {
+                                                return false;
+                                            }, null, null, null, 'ConfirmSubmit');
+                                            $('#ConfirmSubmit #btnCancelConfirm-ConfirmSubmit').addClass('btn-red');
+                                            $('#ConfirmSubmit #btnAgreeConfirm-ConfirmSubmit').removeClass('btn-red');
+
+                                        } else {
+                                            INVITATION_HELPER.generateInvitationLeterAjax();
+                                        }
+                                    }
+                                }); 
+                            return false;
+                        }
+                    }
+                });
+        },
+};
+
+  $("#searchInvClass").click(function()
+	{
+		$("#generateForm").submit();
+	});
+    function OnchangeYear()
+	{
+		loadKai();
+		loadOrgSchoolYear();
+		//loadClass();
+	}
+    function loadClass()
+    {
+    	var sy=$('#ddbSchoolYear').val();
+    	if(sy=='')
+        {
+    	    sy=-1;
+        }
+     	var year=$('#ddbYear').val();
+    	var jsonurl = location.protocol + '//' + location.hostname + '/invitation/generate/getclass?year='+year+'&schoolyear='+sy;
+
+        $.ajax({
+              type: 'GET',
+              url: jsonurl,
+              data: {},
+              success:function(data){
+            	    $("#ddbClass").empty();
+            	    $("#ddbClass").prepend("<option value='' selected='selected'></option>");
+            	  var options = $("#ddbClass");
+            	     $.each(data, function () {
+            	         options.append($("<option />").val(this.id).text(this.className));
+            	     });
+                 },
+              error:function(){
+              }
+            });
+        }
+function loadKai()
+{
+    var id=$('#ddbYear').val();
+    var jsonurl =  location.protocol + '//' + location.hostname + '/invitation/generate/getkai?year='+id;
+        $.ajax({
+              type: 'GET',
+              url: jsonurl,
+              data: {},
+              success:function(data){
+            	  $("#ddbKai").empty();
+            	  var options = $("#ddbKai");
+            	  $.each(data, function () {
+                	  if(this.id != INVITATION_PARAMETERS.currentEikenScheduleId)
+                	  {
+                		  options.append($("<option />").val(this.id).text(this.kai));
+                	  }
+                	  else
+                	  {
+                		  options.append($("<option selected='selected'/>").val(this.id).text(this.kai));
+                      }
+            	 });
+              },
+           error:function(){
+           }
+        });
+    }
+function loadOrgSchoolYear()
+{
+	var id=$('#ddbYear').val();
+	var jsonurl = location.protocol + '//' + location.hostname + '/invitation/generate/getschoolyear?year='+id;
+
+    $.ajax({
+          type: 'GET',
+          url: jsonurl,
+          data: {},
+          success:function(data){
+        	  $("#ddbSchoolYear").empty();
+        	  $("#ddbSchoolYear").prepend("<option value='' selected='selected'></option>");   	  
+        	  var options = $("#ddbSchoolYear");
+          	     $.each(data, function () {
+          	         options.append($("<option />").val(this.schoolYearId).text(this.displayName));
+          	     });
+            },
+          error:function(){
+        	  $("#ddbSchoolYear").empty();
+          }
+        });
+    $("#ddbClass").html('<option value="" selected></option>');
+}
+
+</script>

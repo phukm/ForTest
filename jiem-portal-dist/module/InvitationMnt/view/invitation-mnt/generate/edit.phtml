@@ -1,0 +1,123 @@
+<?php echo $this->headLink()->prependStylesheet($this->basePath('css/Invitation.css')); ?>
+
+<?php
+$form->setAttribute('action', $this->url('invitation-mnt/default', array(
+    'controller' => 'generate',
+    'action' => 'update',
+    'id' => $id,
+    'year' => $year,
+    'kai' => $kai
+)));
+echo $this->form()->openTag($form);
+?>
+<div class="invitation">
+	<div class="box">
+		<div class="box-header">
+            <?php echo $this->translate('メッセージ編集'); ?>
+</div>
+		<div class="box-body">
+			<div class="message col-sm-6 col-xs-6">
+				<div>
+					<label><?php echo $this->translate('生徒向けメッセージ'); ?><span
+						class="star">*</span></label>
+
+				</div>
+				<div class="row styled-select">
+					<select id="TemplateMsg1" name="TemplateMsg1"
+						class="form-control inset-shadow">
+						<option value=""></option>
+                            <?php foreach ($list_temp1 as $key => $value) { ?>
+                                <option
+							<?php if($value['id'] == $val_temp1){ echo 'selected';} ?>
+							value="<?php echo $value['id']; ?>"
+							rel="<?php echo $value['messages']; ?>"><?php echo $value['name']; ?></option>
+                            <?php } ?>
+                        </select>
+				</div>
+				<div class="row textarea">
+					<?php echo $this->formrow($form->get('message1')); ?>
+				</div>
+			</div>
+			<div class="message col-sm-6 col-xs-6">
+				<div>
+					<label><?php echo $this->translate('保護者向けメッセージ'); ?><span
+						class="star">*</span></label>
+				</div>
+				<div class="row styled-select">
+					<select id="TemplateMsg2" name="TemplateMsg2"
+						class="form-control inset-shadow">
+						<option value=""></option>
+                            <?php foreach ($list_temp2 as $key => $value) {?>
+                                <option
+							<?php if($value['id'] == $val_temp2){ echo 'selected';} ?>
+							value="<?php echo $value['id']; ?>"
+							rel="<?php echo $value['messages']; ?>"><?php echo $value['name']; ?></option>
+                            <?php } ?>
+                        </select>
+				</div>
+				<div class="row textarea">
+				<?php echo $this->formrow($form->get('message2')); ?>
+				</div>
+			</div>
+		</div>
+		<div class="box-footer">
+			<div class="col-sm-12 text-right">
+				<a class="btn btn-large-180 btn-cancel"
+					href="<?php echo $this->url('invitation-mnt/default', array('controller' => 'generate','action'=>'show','id'=>$classId,'year'=>$year,'kai'=>$kai)); ?>"><?php echo $this->translate("Cancel"); ?></a>
+				<a class="btn btn-red btn-large-180" id="editMessage"
+					href="javascript:void(0)"> <i class="fa-download-w"></i>
+                    <?php echo $this->translate("Save"); ?></a>
+			</div>
+		</div>
+	</div>
+</div>
+<?php echo $this->form()->closeTag(); ?>
+<?php if(!empty($mess)){?>
+<script type="text/javascript">
+    ERROR_MESSAGE.show('<?php echo json_decode($mess) ;?>');
+</script>
+<?php }?>
+<script type="text/javascript">
+
+$(document).ready(function() {
+    $('form:first *:input[type!=hidden]:first').focus();
+});
+$("#editMessage").click(function () {
+    $("#generateForm").submit();
+});
+$("#TemplateMsg1").change(function () {
+    getMessage('TemplateMsg1', 'message1');
+});
+$("#TemplateMsg2").change(function () {
+    getMessage('TemplateMsg2', 'message2');
+});
+function getMessage(msgName, MsgContent) {
+    var element = $('#' + msgName).find('option:selected');
+    $('#' + MsgContent).val(element.attr("rel"));
+}
+
+$(document).ready(function () {
+	var validator = $("#generateForm").validate({
+		onfocusout: false,
+        onkeyup: false,
+        onclick: false,
+        focusInvalid: false,
+		rules: {
+			message1 : {
+				required: true
+			},
+			message2 : {
+				required: true
+			}
+		},
+		errorPlacement: function(error, element){},
+		showErrors: function(errorMap, errorList) {
+			this.defaultShowErrors();
+			ERROR_MESSAGE.show(errorList, function(){}, 'inline');
+        }
+	});
+
+
+	
+});
+</script>

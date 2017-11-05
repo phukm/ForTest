@@ -1,0 +1,81 @@
+.table-bordered>thead>tr>th, .table-bordered>thead>tr>td {
+	margin-left: 15px;
+	font-size: 14px;
+}
+
+
+.iba-col-2 {
+	width: 46px;
+}
+
+.iba-col-3 {
+	width: 59px;
+}
+
+.iba-col-4 {
+	width: 53px;
+}
+
+.iba-col-5 {
+	width: 140px;
+}
+
+.iba-col-6 {
+	width: 64px;
+}
+
+.iba-col-7 {
+	width: 55px;
+}
+
+.iba-col-8 {
+	width: 64px;
+}
+
+.iba-col-9 {
+	width: 68px;
+}
+
+.iba-col-10 {
+	width: 78px;
+}
+
+.compass-icon {
+	background: url(/img/black/svg/compass.svg) no-repeat;
+	background-size: cover;
+	display: inline-block;
+	height: 18px;
+	position: relative;
+	vertical-align: middle;
+	outline: none;
+	fill: #ff0000;
+}
+
+.paging{
+	height:53px;
+}
+
+.text-center{
+	text-align: center !important;
+}
+
+.text-right{
+	text-align: right !important;
+}
+
+.text-left{
+    text-align: left !important;
+    padding-left: 10px !important;
+}
+
+.iba-box .pagination > li > a:focus,
+.iba-box .pagination > li > a:hover,
+.iba-box .pagination > li > span:focus,
+.iba-box .pagination > li > span:hover {
+    background-color: #dddddd !important;
+    border-color: #ddd !important;
+}
+
+.cancel-save{
+    float: left;
+}

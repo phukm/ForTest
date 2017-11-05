@@ -1,0 +1,91 @@
+<?php
+$html['TotalExamineesOfMainHall'] = '<p>■本会場</p>';
+$html['TotalExamineesAndPriceOfMainHall'] = '<p>■本会場</p>';
+$totalExamineesOfAllEikenGradesMainVenue = 0;
+$totalFeeOfAllEikenGradesMainVenue = 0;
+$hasMainHall = false;
+
+if (!empty($data['detailPrice']['mainHall'])) {
+    $mainHall = $data['detailPrice']['mainHall'];
+    $html['TotalExamineesOfMainHall'] .= '<div class="exam">';
+    $html['TotalExamineesAndPriceOfMainHall'] .='<div class="exam">';
+    foreach ($mainHall as $item) {
+        $totalExamineesOfAllEikenGradesMainVenue += intval($item['total']);
+        $multiplication = intval($item['total']) * intval(str_replace(array(',', '円'), '', $item['price']));
+        $totalFeeOfAllEikenGradesMainVenue += $multiplication;
+
+        if (intval($item['total']) > 0) {
+            $hasMainHall = true;
+            $html['TotalExamineesOfMainHall'] .='<p> ' . $item['name'] . ':' . number_format(intval($item['total'])) . '名</p>';
+            $html['TotalExamineesAndPriceOfMainHall'] .='<p> ' . $item['name'] . ' : ' . number_format(intval($item['total'])) . '名  X ' . $item['price'] . ' = ' . number_format($multiplication) . '円</p>';
+        }
+    }
+    $html['TotalExamineesOfMainHall'] .='</div>';
+    $html['TotalExamineesAndPriceOfMainHall'] .='</div>';
+    $html['TotalExamineesAndPriceOfMainHall'] .='<br><p>---------------------------------------------------</p>';
+    $html['TotalExamineesAndPriceOfMainHall'] .='<p>合計：' . number_format($totalExamineesOfAllEikenGradesMainVenue) . '名、' . number_format($totalFeeOfAllEikenGradesMainVenue) . '円</p>';
+}
+
+$html['TotalExamineesOfStandardHall'] = '<br><p>■準会場</p>';
+$html['TotalExamineesAndPriceOfStandardHall'] = '<br><p>■準会場</p>';
+$totalExamineesOfAllEikenGradesStandardVenue = 0;
+$totalFeeOfAllEikenGradesStandardVenue = 0;
+$hasStandardHall = false;
+
+if (!empty($data['detailPrice']['standardHall'])) {
+    $standarHall = $data['detailPrice']['standardHall'];
+    $html['TotalExamineesOfStandardHall'] .= '<div class="exam">';
+    $html['TotalExamineesAndPriceOfStandardHall'] .='<div class="exam">';
+    foreach ($standarHall as $item) {
+        $totalExamineesOfAllEikenGradesStandardVenue += intval($item['total']);
+        $multiplication = intval($item['total']) * intval(str_replace(array(',', '円'), '', $item['price']));
+        $totalFeeOfAllEikenGradesStandardVenue += $multiplication;
+        if (intval($item['total']) > 0) {
+            $hasStandardHall = true;
+            $html['TotalExamineesOfStandardHall'] .='<p> ' . $item['name'] . ':' . number_format(intval($item['total'])) . '名</p>';
+            $html['TotalExamineesAndPriceOfStandardHall'] .='<p> ' . $item['name'] . ' : ' . number_format(intval($item['total'])) . '名  X ' . $item['price'] . ' = ' . number_format($multiplication) . '円</p>';
+        }
+        
+    }
+    $html['TotalExamineesOfStandardHall'] .='</div>';
+    $html['TotalExamineesAndPriceOfStandardHall'] .='</div>';
+    $html['TotalExamineesAndPriceOfStandardHall'] .='<br><p>---------------------------------------------------</p>';
+    $html['TotalExamineesAndPriceOfStandardHall'] .='<p>合計：' . number_format($totalExamineesOfAllEikenGradesStandardVenue) . '名、' . number_format($totalFeeOfAllEikenGradesStandardVenue) . '円</p>';
+}
+?>
+<div class="head-text" style="margin-top:25px; padding-left: 0;">
+    <p>-----------------------------------------------------------------</p>
+    <p>お申込み情報</p>
+    <p>-----------------------------------------------------------------</p>
+</div>
+<p>●今回のお申込み内容</p>
+<?php 
+if ($hasMainHall) {
+    echo $html['TotalExamineesOfMainHall']; 
+}
+
+if ($hasStandardHall) {
+    echo $html['TotalExamineesOfStandardHall'];
+}
+?>
+<br>
+<p>●合計志願者数・検定料</p>
+<?php 
+if ($hasMainHall) {
+    echo $html['TotalExamineesAndPriceOfMainHall']; 
+}
+
+if ($hasStandardHall) {
+    echo $html['TotalExamineesAndPriceOfStandardHall'];
+}
+?>
+<br>
+<p>差引額</p>
+<div class="exam">
+    <p>本会場経費 = <?php echo number_format($data['detailFee']['TotlalFeeSt']); ?>円</p>
+    <p>準会場経費 = <?php echo number_format($data['detailFee']['TotlalFeeMa']); ?>円</p>
+</div>
+<p>------------------------------------------</p>
+<p><span>支払額合計</span> = <?php echo number_format(intval($data['detailPrice']['totalPrice']) - (intval($data['detailFee']['TotlalFeeSt']) + intval($data['detailFee']['TotlalFeeMa']))); ?>円</p>
+<p></p>
+

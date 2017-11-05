@@ -1,0 +1,132 @@
+<?php $this->headLink ()->prependStylesheet ( $this->basePath ( 'css/list_org_style.css' ) );?>
+<div class="box">
+	<div class="box-header">
+    <?php echo $this->translate("ユーザ情報詳細");?>
+  </div>
+  <?php if(!empty($item)) {?>
+	<div class="box-body register-body user-detail">
+		<div class="row org-number-view">
+			<div class="col-sm-2">
+				<p><?php echo $this->translate("Organization Number"); ?></p>
+			</div>
+			<div class="col-sm-5 input-org">
+				<p><?php echo $this->escapeHtml($item->getorganizationNo()); ?></p>
+			</div>
+		</div>
+		<div class="row org-userid-view">
+			<div class="col-sm-2">
+				<p><?php echo $this->translate("User ID"); ?></p>
+			</div>
+			<div class="col-sm-5 input-user-id">
+				<p><?php echo $this->escapeHtml($item->getuserId()); ?></p>
+			</div>
+		</div>
+		<div class="row org-name-view">
+			<div class="col-sm-2">
+				<p><?php echo $this->translate("Name (Kanji)"); ?></p>
+			</div>
+			<div class="col-sm-8">
+				<p><?php echo $this->escapeHtml($item->getFirstNameKanji().$item->getLastNameKanji()); ?></p>
+			</div>
+		</div>
+		<div class="row email-row">
+			<div class="col-sm-2">
+				<p><?php echo $this->translate("Email Address"); ?></p>
+			</div>
+			<div class="col-sm-10 class-inline-email">
+				<p class="email-info"><?php echo $item->getemailAddress(); ?></p>
+			</div>
+		</div>
+		<div class="row org-author-view">
+			<div class="col-sm-2">
+				<p><?php echo $this->translate("Authority"); ?></p>
+			</div>
+			<div class="col-sm-5 select-role styled-select">
+				<p><?php echo $this->escapeHtml($item->getrole()->getroleName()); ?></p>
+			</div>
+		</div>
+		<?php if($item->getRoleId() == 2){  ?>
+		<div
+			class="row ServiceTypeRow show">
+			<div class="col-sm-2">
+				<p><?php echo $this->translate("ServiceType"); ?>
+				</p>
+			</div>
+			<div class="col-sm-5 styled-checkboxgroup">
+		  <?php echo $this->formRow($form->get('ServiceType')); ?>
+		</div>
+		</div>
+		<?php } ?>
+
+		<hr class="margin-top" />
+
+		<div class="row status-row">
+			<div class="col-sm-2">
+				<p><?php echo $this->translate("Status"); ?></p>
+			</div>
+			<div class="col-sm-5">
+				<p><?php if($item->getstatus()== 'Enable'){ echo $this->translate("有効");}elseif($item->getstatus()== 'Disable'){ echo $this->translate("無効");}else{ echo $item->getstatus(); } ?></p>
+			</div>
+		</div>
+
+	</div>
+  <?php } ?>
+	<div class="box-footer user-detail-footer">
+		<div class="row">
+			<div class="col-sm-6 text-left">
+				<a class="btn btn-large-180"
+					href="<?php echo $this->url ( 'org-mnt/default', array ( "controller"=>"user", "action" => "index"));?>">
+					<i class="arrow-circle-left"></i>
+    			<?php echo $this->translate("Back"); ?>
+			</a>
+			</div>
+			<?php if(isset($lv_role)){ ?>
+				<?php
+    if ($lv_role < 5 && $lv_role <= $item->getroleId() && !\Dantai\PublicSession::isViewerRole()) {
+        $check_disable = false;
+    } else {
+        $check_disable = true;
+    }
+    ?>
+				<div class="col-sm-6 text-right">
+				<a class="btn btn-large-180 margin-right-btn"
+					href="<?php echo $this->url ( 'org-mnt/default', array ( "controller"=>"user", "action" => "edit" ,  "id" => $item->getId()));?>"
+					<?php if(($check_disable == true && $checkEqId == 0) || \Dantai\PublicSession::isViewerRole()){ echo ' disabled="disabled"'; }  ?>>
+					<i class="pencil-square"></i>
+	    			<?php echo $this->translate("Edit"); ?>
+					</a> <a class="btn btn-large-180"
+					onclick='delete_item(<?php if(isset($id)){ echo $id; } ?>)'
+					href="javascript:void(0);"
+					<?php if($check_disable !=false){ echo ' disabled="disabled"'; }  ?>>
+					<i class="trash-inline"></i>
+		    			<?php echo $this->translate("Delete"); ?>
+					</a>
+			</div>
+			<?php } ?>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+var jsMessages = <?php echo $jsMessages; ?>;
+
+$(".text-left .btn").focus();
+function delete_item(id)
+{
+	var idCurent = parseInt(<?php echo $curentId; ?>);
+	var id = parseInt(id);
+	if(id == idCurent){
+		ERROR_MESSAGE.show(jsMessages.MSGdeletemyuser,
+                function()
+                {
+            		//alert("Callback");
+            	});
+        }else{
+        	CONFIRM_MESSAGE.show(jsMessages.MSGselectdelete,
+        			function()
+        			{
+        				window.location.href="<?php echo $this->url ( "org-mnt/default", array ( "controller"=>"user", "action" => "delete", "id" => $item->getId()));?>"
+        			},
+        			function(){});
+            }
+}
+</script>

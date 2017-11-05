@@ -1,0 +1,221 @@
+.create-grade{
+    min-height: 650px;
+}
+.create-grade table td{
+    word-break: break-word;
+}
+.create-grade .content{
+    margin-left: 0;
+    margin: 0;
+}
+.create-grade .content-data{
+    max-height: 500px;
+    /*overflow-y: scroll;*/
+}
+.create-grade table .number{
+    text-align: right;
+}
+.create-grade table .number{
+    text-align: right;
+}
+.create-grade .year{
+    width: 100px;
+}
+.create-grade .universal-grade{
+    width: 377px;
+}
+.create-grade .grade{
+    width: 209px;
+}
+.create-grade .class{
+    width: 194px;
+}
+.create-grade .header .year{
+    width: 97px;
+}
+.create-grade .header .universal-grade{
+    width: 365px;
+}
+.create-grade .header .grade{
+    width: 202px;
+}
+.create-grade .header .class{
+    width: 202px;
+}
+.create-grade table.header{
+
+    margin-bottom: 0 !important;
+}
+.create-grade .box-footer a.btn-large {
+    font-size: 16px;
+    height: 40px;
+    padding-top: 10px;
+}
+
+.duplicate-title {
+    font-weight: 700;
+    font-size: 18px;
+}
+    
+.duplicate-list, .duplicate-header { display: block; }
+.duplicate-description {
+}
+.duplicate-list {
+    /*width: 590px;*/
+    max-height: 230px;
+}
+
+.duplicate-header {
+    width: 590px;
+}
+.duplicate-body{
+    border-top: 0px !important;
+}
+.thname{
+    width: 200px;
+} 
+.thstatus{
+    width: 456px;
+}
+.duplicate-header .thname{
+    text-align: center;
+} 
+.duplicate-header .thbirthday{
+    text-align: center;
+    width: 105px;
+} 
+.tdname{
+    width: 200px;
+} 
+.tdbirthday{
+    width: 105px;
+} 
+.tdstatus{
+    width: 456px; 
+}
+.scroll{
+    overflow-y: scroll;
+}
+.scroll .tdname{
+    width: 205px;
+}
+.scroll .tdstatus{
+    width: 451px;
+}
+
+#myModal {
+    padding-right: 0px !important; 
+    width: 1005px; 
+    right: 0px; 
+    left: 130px; 
+    top: 100px;
+}
+
+.duplicate-header{
+    width: 100%;
+}
+.importstd{
+    min-height: 650px;
+}
+.importstd-list table th{
+    padding: 10px;
+    text-align: center;
+}
+
+.modal-footer {
+    padding-right: 23px;
+}
+li.line-error{
+    overflow: hidden;
+}
+.importstd-list-table .line{width: 56px;}
+.importstd-list-table .year{width: 100px;}
+.importstd-list-table .schoolYear{width: 131px;}
+.importstd-list-table .orgSchoolYear{width: 150px;}
+.importstd-list-table .class{width: 150px;}
+.importstd-list-table .pupilNumber{width: 100px;}
+.importstd-list-table .firstnameKanji{width: 210px;}
+.importstd-list-table .lastnameKanji{width: 210px;}
+.importstd-list-table .firstnameKana{width: 210px;}
+.importstd-list-table .lastnameKana{width: 210px;}
+.importstd-list-table .birthday{width: 130px;}
+.importstd-list-table .gender{width: 56px;}
+.importstd-list-table .einaviId{width: 141px;}
+.importstd-list-table .eikenId{width: 141px;}
+.importstd-list-table .eikenPassword{width: 134px;}
+.importstd-list-table .eikenLevel{width: 88px;}
+.importstd-list-table .eikenYear{width: 88px;}
+.importstd-list-table .kai{width: 72px;}
+.importstd-list-table .eikenScoreReading{width: 230px;}
+.importstd-list-table .eikenScoreListening{width: 214px;}
+.importstd-list-table .eikenScoreWriting{width: 170px;}
+.importstd-list-table .eikenScoreSpeaking{width: 233px;}
+.importstd-list-table .ibaLevel{width: 136px;}
+.importstd-list-table .ibaDate{width: 120px;}
+.importstd-list-table .ibaScoreReading{width: 236px;}
+.importstd-list-table .ibaScoreListening{width: 220px;}
+.importstd-list-table .wordLevel{width: 103px;}
+.importstd-list-table .grammarLevel{width: 106px;}
+
+table.list-mapping{
+    width:700px;
+    margin: auto;
+}
+.create-grade table.header-mapping{
+    margin-bottom: 0 !important;
+    width:700px;
+    margin: auto;
+}
+.create-grade table.header-mapping-no-scroll{
+    margin-bottom: 0 !important;
+    width:700px;
+    margin: auto;
+}
+table.list-mapping .universal-grade{
+    width:348px;
+}
+table.list-mapping .grade{
+    width:348px;
+}
+table.header-mapping-no-scroll .universal-grade{
+    width:348px;
+}
+table.header-mapping-no-scroll .grade{
+    width:348px;
+}
+table.header-mapping .universal-grade{
+    width:344px;
+}
+table.header-mapping .grade{
+    width:349px;
+}
+.select-grade-map{
+    width: 290px;
+}
+.content-data-mapping{
+    width: 700px;
+    margin: auto;
+}
+.create-grade .content-data-mapping{
+    max-height: 400px;
+    /*overflow-y: scroll;*/
+}
+.show-error-mapping-schoolyear{
+    max-height: 300px;
+}
+
+/*anhnt*/
+.newTemplate .exportTemp input{
+    height: 13px;
+    position: relative;
+    top: 2px;
+    margin-right: 5px;
+}
+
+.newTemplate .exportTemp label{
+    padding-left: 20px;
+    font-weight: normal;
+}
+.seperate-description{
+    margin-top: 20px;
+}

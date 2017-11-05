@@ -1,0 +1,477 @@
+<?php
+$browse = 0;
+$person = 0;
+if (preg_match('/(?i)msie [1-8]/', $_SERVER['HTTP_USER_AGENT'])) {
+    $browse = 1;
+    ?>
+    <div style="position: relative; top: 3600px;">
+        <?php
+        if ($data['PaymentType'] == 0) {
+            $person = 1;
+            include 'payment-personal-template1.phtml';
+        } else {
+            $person = 0;
+            include 'payment-organization-template.phtml';
+        }
+        ?>
+    </div>
+    <?php
+} else {
+    $browse = 0;
+}
+?>
+<style>
+    hr {
+        width: 132px;
+        height: 3px;
+        margin-left: 150px;
+        margin-top: -4px;
+        background-color: black; /* Rotate div */
+        -ms-transform: rotate(-45deg); /* IE 9 */
+        -webkit-transform: rotate(-45deg); /* Chrome, Safari, Opera */
+        transform: rotate(-45deg);
+    }
+
+    .e1 {
+        height: 280px;
+        margin-top: 71px;
+        width: 291px;
+        margin-left: 11px;
+        background: url("../../img/template-eiken-1.jpg");
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+
+    .e2 {
+        height: 193px;
+        margin-left: 2px;
+        margin-top: 29px;
+        width: 197px;
+        background: url("../../img/template-eiken-2.jpg");
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+</style>
+<?php
+$mTop = 0;
+$size = '';
+$countCombini = count($combini);
+$personPayment = json_decode($data["PersonalPayment"]);
+if ($browse == 1) {
+    if ($data['PaymentType'] == 1 && ($data['OrganizationPayment'] == 1)) {
+        $org = '-3200px';
+    } else
+    if ($data['PaymentType'] == 1 && ($data['OrganizationPayment'] == 2 || $data['OrganizationPayment'] == 3)) {
+        $org = '-2900px';
+    }
+    if (in_array(0, $personPayment)) {
+        $p = '-2300px';
+    }
+    if (in_array(1, $personPayment)) {
+        if ($countCombini > 5) {
+            $p = '-3000px';
+        } else {
+            if ($countCombini == 3 || $countCombini == 2) {
+                $p = '-2850px';
+            } else if ($countCombini == 1) {
+                $p = '-2800px';
+            } else if ($countCombini == 4) {
+                $p = '-2850px';
+            } else {
+                $p = '-2900px';
+            }
+        }
+    }
+    if (in_array(0, $personPayment) && in_array(1, $personPayment)) {
+
+        if ($countCombini > 5) {
+            $p = '-3400px';
+        } else {
+            $p = '-3150px';
+        }
+    }
+
+    $size = ($person == 1) ? $p : $org;
+} else {
+    $size = '0px';
+}
+?>
+<div style="position:relative;top: <?php echo $size; ?>;left:70px;width: 2380px;">
+    <div
+        style="margin: 0 auto; width: 2365px; height: auto; font-family: Meiryo;">
+        <div
+            style="display: block; clear: both; height: 200px; margin-bottom: 100px;">
+            <h1>Page 1</h1>
+            <div style="width: 212px; height: 227px; float: left;">
+                <img style="width: 212px; height: 227px"
+                     src="../../img/template-eiken-logo.jpg" />
+                <div>
+                    <b></b>
+                </div>
+            </div>
+            <div style="width: 385px; margin-left: 28px; float: left;">
+                <div style="font-size: 48px; font-weight: 600;">
+                    <?php echo $data['year']; ?>年度第<?php echo $data['EikenScheduleHidden']; ?>回
+                </div>
+                <div style="font-size: 39px; margin-top: 30px">
+                    <?php echo $hallType; ?>（団体）受験
+                </div>
+            </div>
+            <div style="width: 1379px; float: left;">
+                <div
+                    style="font-size: 68px; margin-top: 41px; font-family: Meiryo Reguler;">
+                    <b>実用英語技能検定</b>
+                </div>
+                <div
+                    style="width: 168px; height: 52px; font-size: 41px; margin-left: 2px; margin-top: -3px; border: 5px solid #9e1015; border-radius: 2px; line-height: 53px">
+                    <b>受験案内</b>
+                </div>
+            </div>
+            <div
+                style="float: left; width: 200px; height: 50px; background-color: black; color: white; font-size: 50px; padding: 23px 75px 40px 75px; margin: 4px 5px">
+                団体専用</div>
+        </div>
+        <div
+            style="border: 4px solid #e8c5c7; width: 2360px; margin-top: 30px; float: left; clear: both">
+            <div
+                style="border: 4px solid #e8c5c7; display: block; height: 60px; float: left; width: 2355px;">
+                <div
+                    style="width: 201px; float: left; color: white; background-color: #a41f24; text-align: center; font-size: 37px; line-height: 60px">
+                    学校名</div>
+                <div
+                    style="width: 601px; float: left; font-size: 37px; padding-left: 25px;">
+                    <!-- 				英検中学校 -->
+                    &nbsp;
+                </div>
+                <div
+                    style="width: 118px; float: left; color: white; background-color: #a41f24; text-align: center; font-size: 37px; line-height: 60px">
+                    年</div>
+                <div
+                    style="width: 300px; float: left; font-size: 37px; text-align: center;">
+                    &nbsp;
+                    <!-- 				1 -->
+                </div>
+                <div
+                    style="width: 115px; float: left; color: white; background-color: #a41f24; text-align: center; font-size: 37px; line-height: 60px">
+                    組</div>
+                <div
+                    style="width: 193px; float: left; font-size: 37px; text-align: center;">
+                    &nbsp;
+                    <!-- 				1 -->
+                </div>
+                <div
+                    style="width: 118px; float: left; color: white; background-color: #a41f24; text-align: center; font-size: 37px; line-height: 60px">
+                    番号</div>
+                <div
+                    style="width: 105px; float: left; font-size: 37px; text-align: center;">
+                    &nbsp;
+                    <!-- 				1234 -->
+                </div>
+                <div
+                    style="width: 117px; float: left; color: white; background-color: #a41f24; text-align: center; font-size: 37px; line-height: 60px">
+                    氏名</div>
+                <div
+                    style="width: 297px; float: left; font-size: 37px; padding-left: 28px;">
+                    &nbsp;
+                    <!-- 				英検太郎 -->
+                </div>
+            </div>
+            <?php
+            if ($data['PrintMessage'] == 1 && !empty($data['Message1'])) { ?>
+                <div
+                    style="display: block; float: left; border-top: 4px solid #e8c5c7">
+                    <div
+                        style="display: block; float: left; width: 195px; color: white; background-color: #a41f24; border: 5px solid #a7262b; text-align: center; font-size: 36px; padding: 108px 0px; line-height: 48px">
+                        先生からのメッセ一ジ</div>
+                    <div
+                        style="display: block; float: left; width: 2120px; font-size: 38px; padding: 55px 0px 0px 35px; line-height: 45px">
+                            <?php echo $this->escapeHtml($data['Message1']); ?>
+                    </div>
+                </div>
+            <?php } ?>
+            <div
+                style="display: block; float: left; border-top: 4px solid #e8c5c7">
+                <div
+                    style="display: block; float: left; width: 195px; color: white; background-color: #a41f24; border: 5px solid #a7262b; text-align: center; font-size: 36px; padding: 175px 0px; line-height: 45px">
+                    今回の<br>受験目標級
+                </div>
+                <div
+                    style="display: block; float: left; width: 2130px; font-size: 40px; padding-left: 25px; padding-top: 8px; background-color: #f4dadd; height: 440px;">
+                    <div class="e1"
+                         style="display: block; float: left; text-align: center; padding-top: 73px; font-size: 98px; font-weight: 700; color: white">
+                             <?php
+                             echo '<div style="font-size:98px;float:left;margin:0 0 0 111px;">', ' ', '</div> <p style="font-size:41px;margin-top:80px;margin-right:70px;"> </p>';
+                             ?>
+                    </div>
+                    <div
+                        style="display: block; float: left; padding: 13px 0px 0px 30px; line-height: 45px; font-size: 38px; width: 1798px;">
+                        <div
+                            style="display: block; float: left; width: 1726px; height: 180px;">
+                            <!-- 						前回の結果を踏まえ次回は2級に挑戦しましょう！2級を取得するためにはこれまでより幅広い英語力が試されます。各分野をバランス良く勉強して試験に臨みましょう。 -->
+                            <!-- 						無償で利用出来るスタディギアも合格率アップにつながる内容となっています。さらに有償となりますがスタディギアLiveも二次試験対策に有効ですので是非取り組んでみましょう。 -->
+                        </div>
+                        <div style="display: block; float: left;">
+                            <div class="e2" style="float: left"></div>
+                            <div
+                                style="display: block; float: left; padding: 25px 0px 0px 7px; width: 1517px; height: 193px;">
+                                <div style="width: 1580px; height: 130px;">
+                                    <!-- 							高校卒業程度の英語力が問われます。 -->
+                                    <!-- 								医療やテクノロジーなど社会性のある英文読解も出題されます。海外留学、国内での入試優遇・単位認定など、コミュニケーション力が高く評価されます。 -->
+                                </div>
+                                <span style="line-height: 81px; font-size: 40px"> <!-- 								一次試験：筆記（75分）、リスニング（約25分） / 二次試験：面接（約7分） </span> -->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div
+                style="display: block; float: left; border-top: 2px solid #eeccd0">
+                <div
+                    style="display: block; float: left; width: 195px; color: white; background-color: #a41f24; border: 5px solid #a7262b; text-align: center; padding: 128px 0px; line-height: 48px">
+                    <div style="font-size: 35px">目標級</div>
+                    <div style="font-size: 32px">取得メリット</div>
+                </div>
+                <div
+                    style="display: block; float: left; width: 2155px; height: 352px; font-size: 40px; padding-top: 8px; background-color: #f4dadd">
+                    <div
+                        style="display: block; float: left; width: 2064px; height: 293px; margin: 13px 15px 0px 17px; border-radius: 15px; background-color: white; padding: 32px 25px 0px 33px; line-height: 45px; font-size: 38px">
+                    </div>
+                </div>
+            </div>
+            <div
+                style="display: block; float: left; border-top: 4px solid #dda5a8">
+                <div
+                    style="display: block; float: left; width: 195px; height: 159px; color: white; background-color: #a41f24; border: 5px solid #a7262b; text-align: center; font-size: 36px; padding: 98px 0px; line-height: 45px">
+                    目標級<br>英語力の<br>目安
+                </div>
+                <div
+                    style="display: block; float: left; width: 2155px; height: 354px; font-size: 40px; padding-top: 8px; background-color: #f4dadd">
+                    <div
+                        style="width: 2115px; height: 296px; margin: 45px 15px 0px 21px; border-radius: 15px; background-color: white; display: inline-flex">
+                        <div
+                            style="width: 258px; height: 297px; display: block; float: left;">
+                            <img style="width: 258px; height: 297px"
+                                 src="../../img/template-eiken-3.jpg" />
+                        </div>
+                        <div
+                            style="display: block; float: left; line-height: 70px; width: 1857px; font-size: 40px;">
+                            <div
+                                style="border-bottom: 5px solid #f4dadd; padding-left: 38px; width: 1819px; height: 70px;">
+                                <!-- 							料理のレシピやガーデニングなど、実用的な文章（How-Toもの）を理解することができる -->
+                            </div>
+                            <div
+                                style="border-bottom: 5px solid #f4dadd; padding-left: 38px; width: 1819px; height: 70px;">
+                                <!-- 							サイズ、割引、品切れなど買物で店員から簡単な説明を聞いて理解することができる -->
+                            </div>
+                            <div
+                                style="border-bottom: 5px solid #f4dadd; padding-left: 38px; width: 1819px; height: 70px;">
+                                <!-- 							簡単な道案内や簡単な伝言をすることができる -->
+                            </div>
+                            <div style="padding-left: 39px; width: 1819px; height: 70px;">
+                                <!-- 							ホームステイ先や友達への近況報告などある程度の長さの手紙（Eメール）を書くことができる -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div
+            style="display: block; float: left; border: 4px solid #e8c5c7; width: 2356px; height: 1380px; margin: 46px 0px 0px 3px; display: block; clear: both">
+            <div
+                style="display: block; float: left; border-bottom: 4px solid #e8c5c7; width: 100%;">
+                <div
+                    style="display: block; float: left; border-right: 5px solid #e8c5c7;">
+                    <div
+                        style="width: 536px; color: white; background-color: #a41f24; border: 2px solid #a7262b; text-align: center; font-size: 45px; height: 70px;">
+                        前回受験の振り返り</div>
+                </div>
+                <div
+                    style="padding-top: 2px; display: block; float: left; width: 270px; height: 63px; color: white; background-color: #a41f24; border: 5px solid #a7262b; text-align: center; font-size: 44px; line-height: 57px">
+                    受験回</div>
+                <div
+                    style="display: block; float: left; width: 592px; font-size: 40px; padding-left: 30px; padding-top: 8px">
+                    <!-- 				2015年度 第1回 -->
+                </div>
+                <div
+                    style="padding-top: 2px; display: block; float: left; width: 275px; height: 63px; color: white; background-color: #a41f24; border: 5px solid #a7262b; text-align: center; font-size: 45px; line-height: 62px">
+                    受験級</div>
+                <div
+                    style="display: block; float: left; font-size: 40px; padding-left: 31px; padding-top: 8px">
+                    <!-- 				4級 -->
+                </div>
+            </div>
+            <div>
+                <div
+                    style="display: block; float: left; width: 2360px; font-size: 40px; padding-top: 8px;">
+                    <div
+                        style="display: block; float: left; width: 2360px; height: 240px; padding: 34px 0px 0px 50px">
+                        <div style="display: block; float: left; text-align: center">
+                            <div
+                                style="display: block; float: left; width: 399px; height: 98px; color: white; background-color: #a41f24; border: 5px solid #a7262b; font-size: 49px; line-height: 104px; text-align: left;">
+                                <span style="padding-left: 41px">一次試験結果</span>
+                            </div>
+                            <div
+                                style="display: block; float: left; width: 362px; height: 103px; border: 4px solid #b0aeae; background-color: #f4dadd; line-height: 51px; font-size: 38px">
+                                <div style="border-bottom: 5px dotted #dea8ab; height: 51px;">
+                                    <!-- 							総合得点 -->
+                                </div>
+                                <div>
+                                    <!-- 							合格点：38点 -->
+                                </div>
+                            </div>
+                            <div
+                                style="display: block; float: left; width: 362px; height: 103px; border: 4px solid #b0aeae; background-color: #f4dadd; line-height: 51px; font-size: 38px; border-left: none">
+                                <div
+                                    style="border-bottom: 5px dotted #dea8ab; padding-left: 18px; height: 51px;">
+                                    <!-- 								語彙・熟語（文法） -->
+                                </div>
+                                <div>
+                                    <!-- 							合格者平均点：10点 -->
+                                </div>
+                            </div>
+                            <div
+                                style="display: block; float: left; width: 362px; height: 103px; border: 4px solid #b0aeae; background-color: #f4dadd; line-height: 51px; font-size: 38px; border-left: none">
+                                <div
+                                    style="border-bottom: 4px dotted #dea8ab; padding-left: 15px; height: 51px;">
+                                    <!-- 								読解 -->
+                                </div>
+                                <div style="">
+                                    <!-- 							合格者平均点：12点 -->
+                                </div>
+                            </div>
+                            <div
+                                style="display: block; float: left; width: 362px; height: 103px; border: 4px solid #b0aeae; background-color: #f4dadd; line-height: 51px; font-size: 38px; border-left: none;">
+                                <div style="border-bottom: 4px dotted #dea8ab; height: 51px;">
+                                    <!-- 							リスニング -->
+                                </div>
+                                <div>
+                                    <!-- 							合格者平均点：23点 -->
+                                </div>
+                            </div>
+                            <div
+                                style="display: block; float: left; width: 362px; height: 103px; border: 4px solid #b0aeae; background-color: #f4dadd; line-height: 51px; font-size: 38px; border-left: none">
+                                <div style="border-bottom: 4px dotted #dea8ab; height: 51px;">
+                                    <!-- 							作文 -->
+                                </div>
+                                <div style="padding-right: 9px;">
+                                    <!-- 							合格者平均点：4点 -->
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display: block; float: left; text-align: center">
+                            <div
+                                style="display: block; float: left; width: 395px; margin-top: -6px; height: 125px; border: 7px solid #a7262b; border-top: none; font-size: 73px; padding-top: 11px">
+                                <!-- 							合格 -->
+                            </div>
+                            <div
+                                style="display: block; float: left; width: 362px; height: 133px; border: 4px solid #b0aeae; border-top: none">
+                                <div
+                                    style="font-size: 61px; padding: 31px 0px 0px 14px; line-height: 38px">
+                                    <!-- 								44 -->
+                                </div>
+                                <?php echo ($browse == 0) ? '<hr style="margin-top: 31px">' : '<img src="../../img/gachcheo.png" style="width: 100px">'; ?>
+                                <div
+                                    style="float: right; padding-right: 38px; line-height: 38px; font-size: 47px; margin-top: -10px;"></div>
+                            </div>
+                            <div
+                                style="display: block; float: left; width: 362px; height: 133px; border: 4px solid #b0aeae; border-left: none; border-top: none">
+                                <div
+                                    style="font-size: 61px; padding: 31px 0px 0px 30px; line-height: 38px"></div>
+                                    <?php echo ($browse == 0) ? '<hr style="margin-top: 31px">' : '<img src="../../img/gachcheo.png" style="width: 100px">'; ?>
+                                <div
+                                    style="float: right; padding-right: 38px; line-height: 38px; font-size: 47px; margin-top: -10px;"></div>
+                            </div>
+                            <div
+                                style="display: block; float: left; width: 362px; height: 133px; border: 4px solid #b0aeae; border-left: none; border-top: none">
+                                <div
+                                    style="font-size: 61px; padding: 31px 0px 0px 38px; line-height: 38px"></div>
+                                    <?php echo ($browse == 0) ? '<hr style="margin-top: 31px">' : '<img src="../../img/gachcheo.png" style="width: 100px">'; ?>
+                                <div
+                                    style="float: right; padding-right: 56px; line-height: 38px; font-size: 47px; margin-top: -10px;"></div>
+                            </div>
+                            <div
+                                style="display: block; float: left; width: 362px; height: 133px; border: 4px solid #b0aeae; border-left: none; border-top: none">
+                                <div
+                                    style="font-size: 61px; padding: 31px 0px 0px 14px; line-height: 38px"></div>
+                                    <?php echo ($browse == 0) ? '<hr style="margin-top: 31px">' : '<img src="../../img/gachcheo.png" style="width: 100px">'; ?>
+                                <div
+                                    style="float: right; padding-right: 38px; line-height: 38px; font-size: 47px; margin-top: -10px;"></div>
+                            </div>
+                            <div
+                                style="display: block; float: left; width: 362px; height: 133px; border: 4px solid #b0aeae; border-left: none; border-top: none">
+                                <div
+                                    style="font-size: 61px; padding: 31px 0px 0px 35px; line-height: 38px"></div>
+                                    <?php echo ($browse == 0) ? '<hr style="margin-top: 31px">' : '<img src="../../img/gachcheo.png" style="width: 100px">'; ?>
+                                <div
+                                    style="float: right; padding-right: 55px; line-height: 38px; font-size: 47px; margin-top: -10px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        style="display: block; float: left; width: 2360px; font-size: 40px;">
+                        <div
+                            style="display: block; float: left; width: 2245px; height: 240px; padding: 30px 0px 0px 50px">
+                            <div style="display: block; float: left; text-align: center">
+                                <div
+                                    style="display: block; float: left; width: 399px; height: 98px; color: white; background-color: #a41f24; border: 5px solid #a7262b; font-size: 49px; line-height: 104px; text-align: left;">
+                                    <span style="padding-left: 41px">二次試験結果 </span>
+                                </div>
+                                <div
+                                    style="display: block; float: left; width: 362px; height: 103px; border: 4px solid #b0aeae; background-color: #f4dadd; line-height: 51px; font-size: 38px">
+                                    <div style="border-bottom: 5px dotted #dea8ab; height: 51px;">
+                                        <!-- 								総合得点 -->
+                                    </div>
+                                </div>
+                                <div
+                                    style="display: block; float: left; width: 362px; height: 103px; border: 4px solid #b0aeae; background-color: #f4dadd; line-height: 51px; font-size: 38px; border-left: none">
+                                    <div style="border-bottom: 5px dotted #dea8ab; height: 51px;">
+                                        <!-- 								リーディング -->
+                                    </div>
+                                    <div></div>
+                                </div>
+                            </div>
+                            <div style="display: block; float: left; text-align: center">
+                                <div
+                                    style="display: block; float: left; width: 395px; height: 125px; margin-top: -6px; border: 7px solid #a7262b; border-top: none; font-size: 73px; padding-top: 11px">
+                                </div>
+                                <div
+                                    style="display: block; float: left; width: 362px; height: 133px; border: 4px solid #b0aeae; border-top: none">
+                                    <div
+                                        style="font-size: 61px; padding: 31px 0px 0px 14px; line-height: 38px"></div>
+                                        <?php echo ($browse == 0) ? '<hr style="margin-top: 31px">' : '<img src="../../img/gachcheo.png" style="width: 100px">'; ?>
+                                    <div
+                                        style="float: right; padding-right: 38px; line-height: 38px; font-size: 47px; margin-top: -10px;"></div>
+                                </div>
+                                <div
+                                    style="display: block; float: left; width: 362px; height: 133px; border: 4px solid #b0aeae; border-left: none; border-top: none">
+                                    <div
+                                        style="font-size: 61px; padding: 31px 0px 0px 14px; line-height: 38px"></div>
+                                        <?php echo ($browse == 0) ? '<hr style="margin-top: 31px">' : '<img src="../../img/gachcheo.png" style="width: 100px">'; ?>
+                                    <div
+                                        style="float: right; padding-right: 38px; line-height: 38px; font-size: 47px; margin-top: -10px;"></div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div
+                style="float: left; width: 100%; height: auto; margin-top: 25px;">
+                <img style="width: 2350px; margin-left: 2.5px; height: 700px;"
+                     src="<?php echo $sysConfig->getConfigValue();?>" />
+            </div>
+
+        </div>
+    </div>
+</div>
+<?php
+if ($browse == 0) {
+    if ($data['PaymentType'] == 0) {
+        include 'payment-personal-template1.phtml';
+    } else {
+        include 'payment-organization-template.phtml';
+    }
+    ?>
+<?php } ?>

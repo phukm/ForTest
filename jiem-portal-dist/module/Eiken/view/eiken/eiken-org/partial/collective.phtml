@@ -1,0 +1,48 @@
+<?php
+
+$intanceOf = array(
+    'case1' => false, // Semi-Main-Venue is NOT applied to Organization
+    'case2' => false,
+    'case3' => false, // Semi-Main-Venue is applied to Organization and Organization selects Organization as beneficiary (beneficiary =1)
+    'case4' => false, // Organization selects Student as beneficiary (beneficiary =2)
+);
+
+if ($settingFields['paymentType'] == 1) {
+    if (!$settingFields['semi']) {
+        if ($settingFields['beneficiary'] === null) {
+            $intanceOf['case1'] = true;
+        }
+    } else {
+        switch ($settingFields['beneficiary']) {
+            case 0:
+                $intanceOf['case2'] = true;
+                break;
+
+            case 1:
+                $intanceOf['case3'] = true;
+                break;
+
+            case 2:
+                $intanceOf['case4'] = true;
+                break;
+        }
+    }
+}
+
+$data = array(
+    'detailPrice' => $detailPrice,
+    'detailFee' => $detailFee,
+    'grandTotal' => $grandTotal,
+    'eikenOrgDetail' => $eikenOrgDetail,
+    'settingFields' => $settingFields,
+    'intanceOf' => $intanceOf,
+    'isSpecialOrg' => $isSpecialOrg
+);
+
+if ($intanceOf['case3'] || $intanceOf['case4']) {
+    echo $this->partial('partial/collective-partials/smv-collective', $data);
+} else {
+    echo $this->partial('partial/collective-partials/non-smv-collective', $data);
+}
+echo $this->partial('partial/collective-partials/css-partial', ['intanceOf' => $intanceOf]);
+?>

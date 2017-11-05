@@ -1,0 +1,207 @@
+<?php $this->headLink ()->prependStylesheet ( $this->basePath ( 'css/appeiken.css' ) )?>
+<p class="prototype-breadcrumbs">
+	<span class="breadcrumbs-part">各種検定申込</span> <i
+		class="fa fa-chevron-right"></i> <span class="breadcrumbs-part">英検検定</span>
+	<i class="fa fa-chevron-right"></i> <span class="breadcrumbs-current">団体名（漢字）–
+		X年 – 第X回</span>
+</p>
+<div class="box createekien">
+	<div class="box-header">
+		<strong><?php echo $this->translate('団体名（漢字）– X年 – 第X回') ;?></strong>
+	</div>
+	<div class="box-body">
+		<div class="title-action">
+			<a class="fl cl1"><?php echo $this->translate('ステータス') ;?><i><?php echo $this->translate('ドラフト') ;?></i>
+				<img class="awesome"
+				src="<?php echo $this->basePath('svg/fa-pencil-square-o-blue.svg') ?>" />
+			</a>
+		</div>
+		<div class="row content-ekien">
+			<?php  echo $this->form()->openTag($form); ?>
+			<table class="table table-bordered table-striped ">
+				<thead>
+					<tr>
+						<th colspan="2"><?php echo $this->translate('受験級') ;?></th>
+						<th><?php echo $this->translate('5級') ;?></th>
+						<th><?php echo $this->translate('4級') ;?></th>
+						<th><?php echo $this->translate('3級') ;?></th>
+						<th><?php echo $this->translate('準2級') ;?></th>
+						<th><?php echo $this->translate('2級') ;?></th>
+						<th><?php echo $this->translate('準1級 ') ;?></th>
+						<th><?php echo $this->translate('1級 ') ;?></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td width="70" rowspan="3" class="classcenter classwhite"><p>本会場</p></td>
+						<td class="classcenter" width="125"><p>サテライトサイ トでの申込人数</p></td>
+						<td class="classright"><p></p></td>
+						<td class="classright"><p></p></td>
+						<td class="classright"><p></p></td>
+						<td class="classright"><p></p></td>
+						<td class="classright"><p></p></td>
+						<td class="classright"><p>60</p></td>
+						<td class="classright"><p>70</p></td>
+					</tr>
+					<tr>
+						<td class="classcenter"><p>支払済人数</p></td>
+						<td class="classright"><p></p></td>
+						<td class="classright"><p></p></td>
+						<td class="classright"><p></p></td>
+						<td class="classright"><p></p></td>
+						<td class="classright"><p></p></td>
+						<td class="classright"><p>30</p></td>
+						<td class="classright"><p>35</p></td>
+					</tr>
+					<tr>
+						<td class="classcenter"><p>希望申込人数</p></td>
+						<td class="classright"><input value="10" class="form-control" /> <a
+							class="btn"
+							href="<?php echo $this->url ( 'applyeiken', array ('action' => 'listpupil'));?>"><?php echo $this->translate("希望申込"); ?></a></td>
+						<td class="classright"><input value="10" class="form-control" /> <a
+							class="btn"
+							href="<?php echo $this->url ( 'applyeiken', array ('action' => 'listpupil'));?>"><?php echo $this->translate("希望申込"); ?></a></td>
+						<td class="classright"><input value="10" class="form-control" /> <a
+							class="btn"
+							href="<?php echo $this->url ( 'applyeiken', array ('action' => 'listpupil'));?>"><?php echo $this->translate("希望申込"); ?></a></td>
+						<td class="classright"><input value="10" class="form-control" /> <a
+							class="btn"
+							href="<?php echo $this->url ( 'applyeiken', array ('action' => 'listpupil'));?>"><?php echo $this->translate("希望申込"); ?></a></td>
+						<td class="classright"><input value="10" class="form-control" /> <a
+							class="btn"
+							href="<?php echo $this->url ( 'applyeiken', array ('action' => 'listpupil'));?>"><?php echo $this->translate("希望申込"); ?></a></td>
+						<td class="classright"><input value="10" class="form-control" /> <a
+							class="btn"
+							href="<?php echo $this->url ( 'applyeiken', array ('action' => 'listpupil'));?>"><?php echo $this->translate("希望申込"); ?></a></td>
+						<td class="classright"><input value="10" class="form-control" /> <a
+							class="btn"
+							href="<?php echo $this->url ( 'applyeiken', array ('action' => 'listpupil'));?>"><?php echo $this->translate("希望申込"); ?></a></td>
+					</tr>
+					<!-- 2 -->
+					<tr>
+						<td width="70" rowspan="3" class="classcenter classwhite"><p>準会場</p></td>
+						<td class="classcenter" width="125"><p>サテライトサイ トでの申込人数</p></td>
+						<td class="classright"><p>70</p></td>
+						<td class="classright"><p>60</p></td>
+						<td class="classright"><p>30</p></td>
+						<td class="classright"><p>40</p></td>
+						<td class="classright"><p>50</p></td>
+						<td class="classright"><p></p></td>
+						<td class="classright"><p></p></td>
+					</tr>
+					<tr>
+						<td class="classcenter"><p>支払済人数</p></td>
+						<td class="classright"><p>35</p></td>
+						<td class="classright"><p>30</p></td>
+						<td class="classright"><p>15</p></td>
+						<td class="classright"><p>20</p></td>
+						<td class="classright"><p>25</p></td>
+						<td class="classright"><p></p></td>
+						<td class="classright"><p></p></td>
+					</tr>
+					<tr>
+						<td class="classcenter"><p>希望申込人数</p></td>
+						<td class="classright"><input value="10" class="form-control" /></td>
+						<td class="classright"><input value="10" class="form-control" /></td>
+						<td class="classright"><input value="10" class="form-control" /></td>
+						<td class="classright"><input value="10" class="form-control" /></td>
+						<td class="classright"><input value="10" class="form-control" /></td>
+						<td class="classright"></td>
+						<td class="classright"></td>
+					</tr>
+				</tbody>
+			</table>
+			<p class="fl titledate">*準会場の場合、以下のフォームに情報をご記入ください。</p>
+			<div class="fl date-start">
+				<div class="fl col1">
+					<label>実施曜日</label>
+				</div>
+				<div class="fl col2">
+					<?php echo $this->formRow($form->get('date0')); ?>
+					<label class="fix-w">金・土の両日にわたり実施 (次画面で級別に曜日選択）</label>
+				</div>
+			</div>
+			<hr />
+			<div class="fl end-start">
+				<div class="fl col1">
+					<label>級別実施曜日</label>
+				</div>
+
+				<div class="fl col2 ">
+					<div class="fl cl1">
+						<span>2級</span>
+					<?php echo $this->formRow($form->get('date1')); ?>
+					</div>
+					<div class="fl cl2">
+						<span>準2級</span>
+					<?php echo $this->formRow($form->get('date2')); ?>
+					</div>
+					<div class="fl cl3">
+						<span>3級</span>
+					<?php echo $this->formRow($form->get('date3')); ?>
+					</div>
+					<div class="fl cl4">
+						<span>4級</span>
+					<?php echo $this->formRow($form->get('date4')); ?>
+					</div>
+					<div class="fr cl5">
+						<span>5級</span>
+					<?php echo $this->formRow($form->get('date5')); ?>
+					</div>
+				</div>
+			</div>
+			<div class="heighthr"></div>
+			<div class="row totalcd r cdsuu-dantaimei">
+				<div class="fl col1">
+					<label>CD数</label>
+				</div>
+				<div class="fl col2">
+					<?php echo $this->formRow($form->get('totalcd')); ?>
+				</div>
+			</div>
+			<div class="row r cl-jishikbn">
+				<div class="fl col1">
+					<label>実施区分</label>
+				</div>
+				<div class="fl col2">
+					<?php echo $this->formRow($form->get('jishikbn')); ?>
+				</div>
+			</div>
+			<div class="row r cl-henkoflg goudou-dantaimei">
+				<div class="fl col1">
+					<label>合同実施区分</label>
+				</div>
+				<div class="fl col2">
+					<?php echo $this->formRow($form->get('henkoflg')); ?>
+				</div>
+			</div>
+			<div class="row r cl-jishiyoubi shuushuu-dantaimei">
+				<div class="fl col1">
+					<label>吸収する 団体名 </label>
+				</div>
+				<div class="fl col2">
+					<?php echo $this->formRow($form->get('jishiyoubi')); ?>
+				</div>
+			</div>
+			<?php echo $this->form()->closeTag(); ?>
+		</div>
+	</div>
+	<div class="box-footer">
+		<a class="btn btn-small btn-red fr buttons"><i class="fa-download-w"></i>
+			英検へ提出</a> <a class="btn btn-small  fr buttons"><img class="awesome"
+			src="<?php echo $this->basePath('svg/fa-file-archive-o.svg') ?>" />ドラフト保存</a>
+		<a class="btn btn-small  fr buttons"
+			href="<?php
+
+echo $this->url('applyeiken', array(
+    'action' => 'eikenexam'
+));
+?>">キャンセル</a>
+	</div>
+</div>
+<script type="text/javascript">
+	$( document ).ready(function() {
+
+	});
+
+</script>

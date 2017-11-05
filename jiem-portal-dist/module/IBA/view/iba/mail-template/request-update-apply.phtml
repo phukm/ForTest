@@ -1,0 +1,171 @@
+<?php $escaper = new Zend\Escaper\Escaper('utf-8');?>
+<style>
+p {margin: 0};
+</style>
+<p>----------------------------------------------------------------------------------------------</p>
+<p>このメールは、英検団体サポートに登録されたメールアドレス宛に自動送信しています。</p>
+
+<p>そのため、問合せ等のメッセージを返信しても、回答できません。</p>
+<p>※心当たりがない場合は、お手数ですがメールの破棄をお願いいたします。</p>
+
+<p>----------------------------------------------------------------------------------------------<p></p>
+<br>    
+<p>英検IBA　申込担当者　様</p>
+<br>
+<p><?php echo $escaper->escapeHtml($orgNameKanji); ?>から英検IBAの申込みが更新されました。</p>
+<p>申込内容を確認の上、学校に連絡して頂き、必要に応じて申込情報の更新を行ない、確定をしてください</p>
+<br>
+
+<p>================================================================</p>
+<p>登録の詳細</p>
+<p>================================================================</p>
+申込ID：<?php echo $applyIBA['moshikomiId']; ?><br>
+<?php 
+$date = new DateTime(date('Y-m-d H:i:s'));
+$registrationDate = new DateTime($applyIBA['registrationDate']);
+?>
+<p>登録日時：<?php echo $registrationDate->format('Y年m月d日H時i分'); ?></p>
+<p>更新日時：<?php echo $date->format('Y年m月d日H時i分'); ?></p>
+<br>
+<p>-----------------------------------------------------------------</p>
+<p>団体情報</p>
+<p>-----------------------------------------------------------------</p>
+<p>団体番号：<?php echo $applyIBA['organizationNo']; ?></p>
+<p>団体名：<?php echo $escaper->escapeHtml($orgNameKanji); ?></p>
+<p>郵便番号：<?php echo $applyIBA['zipCode1'] . '-' . $applyIBA['zipCode2']; ?></p>
+<p>都道府県：<?php echo $cityName; ?></p>
+<p>住所１：<?php echo $escaper->escapeHtml($cityName . $applyIBA['address1']); ?></p>
+<p>住所２：<?php if($applyIBA['address2']){ echo $escaper->escapeHtml($cityName . $applyIBA['address2']); } ?></p>
+<p>TEL：<?php echo $applyIBA['telNo']; ?></p>
+<p>FAX：<?php echo $applyIBA['fax']; ?></p>
+<p>担当者名：<?php echo $escaper->escapeHtml($applyIBA['mailName1']); ?></p>
+<p>メールアドレス：<?php echo $escaper->escapeHtml($applyIBA['mailAddress1']); ?></p>
+<br>
+<p>-----------------------------------------------------------------</p>
+<p>申込み情報</p>
+<p>-----------------------------------------------------------------</p>
+<p>●今回の申込み内容</p>
+<?php 
+$testDate = new DateTime($applyIBA['testDate']);
+?>
+<p>実施日：<?php echo $testDate->format('Y/m/d'); ?></p>
+<p>実施目的：<?php echo $this->translate($applyIBA['purpose']); ?></p>
+<?php if($applyIBA['purpose'] == 'other'){ ?>
+<p>その他の内容：<?php echo $applyIBA['purposeOther']; ?></p>
+<?php } ?>
+<br>
+<p>■実施内容</p>
+<?php ?>
+<?php if($applyIBA['numberPeopleA']){ ?><p>テストA（準1級～2級）：<?php echo $applyIBA['numberPeopleA']; ?>名、<?php echo $applyIBA['numberCDA']; ?>室</p><?php } ?>
+<?php if($applyIBA['numberPeopleB']){ ?><p>テストB（2級～3級）：<?php echo $applyIBA['numberPeopleB']; ?>名、<?php echo $applyIBA['numberCDB']; ?>室</p><?php } ?>
+<?php if($applyIBA['numberPeopleC']){ ?><p>テストC（準2級～4級）：<?php echo $applyIBA['numberPeopleC']; ?>名、<?php echo $applyIBA['numberCDC']; ?>室</p><?php } ?>
+<?php if($applyIBA['numberPeopleD']){ ?><p>テストD（3級～5級）：<?php echo $applyIBA['numberPeopleD']; ?>名、<?php echo $applyIBA['numberCDD']; ?>室</p><?php } ?>
+<?php if($applyIBA['numberPeopleE']){ ?><p>テストE（4級～5級）：<?php echo $applyIBA['numberPeopleE']; ?>名、<?php echo $applyIBA['numberCDE']; ?>室</p><?php } ?>
+<br>
+<p>ご質問・ご要望：<?php echo $applyIBA['question1']; ?></p>
+<br>
+<p>■オプション内容</p>
+<p>オプション申込：<?php echo $this->translate('et-option-apply-' . $applyIBA['optionApply']); ?></p>
+<?php $grpCheckArr = array_merge($totalPrice['grp1CheckArr'], $totalPrice['grp2CheckArr']); ?>
+<p> 成績資料印刷・送付：<?php echo (in_array('1', $grpCheckArr))?  'あり' : 'なし'; ?></p>
+<p> 問題冊子仕分け：<?php echo (in_array('2', $grpCheckArr))?  'あり ' . $applyIBA['questionNo'] . '部ごとに仕分け' : 'なし'; ?>
+<p> 名簿マッチング (エラー修正を含む）：<?php echo (in_array('3', $grpCheckArr))?  'あり' : 'なし'; ?>
+<p> 英検ID非表示：<?php echo (in_array('4', $grpCheckArr))?  'あり' : 'なし'; ?>
+<br>
+<br>
+<p>オプションのご質問・ご要望：<?php echo $applyIBA['question2']; ?></p>
+<br>
+<p>●試験料・オプション料等</p>
+<p>■試験料</p>
+<?php if($applyIBA['numberPeopleA']){ ?> 　テストA：<?php echo $applyIBA['numberPeopleA']; ?>名　X　<?php echo IBA\IBAConst::IBA_UNIT_PRICE; ?>円　=　<?php echo number_format($totalPrice['priceA']); ?>円<br><?php } ?>
+<?php if($applyIBA['numberPeopleB']){ ?> 　テストB：<?php echo $applyIBA['numberPeopleB']; ?>名　X　<?php echo IBA\IBAConst::IBA_UNIT_PRICE; ?>円　=　<?php echo number_format($totalPrice['priceB']); ?>円<br><?php } ?>
+<?php if($applyIBA['numberPeopleC']){ ?> 　テストC：<?php echo $applyIBA['numberPeopleC']; ?>名　X　<?php echo IBA\IBAConst::IBA_UNIT_PRICE; ?>円　=　<?php echo number_format($totalPrice['priceC']); ?>円<br><?php } ?>
+<?php if($applyIBA['numberPeopleD']){ ?> 　テストD：<?php echo $applyIBA['numberPeopleD']; ?>名　X　<?php echo IBA\IBAConst::IBA_UNIT_PRICE; ?>円　=　<?php echo number_format($totalPrice['priceD']); ?>円<br><?php } ?>
+<?php if($applyIBA['numberPeopleE']){ ?> 　テストE：<?php echo $applyIBA['numberPeopleE']; ?>名　X　<?php echo IBA\IBAConst::IBA_UNIT_PRICE; ?>円　=　<?php echo number_format($totalPrice['priceE']); ?>円<br><?php } ?>
+<p>-----------------------------------------------------------</p>
+<p>試験料合計：<?php echo number_format($totalPrice['realTotal1']); ?>円</p>
+<br>
+<?php if($totalPrice['total2']){ ?>
+<p>■オプション</p>
+<?php
+$unitPrice = ($applyIBA['totalPeople'] <= IBA\IBAConst::IBA_PRICE_COUNT_CONDITION) ? IBA\IBAConst::IBA_PRICE_MULTIPLE_MAX : IBA\IBAConst::IBA_PRICE_MULTIPLE_MIN;  
+$grp2UnitPrice = ($applyIBA['totalPeople'] <= IBA\IBAConst::IBA_PRICE_COUNT_CONDITION) ? IBA\IBAConst::IBA_PRICE_MULTIPLE_MAX : '0';
+?>
+<?php if($totalPrice['price1'] > 0){ ?>成績資料印刷・送付：<?php echo $applyIBA['totalPeople']; ?>名　X　<?php echo IBA\IBAConst::IBA_PRICE_1_UNIT_PRICE; ?>円　＋ 送料<?php echo number_format(IBA\IBAConst::IBA_PRICE_MORE); ?>円 =　<?php echo number_format($totalPrice['price1']); ?>円 <br><?php } ?>
+<?php if($totalPrice['price2'] > 0){ ?>問題冊子仕分け：<?php echo $applyIBA['totalPeople']; ?>名　X　<?php echo $unitPrice; ?>円　=　<?php echo number_format($totalPrice['price2']); ?>円 <br><?php } ?>
+<?php if($totalPrice['price3'] > 0){ ?>名簿マッチング (エラー修正を含む）：<?php echo $applyIBA['totalPeople']; ?>名　X　<?php echo $unitPrice; ?>円　=　<?php echo number_format($totalPrice['price3']); ?>円 <br><?php } ?>
+<?php if(count($totalPrice['grp2CheckArr']) > 0 ){ ?>
+<?php 
+$prive4Arr = array(); 
+if(in_array('4', $totalPrice['grp2CheckArr'])){
+    array_push($prive4Arr, '英検ID非表示');
+}
+if(in_array('5', $totalPrice['grp2CheckArr'])){
+    array_push($prive4Arr, '英検レベル非表示');
+}
+if(in_array('6', $totalPrice['grp2CheckArr'])){
+    array_push($prive4Arr, '順位非表示');
+}
+if(in_array('7', $totalPrice['grp2CheckArr'])){
+    array_push($prive4Arr, '順位表示制限');
+}
+$prive4Text = implode('・', $prive4Arr);
+?>
+<?php echo $prive4Text; ?>：<?php echo ($totalPrice['price4'] > 0) ? $applyIBA['totalPeople'] . '名　X　' . $grp2UnitPrice . '円　= ' . number_format($totalPrice['price4']) . '円' : '無料'; ?> <br>
+<?php } ?>
+<p>-----------------------------------------------------------</p>
+<p>オプション合計：<?php echo number_format($totalPrice['total2']); ?>円 </p>
+<br>
+<?php } ?>
+
+<?php if($totalPrice['subTotal2']){ ?>
+<p>■最低価格保証適用分</p>
+<p>試験料：<?php echo IBA\IBAConst::IBA_STUDENT_COUNT_DISCOUNT - $applyIBA['totalPeople']; ?>名　X　500円　=　<?php echo number_format($totalPrice['subTotal1']); ?>円</p>
+
+<?php if($totalPrice['optionFeeprice1'] > 0){ ?>オプション：成績資料印刷・送付：<?php echo IBA\IBAConst::IBA_STUDENT_COUNT_DISCOUNT - $applyIBA['totalPeople']; ?>名　X　<?php echo IBA\IBAConst::IBA_PRICE_1_UNIT_PRICE; ?>円 =　<?php echo number_format($totalPrice['optionFeeprice1']); ?>円 <br><?php } ?>
+<?php if($totalPrice['optionFeeprice2'] > 0){ ?>オプション：問題冊子仕分け：<?php echo IBA\IBAConst::IBA_STUDENT_COUNT_DISCOUNT - $applyIBA['totalPeople']; ?>名　X　<?php echo $unitPrice; ?>円　=　<?php echo number_format($totalPrice['optionFeeprice2']); ?>円 <br><?php } ?>
+<?php if($totalPrice['optionFeeprice3'] > 0){ ?>オプション：名簿マッチング (エラー修正を含む）：<?php echo IBA\IBAConst::IBA_STUDENT_COUNT_DISCOUNT - $applyIBA['totalPeople']; ?>名　X　<?php echo $unitPrice; ?>円　=　<?php echo number_format($totalPrice['optionFeeprice3']); ?>円 <br><?php } ?>
+<?php if(count($totalPrice['grp2CheckArr']) > 0 && $totalPrice['optionFeeprice4'] > 0){ ?>
+<?php 
+$prive4Arr = array(); 
+if(in_array('4', $totalPrice['grp2CheckArr'])){
+    array_push($prive4Arr, '英検ID非表示');
+}
+if(in_array('5', $totalPrice['grp2CheckArr'])){
+    array_push($prive4Arr, '英検レベル非表示');
+}
+if(in_array('6', $totalPrice['grp2CheckArr'])){
+    array_push($prive4Arr, '順位非表示');
+}
+if(in_array('7', $totalPrice['grp2CheckArr'])){
+    array_push($prive4Arr, '順位表示制限');
+}
+$prive4Text = implode('・', $prive4Arr);
+?>
+<?php echo 'オプション：'.$prive4Text; ?>：<?php echo IBA\IBAConst::IBA_STUDENT_COUNT_DISCOUNT - $applyIBA['totalPeople'] . '名　X　' . $grp2UnitPrice . '円　= ' . number_format($totalPrice['optionFeeprice4']) . '円'; ?> <br>
+<?php } ?>
+<p>-----------------------------------------------------------</p>
+<p>最低価格保証適用分合計：<?php echo number_format($totalPrice['subTotal2']); ?>円 </p>
+<br>
+<?php } ?>
+
+<p>■総合計</p>
+<p>試験料合計　=　<?php echo number_format($totalPrice['realTotal1']); ?>円</p>
+<?php if($totalPrice['total2']){ ?>
+<p>オプション合計　=　<?php echo number_format($totalPrice['total2']); ?>円</p>
+<?php } ?>
+<?php if($totalPrice['subTotal2']){ ?>
+<p>最低価格保証適用分合計　=　<?php echo number_format($totalPrice['subTotal2']); ?>円</p>
+<?php } ?>
+<p>-----------------------------------------------------------</p>
+<p>総合計　=　<?php echo number_format($totalPrice['total4']); ?>円 </p>
+<br>
+
+<p>================================================================</p>
+<p>公益財団法人日本英語検定協会　英検サービスセンター</p>
+<p>================================================================</p>
+<p>URL : http://www.eiken.or.jp/eiken/contact/</p>
+<p>TEL : 03-3266-8010</p>
+<p>平日9:30～17:00</p>
+<p>＜土日祝・年末年始を除く。試験前日および当日は17:30まで。＞</p>
+<p>※メール本文の複製・転送等はご遠慮願います。</p>

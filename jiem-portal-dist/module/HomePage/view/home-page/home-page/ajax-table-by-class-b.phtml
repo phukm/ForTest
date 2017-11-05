@@ -1,0 +1,101 @@
+<div class="tab-pane fade in active">
+		<div class="detail-page-margin">
+			<table class="table table-bordered tbl-striped">
+				<thead>
+								<tr>
+									<th width="75"><ul class="nav">
+											<li class="dropdown">
+												<div class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $this->translate('学年'); ?>
+												</div>
+											</li>
+										</ul></th>
+									<th width="60">
+										<ul class="nav">
+											<li class="dropdown">
+												<div class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $this->translate('組'); ?>
+												</div>
+											</li>
+										</ul>
+									</th>
+									<th width="65"><ul class="nav">
+											<li class="dropdown">
+												<div class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $this->translate('番号'); ?>
+												</div>
+											</li>
+										</ul></th>
+									<th width="90"><ul class="nav">
+											<li class="dropdown">
+												<div class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $this->translate('氏名'); ?>
+												</div>
+											</li>
+										</ul></th>
+									<th width="120"><ul class="nav">
+											<li class="dropdown">
+												<div class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $this->translate('検定回'); ?>
+												</div>
+											</li>
+										</ul></th>
+									<th width="95"><ul class="nav">
+											<li class="dropdown">
+												<div class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $this->translate('合格級'); ?>
+												</div>
+											</li>
+										</ul></th>
+                                                                        <th width="95"><ul class="nav">
+											<li class="dropdown">
+												<div class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $this->translate('突合状況'); ?>
+												</div>
+											</li>
+										</ul></th>
+									<th></th>
+								</tr>
+							</thead>
+				<tbody>
+               <?php
+                if(!empty($dataTableB)) {
+                    foreach ($dataTableB as $item) {
+                        ?>
+
+					<tr>
+						<td class="text-left"><?php echo $this->escapehtml($item['schoolYearName']); ?></td>
+						<td class="text-left"><?php echo $this->escapehtml($item['className']); ?></td>
+						<td class="text-right"><?php echo $this->escapehtml($item['pupilNo']); ?></td>
+						<td class="text-left"><?php echo $this->escapehtml($item['tempNameKanji']); ?></td>
+						<td class="text-left"><?php echo $item['year'].'&nbsp;&nbsp;&nbsp;第'.$item['kai'].'回'; ?></td>
+						<td class="text-right"><?php 
+						if($item['eikenLevelId'] && isset($listMappingLevel[$item['eikenLevelId']])){
+						    echo $this->escapehtml($listMappingLevel[$item['eikenLevelId']]);
+						}
+						
+						?>
+						</td>
+                                                <td class="text-left"><?php echo $this->escapehtml($item['confirmmappingStatus']); ?></td>
+						<td></td>
+					</tr>
+                			    <?php
+                    }
+                } else { 
+                        echo '<tr><td class="left" colspan="8">検索条件に一致するデータがありません。</td></tr>';
+                } 
+
+                ?>
+
+				</tbody>
+			</table>
+		</div>
+
+		 <?php
+        if(!empty($dataTableB)):
+            $paging = $this->paginationHelper($paginator, $page, '', $numPerPage);
+            if ( count($paginator) > $numPerPage):?>
+            <div class="box_padding text-center pagination_student_color rcm-padding-top-5">
+				<ul class="pagination ">
+				    <?php echo $paging; ?>
+                </ul>
+			</div>
+            <?php endif ?>
+        <?php endif ?>
+
+
+
+	</div>

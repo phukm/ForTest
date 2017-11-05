@@ -1,0 +1,129 @@
+@CHARSET "ISO-8859-1";
+
+.confirm-result {
+	background-color: white;
+}
+
+.data-result-exam, .data-pupil-manager {
+	overflow: scroll;
+}
+
+.data-result-exam .table-result-exam {
+	width: 1000px;
+}
+
+.data-result-exam .table-result-exam th, .data-pupil-manager .table-pupil-manager th
+	{
+	background-color: #e6e6e6;
+	height: 96px;
+	padding: 10px;
+}
+
+.padding-5px {
+	padding: 5px !important;
+}
+
+.eiken-title {
+	height: 45px;
+}
+
+.eiken-orgClass {
+	width: 110px;
+	text-align: center !important;
+	padding: 5px !important;
+}
+
+.eiken-schoolYear {
+	width: 90px;
+	text-align: center !important;
+}
+
+.eiken-class {
+	width: 60px;
+	text-align: center !important;
+	padding: 5px !important;
+}
+
+.eiken-nameKanji {
+	width: 125x;
+	text-align: center !important;
+	padding: 5px !important;
+}
+
+.eiken-level {
+	width: 60px;
+	text-align: center !important;
+	padding: 5px !important;
+}
+
+.eiken-total1 {
+	width: 70px;
+	text-align: center !important;
+	padding: 5px !important;
+}
+
+.eiken-passFail1 {
+	width: 80px;
+	text-align: center !important;
+	padding: 5px !important;
+}
+
+.eiken-total2 {
+	width: 70px;
+	text-align: center !important;
+	padding: 5px !important;
+}
+
+.eiken-passFail2 {
+	width: 80px;
+	text-align: center !important;
+	padding: 5px !important;
+}
+
+.no-margin-top {
+    margin-top: 0;
+    margin-bottom: 0
+}
+.fa-compass{
+    background: url(/img/black/svg/compass.svg) no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 18px;
+    width: 18px;
+}
+.text-center {
+	text-align: center !important;
+}
+.pagination_student_color .pagination a {
+    color: black;
+}
+
+.box_padding .pagination .active a {
+    background: #dddddd;
+    border: none;
+    border-bottom: 1px solid #dddddd;
+    border-top: 1px solid #dddddd;
+}
+
+.box_padding .pagination li a {
+    height: 32px
+}
+
+.eiken-form .pagination > li > a:focus,
+.eiken-form .pagination > li > a:hover,
+.eiken-form .pagination > li > span:focus,
+.eiken-form .pagination > li > span:hover {
+    background-color: #dddddd !important;
+    border-color: #ddd !important;
+}
+
+.text-left{
+	padding-left: 10px !important;
+}
+
+.cancel-save{
+    float: left;
+}

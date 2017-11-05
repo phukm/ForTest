@@ -1,0 +1,83 @@
+.text-normal{
+    font-weight: normal;
+}
+
+.mr10{
+    margin-right: 10px;
+}
+
+.mr20{
+    margin-right: 20px;
+}
+
+.mw120{
+    width: 120px;
+}
+
+.label-column{
+    width: 40%;
+}
+
+.wp12{
+    width: 12%;
+}
+
+.wp20{
+    width: 20%;
+}
+
+.wp30{
+    width: 30%;
+}
+
+.wp25{
+    width: 25%;
+}
+
+#apply-eiken-detail td{
+    vertical-align: top;
+}
+
+#apply-eiken-detail .box-footer .btn{
+    font-weight: bold;
+}
+
+#apply-eiken-detail li.error {
+    margin-left: 0;
+    padding-top: 0;
+    list-style-type: none;
+    /*text-align: left;*/
+}
+#apply-eiken-detail thead td {
+    background-color: #ffd5d5;
+}
+#apply-eiken-detail thead td {
+    background-color: #ffd5d5;
+    font-weight: bold;
+}
+table thead td{
+    text-align: center !important;
+}
+table.text-center tbody td{
+    text-align: center;
+}
+table.text-center tbody td.round2date{
+    text-align: left;
+    width:40%;
+}
+.detail-apply .kyu{
+    width: 40px;
+}
+.detail-apply .price{
+    width: 50px;
+}
+.detail-apply .date{
+    width: 250px;
+}
+.detail-apply .acction{
+    width: 60px;
+}
+.width-185{width: 185px;}
+.popicy-apply{
+    margin-bottom: 0px;
+}

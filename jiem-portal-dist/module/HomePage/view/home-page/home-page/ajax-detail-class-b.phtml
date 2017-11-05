@@ -1,0 +1,195 @@
+<?php $tabIndex = 4; ?>
+<!-- Detail Class -->
+<div id="detailClass">
+	<ul class="nav nav-tabs">
+        <?php
+        $countOther = array();
+        $countNotMap = array();
+        $sumRatio = 0;
+        
+        if(empty($dataClass)){
+        }else {
+            foreach ($dataClass as $key => $item) {
+//                update function for : #GNCCNCJDM-304
+                if ($item['schoolYearCode'] !== '' && $item['schoolYearCode'] !== null) {
+                    $sumRatio += $item['ratio'];
+                    ?>
+                    <li tabindex="<?php echo $tabIndex++;?>"
+					class=" detail-table-b <?php if($key == $activeKey) echo 'active'; ?>"
+					data-detail="<?php echo $this->escapehtml($item['schoolYearCode']); ?>"
+					data-schoolclassification = "<?php echo $this->escapehtml($item['schoolClassification']);?>" 
+						        data-schoolyearcode = "<?php echo $this->escapehtml($item['schoolYearCode']);?>" 
+						        data-notmap = "<?php echo $this->escapehtml(isset($item['notMap'])?$item['notMap']:null);?>"
+					data-count="<?php echo $item['countElement']; ?>">
+					<a data-toggle="tab"
+					href="#detail-box<?php echo $this->escapehtml($item['schoolYearName']); ?>">
+						<div class="col-sm-3 border-box h-124 detailb-box">
+							<div class="box-header h-25 title-head clear-bgr detailb-title">
+								<p><?php echo isset($schoolCode[$this->escapehtml($item['schoolClassification'])]) ?  $schoolCode[$this->escapehtml($item['schoolClassification'])] . ' - ' . $this->escapehtml($item['schoolYearCode']) : $this->escapehtml($item['schoolYearCode']); ?></p>
+							</div>
+							<div class="detail-margin">
+								<span class="box-l"><?php echo $item['ratio']; ?><span>%</span></span>
+							</div>
+							<div class="line"></div>
+							<div class="detail-margin">
+								<span class="box-l"><?php echo $item['countElement']; ?><span>名</span></span>
+							</div>
+						</div>
+				</a></li>
+                    <?php
+                     } else {
+//                         update function for : #GNCCNCJDM-304
+                            if($item['schoolYearCode'] == '' || $item['schoolYearCode'] == null)
+                            {
+                                $countOther = $item;                                
+                            }                                                           
+                         }
+                       }                                           
+                            if ($countOther) {
+                                ?>
+                    <li class=" detail-table-b <?php if($key == $activeKey) echo 'active'; ?>" tabindex="<?php echo $tabIndex++;?>" 
+					data-detail="other" data-count="<?php echo $countOther['ratio'];?>"><a
+					data-toggle="tab" href="#detail-box-all">
+						<div class="col-sm-3 border-box h-124 detailb-box">
+							<div class="box-header h-25 title-head clear-bgr detailb-title">
+								<p>その他</p>
+							</div>
+							<div class="detail-margin">
+								<span class="box-l"><?php echo $countOther['ratio']; ?><span>%</span></span>
+							</div>
+							<div class="line"></div>
+							<div class="detail-margin">
+								<span class="box-l"><?php echo  $countOther['countElement']; ?><span>名</span></span>
+							</div>
+						</div>
+				</a></li>
+                    <?php }
+                  }
+                    ?>
+
+            <li class=" detail-table-b" tabindex="<?php echo $tabIndex++;?>"
+			data-detail="all" data-count="<?php echo (empty($sumTotal))?0:$sumTotal;?>"><a
+			data-toggle="tab" href="#detail-box-all">
+				<div class="col-sm-3 border-box h-124 detailb-box">
+					<div class="box-header h-25 title-head clear-bgr detailb-title">
+						<p>合計</p>
+					</div>
+					<div class="detail-margin">
+						<span class="box-l"><?php echo (empty($sumTotal) or empty($sumTotal))?0:round($sumTotal*100/$sumTotalReal); ?><span>%</span></span>
+					</div>
+					<div class="line"></div>
+					<div class="detail-margin">
+						<span class="box-l"><?php echo (empty($sumTotal))?0:$sumTotal; ?><span>名</span></span>
+					</div>
+				</div>
+		</a></li>
+
+	</ul>
+</div>
+<!--End Detail Class -->
+
+<!-- Detail Table -->
+<div id="detailTable" class="tab-content">
+	<div class="tab-pane fade in active">
+		<div class="detail-page-margin">
+			<table class="table table-bordered tbl-striped">
+				<thead>
+								<tr>
+									<th width="75"><ul class="nav">
+											<li class="dropdown">
+												<div class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $this->translate('学年'); ?>
+												</div>
+											</li>
+										</ul></th>
+									<th width="60">
+										<ul class="nav">
+											<li class="dropdown">
+												<div class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $this->translate('組'); ?>
+												</div>
+											</li>
+										</ul>
+									</th>
+									<th width="65"><ul class="nav">
+											<li class="dropdown">
+												<div class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $this->translate('番号'); ?>
+												</div>
+											</li>
+										</ul></th>
+									<th width="90"><ul class="nav">
+											<li class="dropdown">
+												<div class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $this->translate('氏名'); ?>
+												</div>
+											</li>
+										</ul></th>
+									<th width="120"><ul class="nav">
+											<li class="dropdown">
+												<div class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $this->translate('検定回'); ?>
+												</div>
+											</li>
+										</ul></th>
+									<th width="95"><ul class="nav">
+											<li class="dropdown">
+												<div class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $this->translate('合格級'); ?>
+												</div>
+											</li>
+										</ul></th>
+                                                                        <th width="95"><ul class="nav">
+                                                                                <li class="dropdown">
+                                                                                        <div class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $this->translate('突合状況'); ?>
+                                                                                        </div>
+                                                                                </li>
+                                                                        </ul></th>
+									<th></th>
+								</tr>
+					</thead>
+				<tbody>
+               <?php
+                if(!empty($dataTableB)) {
+                    foreach ($dataTableB as $item) {
+                        ?>
+
+					<tr>
+						<td class="text-left"><?php echo $this->escapehtml($item['schoolYearName']); ?></td>
+						<td class="text-left"><?php echo $this->escapehtml($item['className']); ?></td>
+						<td class="text-right"><?php echo $this->escapehtml($item['pupilNo']); ?></td>
+						<td class="text-left"><?php echo $this->escapehtml($item['tempNameKanji']); ?></td>
+						<td class="text-left"><?php echo $item['year'].'&nbsp;&nbsp;&nbsp;第'.$item['kai'].'回'; ?></td>
+						<td class="text-right"><?php 
+						if($item['eikenLevelId'] && isset($listMappingLevel[$item['eikenLevelId']])){
+						    echo $this->escapehtml($listMappingLevel[$item['eikenLevelId']]);
+						}
+						
+						?>
+						</td>
+                                                <td class="text-left"><?php echo $this->escapehtml($item['confirmmappingStatus']); ?></td>
+						<td></td>
+					</tr>
+                			    <?php
+                    }
+                }
+
+                ?>
+                <?php if(empty($dataClass)): ?>
+                    <tr><td class="left" colspan="8">検索条件に一致するデータがありません。</td></tr>
+                <?php endif ?>
+				</tbody>
+			</table>
+		</div>
+         <?php
+        if(!empty($dataTableB)):
+            $paging = $this->paginationHelper($paginator, $page, '', $numPerPage);
+            if ( count($paginator) > $numPerPage):?>
+            <div class="box_padding text-center pagination_student_color rcm-padding-top-5">
+				<ul class="pagination ">
+				    <?php echo $paging; ?>
+                </ul>
+			</div>
+            <?php endif ?>
+        <?php endif ?>
+
+
+
+	</div>
+
+</div>
+<!--End Detail Table -->

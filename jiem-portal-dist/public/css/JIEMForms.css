@@ -1,0 +1,32 @@
+.table thead tr th.jyear{
+    width: 60px;
+}
+.table thead tr th.jtime{
+    width: 55px;
+}
+.table thead tr th.jschool-year{
+    width: 125px;
+}
+.table thead tr th.jnumber{
+    width: 50px;
+}
+.table thead tr th.jname{
+    width: 110px;
+}
+.table thead tr th.jname2{
+    width: 105px;
+}
+.table thead tr th.jbirth-day{
+    width: 110px;
+}
+.table thead tr th.jpupil-id{
+    width: 70px;
+}
+.table td.text-left
+{
+    text-align: left!important;
+}
+.table td.text-right
+{
+    text-align: right!important;
+}

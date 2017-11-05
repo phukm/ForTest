@@ -1,0 +1,389 @@
+<?php
+use Dantai\PublicSession;
+
+$paging = $this->paginationHelper($paginator, $page, '/pupil/pupil/index', $numPerPage, (empty($param)) ? '' : '/search/' . $param);
+    $this->headLink()->prependStylesheet($this->basePath('css/studentandclass.css'));
+    $isViewer = PublicSession::isViewerRole();
+?>
+<div class="studentmanager">
+    <div class="box importstd-box">
+        <div class="box-header collapsed" data-toggle="collapse" data-target="#search-box">
+            <div class="search-header  sorting-field">
+                <i class="search-chevron-down"></i>
+                <?php echo $this->translate('検索条件'); ?>
+            </div>
+        </div>
+        <div id="search-box" aria-expanded="true" class="collapse in">
+            <div class="box-body">
+                <?php
+                $form->setAttribute('action', $this->url('pupil-mnt/default', array(
+                            'controller' => 'pupil',
+                            'action' => 'index'
+                )));
+                $form->prepare();
+                ?>
+                <?php echo $this->form()->openTag($form); ?>
+                <input id="dataclear" type="hidden" value="0" />
+                <div class="row search_list1">
+                    <div class="fl col1">
+                        <label><?php echo $this->translate('年度'); ?></label>
+                    </div>
+                    <div class="fl col2 styled-select">
+                        <?php echo $this->formselect($form->get('year')->setAttribute('onChange','lIST_PUPIL.loadSearchYear();' )); ?>
+                    </div>
+                    <div class="fl col3">
+                        <label><?php echo $this->translate('学年'); ?></label>
+                    </div>
+                    <div class="fl col4 styled-select">
+                        <?php echo $this->formselect($form->get('orgSchoolYear')->setAttribute('onChange','lIST_PUPIL.loadSearchOrgSchoolYear();' )); ?>
+                    </div>
+                    <div class="fl col5">
+                        <label><?php echo $this->translate('クラス'); ?></label>
+                    </div>
+                    <div class="fl col6 styled-select class_style">
+                        <?php echo $this->formselect($form->get('classj')); ?>
+                        <div class="class_loading" id="loadingIcon"
+                             data-backdrop="static" role="dialog"
+                             aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                            <img class="loading_img" src="/img/ajax-loader.gif" />
+                    </div>
+
+                    </div>
+                    <div class="fl col7">
+                        <label><?php echo $this->translate('氏名'); ?></label>
+                    </div>
+                    <div class="fl col8">
+                        <?php echo $this->formrow($form->get('name')); ?>
+                    </div>
+                </div>
+                <?php echo $this->form()->closeTag(); ?>
+            </div>
+
+            <div class="box-footer">
+                <div class="row r2">
+                    <div class="fl cl2">
+                        <a href="/pupil/pupil/index"
+                           class="btn btn-small"><?php echo $this->translate("クリア"); ?></a>
+                    </div>
+                    <div class="fl cl3">
+                        <a class="btn btn-small btn-search-liststd"
+                           href="javascript:void(0);" onclick="lIST_PUPIL.submitformpupil()"><i
+                                class="fa-search"></i> <?php echo $this->translate("検索"); ?></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="box">
+        <div class="box-header">
+            <?php echo $this->translate('生徒情報'); ?>
+        </div>
+
+        <div class="box-body">
+            <div class="top-mark">
+                <label class="font-mark" style="color: red;"><?php echo $this->translate('MSGReUsePUpil'); ?></label>
+                <label class="font-mark">登録されている生徒の一覧になります。追加する場合は「テンプレート」をダウンロードし、所定の項目を入力して「アップロード」してください。<br>
+アップロードする際には、登録済の生徒を二重に登録しないようご注意ください。「追加」ボタンを押し、個別に登録することも出来ます。
+                </label>
+                <br/>
+                <br/>
+                <label class="font-mark">
+                    【個人情報を取り扱われる際のご注意】
+                    <br/>
+                    団体サポートシステムへの個人情報の登録が、貴団体があらかじめ保護者/生徒様に明示している個人情報の利用目的の範囲外にあたる場合、又はあらかじめ個人情報の利用目的の明示がない場合は、
+                    事前に保護者/生徒様に対して、この度の個人情報登録についてご連絡することをおすすめいたします。
+                    そのような場合には、<a href="<?php echo $this->basePath('/英検団体受験に係る個人情報の取扱いの件.docx'); ?>"><u>サンプル文書</u></a>をご活用ください。
+                    <br/>
+                    <br/>
+                    ※また、明示された個人情報の利用目的の範囲に含まれる場合であっても、今回の利用目的を特定するために必要があるときは、ご活用ください。
+                </label>
+            </div>
+            <div class="student_manager">
+                <form action="delete" method="post" id="delpupil">
+                    <div class="std_list">
+                        <div class="row liststd-button-group">
+                            <div class="col-sm-8">
+                                <?php if ($roleLimit) {
+                                    $disabled1 = 'disabled';
+                                    $disabled2 = 'disabled="disabled"';
+                                }
+                                else {
+                                    $disabled1 = '';
+                                    $disabled2 = '';
+                                } ?>
+                                <a id="btnTemplate" <?php echo $isViewer ? 'disabled' : ''; ?> class="btn btn-higher liststd-button btn-export-template" data-toggle="modal" data-target="#exportTemplateModal"> <i class="fa-file-text"></i> <?php echo $this->translate("テンプレート"); ?></a>
+                                <a id="btnImport" <?php echo $isViewer ? 'disabled' : ''; ?>  class="btn btn-higher liststd-button secondbtn" href="<?php echo $this->url('pupil-mnt/default', array('controller' => 'import-pupil', 'action' => 'index')); ?>"> <i class="upload"></i> <?php echo $this->translate("アップロード"); ?></a>
+                                <a id="btnDownload" <?php echo $disabled2; ?> class="btn <?php echo $disabled1; ?> btn-higher liststd-button margin-left-10 btn-not-show-loader btn-export-file" data-toggle="modal" data-target="#exportModal"> <i class="fa-download"></i> <?php echo $this->translate("ダウンロード"); ?></a>
+                                <a id="btnImportNewTemp" <?php echo $isViewer ? 'disabled' : ''; ?>  class="btn btn-higher seperate" href="/pupil/import-pupil/seperate-name"> <i class="icon-arrow-splite"></i> <?php echo $this->translate("氏名（漢字）の分割"); ?></a>
+                            </div>
+                            <div class="col-sm-4 text-right">
+                                <a class="btn btn-higher liststd-button" <?php echo $isViewer ? 'disabled' : ''; ?>  href="<?php echo $this->url('pupil-mnt/default', array('controller' => 'pupil', 'action' => 'add')); ?>"> <i class="user-plus"></i> <?php echo $this->translate("追加"); ?></a>
+                                <button type="button" class="btn btn-higher liststd-button del-btn-liststd" <?php echo $isViewer ? 'disabled' : ''; ?>  onclick="lIST_PUPIL.deletepupil()"><i class="trash"></i> <?php echo $this->translate("削除"); ?></button>
+                            </div>
+                        </div>
+                        <!-- 					list -->
+                        <div class="row">
+                            <form
+                                action="<?php echo $this->url('pupil-mnt/default', array('controller' => 'pupil', 'action' => 'delete')); ?>"
+                                method="post" id="deletepupil">
+
+                                <table class="table table-bordered table-striped">
+
+                                    <thead>
+                                        <tr class="checkbox_list">
+                                            <th class="th-checkbox-list"><input id="select_all"
+                                                                                type="checkbox"></th>
+                                                                        <!-- <th class="id-std student-number"><?php //echo $this->translate('生徒ID') ;   ?></th> -->
+                                            <th class="year student-number jyear"><?php echo $this->translate('年度'); ?></th>
+                                            <th class="jschool-year"><?php echo $this->translate('学年'); ?></th>
+                                            <th class="class_name"><?php echo $this->translate('クラス'); ?></th>
+                                            <th class="jnumber"><?php echo $this->translate('番号'); ?></th>
+                                            <th class="jname"><?php echo $this->translate('氏名（漢字）'); ?></th>
+                                            <th class="jname"><?php echo $this->translate('氏名（カナ）'); ?></th>
+                                            <th class="br"><?php echo $this->translate('生年月日'); ?></th>
+                                            <th class="sex"><?php echo $this->translate('性別'); ?></th>
+                                            <th width="80"><?php echo $this->translate('詳細'); ?></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="load_dt_std">
+                                        <?php if (count($paginator)) { ?>
+                                            <?php foreach ($pupil as $k => $v) : ?>
+
+                                                <tr id="<?php echo $v->getId(); ?>">
+                                                    <td><input class="checkbox1"
+                                                               type="checkbox" <?php if (isset($mess->{$v->getId()})) { ?>
+                                                                   checked="checked" <?php } ?> id="<?php echo $v->getId(); ?>"
+                                                               name="input[<?php echo $v->getId(); ?>]"
+                                                               value="<?php echo $v->getId(); ?>"></td>
+                                                       <!--<td class="text-right"><?php //echo $this->escapehtml( $v->getpupilID()) ;   ?></td>-->
+                                                    <td><?php echo $this->escapehtml($v->getYear()); ?></td>
+                                                    <td><?php
+                                                        if (!empty($v->getOrgSchoolYear())) {
+                                                            echo $this->escapehtml($v->getOrgSchoolYear()->getDisplayName());
+                                                        }
+                                                        ?></td>
+                                                    <td>
+                                                        <?php
+                                                        if (!is_null($v->getClass())) {
+                                                            echo $this->escapehtml($v->getClass()->getClassName());
+                                                        }
+                                                        ?>
+                                                    </td>
+                                                    <td class="text-right"><?php echo $this->escapehtml($v->getNumber()); ?></td>
+                                                    <td><?php echo $this->escapehtml($v->getFirstNameKanji() . $v->getLastNameKanji()); ?></td>
+                                                    <td><?php echo $this->escapehtml($v->getFirstNameKana() . $v->getLastNameKana()); ?></td>
+                                                    <td><?php
+                                                        if ($v->getBirthday()) {
+                                                            echo $this->escapehtml($v->getBirthday()->format('Y/m/d'));
+                                                        }
+                                                        ?></td>
+                                                    <td>
+                                                        <?php
+                                                            echo $v->getGender() != -1 ? ($v->getGender() == 1 ? '男' : '女') : ''; 
+                                                        ?>
+                                                    </td>
+                                                    <td class="text-center"><a class="btn btn-view"
+                                                                               href="<?php echo $this->url('pupil-mnt/default', array('controller' => 'pupil', 'action' => 'show', 'id' => $v->getId())); ?>">
+                                                                                   <?php echo $this->translate('表示'); ?>
+                                                        </a></td>
+                                                </tr>
+
+                                                <?php
+                                            endforeach
+                                            ;
+                                            ?>
+                                        <?php } else { ?><tr><td colspan="10"><p><?php echo $this->translate("MSGnoresult"); ?></p><?php }; ?></td></tr>
+
+                                    </tbody>
+
+                                </table>
+
+
+                            </form>
+                        </div>
+                        <?php if (count($paginator) > $numPerPage) { ?>
+                            <div class="box_padding text-center pagination_student_color">
+                                <nav>
+                                    <ul class="pagination">
+                                        <?php echo $paging; ?>
+                                    </ul>
+                                </nav>
+                            </div>
+                        <?php } ?>
+                    </div>
+                </form>
+            </div>
+
+            <div class="bottom-mark">
+                <div>
+                    <label class="font-mark">
+                        続いて案内状を作成する場合は、「<span>次へ（案内状作成）</span>」を押してください。
+                    </label>
+                </div>
+                <div>
+                    <div class="text-left col-sm-4">
+                        <a class="btn btn-large-180" href="<?php echo $this->url('home-page/default', array('controller' => 'homepage')) ?>">
+                            <i class="arrow-circle-left"></i>戻る（トップ）</a>
+                    </div>
+                    <a class="btn btn-red btn-large-180"
+                       href="/invitation/setting/index?trans=1"> <i
+                            class="arrow-circle-right-w"></i>次へ（案内状作成）
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div id="exportModal" class="modal fade" data-backdrop="static" id="confirmPopupModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+
+            <div class="modal-dialog modal-md common-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p class="modal-title"> テンプレート</p>
+                    </div>
+
+                    <div class="modal-body radio-body">
+
+                        <div class="modal-body radio-group">
+                            <p>出力形式は、以下の2つから選択できます。</p>
+                            <label><input type="radio" name="radioOption" value="1" checked="checked"><span><?php echo $this->translate('Excel形式'); ?></span></label>
+                            <label><input type="radio" name="radioOption" value="2"><span><?php echo $this->translate('CSV形式'); ?></span></label>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <!--<button type="button" class="btn btn-large-180 btn-cancel"  href="javascript:void(0)" >-->
+                        <button type="button" id="cancelExportType" class="btn btn-large-180 btn-cancel" data-dismiss="modal">
+                            <strong>キャンセル</strong>
+                        </button>
+                        <button type="button" id="submitExportType" class="btn btn-red btn-large-180" href="" onclick="">
+                            <i class="fa-download-w"></i>
+                            <strong>ダウンロード</strong>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div id="exportTemplateModal" class="modal fade" data-backdrop="static" id="confirmPopupModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+
+            <div class="modal-dialog modal-md common-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p class="modal-title"> テンプレート</p>
+                    </div>
+
+                    <div class="modal-body radio-body">
+
+                        <div class="modal-body radio-group">
+                            <p><b>テンプレートを選択してください。</b></p>
+                            <label><input type="radio" name="radiotemplate" value="1" checked="checked"><span><?php echo $this->translate('通常テンプレート'); ?></span></label>
+                            <label><input type="radio" name="radiotemplate" value="2"><span><?php echo $this->translate('姓名分割用のテンプレート※'); ?></span></label>
+                            <p>※　団体サポートシステムでは、姓名を分けて保持する必要があります。<br>
+アップロードする名簿の氏名が、姓名を分けずに一つの項目に入力してある場合は、まず姓名分割用テンプレートにデータを入力ます。名簿アップロードページの姓名分割機能を利用し、名前を分割したデータを作成できます。</p>
+                        </div>
+                        <hr>
+                        <div class="modal-body radio-group">
+                            <p><b>出力形式は、以下の2つから選択できます。</b></p>
+                            <label><input type="radio" name="radioOptionType" value="1" checked="checked"><span><?php echo $this->translate('Excel形式'); ?></span></label>
+                            <label><input type="radio" name="radioOptionType" value="2"><span><?php echo $this->translate('CSV形式'); ?></span></label>
+                        </div>
+                        <div class="modal-footer">
+                                <!--<button type="button" class="btn btn-large-180 btn-cancel"  href="javascript:void(0)" >-->
+                                <button type="button" id="cancelExportTypeTemplate" class="btn btn-large-180 btn-cancel" data-dismiss="modal">
+                                    <strong>キャンセル</strong>
+                                </button>
+                                <button type="button" id="submitExportTypeTemplate" class="btn btn-red btn-large-180" href="" onclick="">
+                                    <i class="fa-download-w"></i>
+                                    <strong>ダウンロード</strong>
+                                </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<form id="export" method="post"
+      action="<?php
+      echo $this->url('pupil-mnt/default', array(
+          'controller' => 'pupil',
+          'action' => 'export',
+          'search' => (empty($param)) ? '1' : $param
+      ));
+      ?>">
+    <input type="hidden" id="exportItem" name="exportItem" value="">
+    <input type="hidden" name="exportType" id="exportType" class="export-type" value="0">
+</form>
+<form id="exportTemplate" method="post"
+      action="<?php
+      echo $this->url('pupil-mnt/default', array(
+          'controller' => 'pupil',
+          'action' => 'exportTemplate'
+      ));
+      ?>">
+    <input type="hidden" name="exportType" id="exportType" class="export-type" value="0">
+    <input type="hidden" name="teamplateFile" id="teamplateFile" class="teamplate-file" value="0">
+</form>
+<?php $this->headScript()->prependFile($this->basePath('js/pupil/pupil.js')) ?>
+<?php $this->headScript()->prependFile($this->basePath('js/recommend.invitation.js')) ?>
+
+<script type="text/javascript">
+    var jsMessages = <?php echo $jsMessages; ?>;
+    var testResultPupilList = "<?php echo empty($testResultPupilList) ? false : $testResultPupilList; ?>";
+    $(document).ready(function () {
+//        RECOMMEND_INVITATION.init();
+        /* not show ajax loader img */
+        $('.btn-not-show-loader').click(function(){
+            $('#loadingModal img').hide();
+        });
+        if (testResultPupilList) {
+            ERROR_MESSAGE.show(testResultPupilList);
+            return false;
+        }
+        var pageCount = <?php echo count($paginator) ?>;
+        var msgNotFoundRecord = '<?php echo $this->translate('MsgNotFoundPupilReourd'); ?>';
+        
+        if(pageCount === 0){
+            $('.liststd-button-group a').eq(2).removeAttr('data-target');
+        }
+        
+        $('#submitExportType').click(function(){
+            var radioList = $('input[name=radioOption]');
+            var exportType = 0;
+            for(i = 0; i < radioList.length; i++){
+                if(radioList[i].checked){
+                    exportType = radioList[i].value;
+                }
+            }
+                $('#export input.export-type').val(exportType);
+                lIST_PUPIL.exPortFile();
+                $('#cancelExportType').trigger('click');
+                $('#exportModal .modal-body label').eq(0).trigger('click');
+                
+        });
+        $('#submitExportTypeTemplate').click(function(){
+            var exportType = $('input[name=radioOptionType]:checked').val();
+            var teamplate = $('input[name=radiotemplate]:checked').val();
+            $('#exportTemplate input.export-type').val(exportType);
+            $('#exportTemplate input.teamplate-file').val(teamplate);
+            $('#exportTemplate').submit();
+            $('#cancelExportTypeTemplate').trigger('click');
+            $('#exportTemplateModal .modal-body label').eq(0).trigger('click');
+        });
+        
+        $('.btn-export-template').click(function(e){
+            $('#exportModal').addClass('template-popup').removeClass('file-popup');
+        });
+        <?php if (!$roleLimit) { ?>
+        $('.btn-export-file').click(function(){
+            $('#exportModal').addClass('file-popup').removeClass('template-popup');
+            if(pageCount == 0){
+                ERROR_MESSAGE.show(msgNotFoundRecord);
+            }
+        });
+        <?php } ?>
+    });
+
+</script>
+

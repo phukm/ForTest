@@ -1,0 +1,7 @@
+.satellite .box-satelite{width: 620px; margin-top: 20px;}
+.satellite .box-body{padding-top: 10px;	}
+.satellite .row-stl-1{font-size: 16px; padding-right: 20px; padding-bottom: 14px;}
+.satellite  .row-stl-2{	font-size: 16px; padding-right: 20px; padding-bottom: 6px;}
+.navbar-nav > li:last-child > a {
+    padding-right: 0;
+} 

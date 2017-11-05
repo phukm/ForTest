@@ -1,0 +1,34 @@
+@CHARSET "UTF-8";
+.index-access-key input{
+    vertical-align: middle;
+    height: 25px;
+}
+.index-access-key{
+    width: 620px;
+    margin: 0 auto;
+    margin-top: 25px;
+}
+.index-access-key .r1 #organizationNo{
+    display: inline-block;
+    width: 180px;
+}
+.index-access-key .r2 #accessKey{
+    width: 240px;
+}
+.body-error{
+    width: 620px;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+.body-error .alert{
+    margin-bottom: 0px;
+}
+.index-access-key.to-activate .r2 #accessKey{
+    width: 340px;
+}
+.index-access-key.to-activate{
+    width: 635px;
+}
+.access-key-Active{
+    width: 635px;
+}

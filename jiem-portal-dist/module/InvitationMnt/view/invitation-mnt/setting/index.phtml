@@ -1,0 +1,121 @@
+<?php
+	$this->headLink()->prependStylesheet($this->basePath('css/Invitation.css'));
+	$isViewer = \Dantai\PublicSession::isViewerRole();
+?>
+<script> var translate = <?php echo empty($Translate) ? '0' : $Translate; ?>; </script>
+<form method="post" action="" id="formSetting">
+	<div id="setting">
+		<div class="box">
+                  <div class="box-header collapsed" data-toggle="collapse" data-target="#search-box">
+                <div class="search-header  sorting-field">
+                    <i class="search-chevron-down"></i>
+                    <?php echo $this->translate('検索条件'); ?>
+                </div>
+            </div>
+                    <div id="search-box" aria-expanded="true" class="collapse in">
+			<div class="box-body">
+				<div class="form-group form-inline styled-select">
+					<label class="font-bold pl20i" for="year">年度<span class="star">*</span></label>
+					<select id="year" name="year"
+						ref="<?php echo $CurrentEikenSchedule->id; ?>"
+						class="form-control inset-shadow setting_w100"> <?php foreach ($invYear as $year => $val) { ?> <option
+							<?php if($CurrentEikenSchedule->year == $year) echo "selected"; ?>
+							value="<?php echo $year; ?>"
+							ref='<?php echo json_encode($val); ?>'><?php echo $year; ?></option> <?php } ?> </select>
+					<label class="font-bold pl30 " for="times">回 </label> <select
+						id="EikenSchedule" name="EikenSchedule"
+						class="form-control inset-shadow setting_w60">
+					</select>
+					<div class="form-group pull-right">
+						<a
+							href="<?php echo $this->url('invitation-mnt/default', array('controller' => 'setting','action'=>'clear')); ?>"
+							class="btn btn-small width100i m0">クリア</a>
+						<button id="btnSearch" type="button" class="btn btn-small">
+							<i class="fa-search"></i>検索
+						</button>
+					</div>
+				</div>
+			</div>
+                    </div>
+		</div>
+
+		<div class="box">
+			<div class="box-header">
+				<span>受験案内状設定</span>
+			</div>
+			<div class="box-body">
+				<div class="col-sm-9 lh1-4">
+					<label class="font-mark"> 設定済の受験案内状の一覧となります。
+						新規に作成する場合は「追加」ボタンを押してください。<br>
+						すでに作成済の受験案内状を編集したい場合は「詳細表示」ボタンを押してください。
+					</label>
+
+				</div>
+				<div class="col-sm-3 text-right pb10">
+					<a href="<?php echo $this->url('invitation-mnt/default', array('controller' => 'setting', 'action' => 'add')); ?>"
+					   <?php echo $isViewer ? 'disabled' : ''?>
+						class="btn btn-higher mr5"> <i class="plus-circle"></i> 追加
+					</a>
+				</div>
+
+				<table class="table table-bordered invtable table-striped">
+					<thead>
+						<tr>
+							<th class="jyear">年度</th>
+							<th class="jtime">回</th>
+							<th width="90">会場選択</th>
+							<th>受験案内状種類</th>
+							<th width="98">支払形式</th>
+							<th width="130">申込期限</th>
+							<th width="220"></th>
+							<th>操作</th>
+						</tr>
+					</thead>
+                    <?php if (!empty($inv)) { foreach ($inv as $val) { ?>
+                        <tr>
+						<td><?php echo $val['Year'] ?></td>
+						<td class="text-right"><?php echo $val['Kai'] ?></td>
+						<td><?php echo $val['HallType'] ?></td>
+						<td><?php echo $val['InvitationType'] ?></td>
+						<td><?php echo $val['PaymentType'] ?></td>
+						<td><?php echo $val['Deadline'] ?></td>
+						<td></td>
+						<td><a class="btn btn-small w85 m0 c53"
+							href="<?php echo $this->url('invitation-mnt/default', array('controller' => 'setting', 'action' => 'show', 'id' => $val['Id'])); ?>">詳細表示</a></td>
+					</tr>
+                    <?php } } ?>
+                </table>
+                <?php if ($resultError) { ?> <div class="box-body pl15i">
+					<span><?php echo $error; ?></span>
+				</div> <?php } ?>
+				<div class="bottom-mark">
+					<div>
+						<label class="font-mark">
+                                                    受験案内状の設定が完了できましたら、目標級を設定します。目標級を設定するために、「<span>次へ</span>」を押してください。                                                    
+						</label>
+					</div>
+					<div>
+						<a class="btn btn-red btn-large-180"
+							href="/invitation/recommended/index"> <i
+							class="arrow-circle-right-w"></i> 次へ
+						</a>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+	<input type="hidden" value="index" id="type"> <input type="hidden"
+		value="<?php if (!empty($error) && !$resultError) echo $error; ?>"
+		id="error">
+</form>
+<?php $this->headScript()->prependFile($this->basePath('js/setting.invitation.js')) ?>
+
+<script type="text/javascript">
+	var jsMessages = <?php echo $jsMessages;?>;
+	$(document).ready(function () {
+		   INVITATION_SETTING.getEikenSchedule();
+		   INVITATION_SETTING.initital();
+		});
+</script>

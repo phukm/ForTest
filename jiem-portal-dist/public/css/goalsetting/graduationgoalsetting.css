@@ -1,0 +1,113 @@
+@CHARSET "UTF-8";
+
+/*Helper*/
+.required {
+    color: red;
+}
+.text-normal{
+    font-weight: normal;        
+}
+.margin-right-20
+{
+    margin-right: 16px;
+}
+.margin-right-5{
+    margin-right: 5px;
+}
+.control-label {
+    margin-right: 26px;
+}
+.radio-box {
+    vertical-align: text-top;
+}
+.select-width-120{
+    width: 120px;
+}
+select.form-control {
+    font-size: 14px;
+    font-weight: normal;
+    padding-bottom: 0;
+    padding-top: 0;
+    padding-right: 0;
+}
+.text-center
+{
+    text-align: center!important;
+}
+
+input[type=radio].error,input[type=checkbox].error {
+    outline: 1px dashed red;
+}
+input[type=file]:focus, input[type=checkbox]:focus, input[type=radio]:focus
+{
+    outline-offset: 0;
+}
+.remove-padding-bottom{
+    padding-bottom: 0!important;
+}
+.remove-margin-bottom{
+    margin-bottom: 0!important;
+}
+.container-table-scroll{
+    overflow-x: scroll;
+}
+span.text-small {
+    display: block;
+    font-size: 12px;
+    font-weight: normal;        
+}
+/**/
+
+.box-search-button-group{
+    margin-left: 91px;
+}
+.box-search-button-group-2{
+    margin-left: 50px;
+}
+.table-header-filter{
+    height: 37px;
+    margin-top: -4px;
+}
+.tbl-national th,.tbl-national td {
+    padding: 4px 10px!important;
+}
+.tbl-national td {
+    height: 35px!important;
+}
+.col-sm-6{
+    width: 49%!important;
+}
+span.text-lbl {
+    margin-left: 10px;
+}
+.w-80
+{
+    width: 80px;
+}
+
+/*EDIT FORM*/
+input.yearGoal {
+    width: 60px!important;
+    display: inline;
+}
+
+.remove-padding-td{
+    padding: 0 10px!important;
+}
+
+.graduationgoalsetting table tr th{text-align: center}
+.hiddenClass{display: none}
+
+.graduationgoalsetting .table > tbody > tr > td,.graduationgoalsetting .table > tfoot > tr > td,.graduationgoalsetting .table > thead > tr > td {
+	padding: 8px 10px;
+}
+.graduationgoalsetting .table > thead {display: none}
+.graduationgoalsetting .table > thead > tr > th {
+    padding-right: 8px;
+}
+
+.annual-target table > thead > tr {
+    height: 75px;
+}
+.graduationgoalsetting #search-box ,.description-page { margin: 23px; overflow: hidden; }
+#description-page-edit-r1, #description-page-edit-r2 , #title-description-edit-r1 , #title-description-edit-r2{ display: none; }

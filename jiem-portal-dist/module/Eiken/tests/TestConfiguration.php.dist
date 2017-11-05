@@ -1,0 +1,7 @@
+<?php
+ini_set('memory_limit', -1);
+include __DIR__ . '/../../../init_autoloader.php';
+define('APP_DIR', realpath( __DIR__ . '/../../../'));
+defined('BASE_PATH') or define('BASE_PATH', realpath(dirname(__DIR__)));
+defined('PUBLIC_PATH') or define('PUBLIC_PATH', BASE_PATH.'/public');
+defined('DATA_PATH') or define('DATA_PATH', BASE_PATH.'/data');

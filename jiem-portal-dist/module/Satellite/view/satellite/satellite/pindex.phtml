@@ -1,0 +1,61 @@
+<?php $this->headLink()->prependStylesheet($this->basePath('css/satellite-pc-1.css')) ?>
+<div class="satellite">
+    <?php if ($paymentByCreditFlag) { ?>
+        <div class="box box-satelite">
+            <div class="box-header">
+                <span><b>お申し込みの状況</b></span>
+            </div>
+            <div class="box-body">
+                <div class="row row-stl-1">
+                    <?php if (empty($paymentInfomationStatus)) { ?>
+                        <span>お申し込みが完了していません。</span>
+                    <?php }
+                    else { ?>
+                        <span>英検にお申し込み済みです。「申し込み情報」ボタンを押すと、お申し込み済みの情報を確認することができます。</span>
+                    <?php } ?>
+                </div>
+                <?php if (!empty($paymentInfomationStatus) || $eikenApplied > 0) { ?>
+                    <div class="button-bottom pull-right">
+                        <a href="/payment-eiken-exam/payment-infomation" class="btn btn-large-200">申し込み情報</a>
+                    </div>
+                <?php } ?>
+            </div>
+        </div>
+        <div class="box box-satelite">
+            <div class="box-header">
+                <span><b>英検のお申し込み</b></span>
+            </div>
+            <div class="box-body">
+                <div class="row row-stl-1">
+                    <span>受験級の選択・申し込み・クレジットカードによる支払いが出来ます。</span>
+                </div>
+                <div class="button-bottom pull-right">
+                    <a id="pay-by-credit" class="btn  btn-red btn-large-200"><i class="chevron-circle-right"></i><?php echo $this->translate('applyEikenButtonLabel');?></a>
+                </div>
+            </div>
+        </div>
+    <?php } ?>
+    <div class="box">
+        <div class="box-header">
+            <span><b>英ナビ！を使ってみよう</b></span>
+        </div>
+        <div class="box-body">
+            <div class="row row-stl-2">
+                <span>英検合格に必要なスキルがバランスよく身につけられるスタディギアを無料で利用することが出来ます。 </span>
+            </div>
+            <div class="button-bottom" style="float: right;">
+                <a class="btn btn-large-200" href="<?php echo $this->url('einavi/default', array('controller' => 'einavi', 'action' => 'loginon')) ?>"> 英ナビ！を利用する </a>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $('#pay-by-credit').click(function () {
+        var paymentMessage = '<?php echo isset($paymentMessage) ? $paymentMessage : ""; ?>';
+        if (paymentMessage) {
+            ERROR_MESSAGE.show(paymentMessage);
+            return false;
+        }
+        window.location = COMMON.baseUrl + 'eiken/apply-eiken';
+    });
+</script>

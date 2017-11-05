@@ -1,0 +1,80 @@
+<?php
+    $this->headLink()
+    ->prependStylesheet($this->basePath('css/goalsetting/study-history.css'))?>
+<?php if (! empty($history)) {
+    $paging = $this->paginationHelper($paginator, $page, $this->url('goal-setting/default', $query), $numPerPage);
+}?>
+<?php $escaper = new Zend\Escaper\Escaper('utf-8');?>
+<div class="studydetail">
+    <div class="box detail">
+        <div class="box-header"><?php echo $this->translate('スタギア進捗 – '.date("n/d",strtotime($query['date'])).'（'.$dateArr[date("w",strtotime($query['date']))].'）– '.(($learningType)?$learningType:'合計'))?>
+		</div>
+        <div class="box-body">
+         <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th class="width116 textleft">
+                        <?php echo $this->translate('学年');?>
+                    </th>
+                    <th width="72">
+                        <?php echo $this->translate('クラス');?>
+                    </th>
+                    <th class="width60">
+                        <?php echo $this->translate('番号');?>
+                    </th>
+                    <th class="width106">
+                        <?php echo $this->translate('氏名（漢字)');?>
+                    </th>
+                    <th class="width88">
+                        <?php echo $this->translate('学習時間');?>
+                    </th>
+                    <th>
+                        <?php echo $this->translate('');?>
+                    </th>
+                    <th width="104" class="textleft">
+                        <?php echo $this->translate('操作');?>
+                    </th>
+               </tr>
+           </thead>
+           <tbody>
+           <?php if($history){
+               foreach ($history as $key=>$value){?>
+               <tr>
+                    <td ><?php echo $escaper->escapeHtml($value['schoolYear'])?></td>
+                    <td><?php echo $escaper->escapeHtml($value['className'])?></td>
+                    <td class="text-right"><?php echo $escaper->escapeHtml($value['number'])?></td>
+                    <td><?php echo $escaper->escapeHtml($value['nameKanji'])?></td>
+                    <td class="text-right"><?php echo sprintf("%02d:%02d",floor($value['learningTime']/60),$value['learningTime'] % 60)?></td>
+                    <td></td>
+                    <td><a class="btn btn-small-85"
+									href="/goalsetting/studygear/show?perId=<?php echo $value['personalId']?>">
+         			<?php echo $this->translate('詳細表示') ;?></a></td>
+               </tr>
+            <?php }}?>
+                
+           </tbody>
+       </table>
+       <?php if(empty($history)){?><div class="row"><?php echo $this->translate('MSG13')?></div><?php }?>
+                <?php if ($paginator) {
+                    if (count($paginator) > $numPerPage) {?>
+				<div class="col-sm-12 text-center">
+				  <nav>
+                    <ul class="pagination">
+                         <?php  echo $paging; ?>
+                    </ul>
+				  </nav>
+			   </div>
+	           <?php }} ?>
+        <hr/>
+        <div class="text-left col-sm-4">
+			<a class="btn btn-large-180" id="focusback"
+				href="/goalsetting/studygear/listhistorystudy<?php if($search) echo '/search/'.$search?>">
+				<i class="arrow-circle-left"></i>
+				<?php echo $this->translate('戻る') ;?></a>
+	      </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#focusback').focus();
+</script>

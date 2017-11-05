@@ -1,0 +1,108 @@
+#test-side-exemption .text-bold{
+    font-weight: bold;
+}
+
+#test-side-exemption{
+    font-size: 24px;
+}
+
+.text-normal{
+    font-weight: normal;
+}
+
+.mr10{
+    margin-right: 10px;
+}
+
+.mr20{
+    margin-right: 20px;
+}
+
+.mw120{
+    width: 120px;
+}
+
+.label-column{
+    width: 40%;
+}
+
+.data-column{
+    width: 30%;
+}
+
+#test-side-exemption .box-footer{
+    margin-top: 15px;
+}
+
+#test-side-exemption .box-footer .btn{
+    font-weight: bold;
+    width: 28%;
+    height: 50px;
+    font-size: 25px;
+}
+
+.radio-box{
+    width: 20px;
+    height: 20px;
+}
+
+/*error style*/
+input.error, select.error, textarea.error {
+    border: 2px solid red !important;
+}
+
+li.error {
+    color: red;
+    list-style-type: none;
+    text-align: left;
+}
+
+label.error {
+    color: red;
+    padding-top: 3px;
+    display: block;
+    clear: both;
+    padding-left: 30px;
+}
+/*end error style*/
+
+#test-side-exemption { 
+    padding: 30px; 
+}
+
+#test-side-exemption td{
+    vertical-align: middle;
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+
+#test-side-exemption table {
+    margin: auto; 
+} 
+#test-side-exemption .box-header { 
+    margin-left: -15px; margin-bottom: 10px; 
+}
+.row{
+    margin: auto 0px;
+}
+.table-bordered>thead>tr>td{
+   background-color: #ffd5d5; 
+}
+label .radio-box {
+    height: 20px;
+    width: 20px;
+    top: 1px;
+    position: relative;
+    margin-right: 5px;
+}
+select:enabled{
+    -webkit-text-fill-color: #000;
+    border: 2px solid rgba(0, 0, 0, 0.60);
+}
+#test-side-exemption table thead td {
+    text-align: center;
+    font-weight: bold;
+}
+.awesome-menu{
+    right: 15px;
+}

@@ -1,0 +1,63 @@
+<div class="importstd-list">
+    <table class="table table-bordered importstd-list-table">
+        <thead>
+            <tr>
+                <?php if ($errors) { ?>
+                    <th><span><?php echo $this->translate('ImportLine'); ?></span></th>
+                <?php } ?>
+                <th><span><?php echo $this->translate('ImportYear'); ?></span></th>
+                <th><span><?php echo $this->translate('ImportOrgSchoolYear'); ?></span></th>
+                <th><span><?php echo $this->translate('ImportClass'); ?></span></th>
+                <th><span><?php echo $this->translate('ImportPupilNumber'); ?></span></th>
+                <th><span><?php echo $this->translate('ImportFirstnameKanji'); ?></span></th>
+                <th><span><?php echo $this->translate('ImportLastnameKanji'); ?></span></th>
+                <th><span><?php echo $this->translate('ImportFirstnameKana'); ?></span></th>
+                <th><span><?php echo $this->translate('ImportLastnameKana'); ?></span></th>
+                <th><span><?php echo $this->translate('ImportBirthday'); ?></span></th>
+                <th><span><?php echo $this->translate('ImportGender'); ?></span></th>
+                <th><span><?php echo $this->translate('ImportEinaviId'); ?></span></th>
+                <th><span><?php echo $this->translate('ImportEikenId'); ?></span></th>
+                <th><span><?php echo $this->translate('ImportEikenPassword'); ?></span></th>
+                <th><span><?php echo $this->translate('ImportEikenLevel'); ?></span></th>
+                <th><span><?php echo $this->translate('ImportEikenYear'); ?></span></th>
+                <th><span><?php echo $this->translate('ImportKai'); ?></span></th>
+                <th><span><?php echo $this->translate('ImportEikenScoreReading'); ?></span></th>
+                <th><span><?php echo $this->translate('ImportEikenScoreListening'); ?></span></th>
+                <th><span><?php echo $this->translate('ImportEikenScoreWriting'); ?></span></th>
+                <th><span><?php echo $this->translate('ImportEikenScoreSpeaking'); ?></span></th>
+                <th><span><?php echo $this->translate('ImportIbaLevel'); ?></span></th>
+                <th><span><?php echo $this->translate('ImportIbaDate'); ?></span></th>
+                <th><span><?php echo $this->translate('ImportIbaScoreReading'); ?></span></th>
+                <th><span><?php echo $this->translate('ImportIbaScoreListening'); ?></span></th>
+                <th><span><?php echo $this->translate('ImportWordLevel'); ?></span></th>
+                <th><span><?php echo $this->translate('ImportGrammarLevel'); ?></span></th>
+            </tr>
+        </thead>
+        <?php foreach ($dataShow as $key => $lineImport) { ?>
+            <tr>
+                <?php if ($errors) { ?><td class="cright"><span><?php echo ($key + 1); ?></span></td><?php } ?>
+                <?php
+                foreach ($lineImport as $column => $value) {
+                    if ($column != 'schoolYear') {
+                        $classCss = 'cleft';
+                        if (in_array($column, array('pupilNumber', 'kai', 'einaviId', 'eikenId', 'eikenPassword', 'eikenScoreReading', 'eikenScoreListening', 'eikenScoreWriting', 'eikenScoreSpeaking', 'ibaScoreReading', 'ibaScoreListening'))) {
+                            $classCss = 'cright';
+                        }
+                        ?>
+                        <td class="<?php echo $classCss; ?>"><span><?php echo $this->escapeHtml($value); ?></span></td>
+                    <?php }
+                }
+                ?>
+            </tr>
+        <?php } ?>
+    </table>
+</div>
+<?php 
+if($maxPage > 1){
+    echo $this->partial('partial_paging.phtml', array(
+        'maxPage' => $maxPage
+        , 'currentPage' => $currentPage
+            )
+    );
+}
+?>

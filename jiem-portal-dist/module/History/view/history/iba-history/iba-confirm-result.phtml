@@ -1,0 +1,178 @@
+<?php
+$this->headLink()->appendStylesheet($this->basePath('css/history/eiken-confirm-result.css'));
+/**
+ * @var $result \Application\Entity\IBATestResult
+ * @var $item \Application\Entity\Pupil
+ */
+?>
+<div class="eiken-confirm-result">
+    <div class="box">
+        <div class="box-header">生徒名簿突合せ結果</div>
+        <div class="box-body" id="list-container">
+            <div class="top-mark">
+                <label class="font-mark red">
+                    試験結果レコード
+                </label>
+            </div>
+            <table id="tableEiken" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th class="w260">氏名（カナ）</th>
+                    <th class="w130">生年月日</th>
+                    <th class="w60">年度</th>
+                    <th class="w130">学年</th>
+                    <th>クラス</th>
+                    <th class="w100">受験級</th>
+                    <th class="w100">点数</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><?php echo empty($result->getNameKana()) ? '' : $result->getNameKana(); ?></td>
+                    <td><?php echo empty($result->getBirthday) ? '' : $result->getBirthday; ?></td>
+                        <td><?php echo empty($result->getYear()) ? '' : $result->getYear(); ?></td>
+                    <td><?php echo empty($result->getSchoolYear()) ? '' : $result->getSchoolYear(); ?></td>
+                    <td><?php echo empty($result->getClassCode()) ? '' : $result->getClassCode(); ?></td>
+                    <td><?php echo empty($result->getEikenLevelName) ? '' : $result->getEikenLevelName; ?></td>
+                    <td class="text-right"><?php echo $result->getTotal() ?></td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="top-mark ptop20">
+                <label class="font-mark red">
+                    名簿上の生徒データ
+                </label>
+            </div>
+            <table id="tablePupil" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th class="w130">氏名（漢字）</th>
+                    <th class="w130">氏名（カナ）</th>
+                    <th class="w130">生年月日</th>
+                    <th class="w60">年度</th>
+                    <th class="w130">学年</th>
+                    <th>クラス</th>
+                    <th class="w100">番号</th>
+                    <th class="w100">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <?php
+                        /*@var $result \Application\Entity\IBATestResult*/
+                        if (!empty($result->getPupilId())) {
+                    ?>
+                    <td><?php echo empty($result->getTempNameKanji()) ? '' : $result->getTempNameKanji(); ?></td>
+                        <td><?php echo empty($result->getPreTempNameKana()) ? '' : $result->getPreTempNameKana(); ?></td>
+                        <td><?php echo empty($result->getTempBirthday) ? '' : $result->getTempBirthday; ?></td>
+                        <td><?php echo empty($currentPupil['year']) ? '' : $currentPupil['year']; ?></td>
+                        <td><?php echo empty($result->getTempSchoolYearName()) ? '' : $result->getTempSchoolYearName(); ?></td>
+                        <td><?php echo empty($result->getTempClassName()) ? '' : $result->getTempClassName(); ?></td>
+                        <td class="text-right"><?php echo empty($result->getTempPupilNo()) ? '' : $result->getTempPupilNo(); ?></td>
+                        <td class="text-center"><button onclick="MAPPING_EXAM_RESULT.removeMapping()" class="btn" id="removeMapping" type="button">選択解除</button></td>
+                    <?php } else { ?>
+                        <td colspan="8" class="text-left">紐付け（候補）データがありません。</td>
+                    <?php } ?>
+                </tr>
+                </tbody>
+            </table>
+            <div class="top-mark ptop20">
+                <label class="font-mark red">
+                    検索項目に入力すると名簿内から対象の生徒を検索できます。
+                </label>
+            </div>
+            <table id="tableSearch" class="wp-100">
+                <tr>
+                    <td>氏名（漢字）</td>
+                    <td>氏名（カナ）</td>
+                    <td>生年月日</td>
+                    <td>学年</td>
+                    <td><span>/</span></td>
+                    <td>年度</td>
+                    <td>クラス</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><input name="nameKanji" id="nameKanji" value="" type="text" class="form-control" tabindex="1"></td>
+                    <td><input name="nameKana" id="nameKana" value="" type="text" class="form-control" tabindex="2"></td>
+                    <td class="calendar">
+                        <input name="birthday" id="birthday" value="" type="text" class="form-control" tabindex="3">
+                        <span class="icon-calendar" id="calendarBirthday"></span>
+                    </td>
+                    <td class="styled-select dropdown">
+                        <select name="schoolYearId" class="form-control" id="schoolYearId" tabindex="4">
+                            <option value=""></option>
+                            <?php foreach ($schoolYear as $val) { ?>
+                                <option value="<?php echo $val['id']; ?>"><?php echo $val['displayName']; ?></option>
+                            <?php } ?>
+                        </select>
+                    </td>
+                    <td><span>/</span></td>
+                    <td class="styled-select-year dropdown">
+                        <select name="yearId" class="form-control" id="yearId" tabindex="5">
+                            <option value=""></option>
+                            <?php for($i = date('Y'); $i >= 2010; $i--) { ?>
+                                <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                            <?php } ?>
+                        </select>
+                    </td>
+                    <td class="styled-select dropdown">
+                        <select name="classId" class="form-control" id="classId" tabindex="6">
+                            <option value=""></option>
+                        </select>
+                    </td>
+                    <td colspan="2"><button type="button" id="search" name="search" class="btn" tabindex="7"><i class="fa fa-search"></i>検索</button></td>
+                </tr>
+                <tr><td colspan="7">対象学生候補（検索結果）候補の行をクリックして対象の学生を選択してください。</td></tr>
+            </table>
+            <table id="leadingPupilListByParams" class="table table-bordered ptop20 table-striped">
+                <thead>
+                <tr>
+                    <th class="w130">氏名（漢字）</th>
+                    <th class="w130">氏名（カナ）</th>
+                    <th class="w105">生年月日</th>
+                    <th class="w56">年度</th>
+                    <th class="w140">学年</th>
+                    <th class="w140">クラス</th>
+                    <th class="w100">番号</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div class="box-footer">
+            <input type="hidden" name="jisshiId" id="jisshiId" value="<?php echo $jisshiId; ?>">
+            <input type="hidden" name="examType" id="examType" value="<?php echo $examType; ?>">
+            <input type="hidden" name="year" id="year" value="<?php echo $year; ?>">
+            <input type="hidden" name="token" id="token" value="<?php echo $token; ?>">
+            <input type="hidden" name="id" id="id" value="<?php echo $id; ?>">
+
+            <div class="pull-left">
+                <button type="button" id="btnCancel" class="btn btn-large-180 margin-right-btn btn-edit-setting" tabindex="100">キャンセル</button>
+            </div>
+            <div class="pull-right">
+                <button id="previoustPupil" onclick="MAPPING_EXAM_RESULT.previoustPupil(<?php echo $id; ?>)" type="button" class="btn btn-red btn-large-180 margin-right-btn btn-edit-setting m-r-10 tooltip-button" tabindex="100" alt="確定して前のレコードへ">
+                    <i class="arrow-circle-left-w"></i>前のレコードへ
+                </button>
+                <button id="nextPupil" onclick="MAPPING_EXAM_RESULT.nextPupil(<?php echo $id; ?>)" type="button" class="btn btn-red btn-large-180 margin-right-btn btn-edit-setting m-r-10 tooltip-button" tabindex="100" alt="確定して次のレコードへ">
+                    <i class="arrow-circle-right-w"></i>次のレコードへ
+                </button>
+                <button id="savePupil" onclick="MAPPING_EXAM_RESULT.savePupil(<?php echo $id; ?>)" type="button" tabindex="101" class="btn btn-red btn-large-200 w-250 margin-right-5 btn-cancel-edit">確定して試験結果一覧に戻る</button>
+                <input type="hidden" name="pupilId" id="pupilId" value="<?php echo empty($result->getPupilId()) ? 0 : $result->getPupilId(); ?>">
+                <input type="hidden" name="typeMapping" id="typeMapping" value="0">
+            </div>
+        </div>
+    </div>
+</div>
+<?php $this->headScript()
+    ->prependFile($this->basePath('js/jquery-ui.js'))
+    ->prependFile($this->basePath('js/history/mapping-iba-exam-result.js')); ?>
+<script>
+    var messages = <?php echo isset($messages) ? $messages : '0'; ?>;
+    MAPPING_EXAM_RESULT.initital();
+    MAPPING_EXAM_RESULT.callGetClassByYear();
+    //MAPPING_EXAM_RESULT.leadingPupilListByParams();
+    var dataPupil = <?php echo isset($pupils) ? json_encode($pupils) : 0; ?>;
+    $('#birthday').datepicker();
+</script>

@@ -1,0 +1,109 @@
+<?php if(!empty($errorMessage)){ ?>
+    <script>ERROR_MESSAGE.show("<?php echo $errorMessage; ?>",function(){ window.location = '/'; }); </script>
+<?php } else { ?>
+<?php $this->headLink()->appendStylesheet($this->basePath('css/payment-eiken-exam.css')) ?>
+<script>
+    var translate = <?php echo empty($translate) ? 0 : $translate; ?>;
+    var doubleEikenNotSupport = <?php echo !empty($doubleEikenNotSupport) ? $doubleEikenNotSupport : 0; ?>;
+    var applyEikenLevelId = <?php echo empty($applyEikenLevelId) ? 0 : $applyEikenLevelId; ?>;
+</script>
+<?php if ($isMobile) { echo '<style> #credit { padding: 20px; font-size: 20px; } #credit .col-month, #credit .col-year {width: 120px;} #credit .wcard { max-width: 435px; } #credit .wname { max-width: 200px; margin-right: 30px; } #credit .wname:first-child { margin-right: 35px; } #credit .wcvv { max-width: 200px; } #credit .row{ margin-top: 20px; } #credit .text-header{ padding-bottom: 5px; border-bottom: 1px solid red; font-weight: bold; } #credit .acceptCard{ float: left; } .jiem-error { font-size: 20px; border: 1px solid red; margin: 0 6.25%; margin-top: 20px; } .jiem-error ul,.jiem-error a  { color: red; } input.error,input.error:focus { border: 1px solid red; } </style>'; } ?>
+<div class="box credit-add" id="credit">
+    <form method="post" id="paymentEikenExam">
+        <?php echo $this->formrow($form->get('token')); ?>
+        <?php echo $this->formrow($form->get('csrfToken')->setValue(isset($csrfToken) ? $csrfToken : null)) ?>
+        <div class="box-header">
+            <div class="text-header">クレジット支払</div>
+        </div>
+        <div class="box-body">
+            <div class="row mt-reset">
+                <div class="col-sm-12">
+                    <div class="pull-left"><span>以下のクレジットカードをご利用いただけます。</span></div>
+                    <div class="col-sm-4 pull-right acceptCard">
+                        <i class="credit-card" alt="Accept payments via Visa, MasterCard, JCB"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-reset">
+                <div class="col-sm-4"><strong><span>カード名義（カナ）</span><span class="red">*</span></strong></div>
+                <div class="col-sm-8">
+                    <?php echo $this->formrow($form->get('cardFirstName')->setAttribute('value',isset($data['cardFirstName']) ? $data['cardFirstName'] : '')); ?>
+                    <?php echo $this->formrow($form->get('cardLastName')->setAttribute('value',isset($data['cardLastName']) ? $data['cardLastName'] : '')); ?>
+                </div>
+            </div>
+            <div class="row mt-reset mt15">
+                <div class="col-sm-4"><strong><span>カード番号</span><span class="red">*</span></strong></div>
+                <div class="col-sm-8">
+                    <?php echo $this->formrow($form->get('cardNumber')->setAttribute('value',isset($data['cardNumber']) ? $data['cardNumber'] : '')); ?>
+                    <span>ハイフン抜きの半角数字で入力してください。</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4"><strong><span>有効期限</span><span class="red">*</span></strong></div>
+                <div class="col-sm-8">
+                    <?php echo $this->formrow($form->get('cardMonth')->setAttribute('value',isset($data['cardMonth']) ? $data['cardMonth'] : '')); ?>
+                    <span class="pull-left">月</span>
+                    <?php echo $this->formrow($form->get('cardYear')->setAttribute('value',isset($data['cardYearShow']) ? $data['cardYearShow'] : '')); ?>
+                    <span class="pull-left">年</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4"><strong><span>セキュリティコード</span><span class="red">*</span></strong></div>
+                <div class="col-sm-8">
+                    <?php echo $this->formrow($form->get('cardCvv')->setAttribute('value',isset($data['cardCvv']) ? $data['cardCvv'] : '')); ?>
+                    <span>裏面署名欄の数字3桁（または4桁）</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 grade-title">
+                    <span>受験級（金額)</span>
+                </div>
+                <div class="col-xs-12 grade-description">
+                    <span><?php echo $this->translate('Description-Exam-Grade-Table'); ?></span>
+                </div>
+                <div class="col-xs-12" id="eiken-level">
+                    <table class="table table-bordered paybey-creadit">
+                        <thead>
+                        <tr>
+                            <th>級</th>
+                            <th>受験料</th>
+                            <th>試験日</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($kyu as $kyuId => $val) {  ?>
+                            <tr>
+                                <td><?php echo $val['name']; ?></td>
+                                <td><?php echo $val['priceName']; ?></td>
+                                <td class="date"><?php echo $val['examDateRound2'] ?></td>
+                            </tr>
+                        <?php } ?>
+                             <tr>
+                                <td>合計</td>
+                                <td><?php echo $total['priceName']; ?></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="box-footer">
+            <div class="col-xs-12 text-right">
+                <a id="btnCancel" class="btn btn-large-180 wcancel" href="/">キャンセル</a>
+                <button type="button" id="btnNext" class="btn btn-red btn-large-180 wnext"><i class="arrow-circle-right-w"></i>次へ</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<?php $this->headScript()->appendFile($this->basePath('js/payment-eiken-exam.js?v=0.1')); ?>
+<script type="text/javascript">
+    $(document).ready(function () {
+        PAYMENT_EIKEN_EXAM.initital();
+        <?php if(!empty($errorMsg) && !is_array($errorMsg)){ ?>
+        ERROR_MESSAGE.show('<?php echo $errorMsg; ?>', null, 'inline');
+        <?php } ?>
+    });
+</script>
+<?php } ?>

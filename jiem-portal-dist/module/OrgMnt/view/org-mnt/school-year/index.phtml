@@ -1,0 +1,123 @@
+<div class="schoolyear">
+	<div class="box">
+		<div class="box-header">
+			<strong><?php echo $this->translate('学年一覧') ;?></strong>
+		</div>
+		<div class="box-body">
+			<div class="student_manager">
+				<form action="deletemulti" method="post" id="delform">
+					<div class="std_list">
+						<div class="row padding_row">
+							<div class="col-sm-7 text-left title-list class-tite">
+								<p>このブロックのいくつかの説明このブロックのいくつかの説明</p>
+								<p>このブロックのいくつかの説明</p>
+							</div>
+							<div class="col-sm-5 text-right">
+								<span class="seacrh_list"> <a class="btn btn-higher"
+									href="<?php echo $this->url('org-mnt/default', array('controller' => 'schoolyear', 'action' => 'add')) ?>">
+										<i class="plus-circle"></i> <?php echo $this->translate("追加"); ?></a>
+								</span> <a class="btn btn-higher btn_del"><i class="trash"></i> <?php echo $this->translate("削除"); ?>
+					    <input type="hidden" name="listid" id="listid" /> </a>
+							</div>
+						</div>
+						<!-- 					list -->
+						<div class="row">
+							<table class="table table-bordered table-striped text-center"
+								id="table-schoolyear">
+								<thead>
+									<tr class="checkbox_list">
+										<th class="checkbox-class"><input id="select_all"
+											type="checkbox"></th>
+										<th class="year-school-class"><?php echo $this->translate('学年') ;?></th>
+										<th class="space-class"></th>
+										<th class="view-class"><?php echo $this->translate('詳細') ;?></th>
+									</tr>
+								</thead>
+								<tbody id="load_dt_std">
+					<?php foreach($schoolyears as $schoolyear){ ?>
+			          <tr class="checkbox_list">
+										<td><input class="checkbox1" type="checkbox"
+											data-idyear="<?php echo $schoolyear->getId(); ?>"></td>
+										<td class="year-school-class-content"><?php echo $schoolyear->getName(); ?></td>
+										<td></td>
+										<td><a class="btn btn-view"
+											href="<?php echo $this->url('org-mnt/default', array('controller' => 'schoolyear', 'action' => 'show', 'id' => $schoolyear->getId())) ?>">
+    	                     			<?php echo $this->translate('表示') ;?>
+    	                     	</a></td>
+									</tr>
+						<?php } ?>
+				    </tbody>
+							</table>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+var jsMessages = <?php echo $jsMessages;?>;
+$(".btn_del").click(function(event){
+var check_checked = false;
+
+	$('.checkbox1').each(function() { //loop through each checkbox
+            		        if($(this).is(':checked')){
+            		        	check_checked = true;
+            		        }
+            		    });
+    if(check_checked == true){
+    	if(confirm("Do you really want to delete?")==true){
+
+    	    $('.checkbox1').each(function() { //loop through each checkbox
+    	//
+    	        if($(this).is(':checked')){
+    	            var string_ = $("#listid").val();
+    	            if(string_==""){
+    	            	string_ = $(this).data("idyear");
+    		        }else{
+    		        	string_ = string_+","+$(this).data("idyear");
+    			    }
+    	            $("#listid").val(string_);
+    	        }
+    	    });
+    	    $( "#delform" ).submit();
+    	}
+    }else{
+    	alert("Please select item to delete");
+    }
+});
+
+$(document).ready(function() {
+    COMMON.showCrossEditMessage();
+    $('#select_all').click(function(event) {
+        if(this.checked) {
+            $('.checkbox1').each(function() {
+                this.checked = true;
+            });
+        }else{
+            $('.checkbox1').each(function() {
+                this.checked = false;
+            });
+        }
+    });
+    $('.checkbox1').click(function(event) {  //on click
+  	  var check_checked = true;
+    if(this.checked) { // check select status
+        $('.checkbox1').each(function() { //loop through each checkbox
+      	  if($(this).is(':checked')){
+
+
+            }else{
+          	  check_checked= false;
+            }
+        });
+        if(check_checked==true){
+      	  $('.table-striped .checkbox_list #select_all').prop('checked', true);
+        }
+    }else{
+  	  $('.table-striped .checkbox_list #select_all').prop('checked', false);
+    }
+  });
+});
+</script>

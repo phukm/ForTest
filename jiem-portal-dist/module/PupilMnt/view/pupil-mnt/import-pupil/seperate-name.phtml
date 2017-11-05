@@ -1,0 +1,79 @@
+<?php
+$this->headLink()->appendStylesheet($this->basePath('css/ImportStudent.css'))
+                    ->appendStylesheet($this->basePath('css/studentandclass.css'))
+                    ->appendStylesheet($this->basePath('css/OrgInforManagement.css'))
+                    ->appendStylesheet($this->basePath('css/pupil/import-pupil.css'))
+                    ->appendStylesheet($this->basePath('css/pupil/duplicate.css'));
+$this->headScript()->appendFile($this->basePath('js/uploadform.js'));
+$this->headScript()->appendFile($this->basePath('js/pupil/seperate-name.js'));
+?>
+<div id="showError" class="row jiem-error displaynone">
+    <div class="alert import-upload-error">
+        <ul>
+            <li>
+                <a id="showMsgFileImport" onclick="SEPERATE_NAME.forcusfield()"><?php echo isset($message[0]) ? $message[0] : ''; ?></a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div id="showContent">
+    <div class="newTemplate">
+        <div class="box import">
+            <div class="box-header">
+                <?php echo $this->translate('TitleUploadSeperate'); ?>
+            </div>
+            <div class="box-body">
+                <p><?php echo $this->translate('DescriptionUploadSeperateFile'); ?></p>
+                <p><?php echo $this->translate('DescriptionUpload'); ?></p>
+                <div class="importstd-form">
+                    <?php
+                    $form->setAttribute('action', $this->url('pupil-mnt/default', array('controller' => 'import-pupil', 'action' => 'seperate-name')));
+                    $form->prepare();
+                    echo $this->form()->openTag($form);
+                    ?>
+                    <input type="hidden" name="cookiesToken" id="cookiesToken"/>
+                    <div class="fl choose-file">
+                        <label><?php echo $this->translate('TitleFieldImport'); ?></label>
+                        <input name="filename" type="text" class="importstd-textbox" id="filename" readonly="true" value="" />
+                    </div>
+                    <div class="importstd-btngroup fl">
+                        <a class="btn btn-small btn-file" id="csvfilefocus" href="javascript:void(0)">
+                            <i class="folder-open-small"> </i><strong>参照</strong>
+                            <?php echo $this->formFile($form->get('fileImport')); ?>
+                        </a>
+                    </div>
+
+                    <div class="importstd-btngroup fr">
+                        <button class="btn btn-small btn-red importstd-button-space" id="submitForm" role="button" type="submit">
+                            <i class="fa-upload-small-w"></i>
+                            <strong>アップロード</strong>
+                        </button>
+                    </div>
+                    <?php echo $this->form()->closeTag(); ?>
+                </div>
+            </div>
+        </div>
+        <div class="box pupilshowhide">
+            <div class="box-body">
+                <div class="importstd-btngroup">
+                    <a class="btn btn-large-180 showbt" href="<?php echo $this->url('pupil-mnt/default', array('controller' => 'pupil', 'action' => 'index')); ?>">
+                        <strong class="text-center">キャンセル</strong>
+                    </a> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<form id="exportTemplate" method="post"
+      action="<?php
+      echo $this->url('pupil-mnt/default', array(
+          'controller' => 'import-pupil',
+          'action' => 'export-template-seperate'
+      ));
+      ?>">
+    <input type="hidden" name="exportType" id="exportType" class="export-type" value="0">
+</form>
+<script>
+    var error = '<?php echo isset($message[0]) ? $message[0] : ''; ?>';
+    SEPERATE_NAME.ready();
+</script>

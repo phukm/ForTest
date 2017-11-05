@@ -1,0 +1,155 @@
+<?php $this->headLink ()->prependStylesheet ( $this->basePath ( 'css/appeiken.css' ) )?>
+<script type="text/javascript">
+   var eikAppLevelMess = <?php echo $jsMessages; ?>
+</script>
+
+<div class="box frm-eiken-apply-pupil frm-eiken-apply-pupil-view">
+	<?php if ($apllyEikenLevel):?>
+	   <div class="box-header "><?php echo $this->translate('ViewFormHeader') ;?></div>
+	<div class="box-body font-size-FormEikenRegistStudnt">
+		<div class="box">
+			<div class="box-header font-size-FormEikenRegistStudnt"><?php echo $this->translate('Section1Header') ;?></div>
+			<div class="box-body ">
+				<div class="row firtrow">
+					<div class="col-sm-2">
+						<label><?php echo $this->translate('Kyu') ;?></label>
+					</div>
+					<div class="col-sm-2"><?php echo $apllyEikenLevel->getEikenLevel()? $apllyEikenLevel->getEikenLevel()->getLevelName() : '';?></div>
+				</div>
+				<div class="row">
+					<div class="col-sm-2">
+						<label><?php echo $this->translate('TuitionFee');?></label>
+					</div>
+					<div class="col-sm-2">
+					   <?php echo number_format($priceEikenLevelId).$this->translate('CurrencyUnit'); ?>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="box">
+			<div class="box-header font-size-FormEikenRegistStudnt"><?php echo $this->translate('Section2Header') ;?></div>
+			<div class="box-body">
+				<div class="row firtrow">
+					<div class="col-sm-2">
+						<label><?php echo $this->translate('FreeFirstTime');?></label>
+					</div>
+					<div class="col-sm-6">
+						<label><?php echo $apllyEikenLevel->getFeeFirstTime()? $this->translate('FreeFirstTimeYes'):$this->translate('FreeFirstTimeNo');?></label>
+					</div>
+				</div>
+				<?php if ($apllyEikenLevel->getFeeFirstTime()) :?>
+    				<div class="row pad-top-ichijishikensentaku">
+					<div class="col-sm-5">
+						<label><?php echo $this->translate('Request') ;?></label>
+						<div class="row line"></div>
+					</div>
+				</div>
+				<div class="row mt-nendokai">
+					<div class="col-sm-2">
+						<label>
+        						  <?php echo $this->translate('FirstPassedTime');?>
+        						  <br>
+        						  <?php echo $this->translate('FirstPassedTime-2');?>
+    						</label>
+					</div>
+					<div class="col-sm-4 styled-select">
+					   <?php echo $apllyEikenLevel->getFirstPassedTime(); ?>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-2">
+						<label><?php echo $this->translate('AreaNumber1');?>
+                						<br>
+                						<?php echo $this->translate('AreaNumber1-2') ;?>
+            						</label>
+					</div>
+					<div class="col-sm-4"><?php echo $this->escapeHtml($apllyEikenLevel->getAreaNumber1()); ?></div>
+				</div>
+				<div class="row margin-bot-kojinbango">
+					<div class="col-sm-2">
+						<label><?php echo $this->translate('AreaPersonal1') ;?><br> <?php echo $this->translate('AreaPersonal1-2') ;?>
+            						</label>
+					</div>
+					<div class="col-sm-4"><?php echo $this->escapeHtml($apllyEikenLevel->getAreaPersonal1()); ?></div>
+				</div>
+				<div class="row"></div>
+				<?php endif;?>
+			</div>
+		</div>
+		<div class="box section-3">
+			<div class="box-header font-size-FormEikenRegistStudnt"><?php echo $this->translate('Section3Header') ;?></div>
+			<div class="box-body">
+				<div class="col-sm-5">
+					<div class="row firtrow">
+						<label><?php echo $this->translate('FirstTimeWriting') ;?></label>
+					</div>
+					<div class="row line"></div>
+					<div class="row mt-ichijishikenchisentaku">
+						<div class="col-sm-2">
+							<label><?php echo $this->translate('AreaNumber2') ;?></label>
+						</div>
+						<div class="col-sm-8"><?php echo $apllyEikenLevel->getFeeFirstTime() != 1 &&  $apllyEikenLevel->getAreaNumber2()? $this->escapeHtml($apllyEikenLevel->getAreaNumber2()->getCityName()): ''; ?></div>
+					</div>
+					<div class="row lastrow">
+						<div class="col-sm-2">
+							<label><?php echo $this->translate('AreaPersonal2') ;?></label>
+						</div>
+						<div class="col-sm-8"><?php echo $apllyEikenLevel->getFeeFirstTime() != 1 && $apllyEikenLevel->getAreaPersonal2()? $this->escapeHtml($apllyEikenLevel->getAreaPersonal2()->getName()):''; ?></div>
+					</div>
+				</div>
+				<?php if($hasInterviewExam):?>
+				   <div class="col-sm-1"></div>
+				<div class="col-sm-5">
+					<div class="row firtrow">
+						<div class="col-sm-12">
+							<label><?php echo $this->translate('SecondInterview') ;?></label>
+						</div>
+
+					</div>
+					<div class="row line"></div>
+					<div class="row mt-ichijishikenchisentaku">
+						<div class="col-sm-2">
+							<label><?php echo $this->translate('AreaNumber3') ;?></label>
+						</div>
+						<div class="col-sm-8"><?php echo $apllyEikenLevel->getFeeFirstTime() == 1 && $apllyEikenLevel->getAreaNumber3()? $this->escapeHtml($apllyEikenLevel->getAreaNumber3()->getCityName()):''; ?></div>
+					</div>
+					<div class="row lastrow">
+						<div class="col-sm-2">
+							<label><?php echo $this->translate('AreaPersonal3') ;?> </label>
+						</div>
+						<div class="col-sm-8"><?php echo $apllyEikenLevel->getFeeFirstTime() == 1 && $apllyEikenLevel->getAreaPersonal3()? $this->escapeHtml($apllyEikenLevel->getAreaPersonal3()->getName()):''; ?></div>
+					</div>
+				</div>
+				<?php endif;?>
+			</div>
+		</div>
+	</div>
+	<div class="box-footer">
+		<div class="text-left col-sm-5">
+			<a
+				href="<?php echo $this->url('eikenpupil', array ('action' => 'index', 'id' => $apllyEikenLevel->getEikenLevelId()));?>"
+				class="btn btn-large-180 font-weight-modoru"> <i
+				class="arrow-circle-left"></i>
+            			<?php echo $this->translate('Back');?>
+            </a>
+		</div>
+		<div class="text-right col-sm-7">
+			<a
+				href="<?php echo $this->url('eikenpupil', array ('action' => 'edit','id' => $apllyEikenLevel->getId()));?>"
+				class="btn btn-large-180 margin-right-10"
+				<?php if (!$isValidTime) echo 'disabled="disabled"';?>> <i
+				class="pencil-square" class="eik-view-img"<?php if (!$isValidTime) echo 'disabled="disabled"';?>"></i>
+               <?php echo $this->translate('Edit'); ?>
+            </a>
+            <a
+				onclick="eikenPupil.deleteSingleEikPupil(<?php echo '\'',$apllyEikenLevel->getEncryptId(),'\',', $apllyEikenLevel->getEikenLevelId();?>)"
+				class="btn btn-large-180"><i class="trash-inline"></i>
+			    <?php echo $this->translate('Delete') ;?>
+        	</a>
+		</div>
+	</div>
+	<?php endif;?>
+</div>
+<?php $this->headScript()->prependFile( $this->basePath ( 'js/jiem.js' ) );?>
+<?php $this->headScript()->prependFile( $this->basePath ('js/messages/common-message.js'))?>
+<?php $this->headScript()->prependFile( $this->basePath('js/apply-eiken-pupil.js'))?>

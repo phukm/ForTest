@@ -1,0 +1,70 @@
+<?php echo $this->doctype(); ?>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0">
+    <?php echo $this->headTitle('英検受験者サポートシステム')->setSeparator(' - ')->setAutoEscape(false);
+    echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/eiken-logo.jpg'))
+        ->prependStylesheet($this->basePath('css/satellite-mobile.css'))
+        ->prependStylesheet($this->basePath('css/Login.css?v=0.1'))
+        ->prependStylesheet($this->basePath('css/JIEMStyle.css'))
+        ->prependStylesheet($this->basePath('css/bootstrap.css'))
+        ->prependStylesheet($this->basePath('css/icon-awesome-sa.css'))
+        ->prependStylesheet($this->basePath('css/jquery-ui.css'))
+        ->prependStylesheet($this->basePath('css/ie-only.css'), 'screen', 'IE');
+    echo $this->headScript()
+        ->prependFile($this->basePath('js/messages/common-message.js'))
+        ->prependFile($this->basePath('js/localization/jiem.messages_ja.js'))
+        ->prependFile($this->basePath('js/localization/messages_ja.js'))
+        ->prependFile($this->basePath('js/bootstrap.min.js'))
+        ->prependFile($this->basePath('js/common.js'))
+        ->prependFile($this->basePath('js/jquery.validate.js'))
+        ->prependFile($this->basePath('js/validate.min.js'))
+        ->prependFile($this->basePath('js/jquery-1.11.3.min.js'))
+        ->prependFile($this->basePath('js/html5shiv.js'), 'text/javascript', array('conditional' => 'lt IE 9'))
+        ->prependFile($this->basePath('js/respond.min.js'), 'text/javascript', array('conditional' => 'lt IE 9'))
+        ->prependFile($this->basePath('js/jquery.min.js'));
+    ?>
+</head>
+<body>
+<div class="wrapper">
+    <div id="stll-header" class="container sidebar">
+        <div class="row">
+            <div class="stll-logo col-xs-6">
+                <img src="/img/eiken-logo.jpg">
+            </div>
+            <div class="stll-slogan col-xs-6">
+                英検受験者 <br>サポートシステム
+            </div>
+        </div>
+    </div>
+    <div class="stltp-content">
+        <div class="row jiem-error" style="display: none;"></div>
+        <?php echo $this->content; ?>
+    </div>
+    <div id="stltp-footer">
+        <div class="footer-header-1">お問い合わせ先</div>
+        <div id="footer-content-1">英検サービスセンター（個人受付）</div>
+        <div class="footer-header-1">電話番号</div>
+        <div id="footer-content-2">
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <img class="awesome-footer" src="/img/other/phone.svg">
+                </div>
+                <div class="form-control">03-3266-8311</div>
+            </div>
+        </div>
+        <div class="footer-header-1">受付時間</div>
+        <div id="footer-content-3">
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <img class="awesome-footer" src="/img/other/clock-512px.svg">
+                </div>
+                <div class="form-control label-spacing">9:30〜17:00 (土・日・祝日を除く)</div>
+            </div>
+        </div>
+    </div>
+    <div class="lower-footer">Copyright © Eiken Foundation of Japan All rights reserved.</div>
+</div>
+</body>
+</html>

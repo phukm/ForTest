@@ -1,0 +1,162 @@
+<?php echo $this->doctype(), PHP_EOL; ?>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <style type="text/css">
+            .main {
+                width: 2365px;
+                color: #333;
+            }
+
+            div.contents {
+                width: 100%;
+                height: auto;
+                /*margin-left: 150px;*/
+            }
+
+            ul li {
+                list-style: none;
+            }
+
+            div.content1 {
+                position: relative;
+                left: 20px;
+                top: -15px;
+            }
+
+            div.content2 {
+                position: relative;
+                left: 20px;
+            }
+
+            div.row {
+                float: left;
+                width: 100%;
+            }
+
+            .row_left {
+                float: left;
+                margin-left: 300px;
+                width: 380px;
+            }
+
+            .row_right {
+                float: left;
+                //margin-left: 30px;
+            }
+        </style>
+    </head>
+    <?php
+    /* @var $invitationLetter \Application\Entity\InvitationLetter  */
+    /* @var $invitationSetting \Application\Entity\InvitationSetting  */
+//    $schoolYearName = $invitationLetter->getPupil()
+//            ->getOrgSchoolYear()
+//            ->getSchoolYear()
+//            ->getName();
+    $schoolYearName = $invitationLetter->getPupil()->getOrgSchoolYear()->getDisplayName();
+    ?>
+    <body>
+        <div
+            style="width: 2365px; height: 100px; display: block;font-family: Meiryo;"></div>
+        <div class="main" style="clear: both;">
+            <?php if($invitationSetting->getIssueDate()):?>
+            <div style="text-align: right; font-size: 35px;"><?php echo '平成'.(int)$this->escape($invitationSetting->getIssueDate()->format('Y')-1988). '年' .(int)$this->escape($invitationSetting->getIssueDate()->format('m')). '月' .(int)$this->escape($invitationSetting->getIssueDate()->format('d')). '日';  ?></div>
+            <?php endif; ?>
+            <?php if($invitationSetting->getOrganizationName()):?>
+            <div style="text-align: right; font-size: 35px;"><?php echo $this->escape($invitationSetting->getOrganizationName()); ?></div>
+            <?php endif; ?>
+            <?php if($invitationSetting->getPersonalTitle()):?>
+            <div style="text-align: right; font-size: 35px;"><?php echo $this->escape($invitationSetting->getPersonalTitle()); ?></div>
+            <?php endif; ?>
+            <?php if($invitationSetting->getPrincipalName()):?>
+            <div style="text-align: right; font-size: 35px;"><?php echo $this->escape($invitationSetting->getPrincipalName()); ?></div>
+            <?php endif; ?>
+            <?php
+                if($invitationSetting->getIssueDate() || $invitationSetting->getOrganizationName() || $invitationSetting->getPrincipalName()){
+                    echo '<br>';
+                }
+            ?>
+            <div style="text-align: center; font-size: 43px;">実用英語技能検定のお知らせ</div>
+            <div class="contents">
+                <ul>
+                    <li>
+                        <p style='font-size: 35px; margin-bottom: 0;'>■ &nbsp;<?php echo $this->escape($schoolYearName); ?>年&emsp;<?php echo $this->escape($classJ->getClassName()); ?>組&emsp;<?php echo $this->escape($pupil->getNumber()); ?>番&emsp;<?php echo $this->escape($pupil->getFirstNameKanji()); ?><?php echo $this->escape($pupil->getLastNameKanji()); ?>さんへ</p>
+                    </li>
+                </ul>
+                <?php if ($invitationSetting->getPrintMessage() == 1) { ?>
+                    <div class="content1"
+                         style='font-size: 35px; text-align: justify; width: 2335px; margin-left: 25px;'>
+                             <?php echo '&emsp;'.nl2br($this->escape($invitationLetter->getMessages1())); ?>
+                    </div>
+                <?php } ?>
+                <div class="content2">
+                    <!--<div class="row" style="height: 20px;"></div>-->
+                    <div class="row">
+                        <div class="row_left" style="font-size: 35px;">前回受験結果:</div>
+                        <div class="row_right" style='font-size: 35px;'><?php echo $this->escape($resultEikenorIba['level']); ?><?php echo !empty($resultEikenorIba['pass']) ? '（' . $this->escape($resultEikenorIba['pass']) . '）' : ''; ?></div>
+                    </div>
+                    <div class="row">
+                        <div class="row_left" style="font-size: 35px;">今回受験目標級:</div>
+                        <div class="row_right" style="font-size: 35px;"><?php echo $this->escape($eikenLevel ? $eikenLevel->getLevelName() : ''); ?></div>
+                    </div>
+                    <div class="row" style="height: 20px;"></div>
+                    <div class="row">
+                        <div class="row_left" style="font-size: 35px;">試験日程（一次）:</div>
+                        <div class="row_right" style="font-size: 35px;">
+                            <p style="margin: 0px;">
+                                <?php echo $this->escape($invitationLetter->getExamDate1()->format('Y')); ?>年<?php echo (int)$this->escape($invitationLetter->getExamDate1()->format('m')); ?>月<?php echo (int)$this->escape($invitationLetter->getExamDate1()->format('d')); ?>日（<?php echo $this->escape($examDate1); ?>）
+                            </p>
+                            <?php if ($invitationLetter->getExamDate12() != Null) { ?>
+                                <p style="margin: 0px;">
+                                    <?php echo $this->escape($invitationLetter->getExamDate12()->format('Y')); ?>年<?php echo (int)$this->escape($invitationLetter->getExamDate12()->format('m')); ?>月<?php echo (int)$this->escape($invitationLetter->getExamDate12()->format('d')); ?>日（<?php echo $this->escape($examDate12); ?>）
+                                <?php } ?>
+                            </p>
+                            <div style="float: left; margin-left: 32px;"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="row_left" style="font-size: 35px;">試験会場（一次）:</div>
+                        <div class="row_right" style="font-size: 35px;"><?php echo $this->escape($invitationLetter->getExamPlace1()); ?></div>
+                    </div>
+                    <div class="row" style="height: 20px;"></div>
+                    <div class="row">
+                        <div class="row_left" style="font-size: 35px;">試験日程（二次）:</div>
+                        <div class="row_right" style="font-size: 35px;">
+                            （A日程）<?php echo $this->escape($dataEikenSchudule->getRound2Day1ExamDate()->format('Y')); ?>年<?php echo (int)$this->escape($dataEikenSchudule->getRound2Day1ExamDate()->format('m')); ?>月<?php echo (int)$this->escape($dataEikenSchudule->getRound2Day1ExamDate()->format('d')); ?>日（<?php echo $examDate2A; ?>）
+                            <br>
+                            （B日程）<?php echo $this->escape($dataEikenSchudule->getRound2Day2ExamDate()->format('Y')); ?>年<?php echo (int)$this->escape($dataEikenSchudule->getRound2Day2ExamDate()->format('m')); ?>月<?php echo (int)$this->escape($dataEikenSchudule->getRound2Day2ExamDate()->format('d')); ?>日（<?php echo $examDate2B; ?>）
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="row_left" style="font-size: 35px;">試験会場（二次）:</div>
+                        <div class="row_right" style="font-size: 35px;">英検本会場</div>
+                    </div>
+                    <div class="row">
+                        <div class="row_left">&nbsp;</div>
+                        <div class="row_right" style="font-size: 35px;">※二次試験前に配布される二次受験票にて確認</div>
+                    </div>
+                    <div class="row" style="height: 20px;"></div>
+                    <div class="row">
+                        <div class="row_left" style="font-size: 35px;">申し込み締切り:</div>
+                        <div class="row_right" style="font-size: 35px;"><?php echo (int)$this->escape($invitationSetting->getDeadLine()->format('m')); ?>月<?php echo (int)$this->escape($invitationSetting->getDeadLine()->format('d')); ?>日（<?php echo $this->escape($day); ?>）　 厳守</div>
+                    </div>
+                </div>
+                <div style="float: left; width: 100%; height: auto;">
+                    <ul>
+                        <li>
+                            <p style='font-size: 35px; margin-bottom: 0;'>■ &nbsp;保護者の方へ</p>
+                        </li>
+                    </ul>
+                    <?php if ($invitationSetting->getPrintMessage() == 1) { ?>
+                        <div class="content1"
+                             style="font-size: 35px; text-align: justify; width: 2335px; margin-left: 25px;">
+                            <?php echo '&emsp;'. nl2br($this->escape($invitationLetter->getMessages2())); ?>
+                        </div>
+                    <?php } ?>
+                </div>
+                <div style="width: 2365px; height:100px;display: block; page-break-before:always; "></div>
+            </div>
+        </div>
+    </body>
+</html>
+<?php echo $htmlPayment; ?>

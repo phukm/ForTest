@@ -1,0 +1,205 @@
+<?php
+    $paging = $this->eikenPaginationHelper($paginator , $page, '/history/iba/iba-history-pupil', $numPerPage, (empty($param)) ? '' : '/search/'.$param);
+    $this->headLink()->appendStylesheet( $this->basePath ( 'css/historyeiken.css' ));
+    $this->headLink()->appendStylesheet($this->basePath('css/history/iba-pupil-achievement.css'));
+    $this->headScript()->appendFile($this->basePath('js/history/eiken-history-pupil.js'));
+?>
+
+<div class="box ibahistorypupil">
+    <div class="box-header">
+        <span><b><?php echo $this->translate('英検IBA履歴'); ?></b></span>
+    </div>
+    <div class="box-body">
+    <div class="row">
+				<label class="font-mark"> 英検IBAの試験結果の一覧となります。<br>
+                      <span class="marginleft"></span>「個人成績表」ボタンを押すと、個人の成績表が確認出来ます。
+				</label>
+                    <div class="fr">
+                            <a <?php echo \Dantai\PublicSession::isViewerRole() ? 'disabled' : '' ?> href="<?php echo $this->url('history/default', array('controller' => 'iba', 'action' => 'export-iba-history-pupil')); ?>" class="btn btn-red">
+                              <?php echo $this->translate('EXCEL出力'); ?>
+                          </a>
+                        </div> 
+			</div>
+    <div class="row sub-table">
+            <div class="col-sm-1 schoolyear-label"><label>学年</label></div>  
+            <div class="col-sm-1 schoolyear-data"><p>
+            <?php
+                if(empty($historyiba)){
+                    echo '';
+                }else{
+                    echo $this->escapehtml($schoolyear);
+                }
+            ?>
+            </p></div>  
+            <div class="col-sm-1 class-label"><label>クラス</label></div>
+            <div class="col-sm-1 class-data"><p>
+            <?php
+                if(empty($historyiba)){
+                    echo '';
+                }else{
+                    echo $this->escapehtml($class);
+                }
+            ?>
+            </p></div>  
+            <div class="col-sm-1 number-label"><label>番号</label></div>  
+            <div class="col-sm-1 number-data"><p>
+            <?php
+                if(empty($historyiba)){
+                    echo '';
+                }else{
+                    echo $this->escapehtml($number);
+                }
+            ?>
+            </p></div>
+            <div class="col-sm-1 name-label"><label>氏名</label></div>  
+            <div class="col-sm-1 name-data"><p>
+            <?php
+                if(empty($historyiba)){
+                    echo '';
+                }else{
+                    echo $this->escapehtml($name);
+                }
+            ?>
+            </p></div>  
+        </div>
+        <div class="scrolltable">
+            <div class="body">
+                <table class="table table-bordered table-striped" style="border: none;">
+                  <tbody>
+                        <tr>
+                            <th class="width120" rowspan="2">試験日</th>
+                            <th class="width77" rowspan="2">突合状況</th>
+                            <th class="width125" rowspan="2">テストセット  </th>
+
+                              <th colspan="3">CSEスコア </th>
+                                  <th colspan="3">分野別正答率 </th>
+                                      <th colspan="3">英検級レベル </th>
+                            <th  class="headcol headcole">操作  </th>
+                        </tr>
+                        <tr>
+                            <th class="width95">合計  </th>
+                            <th class="width95">読解  </th>
+                            <th class="width95">リスニング</th>
+                            <th class="width135" >語彙・熟語・文法</th>
+                            <th class="width135" >読解</th>
+                            <th class="width135">リスニング</th>
+                            <th class="width105">総合</th>
+                            <th class="width105">リーディング </th>
+                            <th class="width105">リスニング</th>
+                        </tr>
+                        <?php if(!empty($historyiba)){ ?>
+                        <?php foreach ($historyiba as $key => $value):?>
+                        <tr>
+                            <td class="exam-date"><?php
+                            if($value['examDate'] != null){
+                                echo $this->escapehtml(date_format($value['examDate'], 'Y/m/d'));
+                            }else{
+                                echo '';
+                            }
+                              ?></td>
+                            <td class="confirm">
+                                <?php 
+                                // This's use mappingStatus field, but it reality is confirmStatus
+                                $confirmStatus = $this->escapehtml(isset($value['mappingStatus']) ? $value['mappingStatus'] : ''); 
+                                ?>
+                                <?php 
+                                    if($value['mappingStatus'] == 0){
+                                        echo "未確定";
+                                    }elseif($value['mappingStatus'] == 1){
+                                        echo "確定済";
+                                    }else{
+                                        echo "&nbsp";
+                                    }
+                                ?>
+                            </td>
+                            <td class="testset">
+                                <?php 
+                                    if($value['testType'] == null && $value['testSetNo'] == null){
+                                        echo '';
+                                    }else{
+                                        echo $this->escapehtml($value['testType'] . '-' . $value['testSetNo']);
+                                    }
+                                ?>
+                            </td>
+                            <td class="long"><?php echo $this->escapehtml($value['total']); ?></td>
+                            <td class="long"><?php echo $this->escapehtml($value['read']); ?></td>
+                            <td class="long"><?php echo $this->escapehtml($value['listen']); ?></td>
+                            <td class="long center">
+                                <?php 
+                                if($value['correctAnswerPercentGrammar'] !== null)
+                                    echo $value['correctAnswerPercentGrammar'].'%';
+                                ?>
+                            </td>
+                            <td class="long center">
+                                <?php                                
+                                if($value['correctAnswerPercentReading'] !== null)                                    
+                                    echo $value['correctAnswerPercentReading'].'%';                                                                
+                                ?>
+                            </td>
+                            <td class="long center">
+                                <?php 
+                                if($value['correctAnswerPercentListening'] !== null)                                  
+                                    echo $value['correctAnswerPercentListening'].'%';                                
+                                ?>
+                            </td>
+                            <td class="long">
+                                <?php 
+                                    //        update function for : #GNCCNCJDR5-761
+                                    echo \Dantai\Utility\MappingUtility::getKyuName($ibaMasterData, \History\HistoryConst::IBA_RESULT_TOTAL, $value['testType'], $value['total']);
+                                ?>
+							 </td>
+                             <td class="long">
+                                <?php 
+                                    //        update function for : #GNCCNCJDR5-761
+                                    echo \Dantai\Utility\MappingUtility::getKyuName($ibaMasterData, \History\HistoryConst::IBA_RESULT_READING, $value['testType'], $value['read']);
+                                ?>
+							 </td>
+                             <td class="long columEnd">
+                                <?php 
+                                    //        update function for : #GNCCNCJDR5-761
+                                    echo \Dantai\Utility\MappingUtility::getKyuName($ibaMasterData, \History\HistoryConst::IBA_RESULT_LISTENING, $value['testType'], $value['listen']);
+                                ?>
+							</td>
+                            <td class="headcol"><a class="btn btn-small-89" id="btn-view" href="<?php
+                                        echo $this->url('history/default', array(
+                                            'controller' => 'iba',
+                                            'action' => 'detail',
+                                            'id' => $value['id']
+                                        ));
+                                        ?>"><?php echo $this->translate('個人成績表');?></a></td>
+                        </tr>
+                        <?php endforeach;?>
+                        <?php }else{ ?>
+                        <tr class="no-result">
+                            <td colspan="11" class="noresult">
+								<p><?php echo $this->translate("MSG17");?></p>
+							</td>
+                        </tr>
+                        <?php } ?>
+                </table>
+            </div>
+        </div>
+        <?php if (count($paginator) > $numPerPage) { ?>
+			<div class="text-center paging">
+				<nav>
+					<ul class="pagination">
+                        <?php  echo $paging; ?>
+					</ul>
+				</nav>
+			</div>
+	   <?php }?>
+    </div>
+
+	<div class="box-footer">
+		<div class="text-left col-sm-4">
+
+			<a class="btn btn-large-180"
+				href="<?php echo $this->url (NULL, array ("controller"=>"eiken", "action" => "exam-history-list")); ?>">
+				<i class="arrow-circle-left"></i> 戻る
+			</a>
+		</div>
+		</div>
+</div>
+<script>
+    var noRecordExcel = "<?php if($noRecordExcel){ echo $noRecordExcel; }else{ echo ''; } ?>";
+</script>

@@ -1,0 +1,21 @@
+<phpunit bootstrap="phpunit/bootstrap.php" colors="true">
+    <testsuites>
+        <testsuite name="JIEM DP Test Suite">
+            <directory>../module/AccessKey/tests/</directory>
+            <directory>../module/Application/tests/</directory>
+            <directory>../module/BasicConstruction/tests/</directory>
+            <directory>../module/ConsoleInvitation/tests/</directory>
+            <directory>../module/Eiken/tests/</directory>
+            <directory>../module/GoalSetting/tests/</directory>
+            <directory>../module/History/tests/</directory>
+            <directory>../module/HomePage/tests/</directory>
+            <directory>../module/IBA/tests/</directory>
+            <directory>../module/InvitationMnt/tests/</directory>
+            <directory>../module/Logs/tests/</directory>
+            <directory>../module/OrgMnt/tests/</directory>
+            <directory>../module/PupilMnt/tests/</directory>
+            <directory>../module/Report/tests/</directory>
+            <directory>../module/Satellite/tests/</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>

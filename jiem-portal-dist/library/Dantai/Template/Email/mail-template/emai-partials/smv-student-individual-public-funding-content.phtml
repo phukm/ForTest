@@ -1,0 +1,76 @@
+<?php
+$html['TotalExamineesOfMainHall'] = '<p>■本会場</p>';
+$html['TotalExamineesAndPriceOfMainHall'] = '<p>■本会場</p>';
+$totalExamineesOfAllEikenGradesMainVenue = 0;
+$totalFeeOfAllEikenGradesMainVenue = 0;
+$totalDiscountedFeeOfAllEikenGradesMainVenue = 0;
+$hasMainHall = false;
+
+if (!empty($data['detailPrice']['mainHall'])) {
+    $mainHall = $data['detailPrice']['mainHall'];
+    $html['TotalExamineesOfMainHall'] .= '<div class="exam">';
+    $html['TotalExamineesAndPriceOfMainHall'] .='<div class="exam">';
+    foreach ($mainHall as $key => $item) {
+        $isGradeOne = ($key <= 1) ? true : false;
+        $totalExamineesOfAllEikenGradesMainVenue += intval($item['total']);
+        $totalFeeOfAllEikenGradesMainVenue += intval(str_replace(array(',', '円'), '', $item['price']));
+        $multiplication = $isGradeOne ? intval($item['total']) * intval(str_replace(array(',', '円'), '', $item['price'])) :
+                intval($item['total']) * intval(str_replace(array(',', '円'), '', $item['discountPrice']));
+        $totalDiscountedFeeOfAllEikenGradesMainVenue +=$multiplication;
+        if (intval($item['total']) > 0) {
+            $hasMainHall = true;
+            $html['TotalExamineesOfMainHall'] .='<p> ' . $item['name'] . ':' . number_format(intval($item['total'])) . '名</p>';
+            $html['TotalExamineesAndPriceOfMainHall'] .= $isGradeOne ?
+                    '<p> ' . $item['name'] . ' : ' . number_format(intval($item['total'])) . '名  X ' . $item['price'] . ' = ' . number_format($multiplication) . '円</p>' :
+                    '<p> ' . $item['name'] . ' : ' . number_format(intval($item['total'])) . '名  X ' . $item['discountPrice'] . ' = ' . number_format($multiplication) . '円</p>';
+        }
+    }
+    $html['TotalExamineesOfMainHall'] .='</div>';
+    $html['TotalExamineesAndPriceOfMainHall'] .='</div>';
+    $html['TotalExamineesAndPriceOfMainHall'] .='<br><p>---------------------------------------------------</p>';
+    $html['TotalExamineesAndPriceOfMainHall'] .='<p>合計：' . number_format($totalExamineesOfAllEikenGradesMainVenue) . '名、' . number_format($totalDiscountedFeeOfAllEikenGradesMainVenue) . '円</p>';
+}
+
+$html['TotalExamineesOfStandardHall'] = '<br><p>■準会場</p>';
+$html['TotalExamineesAndPriceOfStandardHall'] = '<br><p>■準会場</p>';
+$totalExamineesOfAllEikenGradesStandardVenue = 0;
+$totalFeeOfAllEikenGradesStandardVenue = 0;
+$hasStandardHall = false;
+
+if (!empty($data['detailPrice']['standardHall'])) {
+    $standarHall = $data['detailPrice']['standardHall'];
+    $html['TotalExamineesOfStandardHall'] .= '<div class="exam">';
+    $html['TotalExamineesAndPriceOfStandardHall'] .='<div class="exam">';
+    foreach ($standarHall as $item) {
+        $totalExamineesOfAllEikenGradesStandardVenue += intval($item['total']);
+        $multiplication = ((int) $item['total']) * ((int) str_replace(array(',', '円'), '', $item['price']));
+        $totalFeeOfAllEikenGradesStandardVenue += $multiplication;
+        if (intval($item['total']) > 0) {
+            $hasStandardHall = true;
+            $html['TotalExamineesOfStandardHall'] .='<p> ' . $item['name'] . ':' . number_format(intval($item['total'])) . '名</p>';
+            $html['TotalExamineesAndPriceOfStandardHall'] .='<p> ' . $item['name'] . ' : ' . number_format(intval($item['total'])) . '名  X ' . $item['price'] . ' = ' . number_format($multiplication) . '円</p>';
+        }
+    }
+    $html['TotalExamineesOfStandardHall'] .='</div>';
+    $html['TotalExamineesAndPriceOfStandardHall'] .='</div>';
+    $html['TotalExamineesAndPriceOfStandardHall'] .='<br><p>---------------------------------------------------</p>';
+    $html['TotalExamineesAndPriceOfStandardHall'] .='<p>合計：' . number_format($totalExamineesOfAllEikenGradesStandardVenue) . '名、' . number_format($totalFeeOfAllEikenGradesStandardVenue) . '円</p>';
+}
+?>
+<div class="head-text" style="margin-top:25px;">
+    <p>-----------------------------------------------------------------</p>
+    <p>お申込み情報</p>
+    <p>-----------------------------------------------------------------</p>
+</div>
+<p>●今回のお申込み内容</p>
+<?php 
+if ($hasMainHall) {
+    echo $html['TotalExamineesOfMainHall']; 
+}
+if ($data['semi']!=1 && $hasStandardHall) {
+    echo $html['TotalExamineesOfStandardHall'];
+}
+?>
+<br>
+<p>差引額</p>
+<p>※公費を利用される場合、英検よりお支払いする経費は各団体様によって異なります。詳細につきましては、英検サービスセンターにお問い合わせください。</p>

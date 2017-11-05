@@ -1,0 +1,115 @@
+@CHARSET "ISO-8859-1";
+
+.activity-logs .col1, .activity-logs .col3, .activity-logs .col5 {
+	width: 90px;
+	float: left;
+}
+.activity-logs .col5 {
+	margin-left: 55px;
+}
+.activity-logs .col3, .col5{
+    margin-left: 70px;
+}
+.activity-logs .col2, .col4, .col6{
+    width: 150px;
+    float: left;
+}
+.activity-logs .col7{
+	width: 295px;
+	float: left;
+}
+#divStartDate input{
+	width: 120px;
+}
+.activity-logs .fr{
+    float: right;
+    line-height: 30px;
+    margin-top: 15px; 
+    margin-bottom: 10px;
+}
+
+.activity-logs .btn-clear{
+    width: 100px;
+    margin-right: 16px;
+}
+
+.activity-logs .box-submit{
+	padding: 7px 20px;
+}
+
+.activity-logs #divEndDate, #divStartDate{
+	width: 167px !important;
+}
+
+.activity-logs .first-row{
+	margin-bottom: 20px !important;
+}
+
+.activity-logs .box-body{
+	padding-bottom: 0px !important;
+}
+
+.activity-logs .list{
+	padding-bottom: 20px;
+}
+
+.activity-logs .noresult p{
+	margin-bottom: 0px;
+}
+
+.activity-logs .org-no{
+	text-align: right;
+}
+
+.activity-logs #datetimepicker2{
+	width: 128px;
+}
+.apply-eiken #divStartDate input{
+    width: 150px;
+}
+.apply-eiken .col7{
+    width: 310px;
+}
+.apply-eiken #toDate{
+    width: 150px;
+}
+.apply-eiken #toDate{
+    width: 150px;
+}
+.apply-eiken table thead tr th.titleOrgNo{
+    width: 200px;
+}
+.apply-eiken table thead tr th.titleOrgName{
+    width: 120px;
+}
+.apply-eiken table thead tr th.titleDate{
+    width: 100px;
+}
+.apply-eiken table thead tr th.titleUserId{
+    width: 85px;
+}
+.apply-eiken table thead tr th.titleUserName{
+    width: 80px;
+}
+.apply-eiken table thead tr th.titleAction{
+    width: 50px;
+}
+.apply-eiken .table p{
+   margin: 0;
+   word-break: break-all;
+}
+.apply-eiken .table span.red-text{
+   /*color: #5076E6;*/
+   font-weight: bold;
+}
+.apply-eiken table tbody tr td.decription{
+    /*padding-right: 0px;*/
+}
+.apply-eiken table tbody tr td.decription div{
+    /*width: 356px;*/
+    /*overflow-x: scroll;*/
+    /*overflow-y: hidden;*/
+}
+.apply-eiken table tbody tr td.decription div p{
+    /*width: 820px;*/
+}

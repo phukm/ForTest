@@ -1,0 +1,99 @@
+<?php $escaper = new Zend\Escaper\Escaper('utf-8');$this->headLink ()->prependStylesheet ( $this->basePath ( 'css/appeiken.css' ) )?>
+
+<div class="box payment-detail">
+	<div class="box-header">
+	   <?php echo $this->translate('支払情報詳細');?>
+	</div>
+	<div class="box-body-pd">
+		<div class="row">
+			<label class="col-sm-2"><b><?php echo $this->translate('学年');?></b></label>
+			<div class="col-sm-4 colortext"><?php echo $escaper->escapeHtml($data['displayName']);?></div>
+
+			<label class="col-sm-2"><b><?php echo $this->translate('支払方法');?></b></label>
+                        <div class="col-sm-4 colortext"><?php if($data['paymentStatus'] == '1'){ echo $data['paymentBy'] == 1 ? 'クレジット' : 'コンビ二'; }?></div>
+		</div>
+		<div class="row">
+			<label class="col-sm-2"><b><?php echo $this->translate('クラス');?></b></label>
+			<div class="col-sm-4 colortext"><?php echo $escaper->escapeHtml($data['className']);?></div>
+
+			<label class="col-sm-2"><b><?php echo $this->translate('支払状況');?></b></label>
+			<div class="col-sm-4 colortext"><?php echo $data['paymentStatus']=='1'?'支払済':'未支払';?></div>
+
+		</div>
+		<div class="row">
+			<label class="col-sm-2"><b><?php echo $this->translate('番号');?></b></label>
+			<div class="col-sm-4 colortext"><?php echo $escaper->escapeHtml($data['number']);?></div>
+
+			<label class="col-sm-2"><b><?php echo $this->translate('支払日');?></b></label>
+			<div class="col-sm-4 colortext"><?php echo isset($data['paymentDate'])?$data['paymentDate']->format('Y/m/d'):'';?></div>
+		</div>
+		<div class="row">
+			<label class="col-sm-2"><b><?php echo $this->translate('氏名（漢字）');?></b></label>
+			<div class="col-sm-4 colortext">
+                            <?php 
+                                if(!empty($data['applyFirstNameKanji']) && !empty($data['applyLastNameKanji'])) { 
+                                   echo $escaper->escapeHtml((!empty($data['applyFirstNameKanji'])?$data['applyFirstNameKanji']:'').(!empty($data['applyLastNameKanji'])?$data['applyLastNameKanji']:''));
+                                }else{
+                                   echo $escaper->escapeHtml((!empty($data['firstNameKanji'])?$data['firstNameKanji']:'').(!empty($data['lastNameKanji'])?$data['lastNameKanji']:''));
+                                }
+                                
+                            ?>
+                        </div>
+
+
+			<label class="col-sm-2"><b><?php echo $this->translate('登録状況');?></b></label>
+			<div class="col-sm-4 colortext"><?php echo $data['isRegister']=='1' ?'登録済':'未登録';?></div>
+		</div>
+
+		<div class="row">
+			<label class="col-sm-2"><b><?php echo $this->translate('氏名（カナ）');?></b></label>
+			<div class="col-sm-4 colortext">
+                            <?php 
+                                if(!empty($data['applyFirstNameKana']) && !empty($data['applyLastNameKana'])) { 
+                                   echo $escaper->escapeHtml((!empty($data['applyFirstNameKana'])?$data['applyFirstNameKana']:'').(!empty($data['applyLastNameKana'])?$data['applyLastNameKana']:''));
+                                }else{
+                                   echo $escaper->escapeHtml((!empty($data['firstNameKana'])?$data['firstNameKana']:'').(!empty($data['lastNameKana'])?$data['lastNameKana']:''));
+                                }
+                                
+                            ?>
+                        </div>
+
+
+			<label class="col-sm-2"><b><?php echo $this->translate('登録日');?></b></label>
+			<div class="col-sm-4 colortext"><?php echo isset($data['regDateOnSatellite'])?$data['regDateOnSatellite']->format('Y/m/d'):' ';?></div>
+		</div>
+
+		<div class="row suishojukenkyu-paymentD">
+			<div class="col-sm-2">
+				<b><?php echo $this->translate('目標級');?></b>
+			</div>
+			<div class="col-sm-4"><?php echo $escaper->escapeHtml($data['RecommendName']);?></div>
+		</div>
+		<div class="row moshikomijukenkyu-paymentD">
+			<div class="col-sm-2">
+				<b><?php echo $this->translate('受験級');?></b>
+			</div>
+			<div class="col-sm-4"><?php echo $escaper->escapeHtml($data['ApplyLevel']);?></div>
+		</div>
+
+	</div>
+	<div class="box-footer">
+		<div class="text-left col-sm-4">
+            <?php
+            if($param){
+                $backUrl = $this->url('payment', array( 'action' => 'paymentstatus', 'page' => $page, 'id' => $eikenScheduleId, 'search'=>base64_decode($param)));
+            } else {
+                $backUrl = $this->url('payment', array( 'action' => 'paymentstatus', 'page' => $page, 'id' => $eikenScheduleId));
+            }
+            ?>
+			<a id="btnBack" class="btn btn-large-180"
+				href="<?php echo  $backUrl; ?>"><i class="arrow-circle-left"></i> 戻る</a>
+		</div>
+	</div>
+
+</div>
+
+
+
+
+

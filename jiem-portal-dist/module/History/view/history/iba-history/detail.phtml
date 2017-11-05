@@ -1,0 +1,309 @@
+<?php
+$this->headScript()->appendFile($this->basePath('js/highcharts.js'))->appendFile($this->basePath('js/history/iba-detail-chart.js'));
+$this->headLink()->prependStylesheet($this->basePath('css/inquiry-iba.css'))->prependStylesheet($this->basePath('css/studentandclass.css'));
+?>
+    <div class="contentinquiry">
+        <div class="box boxtop">
+            <div class="box-header">個人成績表</div>
+            <div class="box-body">
+                <div class="row row1">
+                    <div class="col1 fl">
+                        <span class="fl label1">試験日 <?php echo !empty($data->getExamDate) ? $data->getExamDate : ''; ?></span>
+                    </div>
+                    <div class="col2 fr">
+                        <span class="fl">団体番号 : <?php echo $data->getOrganizationNo(); ?></span>
+                    </div>
+                </div>
+                <div class="row row2">
+                    <table class="table table-bordered" id="tbl01">
+                        <tr>
+                            <td class="event-t w80">学校名</td>
+                            <td colspan="7"><?php echo $data->getOrganizationName; ?></td>
+                        </tr>
+                        <tr>
+                            <td class="event-t w80">学年</td>
+                            <td class="td1"><?php echo $data->getSchoolYear(); ?></td>
+                            <td class="event-t text-center w80">クラス</td>
+                            <td class="td1"><?php echo $data->getClassCode(); ?></td>
+                            <td class="event-t text-center w80">番号</td>
+                            <td class="td1"><?php echo $data->getPupilNo(); ?></td>
+                            <td class="event-t text-center w205">英検ID</td>
+                            <td class="td2"><?php echo $data->getEikenId(); ?></td>
+                        </tr>
+                        <tr>
+                            <td class="event-t">氏名</td>
+                            <td colspan="5"><?php echo $data->getNameKana(); ?></td>
+                            <td class="event-t text-center w205">PW</td>
+                            <td class="td2"><?php echo '********';//$data->getPassword(); ?></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="box boxchart">
+            <div class="box-header">あなたの成績</div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="fl rowtable">
+                        <div class="titlechart clear">
+                            <div class="fl">リーディング・リスニングテストの結果</div>
+                            <div class="fr toptitle">
+                                <a class="boxbtn1 fl btnborder">テスト</a>
+                                <a class="boxbtn1 fl bgtitle"><?php echo $data->getTestType() . $data->getTestSetNo(); ?></a>
+                            </div>
+                        </div>
+                        <div class="row1 bgcontent clear">
+                            <div class="chart">
+                                <span class="chart-h">1700</span>
+
+                                <div class="chart-dis">
+                                    <span class="c1">•</span> CSEスコア<br>
+                                    <span class="c2">•</span> 団体平均CSEスコア
+                                </div>
+                                <div id="leading-listening-test-result"></div>
+                            </div>
+                        </div>
+                        <div class="row2 clear">
+                            <table class="table table-bordered clear" id="tbl02">
+                                <tr>
+                                    <th>CSEスコア</th>
+                                    <th>リスニング</th>
+                                    <th>リーディング</th>
+                                    <th>総合</th>
+                                </tr>
+                                <tr>
+                                    <td>スコア/満点スコア</td>
+                                    <td><?php echo $data->getListen() . '/' . $data->getAverageScoreTotal / 2; ?></td>
+                                    <td><?php echo $data->getRead() . '/' . $data->getAverageScoreTotal / 2; ?></td>
+                                    <td><?php echo $data->getTotal() . '/' . $data->getAverageScoreTotal; ?></td>
+                                </tr>
+                                <tr>
+                                    <td>団体平均スコア</td>
+                                    <td><?php echo $data->getAverageScoreListening(); ?></td>
+                                    <td><?php echo $data->getAverageScoreReading(); ?></td>
+                                    <td><?php echo $data->getAverageScoreTotal(); ?></td>
+                                </tr>
+                                <tr>
+                                    <td>順位</td>
+                                    <td><?php echo $data->getRankListening(); ?></td>
+                                    <td><?php echo $data->getRankReading(); ?></td>
+                                    <td><?php echo $data->getRankTotal() . '<span style="font-size:11px">(' . $data->getExamNumber() . ')</span>'; ?></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="fr rowtable">
+                        <div class="titlechart clear">
+                            <div class="fl">分野別平均正答率（％）</div>
+                        </div>
+                        <div class="row1 bgcontent clear">
+                            <div class="chart">
+                                <span class="chart-h fr0">100%</span>
+
+                                <div class="chart-dis">
+                                    <span class="c1">•</span> 正答率<br>
+                                    <span class="c2">•</span> 団体平均 正答率
+                                </div>
+                                <div id="sector-average-percentage"></div>
+                            </div>
+                        </div>
+                        <div class="row2 clear">
+                            <table class="table table-bordered clear" id="tbl03">
+                                <tr>
+                                    <th>分野名</th>
+                                    <th>リスニング</th>
+                                    <th>読解</th>
+                                    <th>語い・熟語・文法</th>
+                                </tr>
+                                <tr>
+                                    <td>団体平均正答率</td>
+                                    <td><?php echo $data->getAvgCorrectPercentListening(); ?>%</td>
+                                    <td><?php echo $data->getAvgCorrectPercentReading(); ?>%</td>
+                                    <td><?php echo $data->getAvgCorrectPercentGrammar(); ?>%</td>
+                                </tr>
+                                <tr>
+                                    <td>正答率</td>
+                                    <td><?php echo $data->getCorrectAnswerPercentListening(); ?>%</td>
+                                    <td><?php echo $data->getCorrectAnswerPercentReading(); ?>%</td>
+                                    <td><?php echo $data->getCorrectAnswerPercentGrammar(); ?>%</td>
+                                </tr>
+                                <tr>
+                                    <td>問題数</td>
+                                    <td><?php echo $data->getQuestionNumberListening(); ?></td>
+                                    <td><?php echo $data->getQuestionNumberReading(); ?></td>
+                                    <td><?php echo $data->getQuestionNumberGrammar(); ?></td>
+                                </tr>
+                            </table>
+                            <div class="note-chart">
+                                <span>・問題数に占める正解数の比較です。問題の難易度は反映していません。<br>・平均正答率は貴団体内のテストの種類別に集計したものです。 </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box boxchart2">
+            <div class="box-header">英検級レベル判定（一次試験）</div>
+            <div class="box-body">
+                <div class="row">
+                    <table class="table table-bordered event" id="tbl04">
+                        <tr>
+                            <td>総合</td>
+                            <td class="both"><?php echo $data->getEikenLevelTotal(); ?></td>
+                        <tr>
+                        <tr class="bgcontent">
+                            <td>リーディング</td>
+                            <td><?php echo $data->getEkenLevelRead(); ?></td>
+                        <tr>
+                        <tr>
+                            <td>リスニング</td>
+                            <td><?php echo $data->getEikenLevelListening(); ?></td>
+                        <tr>
+                    </table>
+                </div>
+                <hr/>
+                <div class="row" id="star-level">
+                    <div class="star-title">技能別英検級レベル表示</div>
+                    <div class="star-header">
+                        <div class="star-0"></div>
+                        <div class="star-51">5級受験</div>
+                        <div class="star-52">5級</div>
+                        <div class="star-4">4級</div>
+                        <div class="star-3">3級</div>
+                        <div class="star-21">準2級</div>
+                        <div class="star-22">2級</div>
+                        <div class="star-11">準1級</div>
+                        <div class="star-12">準1級以上</div>
+                    </div>
+                    <table class="table table-bordered" id="tbl05">
+                        <tr>
+                            <td class="event-t">総合</td>
+                            <?php for ($i = 0; $i < $data->getStarTotal; $i++) { ?>
+                                <td colspan="2" class="event-star"><i class="star-yellow"></i></td>
+                            <?php } ?>
+                            <?php for ($i = 0; $i < 8 - $data->getStarTotal; $i++) { ?>
+                                <td colspan="2"></td>
+                            <?php } ?>
+                        </tr>
+                        <tr>
+                            <td class="event-t">リーディング</td>
+                            <?php for ($i = 0; $i < 18; $i++) {
+                                $colspan = '';
+                                $bg = '';
+                                if ($i % 2 != 0) {
+                                    $bg = 'event-bg';
+                                }
+                                if ($i >= 12) {
+                                    $colspan = 'colspan="2"';
+                                    $i = $i + 2;
+                                    $data->getStarReading = $data->getStarReading + 2;
+                                }
+                                if ($i < $data->getStarReading) {
+                                    echo '<td ' . $colspan . ' class="event-star ' . $bg . '"><i class="star-yellow"></i></td>';
+                                }
+                                else {
+                                    echo '<td ' . $colspan . ' class="' . $bg . '"></td>';
+                                }
+                                ?>
+                            <?php } ?>
+                        </tr>
+                        <tr>
+                            <td class="event-t">リスニング</td>
+                            <?php for ($i = 0; $i < 18; $i++) {
+                                $colspan = '';
+                                $bg = '';
+                                if ($i % 2 != 0) {
+                                    $bg = 'event-bg';
+                                }
+                                if ($i >= 12) {
+                                    $colspan = 'colspan="2"';
+                                    $i = $i + 2;
+                                    $data->getStarListening = $data->getStarListening + 2;
+                                }
+                                if ($i < $data->getStarListening) {
+                                    echo '<td ' . $colspan . ' class="event-star ' . $bg . '"><i class="star-yellow"></i></td>';
+                                }
+                                else {
+                                    echo '<td ' . $colspan . ' class="' . $bg . '"></td>';
+                                }
+                                ?>
+                            <?php } ?>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="box boxdescription">
+            <div class="box-header">あなたができること - 英検Can-doリストから</div>
+            <div class="box-body">
+                <div class="row row1">
+                <span>あなたと同じレベルの人はこんなことができる自信があります。<br>
+                    今、できなくてもレベル的にはできる基礎力は備わっているはずです！頑張りましょう！
+                </span>
+                </div>
+                <div class="row row2">
+                    <table class="table table-bordered event" id="tbl06">
+                        <tr>
+                            <td>リーディング</td>
+                            <td>
+                                <?php echo ltrim(str_replace('◆', '<br>◆', $data->getReadingCanDo), '<br>'); ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>リスニング</td>
+                            <td>
+                                <?php echo ltrim(str_replace('◆', '<br>◆', $data->getListeningCanDo), '<br>'); ?>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="box boxdescription">
+            <div class="box-header"> 分野別学習アドバイス</div>
+            <div class="box-body">
+                <div class="row row1">各分野の成績をもとに学習アドバイスを掲載しています。普段の授業や、いつもの学習の参考にしてください。</div>
+                <div class="row row2">
+                    <table class="table table-bordered event" id="tbl07">
+                        <tr>
+                            <td></td>
+                            <td class="event-t">学習アドバイス</td>
+                        </tr>
+                        <tr>
+                            <td>語い・熟語<br>・文法</td>
+                            <td>
+                                <?php echo ltrim(str_replace('◆', '<br>◆', $data->getVocAdvice), '<br>'); ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>読解</td>
+                            <td>
+                                <?php echo ltrim(str_replace('◆', '<br>◆', $data->getReadingAdvice), '<br>'); ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>リスニング</td>
+                            <td>
+                                <?php echo ltrim(str_replace('◆', '<br>◆', $data->getListeningAdvice), '<br>'); ?>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="box-footer">
+                <div class="row ">
+                    <a href="<?php echo $backAction ? $backAction : $this->url('history/default', array('controller' => 'eiken', 'action' => 'exam-result')); ?>" class="btn btn-large-180 ">
+                        <i class="arrow-circle-left"></i> 戻る
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php if ($data->getTotal() && $data->getAvgCorrectPercentGrammar()) { ?>
+    <script type="text/javascript">
+        $(function () {
+            chartLeadingListeningTestResult(<?php echo (int)$data->getAverageScoreListening().','.(int)$data->getAverageScoreReading().','.(int)$data->getAverageScoreTotal().','.(int)$data->getListen().','.(int)$data->getRead().','.(int)$data->getTotal(); ?>);
+            chartSectoralaveragePercentage(<?php echo (int)$data->getAvgCorrectPercentListening().','.(int)$data->getAvgCorrectPercentReading().','.(int)$data->getAvgCorrectPercentGrammar().','.(int)$data->getCorrectAnswerPercentListening().','.(int)$data->getCorrectAnswerPercentReading().','.(int)$data->getCorrectAnswerPercentGrammar() ?>);
+        });
+    </script>
+<?php } ?>

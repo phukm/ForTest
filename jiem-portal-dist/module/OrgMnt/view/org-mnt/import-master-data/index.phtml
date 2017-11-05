@@ -1,0 +1,196 @@
+<?php
+$this->headLink()->appendStylesheet($this->basePath('css/ImportStudent.css'))
+        ->appendStylesheet($this->basePath('css/studentandclass.css'));
+$this->headScript()->appendFile($this->basePath('js/uploadform.js'));
+$this->headScript()->appendFile($this->basePath('js/org/org-import-master-data.js'));
+?>
+
+
+
+    
+<?php
+if (!empty($messagesValidate)) {
+    ?>
+    <div id="showError" class="row jiem-error displaynone">
+        <div class="alert   import-upload-error ">
+            <ul>
+                <?php if (isset($systemError) && $systemError == true) { ?>
+                    <script>
+                        $('.jiem-error').show();
+                    </script>
+                    <li >
+                        <a href="#systemError" ><?php echo $this->translate('systemError'); ?></a>
+                    </li>
+                <?php
+                }  else 
+                foreach ($messagesValidate as $keyError => $error) {
+                    
+                    if (isset($error["ddbYear"])) {
+                        ?>
+                        <script>
+                            $('.jiem-error').show();
+                        </script>
+                        <li id="showMsgYear" >
+                            <a id="viewMsgYear" href="#ddbYear" onclick="forcusField('ddbYear')"><?php echo $error["ddbYear"]; ?></a>
+                        </li>
+                        <?php
+                    } else
+                    if (isset($error["ddlKai"])) {
+                        ?>
+                        <script>
+                            $('.jiem-error').show();
+                        </script>
+                        <li id="showMsgKai" >
+                            <a id="viewMsgYear" href="#ddlKai" onclick="forcusField(this)"><?php echo $error["ddlKai"]; ?></a>
+                        </li>
+                        <?php
+                    } else {
+                        ?>
+                        <?php
+                        if ($messageId == 'VIMD_MSG10' || $messageId == 'VIMD_MSG9' || $messageId == 'VIMD_MSG8' || $messageId == 'VIMD_MSG7') {
+                            ?>
+                            <script>
+                                $('.jiem-error').hide();
+                                ERROR_MESSAGE.show('<?php echo $error ?>',
+                                        function ()
+                                        {
+                                            document.location.href = "<?php echo $this->url('org-mnt/default', array('controller' => 'org', 'action' => 'index')); ?>";
+                                        });
+                            </script>
+                            <?php
+                        }else
+                        {
+                            ?>
+                            <script>
+                            $('.jiem-error').show();
+                            </script>
+                            <li id="showMsgFileImport" >
+                                <a id="viewMsgFileImport" href="#csvfilefocus" onclick="forcusField(this)"><?php echo $error; ?></a>
+                            </li>
+                            <?php 
+                        }
+                        
+                    }
+                }
+                ?>
+            </ul>
+        </div>
+    </div>        
+    <?php
+}
+?>
+
+
+<div id="showContent">
+    <div class="importstd">
+        <div class="box">
+            <div class="box-header">
+                <p><?php echo $this->translate('TitleUpload'); ?></p>
+            </div>
+            <div class="box-body">
+                <form method="POST" name="import-materdata" class=""  action="index" id="import-materdata" enctype="multipart/form-data" >     
+                    <p><?php echo $this->translate('TitleChooseSlect'); ?></p>
+                    <div class="studentmanager">
+                        <div class="row search_list1">
+                            <div class="col1 col-sm-1">
+                                <label><?php echo $this->translate('INVMNT_Year'); ?><span class="star">*</span></label>
+                            </div>
+                            <div class="col2 col-sm-1 styled-select">
+
+                                <select rel="1" name="ddbYear"  class="form-control recmlvl-select-year inset-shadow <?php
+                                if (!empty($messagesValidate)) {
+                                    foreach ($messagesValidate as $key => $error) {
+                                        if (isset($error["ddbYear"]))
+                                            echo 'error';
+                                    }
+                                }
+                                ?> " id="ddbYear">
+                                    <option selected="" value="" ref=""></option>
+                                    <option <?php echo date("Y") == $year ? "selected='selected'" : ''; ?> value="<?php echo date("Y"); ?>" ref=""><?php echo date("Y"); ?></option>
+                                    <option <?php echo (date("Y") + 1) == $year ? "selected='selected'" : ''; ?> value="<?php echo date("Y") + 1; ?>" ref=""><?php echo date("Y") + 1; ?></option>
+                                </select>
+                            </div>
+                            <div class="col3 col-sm-1 ">
+                                <label><?php echo $this->translate('INVMNT_Kai'); ?><span class="star">*</span></label>
+                            </div>
+                            <div class="col4 col-sm-1 styled-select ">
+                                <select name="ddlKai" class="form-control <?php
+                                if (!empty($messagesValidate)) {
+                                    foreach ($messagesValidate as $key => $error) {
+                                        if (isset($error["ddlKai"]))
+                                            echo 'error';
+                                    }
+                                }
+                                ?>
+
+                                        " id="ddlKai"><option value=""></option>
+                                    <option <?php echo $kai == 1 ? "selected='selected'" : ''; ?> value="1">1</option>
+                                    <option <?php echo $kai == 2 ? "selected='selected'" : ''; ?> value="2">2</option>
+                                    <option <?php echo $kai == 3 ? "selected='selected'" : ''; ?> value="3">3</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <p><?php echo $this->translate('DescriptionUploadData'); ?></p>
+                    </div>
+                    <div class="row">
+
+                        <div class="fl choose-file">
+                            <label><?php echo $this->translate('TitleImportMasterData'); ?></label>
+                            <input type="text" style="width:390px"  class="importstd-textbox <?php
+                            if (!empty($messagesValidate)) {
+                                foreach ($messagesValidate as $key => $error) {
+                                    if ($messageId != 'VIMD_MSG11' && $messageId != 'VIMD_MSG10' && $messageId != 'VIMD_MSG9' && $messageId != 'VIMD_MSG8' && $messageId != 'VIMD_MSG7')
+                                        echo 'error';
+                                }
+                            }
+                            ?>
+
+
+                                   " name="fileToUpload" id="filename" readonly="true" value="" />
+                        </div>
+                        <div class="importstd-btngroup fl">
+                            <a class="btn btn-small btn-file" id="csvfilefocus" href="javascript:void(0)">
+                                <i class="folder-open-small"> </i>
+                                <strong>参照</strong>
+                                <input type="file" name="fileImport"  class="form-control importstd-textbox" data-rule-required="true" data-msg-required="必須入力項目です。" id="fileImport">
+                            </a>
+
+                        </div>
+
+
+                        <div class="importstd-btngroup fr">
+                            <button class="btn btn-small btn-red importstd-button-space" id="submitForm" role="button"   type="button">
+                                <i class="fa-upload-small-w"></i>
+                                <strong><?php echo $this->translate('TitleUpload') ?></strong>
+                            </button>
+                        </div>
+                    </div>
+                </form>   
+            </div>
+        </div>
+        <div class="box pupilshowhide">
+            <div class="box-body">
+                <div class="importstd-btngroup">
+                    <a class="btn btn-large-180 showbt" href="<?php echo $this->url('org-mnt/default', array('controller' => 'org', 'action' => 'index')); ?>">
+                        <strong class="text-center">キャンセル</strong>
+                    </a> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var jsMessages_cl = <?php echo $jsMessages->jsonSerialize(); ?>;
+    var jsMessages = jsMessages_cl.data;
+    ORG_MASTER_DATA.ready();
+    $( document ).ready(function() {
+        
+        var height = $("#errorPopupModal .modal-body").height();
+        if(height > 250){
+            $("#errorPopupModal .modal-body").addClass('scroll');
+        }
+        
+    });
+</script>

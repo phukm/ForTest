@@ -1,0 +1,243 @@
+<?php $this->headLink()->prependStylesheet($this->basePath('css/list_org_style.css')) ?>
+
+<?php $form->setAttribute('action', 'save'); ?>
+<?php echo $this->form()->openTag($form); ?>
+
+<div class="box">
+    <div class="box-header">
+        <?php echo $this->translate("ユーザ情報登録"); ?>
+        <span class="notice-require-user"><span class="star"> *</span>必須入力項目</span>
+    </div>
+    <div class="box-body register-body">
+        <div class="notice-password">
+            <label class="font-mark">
+                ユーザIDは以下の条件を満たしてください。<br/>
+                ・半角英数字。ハイフン（-） またはアンダーライン（_）含む<br/>
+                ・4～31桁<br/>
+                ・最初の文字は英字<br/>
+                ・登録済のユーザIDと同じ値は不可<br/>
+                <br/>
+                記入されたメールアドレスに、ログインに必要なパスワードをお送りします。<br/>
+                <br/>
+                管理者は、全ての機能が利用できます。利用者は、ユーザの追加・削除ができません。他は全ての機能が利用できます。<br/>
+
+            </label>
+        </div>
+        <div class="row margin-bottom-register">
+            <div class="col-sm-2">
+                <p><?php echo $this->translate("Organization Number"); ?></p>
+            </div>
+            <div class="col-sm-5 input-org">
+                <label><?php
+                    if (isset($orgno)) {
+                        echo $orgno;
+                    }
+                    ?></label>
+            </div>
+        </div>
+        <div class="row margin-bottom-register">
+            <div class="col-sm-2">
+                <p><?php echo $this->translate("User ID"); ?><i class="text-rqred">*</i>
+                </p>
+            </div>
+            <div class="col-sm-6 input-user-id">
+<?php echo $this->formRow($form->get('txtUserID')); ?>
+            </div>
+        </div>
+        <div class="row margin-bottom-register-name">
+            <div class="col-sm-2">
+                <p><?php echo $this->translate("Name (Kanji)"); ?><i
+                        class="text-rqred">*</i>
+                </p>
+            </div>
+            <div class="col-sm-8">
+                <?php echo $this->formRow($form->get('txtFistname')); ?>
+                <?php echo $this->formRow($form->get('txtlastname')); ?>
+            </div>
+        </div>
+        <div class="row email-row">
+            <div class="col-sm-2">
+                <p><?php echo $this->translate("Email Address"); ?><i
+                        class="text-rqred">*</i>
+                </p>
+            </div>
+            <div class="col-sm-10">
+<?php echo $this->formRow($form->get('txtEmailAddress')); ?>
+            </div>
+        </div>
+        <div class="row margin-bottom-register">
+            <div class="col-sm-2">
+                <p><?php echo $this->translate("Authority"); ?><i class="text-rqred">*</i>
+                </p>
+            </div>
+            <div class="col-sm-5 select-role styled-select">
+<?php echo $this->formRow($form->get('Role')); ?>
+            </div>
+        </div>
+        <div class="row ServiceTypeRow">
+            <div class="col-sm-2">
+                <p><?php echo $this->translate("ServiceType"); ?><i
+                        class="text-rqred">*</i>
+                </p>
+            </div>
+            <div class="col-sm-5 styled-checkboxgroup">
+<?php echo $this->formRow($form->get('ServiceType')); ?>
+            </div>
+        </div>
+        <div class="row margin-bottom-register">
+            <hr />
+        </div>
+        <div class="row status-row">
+            <div class="col-sm-2">
+                <p><?php echo $this->translate("Status"); ?><i class="text-rqred">*</i>
+                </p>
+            </div>
+            <div class="col-sm-5 styled-select">
+<?php echo $this->formRow($form->get('Status')); ?>
+            </div>
+        </div>
+    </div>
+    <div class="box-footer">
+        <div class="text-right">
+            <a class="btn btn-large-180 btn-footer-1"
+               href="<?php echo $this->url('org-mnt/default', array('controller' => 'user', 'action' => 'index')); ?>"><?php echo $this->translate("Cancel"); ?></a>
+            <button type="button" id="submitform"
+                    class="btn btn-red btn-large-180">
+                <i class="fa-download-w"></i>
+<?php echo $this->translate("Save"); ?></button>
+
+        </div>
+
+    </div>
+</div>
+<?php echo $this->form()->closeTag(); ?>
+<script>
+
+
+    $(document).ready(function () {
+        var jsMessages_cl = <?php echo $jsMessages->jsonSerialize(); ?>;
+        var jsMessages = jsMessages_cl.data;
+        var objectXS = null;
+        var objectXSemail = null;
+        objectXS = jsMessages.MSG017;
+        objectXSemail = jsMessages.EmailIsUse;
+        if (objectXS.length != 0 && objectXSemail.length != 0) {
+            ERROR_MESSAGE.show([{id: 'user', message: objectXS},{id: 'txtEmailAddress', message: objectXSemail}], function () {
+            }, 'inline');
+            $("#txtUserID").addClass("error").blur();
+            $("#txtEmailAddress").addClass("error").blur();
+        }else if(objectXS.length != 0) {
+            ERROR_MESSAGE.show([{id: 'user', message: objectXS}], function () {
+            }, 'inline');
+            $("#txtUserID").addClass("error").blur();
+        }else if(objectXSemail.length != 0){
+            ERROR_MESSAGE.show([{id: 'txtEmailAddress', message: objectXSemail}], function () {
+            }, 'inline');
+            $("#txtEmailAddress").addClass("error").blur();
+        }else{
+            $('form:first *:input[type!=hidden][disabled!=disabled]:first').focus();
+        }
+
+        jQuery.validator.addMethod("CharacterUser", function (value, element) {
+            return this.optional(element) || /^[a-zA-Z0-9-_\uFF61-\uFFDC\uFFE8-\uFFEE]*$/.test(value);
+        }, "Khong duoc nhap ky tu dac biet");
+        jQuery.validator.addMethod("FirstCharacterUser", function (value, element) {
+            return this.optional(element) || /^[a-zA-Z]{1}/.test(value);
+        }, "3 Ky tu dau tien phai la chu cai");
+        var form = $("#createuser");
+        var validator = form.validate({
+            onfocusout: false,
+            onkeyup: false,
+            onclick: false,
+            focusInvalid: false,
+            rules: {
+                txtOrgNumber: {
+                    required: true
+                },
+                txtUserID: {
+                    required: true,
+                    minlength: 4,
+                    maxlength: 31,
+                    CharacterUser: true,
+                    FirstCharacterUser: true
+                },
+                txtFistname: {
+                    required: true,
+                    maxlength: 60
+                },
+                txtlastname: {
+                    required: true,
+                    maxlength: 60
+                },
+                Role: {
+                    required: true
+                },
+                'ServiceType[]': {
+                    required: true
+                },
+                Status: {
+                    required: true
+                },
+                txtEmailAddress: {
+                    required: true,
+                    email: true
+                }
+            },
+            messages: {
+                txtUserID: {
+                    required: jsMessages.MSG001,
+                    minlength: jsMessages.MSG019,
+                    maxlength: jsMessages.MSG019,
+                    CharacterUser: jsMessages.MSG019,
+                    FirstCharacterUser: jsMessages.MSG019
+                },
+                txtFistname: {
+                    required: jsMessages.MSG001,
+                    maxlength: 60
+                },
+                txtlastname: {
+                    required: jsMessages.MSG001,
+                    maxlength: 60
+                },
+                Role: {
+                    required: jsMessages.MSG001
+                },
+                'ServiceType[]': {
+                    required: jsMessages.MSG001
+                },
+                Status: {
+                    required: jsMessages.MSG001
+                },
+                txtEmailAddress: {
+                    required: jsMessages.MSG001,
+                    email: jsMessages.MSGemailformat
+                }
+            },
+            errorPlacement: function (error, element) {
+            },
+            showErrors: function (errorMap, errorList) {
+                this.defaultShowErrors();
+                ERROR_MESSAGE.show(errorList, function () {
+                }, 'inline');
+            }
+        });
+
+        $("#submitform").click(function () {
+            if (form.valid()) {
+                $('#loadingModal').modal('show');
+                $('#createuser').submit();
+            } else {
+                $(".styled-checkboxgroup").find("input.error").addClass("errorRadio");
+            }
+        });
+
+        $("#ddlRole").change(function () {
+            var valueRole = parseInt($(this).val());
+            if (valueRole == 2) {
+                $(".ServiceTypeRow").show();
+            } else {
+                $(".ServiceTypeRow").hide();
+            }
+        });
+    });
+</script>

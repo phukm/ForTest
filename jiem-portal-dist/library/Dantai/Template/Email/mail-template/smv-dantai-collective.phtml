@@ -1,0 +1,8 @@
+<?php
+echo $this->partial('emai-partials/email-common-content', [
+    'orgInfo' => $data['orgInfo'],
+    'eikenOrgDetail' => $data['eikenOrgDetail'],
+    'detailPrice' => $data['detailPrice'],
+ ]);
+echo $this->partial('emai-partials/smv-dantai-collective-content', ['data' => $data]);
+echo $this->partial('emai-partials/email-footer', ['detailPrice' => $data['detailPrice'], 'eikenOrgDetail' => $data['eikenOrgDetail'],]);

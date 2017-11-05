@@ -1,0 +1,83 @@
+
+<?php $paging = $this->eikenPaginationHelper($listpupil, $page, $this->url(null, array ('controller' => 'payment', 'action' => 'listbyeikenlevel')), 20,$param);?>
+
+<?php $escaper = new Zend\Escaper\Escaper('utf-8');//$paging = $this->paginationHelper($pagedUsers, $page, '/users/view/', 10); ?>
+
+<?php $this->headLink()->prependStylesheet($this->basePath('css/appeiken.css'));?>
+<?php $this->headScript()->prependFile($this->basePath('js/jiem.js'));?>
+<div class="frm-payment" id="divSeachForm">
+	<div class="box frm-payment-status-details">
+		<div class="box-header">支払状況</div>
+		<div class="box-body">
+			<table class="table table-bordered tbl-striped">
+				<thead>
+					<tr>
+						<th class="schoolyear-payment"><?php echo $this->translate('学年'); ?></th>
+						<th class="class-payment"><?php echo $this->translate('クラス'); ?></th>
+						<th class="pupil-number"><?php echo $this->translate('番号'); ?></th>
+						<th class="name-shimei-payment"><?php echo $this->translate('氏名（漢字）'); ?></th>
+						<th class="paymentstatus-payment"><?php echo $this->translate('支払状況'); ?></th>
+						<th class="paymentday-payment"><?php echo $this->translate('支払日'); ?></th>
+						<th class="pamentmethod-payment"><?php echo $this->translate('支払手段'); ?></th>
+						<th class="registerstatus-payment"><?php echo $this->translate('登録状況'); ?></th>
+						<th class="registerday-payment"><?php echo $this->translate('登録日'); ?></th>
+						<th class="action-payment"><?php echo $this->translate('操作'); ?></th>
+					</tr>
+				</thead>
+				<tbody>	<?php
+    if (! empty($listpupil)) {
+        // foreach ($listpupil as $k => $value) {
+        foreach ($listpupil as $applyEiken) {
+            ?>
+									<tr class="payment-row-45">
+						<td><?php echo  $escaper->escapeHtml($applyEiken->getApplyEikenPersonalInfo()->getOrgSchoolYear()? $applyEiken->getApplyEikenPersonalInfo()->getOrgSchoolYear()->getDisplayName(): ""); ?></td>
+						<td><?php echo  $escaper->escapeHtml($applyEiken->getApplyEikenPersonalInfo()->getClass()? $applyEiken->getApplyEikenPersonalInfo()->getClass()->getClassName(): ""); ?></td>
+						<td><?php echo   $escaper->escapeHtml($applyEiken->getApplyEikenPersonalInfo()->getNumber());?></td>
+						<td><?php echo   $escaper->escapeHtml($applyEiken->getApplyEikenPersonalInfo()->getFirstNameKanji().' '.$applyEiken->getApplyEikenPersonalInfo()->getLastNameKanji());?></td>
+						<td><?php echo $applyEiken->getPaymentStatus()===1?'支払済':'未支払'; ?></td>
+						<td><?php echo $applyEiken->getPaymentDate()!=NULL?$applyEiken->getPaymentDate()->format('Y/m/d'):''; ?></td>
+
+						<td><?php echo $applyEiken->getPaymentBy()!=1?'クレジット':'コンビ二'; ?></td>
+						<td><?php echo $applyEiken->getRegisterStatus()===1?'登録済':'未登録'; ?></td>
+						<td><?php echo $applyEiken->getRegisterDate()!=NULL?$applyEiken->getRegisterDate()->format('Y/m/d'):''; ?></td>
+
+						<td><a
+							href="<?php
+            echo $this->url('payment', array(
+                'action' => 'paymentdetails',
+                'id' => $applyEiken->getPupilId()
+            ))."?applyId=".$applyEiken->getId()."&ScheduleId=".$applyEiken->getApplyEikenPersonalInfo()->getEikenScheduleId();
+            ?>"
+							class="btn btn-small-100 btn-eikenId-list">詳細表示</a></td>
+
+					</tr>
+<?php
+        }
+    } else {
+        ?>
+
+<tr class="payment-row-45">
+						<td colspan="10"><?php echo $noRecord;?></td>
+					</tr>
+	<?php }?>
+
+
+				</tbody>
+			</table>
+		<?php if ($listpupil->count() > 20) {?>
+			<div class="pagging1 text-center pagination_student_color">
+				<nav>
+					<ul class="pagination">
+						<?php echo $paging;?>
+			</ul>
+				</nav>
+			</div>
+			<?php }?>
+		</div>
+		<div class="box-footer">
+			<a href="#" onclick="window.history.go(-1); return false;"
+				class="btn btn-large-180 modoru-font-weight" id="btnBack"><i
+				class="fa fa-arrow-circle-left "></i>戻る </a>
+		</div>
+	</div>
+</div>

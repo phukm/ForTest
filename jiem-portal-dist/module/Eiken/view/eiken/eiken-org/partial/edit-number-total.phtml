@@ -1,0 +1,92 @@
+<style>
+    #myModal .table>tbody>tr>td>input{
+        text-align: right;
+        background-repeat:repeat-x;
+        border:1px solid #d1c7ac;
+        border-radius: 3px;
+        color:#333333;
+        padding:3px;
+        margin-right:4px;
+        margin-bottom:8px;
+        font-family:tahoma, arial, sans-serif;
+        padding-right: 10px;
+    }
+    #myModal .row .detailDiscountStandDiv{
+        max-height: 320px;
+    }
+    #myModal .table>thead>tr>th{
+        width: 100px;
+    }
+    #myModal .table>tbody>tr>td{
+        text-align: left;
+        width: 100px;
+    }
+    #myModal .table{
+        width: inherit;
+    }
+    #myModal .table>tbody>tr>td>.bg-classdiscount{
+        display: block; 
+        border: red solid 1px;
+    }
+    #myModal .modal-body{
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+    #myModal .modal-header{
+        margin-left: 20px;
+        margin-right: 25px;
+    }
+    #myModal .modal-footer{
+        margin-left: 20px;
+        margin-right: 25px;
+    }
+</style>
+<button type="button" id="btnShowPop" class="btn btn-red btn-small-180" onclick="EIKEN_ORG.showpup();">
+    <?php echo $this->translate('textTitle'); ?></button>
+<div  class="modal fade" id="myModal" role="dialog" id="editPopupModal">
+    <div class="modal-dialog modal-lg common-dialog">
+        <div class="modal-content"> 
+            <div class="modal-header">
+                <h4 class="modal-title"><b><?php echo $this->translate('textTitle'); ?></b></h4>
+            </div>
+            <div class="modal-body">
+                <p style="color: red">
+                    <?php echo $this->translate('PopDescription');?>
+                </p>
+                <div class="row" id="detailDiscountStandTable"><?php
+                    $kyuFill = ['級1', '級2', '級3', '級1', '級2'];
+                    $schoolName = ['中1', '中1', '中1', '中1', '中1'];
+                    ?>
+                    <!--load data javascipt-->
+                    <table class="table table-bordered" id="detailDiscountStand">
+                        <thead>
+                            <tr>
+                                <th></th>    
+                                <?php foreach ($kyuFill as $key => $kyuName) { ?>
+                                    <th><?php echo $kyuName ?></th>
+                                <?php } ?>
+                            </tr>
+                        </thead>
+
+                        <?php foreach ($schoolName as $key => $schoolName) { ?>
+                            <tr>   
+                                <td style="width: 150px;"><?php echo $schoolName ?></td>
+                                <td><input type="text"  class="danger bg-warning center-block" onkeyup="isNumberKey(event)"></td>
+                                <td><input type="text"  class="danger bg-danger center-block" onkeyup="isNumberKey(event)"></td>
+                                <td><input type="text" class="danger bg-info center-block"  onkeyup="isNumberKey(event)"></td>
+                                <td><input type="text" class="danger center-block"  onkeyup="if (/\D/g.test(this.value))
+                                            this.value = this.value.replace(/\D/g, '')"></td>
+                                <td><input type="text" class="danger bg-success center-block"  onkeyup="if (/\D/g.test(this.value))
+                                            this.value = this.value.replace(/\D/g, '')"></td>
+                            </tr>
+                        <?php } ?>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-lg" style="width: 100px" data-dismiss="modal" type="button"><b> キャンセル</b></button>
+                <button class="btn btn-red btn-lg" style="width: 100px" data-dismiss="modal" type="button" id="updateDiscountPupil" >OK</button>
+            </div>
+        </div>
+    </div>
+</div>

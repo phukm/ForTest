@@ -1,0 +1,283 @@
+<?php $this->headScript()->appendFile( $this->basePath ( 'js/eiken/eiken-org.js' ) )?>
+<?php $this->headLink ()->prependStylesheet ( $this->basePath ( 'css/appeiken.css' ) )?>
+<?php
+$form->setAttribute('action', 'save-registrant');
+$form->prepare();
+?>
+<script type="text/javascript">
+   var jsMessages = <?php echo $jsMessages; ?>;
+   var eikenOrgDetail = {};
+   var definitionSpecial = <?php echo isset($definitionSpecial) ? $definitionSpecial : 0 ?>;
+   var invitation = <?php echo $isInvitationSetting; ?>;
+   var isPayment = <?php echo $paymentMethod; ?>;
+</script>
+<?php echo $this->form()->openTag($form); ?>
+<input type="hidden" id="tocken" value="<?php echo $tocken; ?>">
+<div class="box eiken-registrant">
+	<div class="box-body">
+		<div class="row reg-header">
+			<p style="text-align: center">
+				<strong><?php echo $this->translate('実用英語技能検定 準会場規定') ;?></strong>
+			</p>
+			<p><?php echo $this->translate('準会場規定（以下「本規定」）は、公益財団法人 日本英語検定協会（以下「協会」）が実用英語技能検定（以下「試験」）の準会場資格の登録と試験実施について定めたものである。準会場における試験の申込責任者（以下「申込責任者」）は本規定に従い、準会場の運用・試験実施を厳正に行わなければならない。本規定に違反した場合に生ずる一切の責任は申込責任者が負うものとし、悪質な場合、協会は法的手段を講じる場合がある。') ;?></p>
+
+			<p><b><?php echo $this->translate('第1条（準会場資格の登録）') ;?></b></p>
+			<ol>
+				<li><?php echo $this->translate('準会場資格を保有していない団体は、協会に対して準会場資格の登録申請書を提出し、審査を受けなければならない。協会は、協会が準会場資格を審査し、登録した団体（以下「登録団体」）からのみ、準会場における試験の申込を受け付けるものとする。') ;?></li>
+				<li><?php echo $this->translate('同一団体が複数の準会場資格を保有する事はできないものとする。') ;?></li>
+				<li><?php echo $this->translate('登録団体の提出した登録申請書の記載事項に変更が生じた場合、または資格の取消しの申し出を行う場合は、所定の用紙をもって速やかに協会に申し出なければならない。なお、変更内容によっては再度新規登録が必要となる場合がある。') ;?></li>
+				<li><?php echo $this->translate('準会場資格の有効期間は、協会が登録を認めた日から一年間とし、第11条および第12条の各項に抵触しない場合は、さらに一年間自動的に延長し、その後も同様とする。') ;?></li>
+			</ol>
+
+			<p><b><?php echo $this->translate('第2条（試験の申込）') ;?></b></p>
+			<ol>
+				<li><?php echo $this->translate('登録団体は、協会への試験の申込にあたり、受験者へ受験案内（複製を含む）あるいは英検ウェブサイト上に掲載された実用英語技能検定受験規約を事前に説明した上で受験者の同意を得なければならない。') ;?></li>
+				<li><?php echo $this->translate('登録団体は、協会への試験の申込にあたり、受験者数・受験級等を正確に把握し、申込に必要な事項の記入（入力）を漏れなく行わなければならない。') ;?></li>
+				<li><?php echo $this->translate('同一人が同一級を重複して申込・受験することは出来ない。個人受験や他会場での受験も不可とし、受験した場合は両方とも失格とし、検定料の返金は行わない。') ;?></li>
+				<li><?php echo $this->translate('登録団体は、検定料を各受験者より責任を持って徴収し、協会への試験の申込後、申込受付期間内に所定の方法にて協会に支払わなければならない。登録団体による検定料の紛失等の事故については、協会は一切の責任を負わないものとする。') ;?></li>
+				<li><?php echo $this->translate('登録団体は、試験の申込の内容を協会から送付される受付通知・個人番号発行明細書にて確認し、相違がある場合は速やかに協会に連絡しなければならない。') ;?></li>
+				<li><?php echo $this->translate('登録団体は、試験の申込にあたり申込責任者を定めなければならない。系列校等については、登録団体毎に、実際に試験を執り行う実施責任者を申込責任者として定めなければならない。なお、申込責任者の行為については、当該申込責任者を定めた登録団体の行為とみなし、登録団体が責任を負うものとする。') ;?></li>
+				<li><?php echo $this->translate('登録団体は、協会より受領した受験者に関わる書類（受験票、一次・二次成績表、合格証書等）を速やかに受験者に回付しなければならない。') ;?></li>
+				<li><?php echo $this->translate('登録団体は、試験の申込にあたり、受験者に対して試験日程について説明・周知しなければならない。') ;?></li>
+				<li><?php echo $this->translate('学校等の教育機関（以下「学校等」）の登録団体の申込責任者は、協会が指定する二次試験日に、学校等の行事などの公的な理由により登録団体に所属する受験者が受験できない場合、協会が別途定める方法にて所定期間内に限り二次試験受験日の変更申請を行うことができる。協会は、かかる変更申請について、所定の基準に照らし当該変更を認めるか否か判断する。') ;?></li>
+			</ol>
+
+			<p><b><?php echo $this->translate('第3条（準会場実施経費）') ;?></b></p>
+			<ol>
+				<li><?php echo $this->translate('協会は、試験実施を行う登録団体に対して、別途定めた基準で準会場実施経費を支払う。') ;?></li>
+				<li><?php echo $this->translate('登録団体は、前項に基づき協会から支払われた準会場実施経費を準会場において試験を実施するため適切に使用しなければならない。') ;?></li>
+			</ol>
+
+
+
+			<p><b><?php echo $this->translate('第4条（試験資材の受け取り・保管）') ;?></b></p>
+			<ol>
+				<li><?php echo $this->translate('申込責任者は、試験資材を、登録の住所地において配送指定日時に受け取り、厳重に保管しなければならない。受け取り・保管が適正に行われず、試験が所定の日時に遂行されなかった場合、試験は無効とし、協会は一切の責任を負わないものとする。') ;?></li>
+				<li><?php echo $this->translate('申込責任者は、試験資材を受け取った後速やかに送付品目・部数等の内容確認を行い、相違がある場合は速やかに協会に連絡しなければならない。また、内容確認後は、試験開始まで他の手に触れさせないよう、鍵のかかる場所に厳重に保管しなければならない。') ;?></li>
+				<li><?php echo $this->translate('問題冊子については試験開始日時まで開いてはならない。リスニングCDについては試験当日まで開封せず、試験前のリスニングチェックの際は受験者心得および音量確認用英文の再生にとどめ、リスニングテストについてはテスト時まで再生してはならない。また、リスニングCDについては、試験前・試験後を通してデータの複製を禁ずる。') ;?></li>
+			</ol>
+
+			<p><b><?php echo $this->translate('第5条（試験日時）') ;?></b></p>
+			<ol>
+				<li><?php echo $this->translate('登録団体は、いかなる理由においても所定の日時以外に試験実施を行ってはならない。所定の日時以外に試験実施した場合は、当該試験の受験者は全員失格とし、検定料は返却しない。') ;?></li>
+				<li><?php echo $this->translate('登録団体は、試験の受験者に対して準会場の試験会場（教室）・時間の告知を正確に行わなければならない。') ;?></li>
+				<li><?php echo $this->translate('登録団体は、試験実施にあたり、筆記試験・リスニングテストともに所定の順序・時間を厳守しなければならない。') ;?></li>
+				<li><?php echo $this->translate('登録団体は、同一級の試験を複数回に分けて実施してはならない。') ;?></li>
+			</ol>
+
+			<p><b><?php echo $this->translate('第6条（試験会場）') ;?></b></p>
+			<ol>
+				<li><?php echo $this->translate('登録団体は、試験を、異なる会場にて分散して実施してはならない。また、系列校等に問題等を配布して分散実施してはならない。') ;?></li>
+				<li><?php echo $this->translate('「団体受験申込の手引き」に定める合同準会場で試験を実施する場合は、当該「団体受験申込の手引き」に定める吸収・合流団体は同一会場で試験を実施しなければならず、分散実施してはならない。なお、試験実施にあたっては、吸収団体の申込責任者の管理・責任のもとに行われなければならない。') ;?></li>
+				<li><?php echo $this->translate('登録団体は、試験実施にあたり、適切な会場（教室）を使用しなければならない。特にリスニングテストについては、「準会場試験実施マニュアル」に従い、事前に、放送機材・設備の点検、聞こえ具合の点検、雑音・騒音の確認、他級の音声や退出時の受験者の通行音が支障にならない教室であることの確認などを行わなければならない。') ;?></li>
+				<li><?php echo $this->translate('登録団体は、異なる級の試験を同じ時間に実施する場合、必ず級ごとに教室を分けて実施しなければならない。') ;?></li>
+				<li><?php echo $this->translate('登録団体は、天災・異常事態に備えて、受験者に対し、避難経路の案内と確保を適切に行わなければならない。また、天災・異常事態が発生した際には、受験者の安全確保を行わなければならない。') ;?></li>
+				<li><?php echo $this->translate('試験中または試験前後に人身・物損等の事故が発生した場合は、全ての責任は登録団体が負うものとし、協会は一切の責任を負わないものとする。') ;?></li>
+			</ol>
+
+			<p><b><?php echo $this->translate(' 第7条（厳正な試験運営）') ;?></b></p>
+			<ol>
+				<li><?php echo $this->translate('申込責任者は、試験実施にあたっては、本規定および「準会場試験実施マニュアル」を、その記載のとおり厳正に運用しなければならない。') ;?></li>
+				<li><?php echo $this->translate('申込責任者は、受験者数・実施級に応じ、必要な教室数・CD機器を用意し、円滑な試験実施に必要と考えられる数（一教室に付き一名以上）の試験監督者を配置しなければならない。なお、協会の要請がある場合には試験実施および試験会場に関する情報（試験実施スケジュール、体制、会場レイアウト図・写真等）の報告・提出を速やかに行わなければならない。') ;?></li>
+				<li><?php echo $this->translate('申込責任者は、試験監督にあたっては、「準会場試験実施マニュアル」に厳正に従わなければならない。また、試験監督者に対しても記載事項を事前に説明し、遵守事項を徹底しなければならない。') ;?></li>
+				<li><?php echo $this->translate('申込責任者は、試験監督にあたっては、受験者の不正行為等（試験前の問題用紙閲覧、試験中の他受験者との会話・他受験者の答案を写す行為・携帯電話等の使用・参考書等の閲覧等）に対する監督義務を適正に果たさなければならない。') ;?></li>
+				<li><?php echo $this->translate('申込責任者が本規定および「準会場試験実施マニュアル」に違反した場合、試験はすべて無効とし、一切の責任は申込責任者が負い、これに基づき発生する当該受験者への説明責任も当該申込責任者を定めた登録団体が負うものとする。悪質な場合には協会は法的手段を講じる場合がある。') ;?></li>
+				<li><?php echo $this->translate('申込責任者が本規定および「準会場試験実施マニュアル」に従わず、故意または過失により試験を成立させることが出来なかった場合、協会は、救済措置を行う等の責任を一切負わないものとする。') ;?></li>
+				<li><?php echo $this->translate('登録団体は、試験資材到着後、模擬テスト等を行ってはならない。') ;?></li>
+				<li><?php echo $this->translate('協会は、厳正な試験実施が遂行されていることを確認する目的で、事前の予告なく試験当日に登録団体の試験会場である準会場へ調査委員（協会発行の身分証明書を携行）を派遣し、試験に立ち会わせることが出来る。正当な理由がない限り申込責任者はこれを拒否することは出来ない。') ;?></li>
+				<li><?php echo $this->translate('申込責任者は、協会の要請がある場合、厳正公平な試験実施、評価・採点業務および調査研究のため、協会の指示に従って、試験状況の記録（録画・録音）を行い、記録情報を協会に提出しなければならない。かかる記録情報は、一定期間保管される。なお、協会は再委託先を含め業務を遂行するために必要な範囲を超えて記録情報を使用しない。') ;?></li>
+			</ol>
+
+			<p><b><?php echo $this->translate('第8条（試験後の答案・問題冊子の取扱い）') ;?></b></p>
+			<ol>
+				<li><?php echo $this->translate('申込責任者は、試験終了後、答案枚数、受験番号、受験者の生年月日等の必要事項のマーク漏れ、記入漏れがないかを確認しなければならない。答案の汚損、紛失、漏えいおよび改ざんを防止するため、申込責任者は、受験者から答案を回収後、直ちに答案収納封筒に封入するものとし、答案の複製その他試験実施に関係のない行為をしてはならない。') ;?></li>
+				<li><?php echo $this->translate('申込責任者は、教室ごと・団体全体での受験者数を最終確認の上、協会所定の送付書に誤りのないように記載しなければならない。') ;?></li>
+				<li><?php echo $this->translate('申込責任者は、中高特別準会場（金曜日実施）、および準会場（土曜日実施）の試験問題については、試験実施後、一旦受験者より回収し、翌月曜日以降に改めて受験者に配布し直さなければならない。') ;?></li>
+				<li><?php echo $this->translate('申込責任者は、試験の翌日までに答案の送付手続きを完了しなければならない。') ;?></li>
+				<li><?php echo $this->translate('申込責任者は、答案を、協会指定の返送用伝票を利用するか、協会の定める方法に従い協会に送付しなければならない。申込責任者が荷物の追跡が不可能な方法（郵便・メール便等）で返送し、万が一紛失事故が発生し、採点が不可能となった場合、協会は一切の責任を負わないものとする。') ;?></li>
+			</ol>
+
+
+			<p><b><?php echo $this->translate('第9条（個人情報等の取扱い）') ;?></b></p>
+			<ol>
+				<li><?php echo $this->translate('登録団体は、合否結果を含む受験者の個人情報について、厳重に保管するなど取扱いには十分に注意しなければならない。登録団体による個人情報の紛失等により生じた損害に対して協会は一切の責任を負わないものとする。') ;?></li>
+				<li><?php echo $this->translate('登録団体は、受験者の合否結果・個人情報等を試験遂行以外に使用する場合、本人（16歳未満の場合は本人および保護者）の許可なしに使用してはならない。') ;?></li>
+				<li><?php echo $this->translate('英検ウェブサイトの団体責任者用ログインサービスおよび英検団体サポートシステムのアクセスキーについては、申込責任者に限り使用できるものとし、申込責任者が厳重に管理し他者に使用させ、または漏洩してはならない。申込責任者によるアクセスキーの第三者の利用、または漏洩などから生じた損害に対して、協会は一切の責任を負わないものとする。') ;?></li>
+			</ol>
+
+
+			<p><b><?php echo $this->translate('第10条（宣伝の禁止）') ;?></b></p>
+			<ol>
+				<li><?php echo $this->translate('準会場資格とは、準会場受験を協会に申込できる資格が協会に登録されるものであり、団体自体が認定・指定されるものではない。登録団体がその表示を行うにあたっては「英検認定校（会場）」など認定・指定等に関する誤認を与えるような語を使用してはならない。※「英検準会場資格登録校（会場）」は可。') ;?></li>
+				<li><?php echo $this->translate('登録団体は、準会場の案内(場所・時間等の案内) をパンフレットやホームページ等に掲載する場合、同一紙（画）面に、英検対策講座等の宣伝を掲載してはならない。') ;?></li>
+				<li><?php echo $this->translate('登録団体は「英検合格率全国第一位」「合格者数○県第一位」などの最大級の表記については使用してはならない。') ;?></li>
+				<li><?php echo $this->translate('登録団体は、「英検合格率○％」という表記を使用する場合、その資料の出所・根拠を明確にした上で使用しなければならない。[例]○年度○級英検合格率○％（本校の資料による） ') ;?></li>
+			</ol>
+
+			<p><b><?php echo $this->translate('第11条（準会場資格の停止）') ;?></b></p>
+			<p><?php echo $this->translate('次の各項目のいずれかに該当する場合、協会は、登録団体の準会場資格の登録を一時停止処分とする。') ;?></p>
+			<ol>
+				<li><?php echo $this->translate('協会が定めた期日までに登録団体が検定料支払いを怠った場合。') ;?></li>
+				<li><?php echo $this->translate('その他、第12条の各項目に準ずると協会が判断し、準会場として不適格と疑われる場合。') ;?></li>
+			</ol>
+
+			<p><b><?php echo $this->translate('第12条（準会場資格の取消し）') ;?></b></p>
+			<p><?php echo $this->translate('登録団体が次の各項目のいずれかに該当する場合、協会は、登録団体の準会場資格の登録を取り消すものとする。') ;?></p>
+			<ol>
+				<li><?php echo $this->translate('登録団体が提出した申請書に虚偽の記載があった場合。') ;?></li>
+				<li><?php echo $this->translate('本規定および「準会場試験実施マニュアル」に違反して試験を実施した場合。') ;?></li>
+				<li><?php echo $this->translate('受験者の解答内容に手を加えた場合、またはそれに相当すると判断した場合。') ;?></li>
+				<li><?php echo $this->translate('検定料支払いの遅滞、準会場資格の乱用等に関する協会からの改善要請に対し、成果が認められない場合。') ;?></li>
+				<li><?php echo $this->translate('転居先不明等により連絡不能と判断される場合。') ;?></li>
+				<li><?php echo $this->translate('同一団体が複数の準会場資格を保有する場合。') ;?></li>
+				<li><?php echo $this->translate('試験の申込実績が三年間無い場合。') ;?></li>
+				<li><?php echo $this->translate('登録された団体から、登録取消しの申し出があった場合。') ;?></li>
+				<li><?php echo $this->translate('その他、本規定に違反する等準会場として不適格と協会が判断した場合。') ;?></li>
+			</ol>
+			<p><b><?php echo $this->translate('第13条（準会場規定の変更）') ;?></b></p>
+			<ol>
+				<li><?php echo $this->translate('協会は、登録団体の了承を得ることなく、本規定を変更することができるものとする。') ;?></li>
+				<li><?php echo $this->translate('変更後の本規定については、協会発行の書類又は英検ウェブサイト上に表示した時点より効力が生じるものとする。この場合、施行日の新しい本規定が適用される。') ;?></li>
+			</ol>
+			<p><b><?php echo $this->translate('（附則）') ;?></b></p>
+                        <p class="term-mrgb0"><?php echo $this->translate('本規定は、「準会場実施規定」に代わるものとし、2012年3月1日より施行する。') ;?></p>
+                        <p><?php echo $this->translate('本改定規定は、2017年3月1日より施行する。') ;?></p>
+                       
+                        <p class="term-fl-right"><?php echo $this->translate('2017年3月1日改定') ;?></p>
+                        <div class="term-clear-both"></div>
+                        <p class="term-fl-right"><?php echo $this->translate('公益財団法人 日本英語検定協会')?></p>
+		</div>
+		<div class="row reg-middle">
+			<p class="text-center">
+				<b><?php echo $this->translate('準会場規定確認') ;?></b>
+			</p>
+			<p><?php echo $this->translate('公益財団法人日本英語検定協会殿') ;?></p>
+			<br>
+			<p class="eik-std-confirm-long-text"><?php echo $this->translate('今回の実用英語技能検定の申し込みにあたり、準会場規定を遵守することを誓約します。なお、規定に反して実施した場合に生ずる一切の責任') ;?></p>
+			<p><?php echo $this->translate('は、申込責任者および実施連帯責任者が負うことに異存ありません。') ;?></p>
+			<br>
+                        <p class="text-right"><?php echo $currentDate ;?></p>
+			<p><?php date('Fj日Y年'); ?></p>
+		</div>
+		<div class="row reg-bottom">
+			<div class="row">
+				<table class="table table-bordered table-striped-grey">
+                    <tbody>
+                        <tr>
+							<td width="25%" class="text-left"><strong>英検団体番号</strong></td>
+							<td width="25%" class="text-left white"><?php echo $generalInfo['organizationNo'];?></td>
+							<td width="25%" class="text-left"><strong>試験の実施日</strong></td>
+							<td width="25%" class="text-left white"><?php echo $generalInfo['date00'];?></td>
+						</tr>
+                    </tbody>
+				</table>
+			</div>
+			<div class="row">
+				<table class="table table-bordered table-striped-grey">
+                    <tbody>
+                        <tr>
+							<td width="25%" class="text-left"><strong>申込み団体</strong></td>
+							<td class="text-left white"><?php echo $generalInfo['organizationNameKanji'];?></td>
+						</tr>
+						<tr>
+							<td width="25%" class="text-left"><strong>所在地</strong></td>
+							<td class="text-left white"><?php echo $generalInfo['location'];?></td>
+						</tr>
+                    </tbody>
+				</table>
+			</div>
+			<div class="row">
+				<table class="table table-bordered table-striped-grey">
+                    <tbody>
+                        <tr>
+							<td width="25%" class="text-left"><strong>申込み責任者名</strong></td>
+							<td class="text-left white" id="nameKanji"><?php echo $generalInfo['nameKanji'];?></td>
+							<td width="25%" class="text-left white">
+							     <input type="checkbox" id="sc-kanjai-name-ck" <?php echo $isExistApplyEiken == \Eiken\EikenConst::EXIST ? 'checked="checked"' : ''; ?>>
+							     <label class="sc-label" for="sc-kanjai-name-ck">同意する</label>
+							</td>
+						</tr>
+						<tr>
+							<td width="25%" class="text-left"><strong>実施連帯責任者名<span class="reg-required">*</span></strong></td>
+							<td class="text-left white">
+							     <input class="manager_name form-control" id="manager_name" name="manager_name" type="text" value="<?php echo $generalInfo['managerName'];?>">
+						     </td>
+							<td width="25%" class="text-left white">
+							     <input type="checkbox" id="sc-manager-name-ck" <?php echo $isExistApplyEiken == \Eiken\EikenConst::EXIST ? 'checked="checked"' : ''; ?>>
+							     <label class="sc-label" for="sc-manager-name-ck">同意する</label>
+					       </td>
+						</tr>
+                    </tbody>
+				</table>
+				<div class="row">※実施連帯責任者は、申込み責任者とは別の方をお願いします。</div>
+			</div>
+		</div>
+	</div>
+	<div class="box-footer">
+		<div class="col-sm-6"></div>
+		<div class="col-sm-6 text-right">
+			<a class="btn btn-large-180"
+				href="<?php echo $this->url('eikenorg' ,array('action'=> 'confirmation'));?>"
+				tabindex="5">
+				<?php echo $this->translate('キャンセル') ;?>
+			</a>
+			<a class="btn btn-large-180 btn-red fr buttons"  id="submit-button"  href="javascript:;"
+				onclick="EIKEN_ORG.OKStandardConfirmation();">
+				<i class="check-square"></i>
+				申込確定
+			</a>
+		</div>
+	</div>
+</div>
+<!--<div id="public-funding-modal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+  <div id="funding-body" class="modal-dialog modal-md common-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="modal-title"><?php //echo $this->translate('publicFundingTitle'); ?></p>
+            </div>
+
+            <div id="modal-description" class="modal-body radio-body">
+                <p><?php //echo $this->translate('publicFundingDescription'); ?></p>
+            </div>
+            <div class="modal-footer">
+                <form>
+                    <input type="hidden" name="fundingStatus" id="fundingStatus" value=""> 
+                    <button type="button" id="non-use-public-funding" class="btn btn-large-180 btn-cancel btn-red non-use">
+                        <strong><?php //echo $this->translate('publicFundingNotUse'); ?></strong>
+                    </button>
+                    <button type="button" id="use-public-funding" class="btn btn-large-180 btn-cancel use" href="" onclick="">
+                        <strong><?php //echo $this->translate('publicFundingUse'); ?></strong>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>-->
+
+<!--<div id="payment-bill-modal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+  <div id="funding-body" class="modal-dialog modal-md common-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="modal-title"><?php //echo $this->translate('paymentBillTitle'); ?></p>
+            </div>
+
+            <div id="modal-description" class="modal-body radio-body">
+                <p><?php //echo $this->translate('paymentBillDescription'); ?></p>
+            </div>
+            <div class="modal-footer">
+                <form>
+                    <input type="hidden" name="paymentBill" id="paymentBill" value=""> 
+                    <button type="button" id="wo-bill" class="btn btn-large-180 btn-cancel btn-red wo-bill">
+                        <strong><?php //echo $this->translate('woPaymentBill'); ?></strong>
+                    </button>
+                    <button type="button" id="w-bill" class="btn btn-large-180 btn-cancel w-bill" href="" onclick="">
+                        <strong><?php //echo $this->translate('wPaymentBill'); ?></strong>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>-->
+<?php echo $this->form()->closeTag(); ?>

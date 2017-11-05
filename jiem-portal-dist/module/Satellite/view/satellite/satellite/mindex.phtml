@@ -1,0 +1,35 @@
+
+<?php if ($paymentByCreditFlag){ ?>
+    <div class="header-content">お申し込みの状況</div>
+    <?php if (empty($paymentInfomationStatus)) { ?>
+        <div id="stltp-content">お申し込みが完了していません。</div>
+    <?php }
+    else { ?>
+        <div id="stltp-content">英検にお申し込み済みです。「申し込み情報」ボタンを押すと、お申し込み済みの情報を確認することができます。</div>
+    <?php } ?>
+    <?php if (!empty($paymentInfomationStatus)) { ?>
+        <div class="stltp-button-1">
+            <a href="/payment-eiken-exam/payment-infomation" class="btn btn-large-full">申し込み情報</a>
+        </div>
+    <?php } ?>
+    <div class="header-content">英検のお申し込み</div>
+    <div id="stltp-content">受験級の選択・申し込み・クレジットカードによる支払いが出来ます。</div>
+    <div class="stltp-button-1">
+        <a id="pay-by-credit" class="btn btn-large-full btn-red"><i class="chevron-circle-right-m"></i><?php echo $this->translate('applyEikenButtonLabel');?></a>
+    </div>
+<?php } ?>
+<div class="header-content">英ナビ！を使ってみよう</div>
+<div id="stltp-content-1">英検合格に必要なスキルがバランスよく身につけられるスタディギアを無料で利用することが出来ます。</div>
+<div class="stltp-button-1">
+    <a class="btn btn-loginon" href="<?php echo $this->url('einavi/default', array('controller' => 'einavi', 'action' => 'loginon')) ?>"> 英ナビ！を利用する </a>
+</div>
+<script>
+    $('#pay-by-credit').click(function () {
+        var paymentMessage = "<?php echo isset($paymentMessage) ? $paymentMessage : ''; ?>";
+        if (paymentMessage) {
+            ERROR_MESSAGE.show(paymentMessage);
+            return false;
+        }
+        window.location = COMMON.baseUrl + 'eiken/apply-eiken';
+    });
+</script>

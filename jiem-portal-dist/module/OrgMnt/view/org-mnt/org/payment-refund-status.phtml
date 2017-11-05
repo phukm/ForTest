@@ -1,0 +1,120 @@
+<?php
+$this->headLink()->prependStylesheet($this->basePath('css/org/paymentRefundStatus.css'));
+$this->headScript()->prependFile($this->basePath('js/jiem.js'));
+
+$paging = $this->paginationHelper($paginator, $page, $this->url('org-mnt/default' , array(
+        'controller' => 'org',
+        'action' => 'paymentRefundStatus'
+    )), $numPerPage, (empty($param)) ? '':'/search/'.$param );
+
+$this->headScript()->appendFile($this->basePath('js/jquery-ui.js'));
+
+$form->setAttribute('action', $this->url('org-mnt/default', array(
+            'controller' => 'org',
+            'action' => 'paymentRefundStatus'
+)));
+
+echo $this->form()->openTag($form);
+?>
+<div class="row">
+    <div class="box frm-detail">
+        <div class="box-header collapsed" data-toggle="collapse" data-target="#search-box">
+            <div class="search-header  sorting-field">
+                <i class="search-chevron-down"></i>
+                <?php echo $this->translate('検索条件'); ?>
+            </div>
+        </div>
+        <div id="search-box" aria-expanded="true" class="collapse in">   
+            <div class="box-body paymentRefundStatus">
+                <div class="row r1">
+                    <div class="col-sm-1 lblYear">
+                        <label><b><?php echo $this->translate('year'); ?></b></label>
+                    </div>
+                    <div class="col-sm-1 styled-select txtYear"><?php echo $this->formRow($form->get('year')); ?></div>
+                    <div class="col-sm-1 lblKai">
+                        <label><?php echo $this->translate('kai'); ?></label>
+                    </div>
+                    <div class="col-sm-1 styled-select txtKai"><?php echo $this->formRow($form->get('kai')); ?></div>
+                    <div class="col-sm-1 lblRefundStatus">
+                        <label><b><?php echo $this->translate('lblRefundStatus'); ?></b></label>
+                    </div>
+                    <div class="col-sm-1 styled-select txtRefundStatus"><?php echo $this->formRow($form->get('statusRefund')); ?></div>
+                </div>
+                <div class="row r2">
+                    <label class="col-sm-1 lblOrgNo"><b><?php echo $this->translate('OrganizationNo'); ?></b></label>
+                    <div class="col-sm-1 txtOrgNo"><?php echo $this->formRow($form->get('organizationNo')); ?></div>
+                    <label class="col-sm-1 lblOrgName"><b><?php echo $this->translate('OrganizationName'); ?></b></label>
+                    <div class="col-sm-1 txtOrgName">
+                        <?php echo $this->formRow($form->get('organizationName')); ?>
+                    </div>
+                </div>
+                <div class="box-footer btn-org">
+                    <div class="text-right">
+                        <a class="btn btn-small-100 margin-right-10" id="btnClear" tabindex="6"
+                           href="/org/org/paymentRefundStatus"><?php echo $this->translate('クリア'); ?></a>
+                        <a  id="btnSearch" class="btn btn-small-180" type="button" tabindex="7"
+                           href="javascript:void(0);"><i class="fa-search"></i><?php echo $this->translate('検索'); ?>
+                        </a>
+                    </div>
+                </div>
+            </div>            
+        </div>
+    </div>
+</div>
+<?php echo $this->form()->closeTag(); ?>
+<div class="box search-form15">
+    <div class="box-header">
+        <span><b><?php echo $this->translate('お支払い及び払い戻し'); ?></b></span>
+    </div>
+    <div class="box-body">
+        <div class="row"></div>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th width = '60'><?php echo $this->translate('year'); ?></th>
+                    <th width = '55'><?php echo $this->translate('kai'); ?></th>
+                    <th width = '130'><?php echo $this->translate('OrganizationNo'); ?></th>
+                    <th width = '300'><?php echo $this->translate('OrganizationName'); ?></th>
+                    <th><?php echo $this->translate('lblRefundStatus'); ?></th>
+                </tr>
+
+            </thead>
+            <tbody>
+                <?php if ($items) { ?>
+                    <?php foreach ($items as $key => $value) {?>
+                        
+                        <tr class="text-center">
+                            <td><?php echo $this->escapeHtml($value->getEikenSchedule()->getYear()); ?></td>
+                            <td class="text-right"><?php echo $this->escapeHtml($value->getEikenSchedule()->getKai()); ?></td>
+                            <td><?php echo $this->escapeHtml($value->getOrganization()->getOrganizationNo()); ?></td>
+                            <td><?php echo $this->escapeHtml($value->getOrganization()->getOrgNameKanji()); ?></td>
+                            <td><?php echo $value->getStatusRefund() !== Null ? $this->escapeHtml($listRefundOption[$value->getStatusRefund()]) : ''; ?></td>
+                        </tr>
+                    <?php } }
+                    else {
+                        echo '<tr><td colspan="8">'.$this->translate("MSGnoresult").'</td></tr>';
+                    }
+                ?>
+            </tbody>
+        </table>
+        <?php if (count($paginator) > $numPerPage) { ?>
+                    <div class="col-sm-12 text-center ">
+                        <nav>
+                            <ul class="pagination">
+                    <?php echo $paging; ?>
+                            </ul>
+                        </nav>
+                    </div>
+        <?php  } ?>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('form:first *:input[type!=hidden]:first').focus();
+        $('#btnSearch').click(function(){
+            $('#frm-payment-refund-status').submit();
+        });
+
+    });
+                    
+</script>

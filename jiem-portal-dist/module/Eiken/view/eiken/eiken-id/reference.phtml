@@ -1,0 +1,264 @@
+<?php $this->headLink()->prependStylesheet($this->basePath('css/appeiken.css')) ?>
+<script type="text/javascript">
+    var eikAppLevelMess = <?php echo $jsMessages; ?>
+</script>
+<?php $form = $this->form;
+$form->setAttribute('action', $this->url('eikenid', array('controller' => 'eikenid', 'action' => 'save'))) ?>
+<?php echo $this->form()->openTag($form); ?>
+<div class="refEikenId neweikenid">
+    <div class="box">
+        <div class="box-header">
+<?php echo $this->translate('英検ID参照'); ?>
+        </div>
+        <div class="box-body padFix-refEikenId">
+            <div class="top-mark">
+                <label class="font-mark padding-mark">英検IDとパスワードを入力してください。 </label>
+            </div>
+            <div class="eikenId-shutoku">
+                <div class="row font-row-refEikenId">
+                    <div class="col-sm-1 refEiken-w140">
+                        <b><?php echo $this->translate('英検ID'); ?><span
+                                class="required-eiken">*</span></b>
+                    </div>
+                    <div class="col-sm-3 styled-select eikenId-txt">
+                        <?php echo $this->formRow($form->get('txtEikenId')->setAttribute('type', 'tel')); ?>
+                        <span class="refer-pass-note"><?php echo $this->translate('EikenIdDescription');?></span>
+                    </div>
+                    <div class="col-sm-2 password-getEikenId">
+                        <p class="refer-pass-title"><b><?php echo $this->translate('パスワード'); ?><span class="required-eiken">*</span></b></p>
+                    </div>
+                    <div class="col-sm-4 pasuwado-select styled-select">
+                        <?php echo $this->formRow($form->get('txtPass')->setAttribute('type', 'tel')); ?>
+                        <span class="refer-pass-note"><?php echo $this->translate('EikenPassDescription');?></span>
+                    </div>
+                    <div class="col-sm-1 ">
+                        <a class="btn btn-sanko-ref" href="javascript:void(0);"
+                           onclick="EIKEN_ID.getPersonalInfoApi();" tabindex="3"> <i
+                                class="fa fa-search"></i> <b><?php echo $this->translate('参照'); ?></b>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="ref-result <?php echo $hasData == 1 ? '' : 'hide'; ?>">
+                <div class="line eiken-padding-line"></div>
+                <div class="neweiken-infor">
+                    <div class="row">
+                        <div class="width140 padding-top5 col-sm-1 col-xs-1">
+                            <b><?php echo $this->translate('氏名（漢字）'); ?><span
+                                    class="required-eiken">*</span></b>
+                        </div>
+                        <div class="width240 col-sm-1 col-xs-1">
+                            <?php echo $this->formRow($form->get('txtFirtNameKanji')); ?>
+                        </div>
+                        <div class="width240 col-sm-1 col-xs-1">
+                            <?php echo $this->formRow($form->get('txtLastNameKanji')); ?>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="width140 padding-top5 col-sm-1 col-xs-1">
+                            <b><?php echo $this->translate('氏名（カナ）'); ?><span
+                                    class="required-eiken">*</span></b>
+                        </div>
+
+                        <div class="width240 col-sm-1 col-xs-1">
+                            <?php echo $this->formRow($form->get('txtFirtNameKana')); ?>
+                        </div>
+                        <div class="width240 col-sm-1 col-xs-1">
+                            <?php echo $this->formRow($form->get('txtLastNameKana')); ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="width140 col-sm-1 col-xs-1">
+                            <b><?php echo $this->translate('性別'); ?><span
+                                    class="required-eiken">*</span></b>
+                        </div>
+                        <div class="col-sm-6 col-xs-6">
+<?php echo $this->formRow($form->get('rdGender')); ?>
+                        </div>
+                    </div>
+                    <div class="row neweiken-row-padding">
+                        <div class="width140 col-sm-1 col-xs-1 padding-top5">
+                            <b><?php echo $this->translate('生年月日'); ?><span
+                                    class="required-eiken">*</span></b>
+                        </div>
+                        <div class="col-sm-8 col-xs-8 styled-select">
+                            <div class="col-sm-1 col-xs-1 width140 japanese-year font-eiken-exam"><?php echo $this->formRow($form->get('ddlYear')->setAttribute('onChange', 'EIKEN_ID.loadDay();')); ?></div>
+                            <p class="col-sm-1 col-xs-1 width52 padding-top5 padding-left10 ">年</p>
+                            <div class="col-sm-1 col-xs-1 width70  font-eiken-exam"><?php echo $this->formRow($form->get('ddlMonth')->setAttribute('onChange', 'EIKEN_ID.loadDay();')); ?></div>
+                            <p class="col-sm-1 col-xs-1 width52 padding-top5 padding-left10">月</p>
+                            <div class="col-sm-1 col-xs-1 width70 font-eiken-exam"><?php echo $this->formRow($form->get('ddlDay')); ?></div>
+                            <p class="col-sm-1 col-xs-1 width52 padding-top5 padding-left10">日</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="line eiken-padding-line"></div>
+                <div class="infor-detail">
+                    <div class="container-refeiken">
+                        <div class="row">
+                            <div class="width140 padding-top5 col-sm-1 col-xs-1">
+                                <b><?php echo $this->translate('郵便番号'); ?><span
+                                        class="required-eiken">*</span></b>
+                            </div>
+                            <div class="width58 col-sm-1 col-xs-1">
+<?php echo $this->formRow($form->get('txtPostalCode1')); ?>
+                            </div>
+                            <span class="width15 padding-top3 col-sm-1 col-xs-1 text-center">-</span>
+                            <div class="width58 col-sm-1 col-xs-1">
+<?php echo $this->formRow($form->get('txtPostalCode2')); ?>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="width140 padding-top5 col-sm-1 col-xs-1">
+                                <b><?php echo $this->translate('市区'); ?><span
+                                        class="required-eiken">*</span></b>
+                            </div>
+                            <div class="width240 col-sm-1 col-xs-1">
+<?php echo $this->formRow($form->get('txtArea')); ?>
+                                <span><?php echo $this->translate('AddressCommonDescription') ?></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="width140 padding-top5 col-sm-1 col-xs-1">
+                                <b><?php echo $this->translate('番地'); ?></b>
+                            </div>
+                            <div class="width240 col-sm-1 col-xs-1">
+<?php echo $this->formRow($form->get('txtAreaCode')); ?>
+                                <span><?php echo $this->translate('AddressCommonDescription') ?></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="width140 padding-top5 col-sm-1 col-xs-1">
+                                <b><?php echo $this->translate('電話番号'); ?>
+                                    <span class="required-eiken">*</span>
+                                    <br>
+                                </b>
+                            </div>
+                            <div class="width240 col-sm-1 col-xs-1">
+<?php echo $this->formRow($form->get('txtTelCode1')); ?>
+                            </div>
+                            <div class="phone-no-describe">
+                                <div class="width140 col-sm-1 col-xs-1"></div>
+<?php echo $this->translate('MSG34'); ?>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="refeiken-container">
+                        <div class="row">
+                            <div class="width140 padding-top5 col-sm-1 col-xs-1">
+                                <b><?php echo $this->translate('都道府県'); ?><span
+                                        class="required-eiken">*</span></b>
+                            </div>
+                            <div class="width58 col-sm-1 col-xs-1 styled-select">
+<?php echo $this->formRow($form->get('txtCity')); ?>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="width140 padding-top5 col-sm-1 col-xs-1">
+                                <b><?php echo $this->translate('町村'); ?><span
+                                        class="required-eiken">*</span></b>
+                            </div>
+                            <div class="width240 col-sm-1 col-xs-1">
+<?php echo $this->formRow($form->get('txtVillage')); ?>
+                                <span><?php echo $this->translate('AddressCommonDescription') ?></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="width140 padding-top5 col-sm-1 col-xs-1">
+                                <b><?php echo $this->translate('Ref_Address04'); ?></b>
+                            </div>
+                            <div class="width240 col-sm-1 col-xs-1">
+<?php echo $this->formRow($form->get('txtBuilding')); ?>
+                                <span><?php echo $this->translate('AddressCommonDescription') ?></span>
+                            </div>
+                        </div>
+                        <div class="row neweiken-row-padding1">
+                            <div class="width140 padding-top5 col-sm-1 col-xs-1">
+                                <b><?php echo $this->translate('Ref_Email'); ?></b>
+                            </div>
+                            <div class="width58 col-sm-1 col-xs-1">
+<?php echo $this->formRow($form->get('txtMailAddress')); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="infor-job">
+                    <div class="row">
+                        <div class="line eiken-padding-line"></div>
+                        <div class="jobCode-choice">
+                            <div class="width140 padding-top5 col-sm-1 col-xs-1 ">
+                                <b><?php echo $this->translate('職業'); ?><span
+                                        class="required-eiken">*</span></b>
+                            </div>
+                            <div class="width140 col-sm-1 col-xs-1 styled-select">
+<?php echo $this->formrow($form->get('ddlJobCode')->setAttribute('onChange', 'EIKEN_ID.showpupil();')); ?>
+                            </div>
+                        </div>
+                        <div id="dvShowSchoolCode">
+                            <div
+                                class="width140 padding-top5 col-sm-1 col-xs-1 ddlSchoolCode">
+                                <b><?php echo $this->translate('学校区分'); ?><span
+                                        class="required-eiken">*</span></b>
+                            </div>
+                            <div
+                                class="width140 col-sm-1 col-xs-1 ddlGakkokodo styled-select">
+                                <!--  <p class="labelschool">11</p> -->
+<?php echo $this->formrow($form->get('ddlSchoolCode')->setAttribute('onChange', 'EIKEN_ID.loadSchoolName();')); ?>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row " id="dvShowPupil">
+                        <div class="width140 padding-top5 col-sm-1 col-xs-1">
+                            <b><?php echo $this->translate('学年'); ?><span
+                                    class="required-eiken">*</span></b>
+                        </div>
+                        <div class="width200 col-sm-1 col-xs-1 styled-select">
+                            <div class="col-sm-1 col-xs-1 width140 font-eiken-exam">
+<?php echo $this->formRow($form->get('ddlSchoolYear')); ?>
+                            </div>
+                        </div>
+                        <div class="width75 padding-top5 col-sm-1 col-xs-1 class-neweiken">
+                            <b><?php echo $this->translate('クラス'); ?><span
+                                    class="required-eiken">*</span></b>
+                        </div>
+                        <div class="width220 col-sm-1 col-xs-1 styled-select">
+                            <div class="col-sm-1 col-xs-1 width140 font-eiken-exam"><?php echo $this->formRow($form->get('ddlClass')); ?></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box-footer btn-eiken-height80">
+            <div class="row ">
+                <div class="text-right col-sm-12">
+                    <a class="btn btn-large-180 btn-cancel" tabindex="27"
+                       href="<?php echo $this->url('eikenpupil', array('action' => 'index', 'id' => $eikenLevelId)); ?>">
+<?php echo $this->translate("キャンセル"); ?>
+                    </a>
+                    <button
+                        class="btn btn-red btn-large-180 ok-margin-20 ref-result <?php echo $hasData ? '' : 'hide'; ?>"
+                        tabindex="28">
+                        <i class="arrow-circle-right-w"></i><?php echo $this->translate('次へ'); ?>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="day-of-birth" value="<?php echo $dayOfBirth; ?>" />	
+<input type="hidden" name="eikenLevelId" id="eikenLevelId"
+       value="<?php echo $eikenLevelId; ?>">
+<input type="hidden" name="applyEikLevelId" id="applyEikLevelId"
+       value="<?php echo $applyEikLevelId; ?>">
+<input type="hidden" name="appEikInfoId" id="appEikInfoId"
+       value="<?php echo $appEikInfoId; ?>">
+       <?php echo $this->formRow($form->get('hidden-eiken-id')); ?>
+<?php echo $this->formRow($form->get('hidden-eiken-pass')); ?>
+<input type="hidden" name="hidden-class-id" id="hidden-class-id"
+       value="<?php echo $classId; ?>" />
+<?php echo $this->form()->closeTag(); ?>
+<?php $this->headScript()->prependFile($this->basePath('js/jiem.js')) ?>
+<?php $this->headScript()->prependFile($this->basePath('js/messages/common-message.js')) ?>
+<?php $this->headScript()->appendFile($this->basePath('js/eiken/eiken-id.js?v=0.1')) ?>

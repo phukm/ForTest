@@ -1,0 +1,171 @@
+<?php $this->headScript()->appendFile($this->basePath('js/eiken/eiken-org.js')) ?>
+<?php $this->headLink()->prependStylesheet($this->basePath('css/appeiken.css')) ?>
+
+<?php
+$form->setAttribute('action', 'save-registrant');
+$form->prepare();
+?>
+<script type="text/javascript">
+    var jsMessages = <?php echo $jsMessages; ?>;
+    var eikenOrgDetail = {};
+</script>
+
+<?php echo $this->form()->openTag($form); ?>
+<div class="box eiken-policy">
+    <div class="box-header">
+        <strong><?php echo $this->translate('個人情報保護方針の確認'); ?></strong>
+    </div>
+    <div class="box-body">
+<!--GNCCNCJDM-857-->
+<!--        <div class="private-policy-header">-->
+<!--            <div class="private-position-right">-->
+<!--                <div style="text-align: right;">--><?php //echo $this->translate('（制定）平成16年12月14日'); ?><!--</div>-->
+<!--                <div style="text-align: right;">--><?php //echo $this->translate('（最終改定）平成27年7月31日'); ?><!--</div>-->
+<!--                <div style="text-align: right;">--><?php //echo $this->translate('公益財団法人 日本英語検定協会'); ?><!--</div>-->
+<!--                <div style="text-align: right;">--><?php //echo $this->translate('理事長 松川 孝一'); ?><!--</div>-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <div style="text-align: center;">--><?php //echo $this->translate('基本方針'); ?><!--</div>-->
+<!--                <p></p>-->
+<!--                </br>-->
+<!--                <div>--><?php //echo $this->translate('公益財団法人 日本英語検定協会（以下「協会」といいます）は、英語検定事業の運営に際し、受験者の皆さま、英語検定に関係される皆さま、当協会職員など、多くの方々の個人情報を取り扱う法人として、個人情報の保護が事業活動の基本であるとともに、その適切な管理を行うことが社会的責務と考えております。当協会では、役員を含むすべての職員がこのような共通認識のもと、下記に定める基本方針に基づき個人情報の保護に取り組んでまいります。'); ?><!--</div>-->
+<!--                <p></p>-->
+<!--                <p align="center">--><?php //echo $this->translate('記'); ?><!--</p>-->
+<!--                <div>--><?php //echo $this->translate('1. ご本人から個人情報をご提供いただく場合には、あらかじめその目的を明示し、その目的の達成に必要な範囲を超えた個人情報の取り扱い（以下「目的外利用」といいます）はいたしません。協会は目的外利用を禁止し、そのために必要な措置を講じます。また、目的外利用を行う必要が生じた場合は、事前にご本人にその目的をご連絡し、同意を得た上で取り扱います。'); ?><!--</div>-->
+<!--                <p></p>-->
+<!--                <div>--><?php //echo $this->translate('2. ご本人からご提供いただいた個人情報は、次の場合を除き第三者に開示または提供いたしません。 '); ?><!--</div>-->
+<!---->
+<!--                <ul style="list-style-type: none;">-->
+<!--                    <div class="private-policy-padding">-->
+<!--                        <li>2.1 --><?php //echo $this->translate('ご本人の同意がある場合'); ?><!--</li>-->
+<!--                    </div>-->
+<!--                    <div class="private-policy-padding">-->
+<!--                        <li>2.2 --><?php //echo $this->translate('個人情報に関する機密保持契約を締結している業務委託会社に対して、ご本人に明示した目的の達成に必要な範囲で個人情報の取り扱いを委託する場合'); ?><!--</li>-->
+<!--                    </div>-->
+<!--                    <div class="private-policy-padding">-->
+<!--                        <li>2.3 --><?php //echo $this->translate('統計的なデータとして、個人を識別できない状態に加工した場合'); ?><!--</li>-->
+<!--                    </div>-->
+<!--                    <div class="private-policy-padding">-->
+<!--                        <li>2.4 --><?php //echo $this->translate('法的な命令等により、個人情報の開示等を求められた場合'); ?><!--</li>-->
+<!--                    </div>-->
+<!--                </ul>-->
+<!---->
+<!--                <p></p>-->
+<!--                <div>--><?php //echo $this->translate('3. ご本人がご自身の個人情報について確認されたい場合には、下記「お問い合わせ先」にご連絡ください。当協会では、第三者への漏えいを防止するため、ご本人がご自身であることを確認した場合に限りお知らせいたします。また、ご本人の個人情報の変更や削除等のご依頼、苦情および相談に対しても同様の手続きを行い、これに対応いたします。'); ?><!--</div>-->
+<!--                <p></p>-->
+<!--                <div>--><?php //echo $this->translate('4. ご提供いただいたご本人の個人情報は当協会で厳重に保管・管理するとともに、個人情報への不正アクセス、個人情報の紛失、破壊、改ざんおよび漏えい等を防止するために適切なセキュリティ対策を講じます。'); ?><!--</div>-->
+<!--                <p></p>-->
+<!--                <div>--><?php //echo $this->translate('5. 個人情報に関する法令、国が定める指針およびその他の規範を遵守いたします。'); ?><!--</div>-->
+<!--                <p></p>-->
+<!--                <div>--><?php //echo $this->translate('6. 個人情報保護に関する職員への教育・研修を適宜実施し、周知徹底するとともに意識向上と啓蒙に努めます。'); ?><!--</div>-->
+<!--                <p></p>-->
+<!--                <div>--><?php //echo $this->translate('7. 本基本方針は、当協会のインターネット・ホームページ等に掲載することにより、いつでも閲覧可能な状態にします。'); ?><!--</div>-->
+<!--                <p></p>-->
+<!--                <div>--><?php //echo $this->translate('8. 個人情報保護に関する日本工業規格「個人情報保護マネジメントシステム－要求事項」（JIS Q 15001:2006）に準拠した協会内規定を策定し、その遵守状況を定期的に点検および監査するとともに、これらの確認結果に基づき、継続的に個人情報保護の取り組みを見直し、改善します。'); ?><!--</div>-->
+<!--            </div>-->
+<!--            <br/>-->
+<!--            <div>-->
+<!--                <img src="../../img/icon_pdf_01.gif" />-->
+<!--                <a target="_blank" class="link-style" href="http://www.eiken.or.jp/privacypolicy/pdf/privacypolicynm.pdf"><span>特定個人情報（共通番号）に関して</span></a>-->
+<!--            </div>-->
+<!--            <br/>-->
+<!--        </div>-->
+        <div class="row reg-middle">
+            <p class="text-center"><?php echo $this->translate('公益財団法人日本英語検定協会の個人情報保護方針については'); ?><a
+                        href="http://www.eiken.or.jp/privacypolicy/" target="_blank"
+                        id="clickToShow"><?php echo $this->translate('こちら'); ?></a><?php echo $this->translate('をご覧ください。'); ?></p>
+            <p class="text-center policy-agreement">
+                <input type="checkbox" id="agree-policy" tabindex="1" <?php echo $isExistApplyEiken == \Eiken\EikenConst::EXIST ? 'disabled="disabled" checked="checked"' : ''; ?>>
+                <strong><?php echo $this->translate(' 個人情報保護方針について確認しました'); ?></strong>
+            </p>
+        </div>
+        <div class="row line"></div>
+        <div class="row reg-bottom new-policy-box">
+            <div class="row firtrow">
+                <div class="col-sm-2">
+                    <span class="reg-title"><?php echo $this->translate('責任者名'); ?></span><span
+                        class="reg-required">*</span>
+                </div>
+                <div class="col-sm-4 width185 margin-right20">
+                    <input type="text" name="txtFirstName" id="txtFirstName" class="form-control" placeholder="姓"
+                           value="<?php if (isset($eikenOrg['firtNameKanji']) && $eikenOrg['firtNameKanji'] != '') echo $this->escapeHtml($eikenOrg['firtNameKanji']); ?>"
+                           tabindex="2">
+                </div>
+                <div class="col-sm-4 width185">
+                    
+                    <input type="text" name="txtLastName" id="txtLastName" class="form-control" placeholder="名"
+                           value="<?php if (isset($eikenOrg['lastNameKanji']) && $eikenOrg['lastNameKanji'] != '') echo $this->escapeHtml($eikenOrg['lastNameKanji']); ?>"
+                           tabindex="3">
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <span class="reg-title"><?php echo $this->translate('メールアドレス'); ?></span><span
+                        class="reg-required">*</span>
+                </div>
+                <div class="col-sm-9 width320">
+                    <input type="text" name="txtEmailAddress" id="txtEmailAddress"
+                           class="form-control"
+                           value="<?php echo!empty($eikenOrg['mailAddress']) ? $this->escapeHtml($eikenOrg['mailAddress']) : ''; ?>"
+                           tabindex="4">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <span class="reg-title"><?php echo $this->translate('メールアドレス'); ?></span><span
+                        class="reg-required">*</span> <br> <span class="reg-title confirm-email-text2">（確認のため再入力）</span>
+                </div>
+                <div class="col-sm-9 width320">
+                    <input type="text" name="txtConfirmEmailAddress"
+                           id="txtConfirmEmailAddress" class="form-control"
+                           value="<?php echo $isExistApplyEiken == \Eiken\EikenConst::EXIST && !empty($eikenOrg['mailAddress']) ? $this->escapeHtml($eikenOrg['mailAddress']) : ''; ?>"
+                           tabindex="5">
+                </div>
+            </div>
+        </div>
+        <div class="row line"></div>
+        <div class="row exam-location reg-bottom">
+            <div class="row">
+                <div class="col-sm-2">
+                    <label><?php echo $this->translate('受験地'); ?><span class="required">*</span></label>
+                </div>
+                <div class="col-sm-2 styled-select">
+                    <?php 
+                    $form->get('cityId')->setAttributes(array("tabindex" => "6"));
+                    echo $this->formRow($form->get('cityId')); 
+                    ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-6 styled-select">
+                    <?php 
+                    $form->get('districtId')->setAttributes(array("tabindex" => "7"));
+                    echo $this->formRow($form->get('districtId')); 
+                    ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5 styled-select">※団体の所在地に近い受験地を選択してください。</div>
+            </div>
+        </div>
+    </div>
+    <div class="box-footer">
+        <div class="row">
+            <div class="col-sm-6"></div>
+            <div class="col-sm-6 text-right">
+                <button type="button" id="btnDisagreePolicy" class="btn btn-large-180" tabindex="8"
+                        onclick="EIKEN_ORG.disagreePolicy();"><?php echo $this->translate('同意しない'); ?></button>
+                &nbsp;
+                <button type="button" id="btnAgreePolicy" class="btn btn-large-180 btn-red" tabindex="9"
+                        onclick="EIKEN_ORG.agreePolicy();">
+                    <i class="arrow-circle-right-w"></i><?php echo $this->translate('同意する'); ?>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="get-org-info-error" value="<?php echo $apiError; ?>" />
+<?php echo $this->form()->closeTag(); ?>

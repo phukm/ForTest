@@ -1,0 +1,61 @@
+<div class="box_padding text-center pagination_student_color">
+    <nav>
+        <ul class="pagination">
+            <?php
+            $paging = '';
+            if ($currentPage != 1) {
+                $paging = '<li><a href="javascript:void(0)" onclick="EXEMPTION.showDataImportPaging(1)">&lt;&lt;</a></li>';
+            }
+            if ($currentPage > 1) {
+                $paging .= '<li><a href="javascript:void(0)" onclick="EXEMPTION.showDataImportPaging(' . ($currentPage - 1) . ')">&lt;</a></li>';
+            }
+            if ($maxPage <= 5) {
+                for ($i = 1; $i <= $maxPage; $i++) {
+                    if ($i == $currentPage) {
+                        $paging .= '<li class="active"><a href="javascript:void(0)" onclick="EXEMPTION.showDataImportPaging(' . $i . ')">' . $i . '</a></li>';
+                    } else {
+                        $paging .= '<li><a href="javascript:void(0)" onclick="EXEMPTION.showDataImportPaging(' . $i . ')">' . $i . '</a></li>';
+                    }
+                }
+            } else if ($maxPage > 5) {
+                if ($currentPage + 2 <= $maxPage) {
+                    if ($currentPage < 3) {
+                        for ($i = 1; $i <= 5; $i++) {
+                            if ($i == $currentPage) {
+                                $paging .= '<li class="active"><a href="javascript:void(0)" onclick="EXEMPTION.showDataImportPaging(' . $i . ')">' . $i . '</a></li>';
+                            } else {
+                                $paging .= '<li><a href="javascript:void(0)" onclick="EXEMPTION.showDataImportPaging(' . $i . ')">' . $i . '</a></li>';
+                            }
+                        }
+                    } else if ($currentPage >= 3) {
+                        for ($i = $currentPage - 2; $i <= $currentPage + 2; $i++) {
+                            if ($i == $currentPage) {
+                                $paging .= '<li class="active"><a href="javascript:void(0)" onclick="EXEMPTION.showDataImportPaging(' . ($i) . ')">' . $i . '</a></li>';
+                            } else {
+                                $paging .= '<li><a href="javascript:void(0)" onclick="EXEMPTION.showDataImportPaging(' . $i . ')">' . $i . '</a></li>';
+                            }
+                        }
+                    }
+                } else {
+                    for ($i = $currentPage - 2; $i <= $maxPage; $i++) {
+                        if ($i == $currentPage) {
+                            $paging .= '<li class="active"><a href="javascript:void(0)" onclick="EXEMPTION.showDataImportPaging(' . ($i) . ')">' . $i . '</a></li>';
+                        } else {
+                            $paging .= '<li><a href="javascript:void(0)" onclick="EXEMPTION.showDataImportPaging(' . $i . ')">' . $i . '</a></li>';
+                        }
+                    }
+                }
+            }
+// Show next button if page is not the last page
+            if ($currentPage + 1 <= $maxPage) {
+                $paging .= '<li><a href="javascript:void(0)" onclick="EXEMPTION.showDataImportPaging(' . ($currentPage + 1) . ')">&gt;</a></li>';
+            }
+// Show go to last page option if not the last page
+            if ($currentPage != $maxPage && $maxPage > 1) {
+                $paging .= '<li><a href="javascript:void(0)" onclick="EXEMPTION.showDataImportPaging(' . $maxPage . ')">&gt;&gt;</a></li>';
+            }
+            echo $paging;
+            ?>
+        </ul>
+    </nav>
+</div>

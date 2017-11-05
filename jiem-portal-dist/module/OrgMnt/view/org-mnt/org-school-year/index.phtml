@@ -1,0 +1,156 @@
+<?php //$paging = $this->paginationHelper($orgschoolyears, $page, $this->url('org-mnt/default', array('controller' => 'orgschoolyear', 'action' => 'index')), 5); ?>
+<?php
+
+$this->headLink ()->prependStylesheet ( $this->basePath ( 'css/OrgInforManagement.css' ) )->prependStylesheet ( $this->basePath ( 'css/studentandclass.css' ) )->prependStylesheet ( $this->basePath ( 'css/ImportStudent.css' ) )?>
+<script type="text/javascript">
+	var jsMessages = <?php echo $jsMessages; ?>;
+</script>
+<div class="schoolyear">
+	<div class="box">
+		<div class="box-header">
+			<strong><?php echo $this->translate('学年情報') ;?></strong>
+		</div>
+		<div class="box-body">
+			<div class="student_manager">
+				<form action="delete" method="post" id="delorgschoolyear">
+					<div class="std_list">
+						<div class="row padding_row">
+							<div class="col-sm-7 title-list class-tite">
+
+								<label class="font-mark">登録されている学年と名称の一覧になります。<br>
+									追加する場合は「追加」ボタンを押してください。
+
+								</label>
+
+
+							</div>
+							<?php $disableBtn = \Dantai\PublicSession::isViewerRole() ?>
+							<div class="col-sm-5 text-right">
+								<span class="seacrh_list"> <a class="btn btn-higher" <?php echo $disableBtn ? 'disabled' : '' ; ?>
+									href="<?php echo $this->url('org-mnt/default', array('controller' => 'orgschoolyear', 'action' => 'add')) ?>">
+										<i class="plus-circle"></i>	<?php echo $this->translate("追加"); ?></a>
+								</span>
+								<button type="button" class="btn btn-higher btn_del"  <?php echo $disableBtn ? 'disabled' : '' ; ?>
+									onclick="deleteorgschoolyear()">
+									<i class="trash"></i><?php echo $this->translate("削除"); ?>
+     							</button>
+							</div>
+						</div>
+						<div class="row">
+							<table class="table table-bordered text-center"
+								id="table-schoolyear">
+								<thead>
+									<tr class="checkbox_list">
+										<th class="checkbox-class"><input id="select_all"
+											type="checkbox"></th>
+										<th class="jschool-year"><?php echo $this->translate('学年一般名称') ;?></th>
+										<th class="display-name-class"><?php echo $this->translate('学年') ;?></th>
+										<th></th>
+										<th class="view-class"><?php echo $this->translate('詳細') ;?></th>
+									</tr>
+								</thead>
+								<tbody id="load_dt_std">
+						 		<?php if (isset ( $orgschoolyears )) : foreach ( $orgschoolyears as $k => $v ) : ?>
+								 <tr class="checkbox_list" id="<?php echo $v->getId();?>">
+									<td class="checkbox-holder">
+										<input type="checkbox" class="checkbox1" <?php echo (isset($mess['arrId']) && in_array($v->getId(),$mess['arrId'])) ? 'checked="checked"' : ''; ?> id="<?php echo $v->getId();?>" name="input[<?php echo $v->getId();?>]">
+									</td>
+									<td class="year-school-class-content">
+										<?php echo (!empty($v->getSchoolYear())) ? $this->escapehtml($v->getSchoolYear()->getName()) : ''; ?>
+									</td>
+									<td class="year-school-class-content"><?php echo $this->escapehtml($v->getDisplayName()); ?></td>
+									<td></td>
+									<td class="view-class-content">
+										<a class="btn btn-view view-label" href="<?php echo $this->url('org-mnt/default', array('controller' => 'orgschoolyear', 'action' => 'show', 'id' => $v->getId())); ?>">
+												 <?php echo $this->translate('詳細表示') ;?>
+										</a></td>
+									</tr>
+						  		<?php endforeach; endif; ?>
+        					</tbody>
+						</table>
+        <?php 
+            if (!$orgschoolyears || !count($orgschoolyears)) {
+                echo '<p class="msgnull">' . $this->translate("MSGnoresult") . '</p>';  
+            }
+        ?>
+						</div>
+					</div>
+				</form>
+			</div>
+
+
+
+			<div class="bottom-mark">
+				<div>
+					<label class="font-mark">全ての学年の名称登録が完了できましたら、基準級を設定します。基準級を設定するために、「<span>次へ</span>」を押してください。
+					</label>
+				</div>
+				<div>
+					<a class="btn btn-red btn-large-180"
+						href="/invitation/standard/index?trans=1"> <i
+						class="arrow-circle-right-w"></i> 次へ
+					</a>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    //checked all if reload page thanhnx6 added 20/8/15
+    if($('.checkbox1').length > 0 && ($('.checkbox1').length === $('.checkbox1:checked').length)){
+        $("#select_all").prop('checked',true);
+    }
+
+    COMMON.showCrossEditMessage('#submitform');
+        
+	$('.seacrh_list .btn.btn-higher').focus();
+	<?php if(!empty($mess['mess'])){?>
+    ERROR_MESSAGE.show([{id: '', message: jsMessages.SYMSG004}], function(){}, 'inline');
+	<?php }?>
+    $('#select_all').click(function(event) {
+        if(this.checked) {
+            $('.checkbox1').each(function() {
+                this.checked = true;
+            });
+        }else{
+            $('.checkbox1').each(function() {
+                this.checked = false;
+            });
+        }
+    });
+});
+
+// CONFIRM_MESSAGE.show('Confirmation message', function(){alert('agree');}, function(){alert('cancel');});
+
+function deleteorgschoolyear(){
+	var check;
+	    check = $(".checkbox1").is(":checked");
+	    if(check) {
+		    CONFIRM_MESSAGE.show(jsMessages.MSGselectdelete, function(){$('#delorgschoolyear').submit();})
+	    		//$('#delorgschoolyear').submit();
+	    } else {
+		    ERROR_MESSAGE.show(jsMessages.MSG1004);
+	    }
+}
+
+$('.checkbox1').click(function(event) {  //on click
+  var check_checked = true;
+  if(this.checked) { // check select status
+      $('.checkbox1').each(function() { //loop through each checkbox
+    	  if($(this).is(':checked')){
+
+          }else{
+        	  check_checked= false;
+          }
+      });
+      if(check_checked==true){
+    	  $('.table .checkbox_list #select_all').prop('checked', true);
+      }
+  }else{
+	  $('.table .checkbox_list #select_all').prop('checked', false);
+  }
+});
+</script>

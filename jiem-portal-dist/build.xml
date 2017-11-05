@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="jiemdp" default="build">
+  <property name="basedir" value="${phing.dir}" />
+  <property name="appdir"  value="${basedir}/application" />
+  <property name="datadir" value="${basedir}/data" />
+  <property name="logdir"  value="${datadir}/build/logs" />
+  <target name="build" depends="clean,prepare,doctrine,phpunit">
+  </target>
+  <target name="clean" description="clean">
+    <delete dir="${logdir}" />
+    <delete dir="${datadir}/build/coverage" />
+    <delete dir="${datadir}/build/phpdoc" />
+  </target>
+  <target name="prepare" description="prepare">
+    <mkdir dir="${logdir}" />
+    <mkdir dir="${datadir}/build/coverage" />
+    <mkdir dir="${datadir}/build/phpdoc" />
+    <mkdir dir="${datadir}/DoctrineORMModule/Proxy" />
+    <exec dir="${basedir}" command="export APP_ENV=ci"></exec>
+  </target>
+  <target name="doctrine" description="Doctrine Migration">
+    <exec dir="${basedir}" command="php doctrine-module-ci orm:clear-cache:metadata" output="${logdir}/doctrine.log"></exec>
+    <exec dir="${basedir}" command="php doctrine-module-ci orm:clear-cache:query" output="${logdir}/doctrine.log"></exec>
+    <exec dir="${basedir}" command="php doctrine-module-ci orm:clear-cache:result" output="${logdir}/doctrine.log"></exec>
+    <exec dir="${basedir}" command="php doctrine-module-ci orm:schema-tool:update --force" output="${logdir}/doctrine.log"></exec>
+  </target>
+  <!--<target name="phpcs" description="PHPCS">-->
+    <!--<exec dir="${basedir}" command="php vendor/squizlabs/php_codesniffer/scripts/phpcs &#45;&#45;report=checkstyle ${basedir}/module/ &#45;&#45;standard=${basedir}/data/phpcs.xml &#45;&#45;report-file=${logdir}/phpcs.xml" output="${logdir}/phpmd.log">-->
+    <!--</exec>-->
+  <!--</target>-->
+  <!--<target name="phpmd" description="PHPMD">-->
+    <!--<exec dir="${basedir}" command="php vendor/phpmd/phpmd/src/bin/phpmd ${basedir}/module/ xml ${basedir}/data/phpmd/rules.xml &#45;&#45;reportfile ${logdir}/phpmd.xml &#45;&#45;suffixes php" output="${logdir}/phpmd.log">-->
+    <!--</exec>-->
+  <!--</target>-->
+  <target name="phpunit" description="run phpunit">
+    <exec dir="${basedir}" command="php phpunit.php --configuration=${basedir}/data/phpunit-ci.xml --log-junit=${logdir}/phpunit.xml" output="${logdir}/phpunit.log">
+    </exec>
+  </target>
+</project>

@@ -1,0 +1,167 @@
+<?php echo $this->doctype(); ?>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8">
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
+    <?php
+    echo $this->headTitle('英検受験者サポートシステム ')->setSeparator(' - ')->setAutoEscape(false);
+    echo $this->headMeta()->appendName('viewport', '')->appendHttpEquiv('X-UA-Compatible', 'IE=edge');
+    echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/eiken-logo.jpg'))
+        ->prependStylesheet($this->basePath('css/satellite-pc-1.css'))
+        ->prependStylesheet($this->basePath('css/JIEM-masterpage.css'))
+        ->prependStylesheet($this->basePath('css/icon-awesome-sa.css'))
+        ->prependStylesheet($this->basePath('css/JIEMStyle.css'))
+        ->prependStylesheet($this->basePath('css/non-responsive.css'))
+        ->prependStylesheet($this->basePath('css/bootstrap.min.css'))
+        ->prependStylesheet($this->basePath('css/jquery-ui.css'))
+        ->prependStylesheet($this->basePath('css/ie-only.css'), 'screen', 'IE');
+    echo $this->headScript()
+        ->prependFile($this->basePath('js/messages/common-message.js'))
+        ->prependFile($this->basePath('js/localization/jiem.messages_ja.js'))
+        ->prependFile($this->basePath('js/localization/messages_ja.js'))
+        ->prependFile($this->basePath('js/bootstrap.min.js'))
+        ->prependFile($this->basePath('js/app.js'))
+        ->prependFile($this->basePath('js/common.js'))
+        ->prependFile($this->basePath('js/jquery.validate.js'))
+        ->prependFile($this->basePath('js/validate.min.js'))
+        ->prependFile($this->basePath('js/html5shiv.js'), 'text/javascript', array('conditional' => 'lt IE 9'))
+        ->prependFile($this->basePath('js/respond.min.js'), 'text/javascript', array('conditional' => 'lt IE 9'))
+        ->prependFile($this->basePath('js/jquery.min.js'));
+    ?>
+</head>
+<body>
+<div class="wrapper">
+    <div class="navbar navbar-static-top top-navbar">
+        <div class="container">
+            <div class="navbar-header">
+                <a href="/"><img class="header-logo" src="<?php echo $this->basePath("/img/eiken-logo.jpg"); ?>"></a>
+                <a href="/"><p class="header-text">英検受験者サポートシステム</p></a>
+            </div>
+            <div class="navbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/satellite/user-manual" class="top-menu-icon"><i class="awesome question-sign"></i> 使い方</a></li>
+                    <li><a target="_blank" href="http://www.eiken.or.jp/eiken/contact/"><i class="awesome comment-sign"></i>お問い合わせ</a> </li>
+                    <li><a id="btnlogout" href="#" data-toggle="modal" data-target="#logoutModal"> <i class="icon-sign-out"></i> ログアウト</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Second Nav -->
+    <div class="mid-navbar navbar">
+        <div class="container">
+            <ul class="nav navbar-nav" style="margin-top: -1px">
+                <li class="dropdown menu-large n1">
+                    <a href="/" class="first"><i class="icon-home"></i>ホーム</a>
+                </li>
+                <?php if ($this->paymentByCreditFlag) { ?>
+                    <li class="dropdown menu-large n4">
+                        <a href="/eiken/apply-eiken" class="dropdown-toggle"><?php echo $this->translate('applyEikenMenuLabel');?></a>
+                    </li>
+                <?php } ?>
+                <li class="dropdown menu-large n3">
+                    <a href="/einavi/loginon" class="dropdown-toggle"> 英ナビ！ログイン</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- Logout Modal -->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+         aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p class="modal-title">ログアウト</p>
+                </div>
+                <div class="modal-body">
+                    <p>ログアウトします。よろしいですか？</p>
+                </div>
+                <div class="modal-footer">
+                    <a tabindex="123" class="btn btn-large-180"
+                       href="javascript:void(0)" id="btnCancelModel">キャンセル</a> <a
+                        tabindex="124" href="<?php echo $this->url('logout'); ?>"
+                        class="btn btn-large-180 btn-red"> <img
+                            src="/img/white/svg/sign-out.svg"/> ログアウト
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- loading Modal -->
+    <div class="content-wrapper">
+        <div class="content">
+            <div class="row user-name-infor">
+                <div class="col-sm-12">
+                    <?php
+                        $privateSession = new Dantai\PrivateSession();
+                        $user = $privateSession->getData(\Satellite\Constants::SESSION_SATELLITE); 
+                        if($user){
+                            echo '<b>ようこそ</b> : '.trim($user['firstNameKanji']).trim($user['lastNameKanji']);
+                        }
+                    ?>
+                </div>
+            </div>
+            <?php echo $this->navigation('navigation')->breadcrumbs()->setMinDepth(0)->setPartial('partial/breadcrumbs.phtml', 'Satellite'); ?>
+            <div class="row jiem-error" style="display: none;"></div>
+            <?php echo $this->content; ?>
+        </div>
+    </div>
+    <footer class="main-footer">
+        <div class="top">
+            <div class="col-sm-2 pull-left">
+                <span><a href="/satellite/commercial_law">特定商取引法に<br>基づく表記</a></span>
+            </div>
+            <div class="col-sm-4 pull-left">
+                <span>お問い合わせ先<br>英検サービスセンター（個人受付）</span>
+            </div>
+            <div class="col-sm-2 pull-left">
+                <span>電話番号<br>03-3266-8311</span>
+            </div>
+            <div class="col-sm-4 pull-right">
+                <span>受付時間<br>9:30〜17:00 (土・日・祝日を除く)</span>
+            </div>
+        </div>
+        <div class="midder"></div>
+        <div class="bottom">
+            <div class="col-sm-12">Copyright © Eiken Foundation of Japan All rights reserved.</div>
+        </div>
+    </footer>
+</div>
+<div class="modal fade ajax-loader" id="loadingModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
+    <img src="/img/ajax-loader.gif"/>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#btnCancelModel').click(function () {
+            $("#btnlogout").click();
+        });
+        var path = window.location.pathname;
+
+        if (path.indexOf('/einavi/loginon') != -1) {
+            $('.menu-large').removeClass('active-page');
+            $('.n3').addClass('active-page');
+        } else if ('/' == path) {
+            $('.menu-large').removeClass('active-page');
+            $('.n1').addClass('active-page');
+        } else if (path == '/eiken/apply-eiken' 
+                    || path == '/eiken/test-site-exemption'
+                    || path == '/eiken/confirmation'
+                    || path.indexOf('/eiken/show') != -1
+                    || path.indexOf('/payment-eiken-exam/pay-by-credit') != -1
+                    || path == '/payment-eiken-exam/payment-infomation'
+                    || path == '/payment-eiken-exam/payment-confirm') {
+            $('.menu-large').removeClass('active-page');
+            $('.n4').addClass('active-page');
+        }
+        if(window.location.hostname == 'jukensha-support.eiken.or.jp'){
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+            ga('create', 'UA-70841181-1', 'auto');
+            ga('send', 'pageview');
+        }
+    });
+
+</script>
+</body>
+</html>

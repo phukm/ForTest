@@ -1,0 +1,249 @@
+<?php
+use Dantai\PublicSession;
+
+$this->headLink()
+		->prependStylesheet($this->basePath('css/OrgInforManagement.css'))
+		->prependStylesheet($this->basePath('css/studentandclass.css'));
+	$isViewer = PublicSession::isViewerRole();
+?>
+
+<div class="box detailstudent">
+	<div class="box-header line-height-18">
+		<strong><?php echo $this->translate('生徒情報詳細') ;?></strong>
+	</div>
+	<div class="box-body">
+			<b class="fl col1"></b>
+			<p></p>
+		<div class="row r2">
+			<b class="fl col1"><?php echo $this->translate('氏名（漢字）') ;?></b>
+			<p><?php echo $this->escapehtml($pupil['firstNameKanji'] . $pupil['lastNameKanji']); ?></p>
+		</div>
+		<div class="row r3">
+			<b class="fl col1"><?php echo $this->translate('氏名（カナ）') ;?></b>
+			<p><?php echo $this->escapehtml($pupil['firstNameKana'] . $pupil['lastNameKana']); ?></p>
+		</div>
+		<div class="row r4">
+			<b class="fl col1"><?php echo $this->translate('生年月日') ;?></b>
+			<p><?php
+
+if ($pupil['birthday']) {
+    echo $this->escapehtml($pupil['birthday']->format('Y') . '年' . $pupil['birthday']->format('n') . '月' . $pupil['birthday']->format('j') . '日');
+}
+?>
+			</p>
+		</div>
+		<div class="row r5">
+			<b class="fl col1"><?php echo $this->translate('性別') ;?></b>
+			<p><?php echo $pupil['gender'] != -1 ? ($pupil['gender'] == 1 ? '男' : '女') : ''; ?></p>
+		</div>
+		<hr />
+		<div class="row r6">
+			<b class="fl col1"><?php echo $this->translate('年度') ;?></b> <span
+				class="fl col2"><?php echo $this->escapehtml($pupil['year']) ;?></span>
+			<b class="fl col3"><?php echo $this->translate('学年') ;?></b> <span
+				class="fl col4"><?php echo $this->escapehtml($pupil['displayName']); ?></span>
+			<b class="fl col5"><?php echo $this->translate('クラス') ;?></b> <span
+				class="fl col6"><?php echo $this->escapehtml($pupil['className']);?></span>
+			<b class="fl col7"><?php echo $this->translate('番号') ;?></b> <span
+				class="fl col8"><?php echo $this->escapehtml($pupil['number']);?></span>
+		</div>
+		<hr />
+		<div class="row r7">
+			<b class="fl col1"><?php echo $this->translate('英ナビ！個人ID') ;?></b>
+			<p class="fl col2"><?php echo $this->escapehtml($pupil['einaviId']) ;?></p>
+		</div>
+		<div class="row r8">
+			<div class="fl col1">
+				<b><?php echo $this->translate('英検ID') ;?></b>
+			</div>
+			<div class="fl col2">
+				<p><?php echo $this->escapehtml($pupil['eikenId']) ;?></p>
+			</div>
+			<div class="fl col3">
+				<b class=""><?php echo $this->translate('英検パスワード') ;?></b>
+			</div>
+			<div class="fl col4">
+				<p><?php echo $this->escapehtml($pupil['eikenPassword']) ;?></p>
+			</div>
+		</div>
+		<hr />
+		<div class="row r3">
+			<b class="fl col1"><?php echo $this->translate('取得済級') ;?></b>
+			<p class="fl col2"><?php echo $this->escapehtml($pupil['eikenlevelName']) ;?></p>
+		</div>
+		<!-- ekiendate -->
+<!--		<div class="row r14">
+			<div class="fl col1">
+				<label><b><?php echo $this->translate('英検実施日') ;?></b></label>
+			</div>
+			<p class="fl col2"><?php
+//            if (! empty($pupil['examDateEkien'])) {
+//                $dateEx = $pupil['examDateEkien'];
+//                echo $dateEx->format('Y/m/d');
+//            }
+            ?></p>
+		</div>-->
+		<!-- het -->
+		<div class="row r3">
+			<b class="fl col1"><?php echo $this->translate('英検年度') ;?></b>
+			<p class="fl col2"><?php echo $this->escapehtml($pupil['yearEkr']); ?></p>
+		</div>
+		<div class="row r3">
+			<b class="fl col1"><?php echo $this->translate('英検回') ;?></b>
+			<p class="fl col2"><?php echo $this->escapehtml($pupil['kaiEkr']); ?></p>
+		</div>
+		<div class="row r11">
+			<div class="fl col1">
+				<b><?php echo $this->translate('CSEスコア') ;?></b>
+			</div>
+			<div class="fl col2">
+				<b>リーディング</b>
+			</div>
+			<div class="fl col3">
+				<p><?php echo $this->escapehtml($pupil['cSEScoreReading']) ;?></p>
+			</div>
+			<div class="fl col4">
+				<b>リスニング</b>
+			</div>
+			<div class="fl col5">
+				<p><?php echo $this->escapehtml($pupil['cSEScoreListening']) ;?></p>
+			</div>
+			<div class="fl col6">
+				<b>ライティング</b>
+			</div>
+			<div class="fl col7">
+				<p><?php echo $this->escapehtml($pupil['cSEScoreWriting']) ;?></p>
+			</div>
+			<div class="fl col8">
+				<b>スピーキング</b>
+			</div>
+			<div class="fl col9">
+				<p><?php echo $this->escapehtml($pupil['cSEScoreSpeaking']) ;?></p>
+			</div>
+			<div class="fl col10">
+				<b>合計</b>
+			</div>
+			<div class="fl col11">
+				<p><?php echo $this->escapehtml($pupil['cSEScoreReading'] + $pupil['cSEScoreListening'] + $pupil['cSEScoreWriting'] + $pupil['cSEScoreSpeaking']) ;?></p>
+			</div>
+		</div>
+		<hr />
+		<div class="row r12">
+			<b class="fl col1"><?php echo $this->translate('IBAレベル判定') ;?></b>
+			<p class="fl col2"><?php echo $this->escapehtml($pupil['ibalevelName']) ;?></p>
+		</div>
+		<div class="row r14">
+			<div class="fl col1">
+				<label><b><?php echo $this->translate('IBA実施日') ;?></b></label>
+			</div>
+			<p class="fl col2"><?php
+            if (! empty($pupil['examDateIbar'])) {
+                $dateEx = $pupil['examDateIbar'];
+                echo $dateEx->format('Y/m/d');
+            }
+            ?></p>
+		</div>
+		<div class="row r13">
+			<div class="fl col1">
+				<b><?php echo $this->translate('CSEスコア') ;?></b>
+			</div>
+			<div class="fl col2">
+				<b>リーディング</b>
+			</div>
+			<div class="fl col3">
+				<p><?php echo $this->escapehtml($pupil['readIbar']) ;?></p>
+			</div>
+			<div class="fl col4">
+				<b>リスニング</b>
+			</div>
+			<div class="fl col5">
+				<p><?php echo $this->escapehtml($pupil['listenIbar']) ;?></p>
+			</div>
+			<div class="fl col6">
+				<b>合計</b>
+			</div>
+			<div class="fl col7">
+				<p><?php echo $this->escapehtml($pupil['readIbar'] + $pupil['listenIbar']) ;?></p>
+			</div>
+		</div>
+		<hr />
+		<div class="row r15">
+			<div class="fl col1 add-student-cse-line-0">
+				<label><b><?php echo $this->translate('かんたん測定') ;?></b></label>
+			</div>
+			<div class="fl col2">
+				<b>単語レベル</b>
+			</div>
+			<div class="fl col3">
+				<p><?php echo $this->escapehtml($pupil['vocabularySMResultName']) ;?></p>
+			</div>
+			<div class="fl col4">
+				<b>文法レベル</b>
+			</div>
+			<div class="fl col5">
+				<p><?php echo $this->escapehtml($pupil['grammarSMResultName']) ;?></p>
+			</div>
+		</div>
+	</div>
+	<div class="box-footer">
+		<div class="text-left col-sm-4">
+			<a class="btn btn-large-180"
+			   href="<?php echo $this->url('pupil-mnt/default', array('controller' => 'pupil', 'action' => 'index')); ?>">
+				<i class="arrow-circle-left"></i>
+				<?php echo $this->translate('戻る'); ?></a>
+		</div>
+		<div class="text-right col-sm-8">
+			<a class="btn btn-large-180" <?php echo $isViewer ? 'disabled' : '' ?>
+			   href="<?php echo $this->url('pupil-mnt/default', array('controller' => 'pupil', 'action' => 'edit', 'id' => $pupil['id'])); ?>">
+				<i class="pencil-square"></i>
+				<?php echo $this->translate('編集'); ?>
+			</a>
+			<button type="button" class="btn btn-large-180 margin_edit" <?php echo $isViewer ? 'disabled' : '' ?>
+			   onclick="deletepupildetail()"><i
+					class="trash-inline"></i>
+				<?php echo $this->translate('削除'); ?>
+			</button>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+    var link = '<?php echo $this->url('pupil-mnt/default', array('controller' => 'pupil', 'action' => 'delete', 'id' => $pupil['id'])); ?>';
+	var pupilId = <?php echo $pupil['id']; ?>;
+        var jsMessages = <?php echo $jsMessages; ?>;
+    DETAIL_PUPIL = {
+    baseUrl : window.location.protocol + "//" + window.location.host + "/",
+    ajaxCheckDeletePupil: 'pupil/pupil/cannot-delete'
+    }
+    function deletepupildetail(){
+                $.ajax({
+                    type: 'POST',
+                    url:  DETAIL_PUPIL.baseUrl + DETAIL_PUPIL.ajaxCheckDeletePupil,
+                    data: {pupilIds: pupilId},
+                    success: function (data) {
+                        if(data.status == 3){
+                            ERROR_MESSAGE.show(jsMessages.CanNotDeletePupil);
+                        }else{
+                            CONFIRM_MESSAGE.show('選択したアイテムを削除します。よろしいですか？', function(){
+                            $.ajax({
+                                        type: 'POST',
+                                        url: window.location.protocol + "//" + window.location.host + "/" + 'pupil/pupil/check-pupil-had-apply-eiken-to-delete',
+                                        contentType: "application/json",
+                                        dataType: 'json',
+                                        data: JSON.stringify({pupilId: pupilId}),
+                                        success: function (data) {
+                                                if(!data.success){
+                                                        ALERT_MESSAGE.show(data.messages);
+                                                }else{
+                                                        window.location.replace(link);
+                                                }
+                                        }
+                                });
+                            });
+                        }
+                    }
+                });
+            }       
+
+</script>
+

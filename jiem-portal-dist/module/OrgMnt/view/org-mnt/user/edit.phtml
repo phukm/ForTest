@@ -1,0 +1,288 @@
+<?php 
+    $this->headLink()->prependStylesheet($this->basePath('css/list_org_style.css'));
+    $form->setAttribute('action', $this->url('org-mnt/default', array('controller' => 'user', 'action' => 'update', 'id' => $id)));
+    echo $this->form()->openTag($form);
+?>
+<div class="box">
+    <div class="box-header">
+        <?php echo $this->translate("User information edit"); ?>
+    </div>
+    <div class="box-body register-body">
+        <div class="row margin-bottom-register">
+            <div class="col-sm-2">
+                <p><?php echo $this->translate("Organization Number"); ?></p>
+            </div>
+            <div class="col-sm-5 input-org">
+                <lable><?php
+                    if (isset($orgno)) {
+                        echo $orgno;
+                    }
+                    ?></lable>
+            </div>
+        </div>
+        <div class="row margin-bottom-register">
+            <div class="col-sm-2">
+                <p><?php echo $this->translate("User ID"); ?>
+                </p>
+            </div>
+            <div class="col-sm-6 input-user-id">
+                <?php
+                echo "<label>" . $UserId . "</label>";
+                ?>
+            </div>
+        </div>
+        <div class="row margin-bottom-register-name">
+            <div class="col-sm-2">
+                <p><?php echo trim($this->translate("Name (Kanji)")); ?><i
+                        class="text-rqred">*</i>
+
+                </p>
+            </div>
+            <div class="col-sm-8">
+                <?php echo $this->formRow($form->get('txtFistname')); ?>
+                <?php echo $this->formRow($form->get('txtlastname')); ?>
+            </div>
+        </div>
+        <div class="row email-row">
+            <div class="col-sm-2">
+                <p><?php echo $this->translate("Email Address"); ?><i
+                        class="text-rqred">*</i>
+                </p>
+            </div>
+            <div class="col-sm-10">
+                <?php echo $this->formRow($form->get('txtEmailAddress')); ?>
+            </div>
+        </div>
+        <div class="row margin-bottom-register">
+            <div class="col-sm-2">
+                <p><?php echo $this->translate("Authority"); ?>
+                    <?php if ($user['id'] != $user_info->getId()) { ?><i class="text-rqred">*</i><?php } ?>
+                </p>
+            </div>
+            <div class="col-sm-5 select-role styled-select">
+
+                <?php
+                if ($user['id'] != $user_info->getId()) {
+                    echo $this->formRow($form->get('Role'));
+                } else {
+                    echo '<p style="font-weight: normal;">' . $user_info->getRole()->getRoleName() . '</p><input type="hidden" value="' . $user_info->getRoleId() . '" id="ddlRole" name="Role"/>';
+                }
+                ?>
+            </div>
+        </div>
+        <div
+            class="row ServiceTypeRow <?php
+            if (isset($roleUser) && $roleUser == 2 && $user['id'] != $user_info->getId()) {
+                echo "show";
+            }
+            ?>">
+            <div class="col-sm-2">
+                <p><?php echo $this->translate("ServiceType"); ?><i
+                        class="text-rqred">*</i>
+                </p>
+            </div>
+            <div class="col-sm-5 styled-checkboxgroup">
+                <?php echo $this->formRow($form->get('ServiceType')); ?>
+            </div>
+        </div>
+        <div class="row">
+            <hr />
+        </div>
+
+        <div class="row status-row">
+            <div class="col-sm-2">
+                <p><?php echo $this->translate("Status"); ?>
+                    <?php if ($user['id'] != $user_info->getId()) { ?><i class="text-rqred">*</i><?php } ?>
+                </p>
+            </div>
+            <div class="col-sm-5 styled-select">
+                
+                <?php
+                if ($user['id'] != $user_info->getId()) {
+                    echo $this->formRow($form->get('Status'));
+                } else {
+                    echo '<p style="font-weight: normal;">' . $this->translate($user_info->getStatus()) . '</p><input type="hidden" value="' . $user_info->getStatus() . '" id="ddlStatus" name="Status"/>';
+                }
+                ?>
+            </div>
+        </div>
+        <?php if ($user['id'] == $user_info->getId()) { ?>
+        <hr />
+
+        <div class="row password-row">
+            <div class="col-sm-3">
+                <p><?php echo $this->translate("Msg_Do_You_Want_Change_Password"); ?></p>
+            </div>
+            <div class="col-sm-5 class-inline-email">
+                <p class="email-info" style="font-weight: normal;">
+                    <a style="width: 135px; font-weight: normal;" class="btn btn-small"
+                       href="<?php echo $this->url('changePassword', array("controller" => "Uac", "action" => "changePassword")); ?>"><?php echo $this->translate("ChangePassword"); ?></a>
+                </p>
+            </div>
+        </div>
+        <?php }?>
+    </div>
+    <div class="box-footer user-detail-footer">
+        <div class="row">
+            <div class="col-sm-12 text-right">
+                <?php //echo $this->formRow($form->get('btnCancel'));   ?>
+                <?php //echo $this->formRow($form->get('btnCancel'));   ?>
+                <a class="btn btn-large-180 btn-footer-1"
+                   href="<?php echo $this->url('org-mnt/default', array('controller' => 'user', 'action' => 'index')); ?>"><?php echo $this->translate("Cancel"); ?></a>
+                <a class="btn btn-red btn-large-180" id="submitform"
+                   href="javascript:void(0)"><i class="fa-download-w"></i>
+                    <?php echo $this->translate("Save"); ?>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<?php echo $this->form()->closeTag(); ?>
+<script>
+var jsMessages_cl = <?php echo $jsMessages->jsonSerialize(); ?>;
+var jsMessages = jsMessages_cl.data;
+
+    $(document).ready(function () {
+        COMMON.showCrossEditMessage('#submitform');
+        var objectXS = jsMessages.MSG017;
+        var objectXSemail = jsMessages.EmailIsUse;
+
+        if (objectXSemail.length != 0) {
+            ERROR_MESSAGE.show([{id: 'txtEmailAddress', message: objectXSemail}], function () {
+            }, 'inline');
+            $("#txtEmailAddress").addClass("error").blur();
+        }else{
+            $('form:first *:input[type!=hidden][disabled!=disabled]:first').focus();
+        }
+//check all character full and haf width
+//jQuery.validator.addMethod("character", function(value, element) {
+//	  return this.optional(element) || /^[a-zA-Z0-9-_\uFF61-\uFFDC\uFFE8-\uFFEE\u00F01-\uFF60\uFFE0-\uFFE6]*$/.test(value);
+//	}, "Khong duoc nhap ky tu dac biet");
+//	check ky tu dac biet cua user id haf width
+        jQuery.validator.addMethod("CharacterUser", function (value, element) {
+            return this.optional(element) || /^[a-zA-Z0-9-_\uFF61-\uFFDC\uFFE8-\uFFEE]*$/.test(value);
+        }, "Khong duoc nhap ky tu dac biet");
+//check 3 ky tu dau
+        jQuery.validator.addMethod("FirstCharacterUser", function (value, element) {
+            return this.optional(element) || /^[a-zA-Z]{1}/.test(value);
+        }, "3 Ky tu dau tien phai la chu cai");
+//  email
+//jQuery.validator.addMethod("emailcharacter", function(value, element) {
+//	  return this.optional(element) || /^[a-zA-Z0-9_.-]{3,}\@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-\.]+)+$/.test(value);
+//	}, "email khong dung");
+//	check first character
+//jQuery.validator.addMethod("first_character", function(value, element) {
+//	  return this.optional(element) || /^[a-zA-Z]{1}$/.test(value);
+//	}, "first character");
+
+        var form = $("#createuser");
+        var validator = form.validate({
+            onfocusout: false,
+            onkeyup: false,
+            onclick: false,
+            focusInvalid: false,
+            rules: {
+                txtOrgNumber: {
+                    required: true
+//			character:true
+                },
+                txtUserID: {
+                    required: true,
+                    minlength: 4,
+                    maxlength: 31,
+                    CharacterUser: true,
+                    FirstCharacterUser: true
+//			first_character:1
+                },
+                txtFistname: {
+                    required: true,
+                    maxlength: 60
+//			character:true
+                },
+                txtlastname: {
+                    required: true,
+                    maxlength: 60
+//			character:true
+                },
+                Role: {
+                    required: true
+                },
+                'ServiceType[]': {
+                    required: true
+                },
+                Status: {
+                    required: true
+                },
+                txtEmailAddress: {
+                    required: true,
+                    email: true
+//			emailcharacter: true
+                }
+            },
+            messages: {
+                txtUserID: {
+                    required: jsMessages.MSG001,
+                    minlength: jsMessages.MSG019,
+                    maxlength: jsMessages.MSG019,
+                    CharacterUser: jsMessages.MSG019,
+                    FirstCharacterUser: jsMessages.MSG019
+                },
+                txtFistname: {
+                    required: jsMessages.MSG001,
+                    maxlength: 60
+// 			character:true
+                },
+                txtlastname: {
+                    required: jsMessages.MSG001,
+                    maxlength: 60
+// 			character:true
+                },
+                Role: {
+                    required: jsMessages.MSG001
+                },
+                'ServiceType[]': {
+                    required: jsMessages.MSG001
+                },
+                Status: {
+                    required: jsMessages.MSG001
+                },
+                txtEmailAddress: {
+                    required: jsMessages.MSG001,
+                    email: jsMessages.MSGemailformat
+// 			emailcharacter: jsMessages_cl.MSGemailformat
+                }
+            },
+            onfocusout:function (element) {
+            },
+                    errorPlacement: function (error, element) {
+                    },
+            showErrors: function (errorMap, errorList) {
+                this.defaultShowErrors();
+// 		if(objectXS.length != 0 ){
+// 			errorList.push({ id: 'user', message: objectXS });
+// 		}
+
+                ERROR_MESSAGE.show(errorList, function () {
+                }, 'inline');
+            }
+        });
+
+
+        $("#submitform").click(function () {
+            if (form.valid()) {
+                $('#loadingModal').modal('show');
+                $('#createuser').submit();
+            } else {
+                $(".styled-checkboxgroup").find("input.error").addClass("errorRadio");
+            }
+        });
+        $("#ddlRole").change(function () {
+            var valueRole = parseInt($(this).val());
+            if (valueRole == 2) {
+                $(".ServiceTypeRow").show();
+            } else {
+                $(".ServiceTypeRow").hide();
+            }
+        });
+    });
+</script>

@@ -1,0 +1,91 @@
+.access-key-wrapper{
+    width: 800px;
+    margin: 0 auto;
+    margin-top: 25px;
+}
+
+input{
+    vertical-align: middle;
+    height: 25px;
+}
+
+.access-key-note{
+    margin-bottom: 15px;
+}
+
+.input-480{
+    width: 480px;
+}
+
+.input-300{
+    width: 300px;
+}
+
+.input-230{
+    width: 230px;
+}
+
+.policy-checkbox input[type=checkbox]{
+    position: relative;
+    bottom: 4px;
+    right: 4px;
+}
+
+.body-error{
+    width: 940px;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+.jiem-error .alert{
+    margin-bottom: 0px;
+}
+
+body .login .content-wrapper{
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+}
+
+/* policy */
+.row-7 { margin-top:10px; }
+.row-7 .box-header { padding-top: 0px; padding-bottom:0px; height: 37px; }
+.row-7 .box-header h4{ font-weight: bold; }
+.row-7 > .box-body { padding-bottom: 0px; }
+.row-7 .box-body .r-title { margin-top: 3px; }
+.row-7 .box-body .r-title .title{  width: 820px; line-height: 19px; }
+.row-7 .box-body .content-policy {    border: 17px solid #f3f3f3;margin-top: 20px; padding: 25px;height: 338px; overflow-y: scroll; }
+.row-7 .box-body .content-policy .inline{ display: inline-block; }
+.row-7 .box-body .content-policy .r1{ margin-top: 0px; }
+.row-7 .box-body .content-policy h4{ font-weight: bold; }
+.row-7 .box-body .content-policy .r1 .col-sm-8{ padding-top:22px; }
+.row-7 .box-body .content-policy .r1 .col-sm-8 h4{ margin-top:-7px; }
+.row-7 .box-body .content-policy .r1 .col-sm-8 h4.inline{ margin-left:6px; }
+.row-7 .box-body .content-policy .r1 .col-sm-8 b{ margin-left:-7px; }
+.row-7 .box-body .content-policy .line1{ padding-top:10px; }
+.row-7 .box-body .content-policy .group b{ word-spacing: 25px; }
+.row-7 .box-body .content-policy ul{ padding: 0px; list-style: none; }
+.row-7 .box-body .content-policy h4.fontnoma{font-weight: normal;}
+.row-7 .box-body .form-group-policy {padding-top: 0px; padding-left: 20px;}
+.row-7 .box-body .form-group-policy .row {margin-top: 18px; margin-bottom: 0xp;}
+
+.row-7 .box-body .form-group-policy .r1 .cl1 { margin-left: 32px; width: 184px; }
+.row-7 .box-body .form-group-policy .r1 .cl2 { margin-left: 21px; width: 184px; }
+
+.row-7 .box-body .form-group-policy .r4 { margin-top: -10px; }
+.row-7 .box-body .form-group-policy .r2 .cl1 { margin-left: 32px; width: 280px; }
+
+.row-7 .box-body .form-group-policy .r3 .cl1 { margin-left: 32px; width: 280px; }
+.row-7 .box-body .form-group-policy .r3 .br { display: block; margin-top: -10px;}
+
+.row-7 .box-body .form-group-policy .r4 .cl1 { margin-left: 32px; width: 280px; }
+.row-7 .box-body .content-policy .group ul.policy-list li { padding-left: 39px; }
+.row-7 .box-body .content-policy .group ul.policy-list li > i{ font-style: normal;padding-right: 20px;margin-left: -41px;display: inline-block; }
+.row-7 .box-body .content-policy p { margin-bottom: 0; }
+.row-7 .box-body a{ color: #000;  }
+.row-7 .box-body a:hover{ color: red; text-decoration: underline; }
+.row-7 .box-footer a { margin-right: 5px; }
+
+@media screen\0 {
+    .row-7 .access-key-note { margin-bottom: 0px !important; }
+}
+/* end policy */

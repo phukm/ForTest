@@ -1,0 +1,181 @@
+<?php
+    if($isMobile){
+        $this->headLink()->prependStylesheet($this->basePath('css/test-site-exemption-mobile.css')); 
+    }
+    else{
+        $this->headLink()->prependStylesheet($this->basePath('css/test-site-exemption.css')); 
+    };    
+
+    $isNeedTestSiteExemption = count($listKyuMainHall) > 1;
+?>
+<?php $this->headScript()->prependFile($this->basePath('js/test-site-exemption.js')) ?>
+
+<style> #test-side-exemption a:hover{ color: red !important; text-decoration: underline; } </style>
+<?php
+if ($this->errors !== null) {
+    ?>
+    <div class="text-left error-form-login ver-center" id="show_error">
+        <ul>
+            <?php foreach ($errors as $key => $error): ?>
+                <li class='msg' style="cursor: pointer;"
+                    onclick="$('<?php echo $key == "all" ? '#exemption1' : '#' . $key; ?>').focus()"><?php echo $this->translate($error); ?></li>
+                <?php endforeach; ?>
+        </ul>
+    </div>
+<?php }else { ?>
+    <script>
+        $(document).ready(function () {
+            $('form:first *:input[type!=hidden]:first').focus();
+        });
+    </script>
+<?php } ?>
+<?php
+$form->setAttribute('id', 'submitForm');
+$form->prepare();
+?>
+<?php echo $this->form()->openTag($form); ?>
+<div id="test-side-exemption" class="box <?php echo ($isMobile) ? 'mobile' : 'pc' ?>">
+    <?php if(!$isMobile){ ?>
+    <div class="box-header">
+        <span><b><?php echo $this->translate('applyEiken'); ?></b></span>
+    </div>
+    <?php } ?>
+    <div class="box-body">
+        <div class="row">
+            <label class="text-normal"><?php echo $this->translate('testSiteExemptionDescription') ?></label>
+        </div>
+        <div class="row">
+            <table class="table table-bordered">
+                <thead>
+                    <td class="label-column"></td>
+                    <td class="data-column"><?php echo $listLevel[$listKyuMainHall[0]] ?></td>
+                    <?php if ($isNeedTestSiteExemption) { ?>
+                    <td class="data-column"><?php echo $listLevel[$listKyuMainHall[1]] ?></td>
+                    <?php } ?>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-bold"><?php echo $this->translate('exemptionLabel1'); ?></td>
+                        <td><?php echo $this->formElement($form->get('examGrade1')->setValue($listKyuMainHall[0])) ?></td>
+                         <?php if ($isNeedTestSiteExemption) { ?>
+                        <td><?php echo $this->formElement($form->get('examGrade2')->setValue($listKyuMainHall[1])) ?></td>
+                        <?php } ?>
+                    </tr>
+                    <tr>
+                        <td><?php echo $this->translate('exemptionLabel2'); ?></td>
+                        <td>
+                            <div class="text-center"><?php echo $this->formElement($form->get('exemption1')) ?></div>
+                        </td>
+                        <?php if ($isNeedTestSiteExemption) { ?>
+                        <td>
+                            <div class="text-center"><?php echo $this->formElement($form->get('exemption2')) ?></div>
+                        </td>
+                        <?php } ?>
+                    </tr>
+                    <tr>
+                        <td><?php echo $this->translate('passedKaiLabel'); ?></td>
+                        <td>
+                            <div class="text-center styled-select"><?php echo $this->formElement($form->get('passedKai1')) ?></div>
+                        </td>
+                        <?php if ($isNeedTestSiteExemption) { ?>
+                        <td>
+                            <div class="text-center styled-select"><?php echo $this->formElement($form->get('passedKai2')) ?></div>
+                        </td>
+                        <?php } ?>
+                    </tr>                    
+                    <tr>
+                        <td><?php echo $this->translate('passedExamCityLabel'); ?></td>
+                        <td>
+                            <div class="text-center styled-select"><?php echo $this->formElement($form->get('passedCity1')->setAttribute('onChange', 'TEST_SITE_EXEMPTION.loadDistrictInCity($(this).val(), "passedPlace1")')); ?></div>
+                        </td>
+                        <?php if ($isNeedTestSiteExemption) { ?>
+                        <td>
+                            <div class="text-center styled-select"><?php echo $this->formElement($form->get('passedCity2')->setAttribute('onChange', 'TEST_SITE_EXEMPTION.loadDistrictInCity($(this).val(), "passedPlace2")')); ?></div>
+                        </td>
+                        <?php } ?>
+                    </tr>
+                    <tr>
+                        <td><?php echo $this->translate('passedExamPlaceLabel'); ?></td>
+                        <td>
+                            <div class="text-center styled-select"><?php echo $this->formElement($form->get('passedPlace1')) ?></div>
+                        </td>
+                        <?php if ($isNeedTestSiteExemption) { ?>
+                        <td>
+                            <div class="text-center styled-select"><?php echo $this->formElement($form->get('passedPlace2')) ?></div>
+                        </td>
+                        <?php } ?>
+                    </tr>
+                    <tr>
+                        <td><?php echo $this->translate('personalIdLabel'); ?></td>
+                        <td>
+                            <div class="text-center"><?php echo $this->formElement($form->get('personalId1')) ?></div>
+                        </td>
+                        <?php if ($isNeedTestSiteExemption) { ?>
+                        <td>
+                            <div class="text-center"><?php echo $this->formElement($form->get('personalId2')) ?></div>
+                        </td>
+                        <?php } ?>
+                    </tr>
+                    <tr>
+                        <td class="text-bold"><?php echo $this->translate('testSiteLabel'); ?></td>
+                        <td></td>
+                         <?php if ($isNeedTestSiteExemption) { ?>
+                        <td></td>
+                        <?php } ?>
+                    </tr>
+                    <tr>
+                        <td><?php echo $this->translate('firstTestCityLabel'); ?></td>
+                        <td>
+                            <div class="text-center styled-select"><?php echo $this->formElement($form->get('firstTestCity1')->setAttribute('onChange', 'TEST_SITE_EXEMPTION.loadMainHallAddress($(this).val(), "firstExamPlace1", '.$listKyuMainHall[0].', 1)')); ?></div>
+                        </td>
+                        <?php if ($isNeedTestSiteExemption) { ?>
+                        <td>
+                            <div class="text-center styled-select"><?php echo $this->formElement($form->get('firstTestCity2')->setAttribute('onChange', 'TEST_SITE_EXEMPTION.loadMainHallAddress($(this).val(), "firstExamPlace2", '.$listKyuMainHall[1].'), 1')) ?></div>
+                        </td>
+                        <?php } ?>
+                    </tr>
+                    <tr>
+                        <td><?php echo $this->translate('firstExamPlaceLabel'); ?></td>
+                        <td>
+                            <div class="text-center styled-select"><?php echo $this->formElement($form->get('firstExamPlace1')) ?></div>
+                        </td>
+                        <?php if ($isNeedTestSiteExemption) { ?>
+                        <td>
+                            <div class="text-center styled-select"><?php echo $this->formElement($form->get('firstExamPlace2')) ?></div>
+                        </td>
+                        <?php } ?>
+                    </tr>
+                    <tr>
+                        <td><?php echo $this->translate('secondTestCityLabel'); ?></td>
+                        <td>
+                            <div class="text-center styled-select"><?php echo $this->formElement($form->get('secondTestCity1')->setAttribute('onChange', 'TEST_SITE_EXEMPTION.loadMainHallAddress($(this).val(), "secondExamPlace1", '.$listKyuMainHall[0].'), 0')) ?></div>
+                        </td>
+                        <?php if ($isNeedTestSiteExemption) { ?>
+                        <td>
+                            <div class="text-center styled-select"><?php echo $this->formElement($form->get('secondTestCity2')->setAttribute('onChange', 'TEST_SITE_EXEMPTION.loadMainHallAddress($(this).val(), "secondExamPlace2", '.$listKyuMainHall[1].'), 0')) ?></div>
+                        </td>
+                         <?php } ?>
+                    </tr>
+                    <tr>
+                        <td><?php echo $this->translate('secondExamPlaceLabel'); ?></td>
+                        <td>
+                            <div class="text-center styled-select"><?php echo $this->formElement($form->get('secondExamPlace1')) ?></div>                           
+                        </td>
+                        <?php if ($isNeedTestSiteExemption) { ?>
+                        <td>
+                            <div class="text-center styled-select"><?php echo $this->formElement($form->get('secondExamPlace2')) ?></div>
+                        </td>
+                         <?php } ?>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="box-footer">
+        <button type="button" id="btnBack" class="btn pull-left mw120" tabindex="19" onclick="window.location.href = '/eiken/apply-eiken'"><i class="arrow-circle-left"></i> <?php echo $this->translate('Back') ?></button>
+        <button type="submit" class="btn pull-right mw120 btn-red" tabindex="21"><i class="arrow-circle-right-w"></i> <?php echo $this->translate('次へ') ?></button>
+        <button type="button" onclick="window.location.href = '/'" id="btnCancel" class="btn pull-right mr20 mw120" tabindex="20"><?php echo $this->translate('cancel') ?></button>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<?php echo $this->form()->closeTag(); ?>

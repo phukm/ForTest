@@ -1,0 +1,152 @@
+<?php
+$this->headLink()->appendStylesheet($this->basePath('css/history/eiken-mapping-result.css'));
+$paginator = $this->paginationHelper($data, $page, '/history/eiken/eiken-mapping-result/year/' . $year . '/kai/' . $kai, $limit);
+?>
+<div class="eiken-form eiken-mapping-result">
+    <div class="box frm-eiken-form-search" id="divSeachForm">
+        <div class="box-header" data-toggle="collapse" data-target="#search-box">
+            <div class="search-header  sorting-field">
+                <i class="search-chevron-down"></i>
+                <b>検索条件</b>
+            </div>
+        </div>
+        <form id="formSearch" method="POST">
+            <input type="hidden" name="year" id="year" value="<?php echo $year; ?>">
+            <input type="hidden" name="kai" id="kai" value="<?php echo $kai; ?>">
+            <input type="hidden" name="token" id="token" value="<?php echo $token; ?>">
+            <div id="search-box" aria-expanded="true" class="collapse in">
+                <div class="box-body height-110">
+                    <div class="styled-select">
+                        <div class="col-sm-1">
+                            <b>学年</b>
+                        </div>
+                        <div class="col-sm-1 styled-select dropdown">
+                            <select name="schoolYearId" class="form-control" id="schoolYearId" tabindex="1">
+                                <option value=""></option>
+                                <?php foreach ($schoolYear as $val) { ?>
+                                    <option <?php if (isset($searchParams['schoolYearId']) && $searchParams['schoolYearId'] == $val['id']) echo 'selected'; ?> value="<?php echo $val['id']; ?>"><?php echo $val['displayName']; ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <div class="col-sm-1">
+                            <b>クラス</b>
+                        </div>
+                        <div class="col-sm-1 styled-select dropdown">
+                            <select name="classId" class="form-control" id="classId" tabindex="1">
+                                <option value=""></option>
+                                <?php foreach ($class as $val) { ?>
+                                    <option <?php if (isset($searchParams['classId']) && $searchParams['classId'] == $val['id']) echo 'selected'; ?> value="<?php echo $val['id']; ?>"><?php echo $val['className']; ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <div class="col-sm-1">
+                            <b>氏名</b>
+                        </div>
+                        <div class="col-sm-1 styled-select dropdown">
+                            <input type="text" name="nameKana" id="nameKana" value="<?php echo isset($searchParams['nameKana']) ? $searchParams['nameKana'] : ''; ?>" tabindex="4" class="form-control"/>
+                        </div>
+                        <div class="col-sm-1">
+                            <b>突合状況</b>
+                        </div>
+                        <div class="col-sm-1 styled-select dropdown clear-margin pull-right">
+                            <select name="mappingStatus" class="form-control" id="status" tabindex="1">
+                                <option value=""></option>
+                                <?php foreach ($mappingStatus as $status => $item) { ?>
+                                    <option <?php if (isset($searchParams['mappingStatus']) && $searchParams['mappingStatus'] === (string)$status) echo 'selected'; ?> value="<?php echo $status; ?>"><?php echo $item; ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <div class="col-sm-12 text-right">
+                        <a id="btnClear" class="btn btn-clear" tabindex="6" href="/history/eiken/clear/year/<?php echo $year.'/kai/'.$kai; ?>">クリア</a>
+                        <button type="button" id="btnSearch" class="btn btn-small" tabindex="7">
+                            <i class="fa fa-search"></i>検索
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="box">
+        <div class="box-header"><?php echo sprintf('%u年第%u回', $year, $kai); ?></div>
+        <div class="box-body" id="list-container">
+            <div class="top-mark">
+                <label class="font-mark color-red">
+                    名簿突合わせ　確定数
+                    <span><?php echo isset($arrayConfirm['confirmed']) ? $arrayConfirm['confirmed'] : 0; ?></span>　
+                    未確定数  <span><?php echo isset($arrayConfirm['unconfirm']) ? $arrayConfirm['unconfirm'] : 0; ?></span>
+                </label>
+                <div class="m-g-b-5 text-right">
+                    <button type="button" id="btnDetails" class="btn btn-higher"><i class="pencil-square"></i>編集する</button><button id="btnConfirm" class="btn btn-higher btn_del" type="button">
+                        <i class="arrow-circle-right"></i>確定する</button>
+                </div>
+            </div>
+            <table id="eiken-mapping" class="table table-bordered table-striped">
+                <thead>
+                <tr class="red">
+                    <th rowspan="2"><input type="checkbox" name="selectAll" id="selectAll"></th>
+                    <th colspan="3">試験結果レコード</th>
+                    <th colspan="5"><span>名簿上の生徒データ</span></th>
+                    <th rowspan="2" class="width60">突合状況</th>
+                </tr>
+                <tr class="red">
+                    <th class="width125">氏名（漢字）</th>
+                    <th class="width90">生年月日</th>
+                    <th class="width60">受験級</th>
+<!--                    <th class="width65">合否</th>-->
+                    <th class="width125"><span> 氏名（漢字）</span></th>
+                    <th class="width90"><span>生年月日</span></th>
+                    <th class="width60"><span>年度</span></th>
+                    <th class="width110"><span>学年</span></th>
+                    <th class="width65"><span>クラス</span></th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php if($result) { foreach ($result as $val) { ?>
+                    <tr class="red">
+                        <td><input id="<?php echo $val['id']; ?>" type="checkbox" name="id[]" value="<?php echo $val['id']; ?>"></td>
+                        <td><?php echo isset($val['pupilName']) ? $val['pupilName'] : ''; ?></td>
+                        <td><?php echo isset($val['birthday']) ? $val['birthday'] : ''; ?></td>
+                        <td><?php echo isset($val['eikenLevelName']) ? $val['eikenLevelName'] : ''; ?></td>
+<!--                        <td>--><?php //echo isset($val['logicPassFail']) ? $val['logicPassFail'] : ''; ?><!--</td>-->
+                        <td><span><?php echo isset($val['preTempNameKanji']) ? $val['preTempNameKanji'] : ''; ?></span></td>
+                        <td><span><?php echo isset($val['tempBirthday']) ? $val['tempBirthday'] : ''; ?></span></td>
+                        <td><span><?php echo (!empty($val['preTempNameKanji']) && isset($val['year'])) ? $val['year'] : ''; ?></span></td>
+                        <td>
+                            <span><?php echo isset($val['tempSchoolYearName']) ? $val['tempSchoolYearName'] : ''; ?></span>
+                        </td>
+                        <td><span><?php echo isset($val['tempClassName']) ? $val['tempClassName'] : ''; ?></span></td>
+                        <td><?php echo isset($val['mappingStatus']) ? $val['mappingStatus'] : ''; ?></td>
+                    </tr>
+                <?php } } else { echo '<tr><td colspan="11" class="text-left">'.json_decode($messages)->noResultIsFoundMSG12.'</td></tr>'; } ?>
+                </tbody>
+            </table>
+            <?php if(!empty($paginator)): ?>
+            <div class="text-center paging">
+                <nav>
+                    <ul class="pagination">
+                        <?php echo $paginator; ?>
+                    </ul>
+                </nav>
+            </div>
+            <?php endif; ?>
+        </div>
+        <div class="box-footer">
+            <div class="col-sm-4">
+                <a class="btn btn-large-180" href="/history/eiken/exam-result">
+                    <i class="arrow-circle-left"></i> 戻る
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<?php $this->headScript()->prependFile($this->basePath('js/history/mapping-exam-result.js')) ?>
+<script>
+    var saveDataSuccess = <?php echo \History\HistoryConst::SAVE_TO_DATABASE_SUCCESS; ?>;
+    var messages = <?php echo isset($messages) ? $messages : '0'; ?>;
+    var pupilByYear = <?php echo isset($pupilByYear) ? $pupilByYear : '0'; ?>;
+    MAPPING_EXAM_RESULT.initital();
+    MAPPING_EXAM_RESULT.callGetClass();
+</script>

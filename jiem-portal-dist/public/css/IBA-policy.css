@@ -1,0 +1,299 @@
+/* policy */
+.IBA-policy { margin-top:10px; }
+.IBA-policy .box-header { padding-top: 0px; padding-bottom:0px; height: 37px; }
+.IBA-policy .box-header h4{ font-weight: bold; }
+.IBA-policy > .box-body { padding-bottom: 0px; }
+.IBA-policy .box-body .r-title { margin-top: 3px; }
+.IBA-policy .box-body .r-title .title{  width: 820px; line-height: 19px; }
+.IBA-policy .box-body .content-policy {    border: 17px solid #f3f3f3;margin-top: 20px; padding: 25px;height: 338px; overflow-y: scroll; }
+.IBA-policy .box-body .content-policy .inline{ display: inline-block; }
+.IBA-policy .box-body .content-policy .r1{ margin-top: 0px; }
+.IBA-policy .box-body .content-policy h4{ font-weight: bold; }
+.IBA-policy .box-body .content-policy .r1 .col-sm-8{ padding-top:22px; }
+.IBA-policy .box-body .content-policy .r1 .col-sm-8 h4{ margin-top:-7px; }
+.IBA-policy .box-body .content-policy .r1 .col-sm-8 h4.inline{ margin-left:6px; }
+.IBA-policy .box-body .content-policy .r1 .col-sm-8 b{ margin-left:-7px; }
+.IBA-policy .box-body .content-policy .line1{ padding-top:10px; }
+.IBA-policy .box-body .content-policy .group b{ word-spacing: 25px; }
+.IBA-policy .box-body .content-policy ul{ padding: 0px; list-style: none; }
+.IBA-policy .box-body .content-policy h4.fontnoma{font-weight: normal;}
+.IBA-policy .box-body .form-group-policy {padding-top: 0px; padding-left: 20px;}
+.IBA-policy .box-body .form-group-policy .row {margin-top: 18px; margin-bottom: 0xp;}
+
+.IBA-policy .box-body .form-group-policy .r1 .cl1 { margin-left: 32px; width: 184px; }
+.IBA-policy .box-body .form-group-policy .r1 .cl2 { margin-left: 21px; width: 184px; }
+
+.IBA-policy .box-body .form-group-policy .r4 { margin-top: -10px; }
+.IBA-policy .box-body .form-group-policy .r2 .cl1 { margin-left: 32px; width: 280px; }
+
+.IBA-policy .box-body .form-group-policy .r3 .cl1 { margin-left: 32px; width: 280px; }
+.IBA-policy .box-body .form-group-policy .r3 .br { display: block; margin-top: -10px;}
+
+.IBA-policy .box-body .form-group-policy .r4 .cl1 { margin-left: 32px; width: 280px; }
+.IBA-policy .box-body .content-policy .group ul.policy-list li { padding-left: 39px; }
+.IBA-policy .box-body .group ul.policy-list li > i{ font-style: normal;padding-right: 20px;margin-left: -41px;display: inline-block; }
+
+.IBA-policy .box-footer a { margin-right: 5px; }
+/* end policy */
+
+/* add */
+.IBA-add .box-body { /* padding-top: 0px; */ }
+.IBA-add .box-body .row .cl2 .title-label { padding-left: 10px; }
+.IBA-add .box-body .row .cl2 .col-sm-6 input { margin-left: 34px; margin-top: 3px; }
+.IBA-add .box-body .col-label{ width: 136px; }
+.IBA-add .box-body .r3 #txtOrganizationNo { width: 58px; margin-left: 3px; margin-top: 3px; }
+.IBA-add .box-body .r4 #txtOrganizationNameKanji { width: 90%; margin-left: 3px; margin-top: 3px; float: left; min-height: 59px;margin-left: 3px;margin-top: 2px;resize: none;}
+.IBA-add .box-body .r5 #txtPICName { width: 220px; margin-left: 3px; margin-top: 3px; }
+.IBA-add .box-body .r6 #txtZipCode1,#txtZipCode2 { width: 58px; margin-left: 3px; margin-top: 3px;display: inline-block;margin-right: 8px; }
+.IBA-add .box-body .r6 #txtZipCode1 {margin-right: 0px;}
+.IBA-add .box-body .r6 #txtZipCode2 {margin-left: 0px;}
+.IBA-add .box-body .r7 #ddlPrefecture { width: 140px; margin-left: 3px; margin-top: 3px; }
+.IBA-add .box-body .r8 { margin-top: 13px;}
+.IBA-add .box-body .r8 #txtAdd1 { width: 540px; margin-left: 3px; margin-top: 3px; float: left;}
+.IBA-add .box-body .r9 { margin-bottom: 21px;}
+.IBA-add .box-body .r9 #txtAdd2 { width: 540px; margin-left: 3px; margin-top: 3px; float: left;}
+.IBA-add .box-body .r10 #txtTel { width: 140px; margin-left: 3px; margin-top: 3px; }
+.IBA-add .box-body .r10 #txtFax { width: 140px;}
+
+.IBA-add .box-body .r11 #txtMailName1 { width: 220px; margin-left: 3px; margin-top: 3px; }
+.IBA-add .box-body .r11 .cl2 #txtMailaddress1 { width: 220px;}
+
+.IBA-add .box-body .r12 #txtMailName2 { width: 220px; margin-left: 3px; margin-top: 3px; }
+.IBA-add .box-body .r12 .cl2 #txtMailaddress2 { width: 220px;}
+
+.IBA-add .box-body .r13 { padding-bottom: 6px;}
+.IBA-add .box-body .r13 #txtMailName3 { width: 220px; margin-left: 3px; margin-top: 3px; }
+.IBA-add .box-body .r13 .cl2 #txtMailaddress3 { width: 220px;}
+
+.IBA-add .box-body .r14 input { width: 120px; margin-left: 3px; margin-top: 3px;}
+
+.IBA-add .box-body .r15 { margin-top: -10px;}
+.IBA-add .box-body .r15 #ddlPurpose { width: 140px; margin-left: 3px; margin-top: 3px;}
+
+.IBA-add .box-body .r16{ margin-bottom: 19px; }
+.IBA-add .box-body .r16 #txtOthers { min-height:59px; margin-left: 3px; margin-top: 2px; resize: none;}
+.IBA-add .box-body .r16{ display: none; }
+
+.IBA-add .box-body .r17 table{ width: 60%;}
+.IBA-add .box-body .r17 table tr td { padding-bottom: 5px; }
+.IBA-add .box-body .r17 table tr.bg-table td { padding-bottom: 5px; }
+.IBA-add .box-body .r17 table p{ margin-bottom: 0px;}
+.IBA-add .box-body .r17 table tr td:first-child{ padding-right: 5px;}
+.IBA-add .box-body .r17 table span.title-A ,span.title-C{ word-spacing: 50px;}
+.IBA-add .box-body .r17 table span.title-B,span.title-D ,span.title-E{ word-spacing: 50px;}
+.IBA-add .box-body .r17 table p.red-color{ color: #e60012; padding-top: 2px;}
+.IBA-add .box-body .r17 table input.input-cl1{ width: 66px; margin-top: 4px;}
+.IBA-add .box-body .r17 table input.input-cl2{ width: 74px; margin-top: 4px;}
+.IBA-add .box-body .r17 table,th, td{border: 1px solid #d9d9d9; }
+.IBA-add .box-body .r17 table th{ /* background: #e6e6e6; */ padding-top: 20px; }
+.IBA-add .box-body .r17 table tr.bg-table td{ background: #e6e6e6;}
+.IBA-add .box-body .r17 table tr.bg-table td.total{ text-align: right;}
+.IBA-add .box-body .r17 table th.Type{ width: 253px; padding-top: 15px; padding-left: 20px; padding-bottom: 18px;  }
+.IBA-add .box-body .r17 table th.NumberOfCandidates{ width: 87px; text-align: center;line-height :  14px !important; padding-top: 5px; padding-bottom: 8px; }
+.IBA-add .box-body .r17 table th.RequiredNumberCD{ width: 95px; text-align: center; line-height :  14px !important; padding-top: 5px; padding-bottom: 8px; }
+.IBA-add .box-body .r17 table th.Remarks{ padding-top: 18px; padding-left: 20px; padding-bottom: 18px;  }
+.IBA-add .box-body .r17 table .padding-right-0{ padding-right: 0px; }
+.IBA-add .box-body .r17 table tr td{ font-size: 13px;word-spacing: 5px;}
+.IBA-add .box-body .r17 table tr td input{ text-align: right;}
+
+.IBA-add .box-body .r18{margin-top: -16px; }
+.IBA-add .box-body .r18 #txtQuestion1 {min-height:59px; margin-left: 3px; margin-top: 2px; resize: none;}
+
+.IBA-add .box-body .r19 { margin-bottom: -3px; }
+.IBA-add .box-body .r19 .col-sm-10 label { margin-right: 25px; font-weight: normal; }
+.IBA-add .box-body .r19 .col-sm-10 label input { margin-right: 10px; }
+
+.IBA-add .box-body .r20 table tr.bg-table th{ /* background: #e6e6e6; */}
+.IBA-add .box-body .r20 table tr th{ padding-top: 0px; }
+.IBA-add .box-body .r20 table tr .unitPrice{ padding-top: 10px; }
+.IBA-add .box-body .r20 table tr .volumeDisk{ font-weight: normal; }
+.IBA-add .box-body .r20 table tr th.checkbox_list{ width: 45px;}
+.IBA-add .box-body .r20 table tr th.optionsMenu{ width: 155px;}
+.IBA-add .box-body .r20 table tr th.ranking{ width: 120px;}
+.IBA-add .box-body .r20 table tr th.unitPrice{ width: 105px; text-align: center;}
+.IBA-add .box-body .r20 table tr th.volumeDisk{ width: 105px;text-align: center;padding-top: 13px;padding-right: 5px;}
+.IBA-add .box-body .r20 table tr td.text-center{ text-align: center;}
+.IBA-add .box-body .r20 table tr td.text-center input{ width: 68px;}
+.IBA-add .box-body .r20 table tr td:first-child input{ width: 28px;}
+.IBA-add .box-body .r20 table tr td p{ margin-bottom: 0px;}
+.IBA-add .box-body .r20 table tr td:last-child{ padding-right: 5px;}
+.IBA-add .box-body .r20 table tr:last-child td:nth-child(2){ padding-right: 0px;}
+.IBA-add .box-body .r20 table tr td{ font-size: 13px;word-spacing: 7px;}
+
+.IBA-add .box-body .r20 table thead tr th.volumeDisk p{ line-height: 18px;}
+.IBA-add .box-body .r20 table thead tr th.volumeDisk p .font-normal{ font-weight: normal;}
+.IBA-add .box-body .r20 table thead tr th.unitPrice p{ line-height: 19px;}
+.IBA-add .box-body .r20 table thead tr th.unitPrice p .font-normal{ font-weight: normal;}
+
+.IBA-add .box-body .r21 .col-sm-2 label{ line-height: 20px;}
+.IBA-add .box-body .r21 .col-sm-10 textarea{min-height:59px; margin-left: 3px; margin-top: 2px; resize: none;}
+
+.IBA-add .box-body .r4 .cl2 #datetimepicker { width: 220px;}
+
+.IBA-add .box-footer a {margin-right: 8px;}
+
+/* end add */
+
+/* show */
+.IBA-show .box-body { /* padding-top: 0px; */ }
+.IBA-show .box-body .row .cl2 .title-label { padding-left: 10px; }
+.IBA-show .box-body .row .cl2 .col-sm-6 input { margin-left: 34px; margin-top: 3px; }
+.IBA-show .box-body .col-label{ width: 136px; }
+.IBA-show .box-body .r4 , .r6 , .r11 { margin-top: 14px; }
+.IBA-show .box-body .r8 { margin-top: 10px;}
+.IBA-show .box-body .r9 { margin-bottom: 21px;}
+
+.IBA-show .box-body .r10 { margin-top:-7px;}
+
+.IBA-show .box-body .r10 .cl2  {margin-left: 31px; }
+.IBA-show .box-body .r11 .cl2  {margin-left: 31px; }
+.IBA-show .box-body .r11 div { word-wrap:break-word; }
+.IBA-show .box-body .r12 .cl2 {margin-left: 31px; }
+.IBA-show .box-body .r13 .cl2 {margin-left: 31px; } 
+
+.IBA-show .box-body .r13 { padding-bottom: 6px;}
+
+.IBA-show .box-body .r14 { margin-top: -5px;}
+
+.IBA-show .box-body .r16{ margin-bottom: 19px; }
+
+.IBA-show .box-body .r17 table{ width: 100%;}
+.IBA-show .box-body .r17 table tr td { padding-bottom: 5px; }
+.IBA-show .box-body .r17 table tr.bg-table td { padding-bottom: 5px; }
+.IBA-show .box-body .r17 table p{ margin-bottom: 0px;}
+.IBA-show .box-body .r17 table tr td:first-child{ padding-right: 5px;}
+.IBA-show .box-body .r17 table span.title-A , .IBA-show .box-body .r17 table span.title-C{ word-spacing: 20px;}
+.IBA-show .box-body .r17 table span.title-B, .IBA-show .box-body .r17 table span.title-D , .IBA-show .box-body .r17 table span.title-E{ word-spacing: 25px;}
+.IBA-show .box-body .r17 table p.red-color{ color: #e60012; padding-top: 2px;}
+.IBA-show .box-body .r17 table input.input-cl1{ width: 66px; margin-top: 4px;}
+.IBA-show .box-body .r17 table input.input-cl2{ width: 74px; margin-top: 4px;}
+.IBA-show .box-body .r17 table,th, td{border: 1px solid #d9d9d9; }
+.IBA-show .box-body .r17 table th{  /* background: #e6e6e6; */ padding-top: 20px; }
+.IBA-show .box-body .r17 table tr.bg-table{ background: #e6e6e6;}
+.IBA-show .box-body .r17 table tr.bg-table td.total{ text-align: center;}
+.IBA-show .box-body .r17 table th.Type{ width: 203px; padding-top: 15px; padding-left: 20px; padding-bottom: 10px;  }
+.IBA-show .box-body .r17 table th.NumberOfCandidates{ width: 92px; text-align: center;line-height :  14px !important; padding-top: 15px; padding-bottom: 15px; }
+.IBA-show .box-body .r17 table th.RequiredNumberCD{ width: 96px; text-align: center; line-height :  14px !important; padding-top: 15px; padding-bottom: 10px; }
+.IBA-show .box-body .r17 table th.Price{ width: 130px; text-align: center; line-height :  14px !important; padding-top: 15px; padding-bottom: 10px; }
+.IBA-show .box-body .r17 table th.Remarks{padding-top: 15px; padding-left: 20px; padding-bottom: 10px;  }
+.IBA-show .box-body .r17 table .padding-right-0{ padding-right: 0px; }
+.IBA-show .box-body .r17 table .padding-right-5{ padding-right: 5px; }
+.IBA-show .w-508{width: 508px;}
+.IBA-show .box-body .r18 div { word-wrap:break-word; }
+
+.IBA-show .box-body .r19 { margin-bottom: -3px; }
+.IBA-show .box-body .r19 .col-sm-10 label { margin-right: 25px; }
+.IBA-show .box-body .r19 .col-sm-10 label input { margin-right: 10px; }
+
+.IBA-show .box-body .r20 > .col-sm-6{ padding-top: 25px;}
+.IBA-show .box-body .r20 p{ margin-bottom: -3px;}
+.IBA-show .box-body .r20 table tr.bg-table th { background: #ffd5d5;}
+.IBA-show .box-body .r20 table tr.bg-table td{ background: #e6e6e6;}
+.IBA-show .box-body .r20 table tr th{padding-top: 15px; padding-left: 12px; padding-bottom: 10px;}
+.IBA-show .box-body .r20 table tr th.checkbox_list{ width: 45px;}
+.IBA-show .box-body .r20 table tr th.checkbox_list input{ margin: -2px 0 0 7px;}
+.IBA-show .box-body .r20 table tr th.optionsMenu{ width: 300px;}
+.IBA-show .box-body .r20 table tr th.Price{ width: 130px;}
+.IBA-show .box-body .r20 table tr th.NumberOfPeople{ width: 92px;}
+.IBA-show .box-body .r20 table tr th.Rates{ }
+.IBA-show .box-body .r20 table tr th.unitPrice{ width: 105px; text-align: center;}
+.IBA-show .box-body .r20 table tr th.volumeDisk{ width: 141px;text-align: center;padding-top: 13px;padding-right: 5px;}
+.IBA-show .box-body .r20 table tr td.text-center{ text-align: center;}
+.IBA-show .box-body .r20 table tr td.text-center input{ width: 68px;}
+.IBA-show .box-body .r20 table { border: none;}
+.IBA-show .box-body .r20 table tr.space-table td{ border: none; height: 0px;padding: 15px;}
+
+.IBA-show .box-body .r21 .col-sm-2 label{ line-height: 20px;}
+.IBA-show .box-body .r21 .title-label p{ margin-bottom: 0px;}
+.IBA-show .box-body .r21 { margin-top: 23px;}
+.IBA-show .box-body .r21 div { word-wrap:break-word; }
+
+.IBA-show .box-footer {margin-top: -20px;}
+.IBA-show .box-footer a {margin-right: 8px;}
+.IBA-show .text-remark span {font-size: 11px;}
+
+/* end show */
+
+/*search IBA */
+
+.IBA-search .box-header{ height: 36px; }
+.IBA-search .box-body{ padding-top: 8px; margin-bottom: -16px; }
+
+.IBA-search .box-body .r1 select { margin-top: 2px; }
+.IBA-search .box-body .r1 .title-TestName{ width: 70px; }
+.IBA-search .box-body .r1 .TestName-select{ width: 190px; }
+.IBA-search .box-body .r1 .TestName-select select{ width: 140px; }
+
+.IBA-search .box-body .r1 .title-Year{ width: 57px; }
+.IBA-search .box-body .r1 .Year-select{ width: 150px; }
+.IBA-search .box-body .r1 .Year-select select{ width: 100px; }
+
+.IBA-search .box-body .r1 .title-kai{ width: 43px; }
+.IBA-search .box-body .r1 .Kai-select select{ width: 60px; }
+
+.IBA-search .box-body .r1 select{ width: 140px; }
+
+.IBA-search .box-body .r2 .title-date { width: 70px; }
+.IBA-search .box-body .r2 label.lable1 { font-weight: normal; }
+.IBA-search .box-body .r2 .date1 { width: 145px; }
+.IBA-search .box-body .r2 .date1 input { width: 120px; display: inline-block; }
+.IBA-search .box-body .r2 .date1 span { display: inline-block; margin-right: 0px;margin-left: 4px; }
+.IBA-search .box-body .r2 .lable1 { margin-right: 23px; }
+
+.IBA-search .box-body .r2 .date2 { width: 145px; }
+.IBA-search .box-body .r2 .date2 input { width: 120px; display: inline-block; }
+.IBA-search .box-body .r2 .date2 span { display: inline-block; margin-right: 0px;margin-left: 4px; }
+
+.IBA-search .box-body .r2 input { margin-top: 2px; }
+.IBA-search .box-body .r2 span { border: none; }
+.IBA-search .box-footer #btnClear  { margin-right: 16px; }
+
+.IBA-search-list .status-list { margin-bottom: 20px }
+.IBA-search-list .status-list p{ margin-bottom: -6px }
+
+.IBA-search-list table thead tr th.KenNaming{width: 75px; padding-left: 14px;}
+.IBA-search-list table thead tr th.Year{width: 74px; padding-left: 18px;}
+.IBA-search-list table thead tr th.Kai{width: 50px;padding-left: 18px;}
+.IBA-search-list table thead tr th.ImplementationDate{width: 118px;padding-left: 20px;}
+.IBA-search-list table thead tr th.Situation{width: 100px;padding-left: 16px;}
+.IBA-search-list table thead tr th.TheNumber{width: 88px;padding-left: 14px;}
+.IBA-search-list table thead tr th.DishFor{padding-left: 14px;}
+.IBA-search-list table tbody tr td{ padding-right: 0px; }
+.IBA-search-list table tbody tr td.text-center{ text-align: center; padding-left: 0px; }
+.IBA-search-list table tbody tr td.text-right{ padding-right: 15px; }
+.IBA-search-list table tbody tr td .btn-small-112{ width: 112px;height: 25px; font-size: 12px;margin-top: -3px;}
+.IBA-search-list table tbody tr td .btn-small-126{ width: 126px;height: 25px; font-size: 12px; margin-right: 5px; margin-left: 7px;margin-top: -3px;}
+.IBA-show .row-m-b-0 {margin-bottom: 0px;}
+.IBA-show .row-m-t-0 {margin-top: 0px;}
+/*END search IBA */
+
+.linehr {border-top:1px solid #d9d9d9; margin-top: 40px; }
+.hr{ border-top:1px solid #d9d9d9; margin-top: 16px;margin-bottom: 17px; }
+.require { color: red; }
+.green-color{ color :#00aa00; }
+.red-color{ color : #e60012; }
+.padding-right-7{ padding-right: 7px !important; }
+.text-right{ text-align: right !important; }
+.contentConfim p{ margin-bottom: 0px; }
+.box-header h4{ font-weight: bold; }
+
+div#remarks{
+    float: left;
+    width: 100%;
+}
+div.remarksOne{
+    float: left;
+    width:1%;
+}
+div.remarksTwo{
+    float: right;width:95%;
+}
+.padding-right-15{padding-right: 15px !important}
+.padding-right-30{padding-right: 30px !important}
+.line-height-20{line-height: 20px !important;}
+.color-inherit{color: inherit;}
+input[type="checkbox"].error,input[type="radio"].error{outline: 2px dashed #ff0000;}
+.IBA-add .box-body .r20 table tr td.text-center input[type="checkbox"]{width: auto;}
+.show-only-policy{color: #000; text-decoration: underline;}
+.show-only-policy:visited{color: #000; text-decoration: underline;}
+.show-only-policy:hover{color: #e60012; text-decoration: underline;}

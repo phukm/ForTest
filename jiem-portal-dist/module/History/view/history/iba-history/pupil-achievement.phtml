@@ -1,0 +1,201 @@
+<?php  $paging = $this->eikenPaginationHelper($paginator, $page, '/history/iba/pupil-achievement', $numPerPage, (empty($param)) ? '' : '/search/'.$param);
+
+    $this->headLink()->appendStylesheet($this->basePath('css/history/iba-pupil-achievement.css'));
+    $this->headLink()->appendStylesheet($this->basePath('css/studentandclass.css'));
+    $this->headScript()->appendFile($this->basePath('js/history/pupil-achievement.js'));
+?>
+<?php
+    $form->setAttribute('action', $this->url('history/default', array(
+        'controller' => 'iba',
+        'action' => 'pupil-achievement'
+    )));
+    $form->prepare();
+    echo $this->form()->openTag($form); ?>
+<input type="hidden" name="sortKey" id="sortKey">
+<input type="hidden" name="sortOrder" id="sortOrder" value="<?php echo $sortOrder; ?>">
+<input type="hidden" name="searchVisible" id="searchVisible" value="<?php echo $searchVisible; ?>">
+<div class="inquiryiba">
+	<div class="box">
+		<div class="box-header" data-toggle="collapse" data-target="#search-box">
+		    <div class="search-header  sorting-field">
+                <i class="search-chevron-down"></i>
+                <b><?php echo $this->translate('検索条件') ;?></b>
+            </div>
+        </div>
+        <div id="search-box" aria-expanded="true" class="collapse in">
+		<div class="box-body box-search">
+            <div class="row search_list">
+				<div class="fl col1">
+					<label><?php echo $this->translate('学年') ;?></label>
+				</div>
+				<div class="fl col2 styled-select">
+    			  <?php echo $this->formselect($form->get('orgSchoolYear')); ?>
+    			</div>
+				<div class="fl col3">
+					<label><?php echo $this->translate('クラス') ;?></label>
+				</div>
+				<div class="fl col4 styled-select">
+    			  <?php echo $this->formselect($form->get('classj')); ?>
+    			</div>
+				<div class="fl col5">
+					<label><?php echo $this->translate('氏名') ;?></label>
+				</div>
+				<div class="fl col6 input-name">
+    			  <?php echo $this->formrow($form->get('name')); ?>
+    			</div>
+			</div>
+		</div>
+		<div class="box-footer box-submit">
+			<div class="row fr">
+				<a href="javascript:void(0)" id="clearsearch"
+					class="btn btn-small btn-clear"><?php echo $this->translate("クリア"); ?></a>
+				<a class="btn btn-small btn-search-list" href="javascript:void(0);"
+					id="submitsearch"><i class="fa-search"></i> <?php echo $this->translate("検索"); ?></a>
+			</div>
+		</div>
+		</div>
+	</div>
+	<div class="box">
+		<div class="box-header">
+            <?php echo ($examType == '01' || $examType == '02') ? $this->translate('英検IBA試験結果一覧') : '' ;?>
+		</div>
+		<div class="box-body">
+		  <div class="top-mark">
+                    <label class="font-mark">
+						<?php echo ($examType == '01' || $examType == '02') ? '英検IBA' : '' ?>の試験結果の一覧となります。<br>
+                        <i class="text-parenthesis-jp">「個人成績表」ボタンを押すと、個人の成績表が確認できます。</i>
+                    </label>
+                </div>
+    	  <div class="row">
+			<strong>
+                <?php echo $this->translate('実施日  ' . $examDate) ;?>
+            </strong>
+                <?php
+                    $arrUrl = array(
+                        'controller' => 'iba',
+                        'action' => 'pupil-achievement',
+                        'isExportExcel' => 1
+                    );
+
+                    if ($param) {
+                        $arrUrl['search'] = $param;
+                    }
+                ?>
+              <a href="<?php echo $this->url('history/default', $arrUrl); ?>" <?php echo empty($roleLimit) && !\Dantai\PublicSession::isViewerRole() ? '' : 'disabled="disabled"'; ?> class="<?php echo empty($roleLimit) ? '' : 'disabled'; ?> btn btn-red pull-right mrgt25">
+                  <?php echo $this->translate('EXCEL出力'); ?>
+              </a>
+
+          </div>
+                    <div class="clearfix"></div>
+					<table class="table table-bordered table-striped">
+						<thead>
+							<tr class="trhead">
+								<th class="schoolyear" rowspan="2"><?php echo $this->translate('学年') ;?></th>
+								<th class="class" rowspan="2"><?php echo $this->translate('クラス') ;?></th>
+								<th class="number" rowspan="2"><?php echo $this->translate('番号') ;?></th>
+								<th class="namekana" rowspan="2"><?php echo $this->translate('氏名（カナ）') ;?></th>
+								<th class="testset" rowspan="2"><?php echo $this->translate('テスト種別') ;?></th>
+								<th class="score" colspan="3"><?php echo $this->translate('CSEスコア') ;?></th>
+								<th class="eikenkyulv" colspan="3"><?php echo $this->translate('英検級レベル判定') ;?></th>
+                                                                <th class="confirm" rowspan="2"><?php echo $this->translate('突合状況') ;?></th>
+								<th class="action" rowspan="2"><?php echo $this->translate('操作') ;?></th>
+							</tr>
+							<tr class="trhead">
+							    <th class="scoretotal"><?php echo $this->translate('総合') ;?></th>
+								<th class="scoreread"><?php echo $this->translate('リーディング') ;?></th>
+								<th class="scorelisten"><?php echo $this->translate('リスニング') ;?></th>
+							    <th class="eikenkyulvtotal"><?php echo $this->translate('総合') ;?></th>
+								<th class="eikenkyulvread"><?php echo $this->translate('リーディング') ;?></th>
+								<th class="eikenkyulvlisten"><?php echo $this->translate('リスニング') ;?></th>
+							</tr>
+						</thead>
+						<tbody>
+						<?php if (!empty($inquiryiba)) { ?>
+					<?php foreach ($inquiryiba as $key => $value): ?>
+						<tr class="trbody">
+						        <td class="schoolyear"><?php echo $this->escapehtml($value['schoolYearName']);?></td>
+								<td class="class"><?php echo $this->escapehtml($value['className']);?></td>
+								<td class="number"><?php echo $this->escapehtml($value['pupilNo']);?></td>
+								<td class="namekana"><?php echo $this->escapehtml($value['nameKana']);?></td>
+								<td class="testset"><?php echo $this->escapehtml($value['testType']);?></td>
+								<td class="scoretotal"><?php echo $this->escapehtml($value['total']);?></td>
+								<td class="scoreread"><?php echo $this->escapehtml($value['read']);?></td>
+								<td class="scorelisten"><?php echo $this->escapehtml($value['listen']);?></td>
+								<td class="eikenkyulvtotal">
+								<?php
+                                                                //        update function for : #GNCCNCJDR5-761
+                                                                    echo \Dantai\Utility\MappingUtility::getKyuName($ibaMasterData, \History\HistoryConst::IBA_RESULT_TOTAL, $value['testType'], $value['total']);
+								?>
+								</td>
+								<td class="eikenkyulvread">
+								<?php
+                                                                //        update function for : #GNCCNCJDR5-761
+								    echo \Dantai\Utility\MappingUtility::getKyuName($ibaMasterData, \History\HistoryConst::IBA_RESULT_READING, $value['testType'], $value['read']);
+								?>
+								</td>
+								<td class="eikenkyulvlisten">
+								<?php
+                                                                //        update function for : #GNCCNCJDR5-761
+								    echo \Dantai\Utility\MappingUtility::getKyuName($ibaMasterData, \History\HistoryConst::IBA_RESULT_LISTENING, $value['testType'], $value['listen']);
+								?>
+								</td>
+                                                                <td class="confirm-status">
+                                                                    <?php 
+                                                                        if($value['mappingStatus'] == 0){
+                                                                            echo "未確定";
+                                                                        }elseif($value['mappingStatus'] == 1){
+                                                                            echo "確定済";
+                                                                        }else{
+                                                                            echo "&nbsp";
+                                                                        }
+                                                                    ?>
+                                                                </td>
+								<td class="view-button"><a class="btn btn-view view-label"
+									href="<?php
+                                        echo $this->url('history/default', array(
+                                            'controller' => 'iba',
+                                            'action' => 'detail',
+                                            'id' => $value['id']
+                                        ));
+                                        ?>">
+                                    <?php echo $this->translate('個人成績表') ;?>
+    							</a></td>
+							</tr>
+					<?php endforeach; ?>
+					<?php } else { ?>
+					<tr class="no-result">
+                        <td colspan="13" class="noresult">
+									<p><?php echo $this->translate("MSG17");?></p></td>
+                    </tr>
+                    <?php }; ?>
+					</tbody>
+					</table>
+			<?php if (!empty($inquiryiba) && count($paginator) > $numPerPage) { ?>
+			<div class="paging text-center">
+				<nav>
+					<ul class="pagination">
+                        <?php  echo $paging; ?>
+					</ul>
+				</nav>
+			</div>
+						<?php }?>
+		</div>
+		<div class="box-footer">
+		      <div class="row ">
+                <a href="<?php echo $this->url('history/default',array('controller' => 'eiken', 'action' => 'exam-result'));?>" class="btn btn-large-180 ">
+				    <i class="arrow-circle-left"></i> 戻る
+			    </a>
+            </div>
+		</div>
+	</div>
+</div>
+<?php  echo $this->form()->closeTag(); ?>
+
+<script>
+$(document).ready(function() {
+    var noRecordExcel = "<?php echo $noRecordExcel; ?>";
+    if(noRecordExcel.length > 0){
+        ERROR_MESSAGE.show(noRecordExcel);
+    }
+});
+</script>

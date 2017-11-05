@@ -1,0 +1,111 @@
+
+
+<?php echo $this->doctype(); ?>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta
+            content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'
+            name='viewport' />
+        <meta name="viewport" content="width=device-width" />
+        <meta http-equiv="X-UA-Compatible" content="IE=9">
+        <?php echo $this->headTitle('英検団体サポートシステム')->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?php
+        echo $this->headMeta()
+                ->appendName('viewport', '')
+                ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+
+        <!-- Le styles -->
+        <?php
+        echo $this->headLink(array(
+                    'rel' => 'shortcut icon',
+                    'type' => 'image/vnd.microsoft.icon',
+                    'href' => $this->basePath() . '/img/eiken-logo.jpg'
+                ))
+                /* ->prependStylesheet($this->basePath('css/style.css')) */
+                ->prependStylesheet($this->basePath('css/Login.css?v=0.1'))
+                ->prependStylesheet($this->basePath('css/JIEMStyle.css'))
+                ->prependStylesheet($this->basePath('css/JIEM-masterpage.css'))
+                // ->prependStylesheet($this->basePath('css/StyleCheck.css'))
+                // ->prependStylesheet($this->basepath('css/fix-width.css'))
+                /* ->prependStylesheet ( $this->basePath ( 'css/bootstrap-theme.min.css' ) ) */
+                ->prependStylesheet($this->basePath('css/bootstrap.min.css'))
+                // ->prependStylesheet($this->basePath('css/font-awesome.css'))
+                // ->prependStylesheet ( $this->basePath ( 'css/_topPage.css' ) )
+                ->prependStylesheet($this->basePath('css/jquery-ui.css'))
+        ?>
+
+        <!-- Scripts -->
+        <?php
+        echo $this->headScript()
+                ->prependFile($this->basePath('js/messages/common-message.js'))
+                ->prependFile($this->basePath('js/localization/messages_ja.js'))
+                ->prependFile($this->basePath('js/bootstrap.min.js'))
+                ->prependFile($this->basePath('js/app.js'))
+                ->prependFile($this->basePath('js/common.js'))
+                ->prependFile($this->basePath('js/jquery.validate.js'))
+                ->prependFile($this->basePath('js/jquery.min.js'))
+                ->prependFile($this->basePath('js/respond.min.js'), 'text/javascript', array(
+                    'conditional' => 'lt IE 9'
+                ))
+                ->prependFile($this->basePath('js/html5shiv.js'), 'text/javascript', array(
+                    'conditional' => 'lt IE 9'
+        ));
+        ?>
+
+        <!--[if lt IE 10]>
+        <style>#frmLogin .col-sm-6{width: 279px !important;}
+        </style>
+<![endif]-->
+    </head>
+    <body>
+        <div class="wrapper login-background login">
+
+            <header class="main-header">
+                <div class="login-top text-center">
+                    <div class="container login-page-header">
+                        <div class="col-sm-2 col-xs-2">
+                            <img class="login-logo"
+                                 src="<?php echo $this->basePath('img/eiken-logo.jpg') ?>" />
+                        </div>
+                        <div class="col-sm-10 col-xs-10">
+                            <p class="login-label-header">英検団体</p>
+                            <p class="login-label-header">サポートシステム</p>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <div class="content-wrapper">
+                <?php echo $this->content; ?>
+            </div>
+            <footer class="main-footer col-sx-12">
+                <div class="top">
+                    <div class="col1 col-sm-1">
+                        <p>お問い合わせ先</p>
+                        <p>英検サービスセンター（団体受付）</p>
+                    </div>
+                    <div class="col2 col-sm-1">
+                        <p>電話番号</p>
+                        <p>03-3266-8010</p>
+                    </div>
+                    <div class="col3 col-sm-5">
+                        <p>受付時間</p>
+                        <p>平日9:30～17:00（土・日・祝日を除く）</p>
+                    </div>
+                </div>
+                <div class="midder"></div>
+                <div class="bottom">
+                    <div class="col1 col-xs-1">
+                        <a href="/homepage/homepage/privacy-policy">個人情報保護方針</a>
+                        <a href="/homepage/homepage/policy">サイトポリシー</a>
+                    </div>
+                    <div class="col2 col-sm-1">Copyright © Eiken Foundation of Japan All
+                        rights reserved.</div>
+                </div>
+            </footer>
+
+        </div>
+    </body>
+</html>

@@ -1,0 +1,90 @@
+@CHARSET "ISO-8859-1";
+
+/**
+*  Change Pass
+*/
+
+.change-descreption{
+	padding-top: 5px;
+	padding-bottom: 18px;
+	border-bottom: 1px solid #d9d9d9;
+	font-size: 14px;
+	color: 	#696969;
+	line-height: 12px;
+}
+
+.text-header{
+	font-size: 18px;
+	line-height: 19px;
+}
+
+.float-btn-right{
+	float: right;
+}
+
+
+.change-body {
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 3px;
+	border-bottom-left-radius: 3px;
+	padding-top: 20px;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-bottom: 15px;
+	border-bottom: 1px solid #DADADA;
+}
+
+.font-content{
+	font-size: 13px;
+	display: inline-block;
+	line-height: 14px;
+}
+
+.div-button-change{
+	float: right;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+
+.change-header {
+	display: block;
+	padding: 10px;
+	padding-left: 20px;
+	border-bottom: 1px solid #DADADA;
+	height: 40px;
+	font-size: 16px;
+}
+
+.text-margin{
+	margin-bottom: 7px;
+}
+
+.input-size{
+	padding-top: 20px;
+	display: inline-flex;
+}
+.label-size{
+	width: 160px;
+	font-size: 14px;
+}
+
+.text-size{
+	width: 220px !important;
+}
+
+.border-bot{
+	border-bottom: 1px solid #d9d9d9;
+	padding-bottom: -5px !important;
+	
+}
+
+.change-margin{
+	margin-left: 20%;
+} 
+
+
+
+
+

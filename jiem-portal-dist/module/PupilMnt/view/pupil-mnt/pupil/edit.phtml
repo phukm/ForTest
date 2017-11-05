@@ -1,0 +1,364 @@
+<?php
+echo $this->headLink()
+        ->prependStylesheet($this->basePath('css/OrgInforManagement.css'))
+        ->prependStylesheet($this->basePath('css/studentandclass.css'))
+        ->prependStylesheet($this->basePath('css/appeiken.css'))
+?>
+
+<script type="text/javascript">
+    var jsMessages =<?php echo $jsMessages; ?>;
+</script>
+<?php
+if($urlPath == '/history/iba/empty-name-kana')
+{
+    $form->setAttribute('action', $this->url('pupil-mnt/default', array(
+                'controller' => 'pupil',
+                'action' => 'update',
+                'id' => $id
+    ),array('query' => array('emptyNameKana'=> $year))));
+}
+else{
+    $form->setAttribute('action', $this->url('pupil-mnt/default', array(
+                'controller' => 'pupil',
+                'action' => 'update',
+                'id' => $id
+    )));
+}
+$form->prepare();
+?>
+<?php echo $this->form()->openTag($form); ?>
+<div class="box addstudent">
+    <div class="box-header">
+        <label><?php echo $this->translate('生徒情報編集'); ?></label>
+    </div>
+    <div class="box-body">
+        <?php echo $this->formRow($form->get('id')); ?>
+        <input type="hidden" id="pupilId" value="<?php echo $id ?>"/>
+        <!-- 		<div class="row r1"> -->
+        <!-- 			<div class="fl col1"> -->
+        <b><?php // echo $this->translate('生徒ID') ;   ?></b>
+        <!-- 			</div> -->
+        <div class="fl col2"><?php //echo $this->formRow($form->get('pupilId'));    ?></div>
+        <!-- 		</div> -->
+        <div class="row r2">
+            <div class="fl col1">
+                <label><b><?php echo $this->translate('氏名（漢字）'); ?></b></label><span class="required">*</span>
+            </div>
+            <div class="fl col2"><?php echo $this->formRow($form->get('firstNameKanji')); ?></div>
+            <div class="fl col3"><?php echo $this->formRow($form->get('lastNameKanji')); ?></div>
+        </div>
+        <div class="row r3">
+            <div class="fl col1">
+                <label><b><?php echo $this->translate('氏名（カナ）'); ?></b></label>
+            </div>
+            <div class="fl col2"><?php echo $this->formRow($form->get('firstNameKana')); ?></div>
+            <div class="fl col3"><?php echo $this->formRow($form->get('lastNameKana')); ?></div>
+        </div>
+        <div class="row r4">
+            <div class="fl col1">
+                <label> <b><?php echo $this->translate('生年月日'); ?></b></label>
+            </div>
+            <div class="fl col2  styled-select japanese-year"><?php echo $this->formRow($form->get('birthYear')->setAttribute('onChange', 'lIST_PUPIL.loadMonth();')); ?></div>
+            <div class="fl col3 edit-std-year">
+                <label><?php echo $this->translate('年'); ?></label>
+            </div>
+            <div class="fl col4 styled-select"><?php echo $this->formRow($form->get('birthMonth')->setAttribute('onChange', 'lIST_PUPIL.loadDay();')); ?></div>
+            <div class="fl col5 edit-std-year">
+                <label><?php echo $this->translate('月'); ?></label>
+            </div>
+            <div class="fl col6 styled-select"><?php echo $this->formRow($form->get('birthDay')); ?>
+            </div>
+            <div class="fl col7">
+                <label><?php echo $this->translate('日'); ?></label>
+            </div>
+        </div>
+
+        <div class="row pd_sex r5">
+            <div class="fl col1">
+                <b><?php echo $this->translate('性別'); ?></b>
+            </div>
+            <div class="fl col2"><?php echo $this->formRow($form->get('gender')); ?></div>
+        </div>
+        <hr />
+        <!-- border -->
+        <div class="row r6">
+                <!--  	<div class="col-sm-2 text-left"><label><b><?php echo $this->translate('年度'); ?></b></label></div>
+                                        <div class="col-sm-1"><?php //echo $this->formRow($form->get('year1'));    ?></div>
+                                        <div class="col-sm-2 text-center fix-margin-right"><label><b><?php echo $this->translate('学年'); ?></b></label></div>
+                                        <div class="col-sm-2 styled-select"><?php //echo $this->formRow($form->get('shool_year'));    ?></div>
+                                        <div class="col-sm-2 text-center"><label><b><?php echo $this->translate('クラス名'); ?></b></label></div>
+                                        <div class="col-sm-2 styled-select"><?php //echo $this->formRow($form->get('class'));    ?></div> -->
+
+            <div class="fl col1">
+                <label><b><?php echo $this->translate('年度'); ?></b></label> <span class="required">*</span>
+            </div>
+            <div class="fl col2 styled-select">
+                <?php echo $this->formRow($form->get('year')->setAttribute('onChange','lIST_PUPIL.loadYear();')); ?>
+            </div>
+            <div class="fl col3">
+                <label><b><?php echo $this->translate('学年'); ?></b></label><span class="required">*</span>
+            </div>
+            <div class="fl col4 styled-select">
+                <?php echo $this->formRow($form->get('orgSchoolYear')->setAttribute('onChange','lIST_PUPIL.loadOrgSchoolYear();')); ?>
+            </div>
+
+            <div class="fl col5 edit-std-class">
+                <label><b><?php echo $this->translate('クラス'); ?></b></label><span class="required">*</span>
+            </div>
+            <div class="fl col6 styled-select">
+                <?php echo $this->formRow($form->get('classj')); ?>
+                <div class="class_loading" id="loadingIcon"
+                             data-backdrop="static" role="dialog"
+                             aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                            <img class="loading_img" src="/img/ajax-loader.gif" />
+                    </div>
+            </div>
+            <div class="fl col7">
+                <label><b><?php echo $this->translate('番号'); ?></b></label><span class="required">*</span>
+            </div>
+            <div class="fl col8">
+                <p><?php echo $this->formRow($form->get('Number')); ?></p>
+            </div>
+
+        </div>
+        <hr />
+        <!-- border -->
+        <!-- 		<div class="row r7"> -->
+        <!-- 			<div class="fl col1"> -->
+        <b><?php //echo $this->translate('番号') ;   ?></b>
+        <!-- 			</div> -->
+        <!-- 			<div class="fl col2"> -->
+        <p><?php //echo $this->formRow($form->get('Number'));    ?></p>
+        <!-- 			</div> -->
+        <!-- 		</div> -->
+        <div class="row r7">
+            <div class="fl col1">
+                <b><?php echo $this->translate('英ナビ！個人ID'); ?></b>
+            </div>
+            <div class="fl col2">
+                <p><?php echo $this->formRow($form->get('einaviId')); ?></p>
+            </div>
+        </div>
+        <div class="row r8">
+            <div class="fl col1">
+                <b><?php echo $this->translate('英検ID'); ?></b>
+            </div>
+            <div class="fl col2">
+                <p><?php echo $this->formRow($form->get('eikenId')); ?></p>
+            </div>
+            <div class="fl col3">
+                <b><?php echo $this->translate('英検パスワード'); ?></b>
+            </div>
+            <div class="fl col4">
+                <p><?php echo $this->formRow($form->get('eikenPassword')); ?></p>
+            </div>
+        </div>
+        <hr />
+        <div class="row r8-1">
+            <div class="fl col1">
+                <label><b><?php echo $this->translate('取得済級'); ?></b></label>
+            </div>
+            <div class="fl col2 styled-select"><?php echo $this->formRow($form->get('eikenLevel')); ?></div>
+        </div>
+        <!-- dang test -->
+        <!--		<div class="row r10">
+                                <div class="fl col1">
+                                        <label><b><?php echo $this->translate('英検実施日'); ?></b></label>
+                                </div>
+                                <div class="fl col2 datepick">
+                                        <div class="form-group">
+                                                <div class='input-group date' id="divDate">
+        <?php echo $this->formRow($form->get('examDateEkien')); ?>
+                                                                                <span class="input-group-addon"></span><span
+                                                                class="icon-calendar" id="calendar" onclick="ADD_PUPIL.showCalendarExEiken(0)"></span>
+                                                </div>
+                                        </div>
+                                </div>
+                        </div>-->
+        <!--  het test-->
+        <div class="row r8-2">
+            <div class="fl col1">
+                <label><b><?php echo $this->translate('英検年度'); ?></b></label>
+            </div>
+            <div class="fl col2 styled-select"><?php echo $this->formRow($form->get('eikenYear')); ?></div>
+        </div>
+        <div class="row r8-1">
+            <div class="fl col1">
+                <label><b><?php echo $this->translate('英検回'); ?></b></label>
+            </div>
+            <div class="fl col2 styled-select"><?php echo $this->formRow($form->get('kai')); ?></div>
+        </div>
+        <div class="row r9 add-student-cse">
+            <div class="fl col1 add-student-cse-line-0">
+                <label><b><?php echo $this->translate('CSEスコア'); ?></b></label>
+            </div>
+            <div class="fl col2">
+                <b>リーディング</b>
+            </div>
+            <div class="fl col3">
+                <p><?php echo $this->formRow($form->get('eikenRead')); ?></p>
+            </div>
+            <div class="fl col4">
+                <b>リスニング</b>
+            </div>
+            <div class="fl col5">
+                <p><?php echo $this->formRow($form->get('eikenListen')); ?></p>
+            </div>
+            <div class="fl col6">
+                <b>ライティング</b>
+            </div>
+            <div class="fl col7">
+                <p><?php echo $this->formRow($form->get('eikenWrite')); ?></p>
+            </div>
+            <div class="fl col8">
+                <b>スピーキング</b>
+            </div>
+            <div class="fl col9">
+                <p><?php echo $this->formRow($form->get('eikenSpeak')); ?></p>
+            </div>
+            <div class="fl col10">
+                <b>合計</b>
+            </div>
+            <div class="fl col11">
+                <p><?php echo $this->formRow($form->get('eikenTotal')); ?></p>
+            </div>
+        </div>
+        <hr />
+        <div class="row r8-1">
+            <div class="fl col1">
+                <label><b><?php echo $this->translate('IBAレベル判定'); ?></b></label>
+            </div>
+            <div class="fl col2 styled-select"><?php echo $this->formRow($form->get('ibaLevel')); ?></div>
+        </div>
+        <div class="row r10">
+            <div class="fl col1">
+                <label><b><?php echo $this->translate('IBA実施日'); ?></b></label>
+            </div>
+            <div class="fl col2 datepick">
+                <div class="form-group">
+                    <div class='input-group date' id="divDate">
+                        <?php echo $this->formRow($form->get('datetime')); ?>
+                        <span class="input-group-addon"></span><span
+                            class="icon-calendar" id="calendar" onclick="ADD_PUPIL.showCalendar(0)"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row r11">
+            <div class="fl col1 student-CEO-add">
+                <label><b><?php echo $this->translate('CSEスコア'); ?></b></label>
+            </div>
+            <div class="fl col2">
+                <b>リーディング</b>
+            </div>
+            <div class="fl col3">
+                <p><?php echo $this->formRow($form->get('ibaRead')); ?></p>
+            </div>
+            <div class="fl col4">
+                <b>リスニング</b>
+            </div>
+            <div class="fl col5">
+                <p><?php echo $this->formRow($form->get('ibaListen')); ?></p>
+            </div>
+            <div class="fl col6">
+                <b>合計</b>
+            </div>
+            <div class="fl col7">
+                <p><?php echo $this->formRow($form->get('ibaTotal')); ?></p>
+            </div>
+        </div>
+        <hr />
+        <div class="row r9-1 add-student-cse">
+            <div class="fl col1 add-student-cse-line-0">
+                <label><b><?php echo $this->translate('かんたん測定'); ?></b></label>
+            </div>
+            <div class="fl col2">
+                <b>単語レベル</b>
+            </div>
+            <div class="fl col3 styled-select result-vocabulary">
+                <p><?php echo $this->formRow($form->get('resultVocabulary')); ?></p>
+            </div>
+            <div class="fl col4">
+                <b>文法レベル</b>
+            </div>
+            <div class="fl col5 styled-select">
+                <p><?php echo $this->formRow($form->get('resultGrammar')); ?></p>
+            </div>
+        </div>
+    </div>
+    <div class="box-footer">
+        <div class="row ">
+            <div class="text-right col-sm-12">
+                <a class="btn  btn-large-180" id="btnCancel1"
+                   href="<?php echo $redirectUrl ?>">
+
+                    <?php echo $this->translate('キャンセル'); ?>
+                </a> <a id="submitform" href="javascript:void(0)"
+                        class="btn btn-red  btn-large-180 margin_edit"><i
+                        class="fa-download-w"></i> <b><?php echo $this->translate('保存'); ?></b>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="duplicate" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="false">
+    <div class="modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="modal-title"><?php echo $this->translate('重複生徒一覧'); ?></p>
+            </div>
+            <div class="modal-body">
+                <p>
+                    <?php echo $this->translate('MsgDuplicatePupilNameInDb') ?>
+                </p>
+                <div>
+                    <table class="table table-bordered table-striped duplicate-header">
+                       <thead class="duplicate-header">
+                            <tr>
+                               <th class="year"><strong><?php echo $this->translate('年度'); ?></strong></th>
+                               <th class="schoolyear"><strong><?php echo $this->translate('学年'); ?></strong></th>
+                               <th class="class"><strong><?php echo $this->translate('クラス'); ?></strong></th>
+                               <th class="number"><strong><?php echo $this->translate('番号'); ?></strong></th>
+                               <th class="namekanji"><strong><?php echo $this->translate('氏名（漢字）'); ?></strong></th>
+                               <th class="namekanna"><strong><?php echo $this->translate('氏名（カナ）'); ?></strong></th>
+                               <th class="birthday"><strong><?php echo $this->translate('生年月日'); ?></strong></th>
+                               <th class="gender"><strong><?php echo $this->translate('性別'); ?></strong></th>
+                            </tr>
+                        </thead>
+                   </table>
+               </div>
+               <div class="infile-list">
+                   <table class="table table-bordered table-striped duplicate-header">
+                       <tbody class="duplicate-body">
+
+                       </tbody>
+                   </table>
+               </div>
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-large-180 showbt" data-dismiss="modal" href="javascript:void(0)">
+                    <strong class="text-center">キャンセル</strong>
+                </a> 
+                <button onclick="ADD_PUPIL.duplicateSubmit();" type="button" class="btn btn-large-180 btn-red importstd-button-space removebotom importsave" >
+                    <i class="arrow-circle-right-w"></i>
+                    <strong>続ける</strong> 
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<?php echo $this->form()->closeTag(); ?>
+<?php $this->headScript()->prependFile($this->basePath('js/jquery-ui.js')); ?>
+<?php $this->headScript()->appendFile($this->basePath('js/pupil/pupil.js')) ?>
+<?php $this->headScript()->appendFile($this->basePath('js/pupil/addpupil.js'))?>
+<?php if (!empty($successMessage)) { ?>
+<script>    
+    ALERT_MESSAGE.show('<?php echo $successMessage?>' ,function()
+    {
+        window.location.href=COMMON.baseUrl+'<?php echo $redirectUrl?>';
+    },
+    function()
+    {
+    });  
+</script>
+<?php } ?>

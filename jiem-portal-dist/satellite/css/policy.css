@@ -1,0 +1,37 @@
+.kiyaku_box {
+    background: none repeat scroll 0 0 #fff;
+    border: 15px solid #fff;
+    height: 450px;
+    overflow: scroll;
+}
+.kiyaku_box .pb10 {
+    padding-bottom: 10px !important;
+}
+.kiyaku_box .mar10 {
+    margin: 10px !important;
+}
+
+.kiyaku_box .tcenter {
+    text-align: center !important;
+}
+.kiyaku_box .pt10 {
+    padding-top: 10px !important;
+}
+.kiyaku_box .mb10 {
+    margin-bottom: 10px !important;
+}
+.kiyaku_box .bold {
+    font-weight: bold;
+}
+.kiyaku_box h3 {
+    font-size: 16px;
+}
+.kiyaku_box div,.kiyaku_box span,.kiyaku_box object,.kiyaku_box iframe,.kiyaku_box h1,.kiyaku_box h2,.kiyaku_box h3,.kiyaku_box h4,.kiyaku_box h5,.kiyaku_box h6,.kiyaku_box p,.kiyaku_box blockquote,.kiyaku_box pre,.kiyaku_box abbr,.kiyaku_box address,.kiyaku_box cite,.kiyaku_box code,.kiyaku_box del,.kiyaku_box dfn,.kiyaku_box em,.kiyaku_box img,.kiyaku_box ins,.kiyaku_box kbd,.kiyaku_box q,.kiyaku_box samp,.kiyaku_box small,.kiyaku_box strong,.kiyaku_box sub,.kiyaku_box sup,.kiyaku_box var,.kiyaku_box b,.kiyaku_box i,.kiyaku_box dl,.kiyaku_box dt,.kiyaku_box dd,.kiyaku_box ol,.kiyaku_box ul,.kiyaku_box li,.kiyaku_box fieldset,.kiyaku_box form,.kiyaku_box label,.kiyaku_box legend,.kiyaku_box table,.kiyaku_box caption,.kiyaku_box tbody,.kiyaku_box tfoot,.kiyaku_box thead,.kiyaku_box tr,.kiyaku_box th,.kiyaku_box td,.kiyaku_box article,.kiyaku_box aside,.kiyaku_box figure,.kiyaku_box footer,.kiyaku_box header,.kiyaku_box hgroup,.kiyaku_box menu,.kiyaku_box nav,.kiyaku_box section,.kiyaku_box menu,.kiyaku_box time,.kiyaku_box mark,.kiyaku_box audio,.kiyaku_box video {
+    background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+    font-size: 100%;
+    margin: 0;
+    outline: 0 none;
+    padding: 0;
+    vertical-align: baseline;
+}

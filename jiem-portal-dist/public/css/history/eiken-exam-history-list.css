@@ -1,0 +1,518 @@
+/* historyeiken */
+.mrgt25 {
+    margin-top: 25px;
+}
+
+.padding-top-3px {
+    padding-top: 3px;
+}
+
+.tbl-PupilId-margin .table.table-bordered.tbl-striped.tble-PupilId-margin a.btn
+    {
+    font-weight: normal;
+    color: #000000;
+}
+
+.table-bordered {
+    margin-top: 15px;
+}
+
+.no-border-exam-result {
+    /* border-bottom: 0 none !important;
+    border-top: 0 none !important;
+    border-left: 0 none !important;
+    border-right: 0 none !important; */
+}
+
+.no-border-exam-result-last {
+    /* border-bottom: 0 none !important; 
+    border-top: 0 none !important;
+    border-left: 0 none !important;
+    border-right: 0 none !important;*/
+}
+
+.text-align-center {
+    text-align: center !important;
+}
+
+.text-align-left {
+    text-align: left !important;
+}
+
+.text-align-right {
+    text-align: right !important;
+}
+
+.pupil-number-padding {
+    padding: 0px 5px 0px 0px !important;
+}
+
+.pupil-number-div {
+    /*width: 70px;*/
+    word-wrap: break-word;
+}
+
+.history-year {
+    width: 60px;
+    text-align: center !important;
+}
+
+.history-school-year {
+    width: 105px;
+    text-align: center !important;
+}
+
+.history-class {
+    width: 70px;
+    text-align: center !important;
+}
+
+.history-number {
+    width: 50px;
+    text-align: center !important;
+}
+
+.history-name {
+    width: 110px !important;
+    text-align: center !important;
+}
+
+.history-level {
+    width: 80px;
+    text-align: center !important;
+}
+
+.iba-level {
+    width: 120px;
+    text-align: center !important;
+}
+
+.history-action {
+    width: 220px;
+    text-align: center !important;
+}
+
+.formHistoryEiken input[type="radio"] {
+    margin-right: 8px;
+}
+
+.formHistoryEiken .col-sm-3 label {
+    margin-right: 18px;
+    font-weight: 200;
+}
+
+.formHistoryEiken .box-header {
+    color: #000000;
+    display: block;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-bottom: 1px solid #DADADA;
+    position: relative;
+    font-weight: bold;
+    line-height: 17px;
+}
+
+.headcol {
+    position: absolute;
+    width: 5em;
+    right: 0;
+    top: auto;
+    border-right: 0px none black;
+    border-top-width: 3px; /*only relevant for first row*/
+    /*             margin-top:-3px; compensate for top border */
+}
+
+.long {
+    letter-spacing: 5em;
+}
+
+.resultacg-table-scroll {
+    width: auto;
+    overflow-x: scroll;
+    margin-right: 5em;
+    overflow-y: visible;
+    padding-bottom: 1px;
+}
+
+.formHistoryEiken .table-bordered {
+    margin-bottom: 0px !important;
+}
+
+.formHistoryEiken .box-body {
+    border-radius: 0px;
+    padding: 9px 0px 0px 20px;
+}
+
+.formHistoryEiken .width48 {
+    width: 48px;
+}
+
+.formHistoryEiken .width98 {
+    width: 98px;
+    margin-right: 40px;
+}
+
+.formHistoryEiken .width140 {
+    width: 140px;
+    margin-right: 40px;
+}
+
+.formHistoryEiken .width62 {
+    width: 62px;
+}
+
+.formHistoryEiken .width250 {
+    width: 250px;
+}
+
+.formHistoryEiken .hidden-row {
+    visibility: hidden;
+    border: none !important;
+}
+
+.formHistoryEiken #btnClear {
+    margin-right: 15px;
+}
+
+.formHistoryEiken1 .width70 {
+    min-width: 70px;
+}
+
+.formHistoryEiken1 .width125 {
+    min-width: 125px;
+}
+
+.formHistoryEiken1 .width55 {
+    min-width: 55px;
+}
+
+.formHistoryEiken1 .width90 {
+    min-width: 88px;
+}
+
+.formHistoryEiken1 .width82 {
+    min-width: 82px;
+}
+
+.formHistoryEiken1 .width165 {
+    min-width: 165px;
+}
+
+.formHistoryEiken1 .width245 {
+    min-width: 243px;
+}
+
+.formHistoryEiken1 .btn-small-107 {
+    width: 107px;
+    font-size: 12px;
+    min-height: 25px;
+    padding: 0px 10px;
+}
+
+.formHistoryEiken1 .btn-small-105 {
+    width: 105px;
+    margin-left: 5px;
+    font-size: 12px;
+    min-height: 25px;
+    padding: 0px 10px;
+}
+/* ibahistorypupil */
+.ibahistorypupil .width65 {
+    min-width: 65px;
+}
+
+.ibahistorypupil .width45 {
+    min-width: 45px;
+}
+
+.ibahistorypupil .width75 {
+    min-width: 75px;
+}
+
+.ibahistorypupil .width125 {
+    min-width: 125px;
+}
+
+.ibahistorypupil .width120 {
+    min-width: 120px;
+}
+
+.ibahistorypupil .width115 {
+    min-width: 115px;
+}
+
+.ibahistorypupil .width150 {
+    min-width: 150px;
+}
+
+.ibahistorypupil .width70 {
+    min-width: 70px;
+}
+
+.ibahistorypupil .width55 {
+    min-width: 55px;
+}
+
+.ibahistorypupil .width60 {
+    min-width: 60px;
+}
+
+.ibahistorypupil .width140 {
+    min-width: 140px;
+}
+
+.ibahistorypupil .btn-small-89 {
+    width: 89px;
+    font-size: 12px;
+    min-height: 25px;
+    padding: 0px 10px;
+}
+
+.ibahistorypupil  table {
+    border-collapse: inherit;
+    border-spacing: 0em !important;
+    width: 1225px;
+}
+
+.ibahistorypupil  th, td {
+    border: 1px solid gray;
+}
+
+.ibahistorypupil  th {
+    background-color: lightgrey;
+    border-width: 1px;
+}
+
+.ibahistorypupil  td {
+    border-width: 1px;
+}
+
+.ibahistorypupil  tr:first-child td {
+    border-top-width: 0;
+}
+
+.ibahistorypupil  tr:nth-child(even) {
+    background-color: #eee;
+}
+
+.ibahistorypupil .scrolltable {
+    /* overflow-x: scroll;*/
+    height: 100%;
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+}
+
+.ibahistorypupil .box-body {
+    border-radius: 0px;
+    padding: 5px 20px 20px 20px;
+}
+
+.ibahistorypupil .body {
+    width: auto;
+    overflow-x: scroll;
+    margin-right: 110px;
+    overflow-y: hidden;
+}
+
+.ibahistorypupil .headcol {
+    position: absolute;
+    top: auto;
+    right: 20px;
+    margin-left: 0px;
+    width: 111px;
+    border-top: none;
+    text-align: left;
+    margin-bottom: -2px;
+}
+
+.ibahistorypupil  .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td,
+    .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    border-top: 0px solid #ddd;
+    border-right: 0px solid #ddd;
+    line-height: 1.40857;
+    padding: 10px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.ibahistorypupil  .table>tbody>tr>td {
+    border-top: 0px solid #ddd;
+    border-right: 1px solid #ddd;
+    line-height: 1.40857;
+    padding: 10px;
+    text-align: right;
+    vertical-align: middle;
+}
+
+.ibahistorypupil .headcol {
+    border-left: 1px solid #898989 !important;
+}
+
+.ibahistorypupil .long {
+    letter-spacing: 0em;
+}
+
+div.scrolltable .table {
+    margin-bottom: -1px;
+}
+
+.ibahistorypupil .columEnd {
+    border-right: none;
+}
+/* frm-historypupil */
+.frm-historypupil .width65 {
+    min-width: 65px;
+}
+
+.frm-historypupil .width45 {
+    min-width: 45px;
+}
+
+.frm-historypupil .width75 {
+    min-width: 75px;
+}
+
+.frm-historypupil .width125 {
+    min-width: 125px;
+}
+
+.frm-historypupil .width120 {
+    min-width: 120px;
+}
+
+.frm-historypupil .width121 {
+    min-width: 121px;
+}
+
+.frm-historypupil .width115 {
+    min-width: 115px;
+}
+
+.frm-historypupil .width150 {
+    min-width: 150px;
+}
+
+.frm-historypupil .width70 {
+    min-width: 70px;
+}
+
+.frm-historypupil .btn-small-89 {
+    width: 89px;
+    font-size: 12px;
+    min-height: 25px;
+    padding: 0px 10px;
+}
+
+.frm-historypupil .scrolltable {
+    /* overflow-x: scroll;*/
+    height: 100%;
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+}
+
+.frm-historypupil .body {
+    width: auto;
+    overflow-x: scroll;
+    margin-right: 110px;
+    overflow-y: hidden;
+}
+
+.frm-historypupil .headcol {
+    position: absolute;
+    top: auto;
+    right: 20px;
+    margin-left: 0px;
+    width: 111px;
+    border-top: none;
+    text-align: left;
+    margin-bottom: -2px;
+}
+
+.frm-historypupil  table {
+    border-collapse: inherit;
+    border-spacing: 0em !important;
+    width: 1700px;
+}
+
+.frm-historypupil  th, td {
+    border: 1px solid gray;
+}
+
+.frm-historypupil  th {
+    background-color: lightgrey;
+    border-width: 1px;
+}
+
+.frm-historypupil  td {
+    border-width: 1px;
+}
+
+.frm-historypupil  tr:first-child td {
+    border-top-width: 0;
+}
+
+.frm-historypupil  tr:nth-child(even) {
+    background-color: #eee;
+}
+
+.frm-historypupil  .table>tbody>tr>td, .table>tfoot>tr>td, .table>tfoot>tr>th
+    {
+    border-top: 0px solid #ddd;
+    border-right: 1px solid #ddd;
+    line-height: 1.40857;
+    padding: 10px;
+    text-align: right;
+    vertical-align: middle;
+}
+
+.frm-historypupil .headcol {
+    border-left: 1px solid #898989 !important;
+}
+
+.frm-historypupil .long {
+    letter-spacing: 0em;
+}
+
+div.scrolltable .table {
+    margin-bottom: 0px;
+}
+
+.frm-historypupil .columEnd {
+    border-right: none;
+}
+
+.frm-historypupil .box-body {
+    border-radius: 0px;
+    padding: 5px 20px 20px 20px;
+}
+
+.padding-top-3px .pagination .active a {
+    background: #dddddd;
+    border: none;
+    border-bottom: 1px solid #dddddd;
+    border-top: 1px solid #dddddd;
+}
+
+.padding-top-3px .btn{
+	padding-right: 10px; 
+	padding-left: 10px;
+}
+.table > tbody > tr > td {
+    word-break: break-all;
+}
+.no-border-exam-result .btn-view-detail{
+    width: 95px;
+    padding-left: 5px;
+}
+.no-border-exam-result .iba-btn{
+    width: 120px;
+    padding-left: 5px;
+}

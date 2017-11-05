@@ -1,0 +1,322 @@
+<?php
+$paging = $this->eikenPaginationHelper($paginator, $page, '/history/eiken/exam-result', $this->pageLimit, (empty($param)) ? '' : '/search/' . $param);
+$this->headLink()->appendStylesheet($this->basePath('css/history/eiken-exam-result.css'));
+$this->headScript()->appendFile($this->basePath('js/popup/progress.js'));
+$this->headScript()->appendFile($this->basePath('js/history/eiken-exam-result.js'));
+$isViewer = \Dantai\PublicSession::isViewerRole();
+?>
+<script>
+    var translator = '<?php echo $translator ?>';
+    if( (typeof translator !== "object") && (translator !== null) )
+    {
+        translator = JSON.parse(translator);
+    }
+    var EXAM_EIKEN = '<?php echo \History\HistoryConst::EXAM_NAME_EIKEN; ?>';
+    var EXAM_IBA = '<?php echo \History\HistoryConst::EXAM_NAME_IBA; ?>';
+</script>
+<form method="post" name="searcheikenexam" id="searcheikenexam" action="" novalidate="novalidate">
+    <input type="hidden" name="currentKai" id="currentKai" value="<?php echo $currentKai; ?>">
+    <input type="hidden" name="currentYear" id="currentYear" value="<?php echo $currentYear; ?>">
+    <input type="hidden" name="searchVisible" id="searchVisible" value="<?php echo $searchVisible; ?>">
+    <div class="eiken-form">
+        <div class="box frm-eiken-form-search" id="divSeachForm">
+            <div class="box-header"  data-toggle="collapse" data-target="#search-box">
+                <div class="search-header  sorting-field">
+                    <i class="search-chevron-down"></i>
+                    <b><?php echo $this->translate('検索条件');?></b>
+                </div>
+            </div>
+            <div id="search-box" aria-expanded="true" class="collapse in">
+                <div class="box-body height-110">
+                    <div class="styled-select">
+                        <div class="col-sm-1 eikenname">
+                            <b><?php echo $this->translate('検定名');?></b>
+                        </div>
+                        <div
+                            class="col-sm-2 eikenname-select font-eiken-exam styled-select">
+                            <select name="examType" class="form-control" id="examType" tabindex="1"
+                                onchange="EIKEN_EXAM_RESULT.showKai(false);">
+                                <option value="" <?php echo (!isset($data) || (isset($data['examType']) && ($data['examType'] == ''))) ? 'selected="selected"' : '' ?>></option>
+                                <option value="<?php echo \History\HistoryConst::EXAM_NAME_EIKEN ?>" <?php echo (isset($data['examType']) && $data['examType'] == \History\HistoryConst::EXAM_NAME_EIKEN) ? 'selected="selected"' : '' ?>>英検</option>
+                                <option value="<?php echo \History\HistoryConst::EXAM_NAME_IBA ?>" <?php echo (isset($data['examType']) && $data['examType'] == \History\HistoryConst::EXAM_NAME_IBA) ? 'selected="selected"' : '' ?>>英検IBA</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-1 eikenname">
+                            <b><?php echo $this->translate('年度'); ?></b>
+                        </div>
+                        <div class="col-sm-2 nendo-select font-eiken-exam styled-select">
+                            <select name="year" class="form-control" id="year" tabindex="2">
+                            <?php
+                                if (count($listYear) > 0) {
+                                    $selectedYear = (isset($data['year']) && $data['year']) ? $data['year'] : '';
+                                    foreach ($listYear as $year) {
+                                        if ($year == $selectedYear) {
+                                            echo '<option value="' . $year . '" selected="selected">' . $year . '</option>';
+                                            $currentYear = '';
+                                        } else {
+                                            echo '<option value="' . $year . '">' . $year . '</option>';
+                                        }
+                                    }
+                                }
+                            ?>
+                        </select>
+                        </div>
+                        <div class="col-sm-1 kai">
+                            <b><?php echo $this->translate('回');?></b>
+                        </div>
+                        
+                        <div class="col-sm-2 txtkai styled-select">
+                            <select name="kai" class="form-control" id="kai" tabindex="3">
+                            <?php
+                                if (count($listKai) > 0) {
+                                    $selectedKai = (isset($data['kai']) && $data['kai'] != '') ? $data['kai'] : '';
+                                    if ($selectedKai == '') {
+                                        echo '<option value="" selected="selected"></option>';
+                                    } else {
+                                        echo '<option value=""></option>';
+                                    }
+                                    foreach ($listKai as $kai => $exam) {
+                                        if ($selectedKai != '' && in_array($selectedKai, $exam)) {
+                                            echo '<option value="' . $selectedKai . '" selected="selected">' . $selectedKai . '</option>';
+                                        } else {
+                                            echo '<option value="' . $exam['kai'] . '">' . $exam['kai'] . '</option>';
+                                        }
+                                    }
+                                }
+                            ?>
+                        </select>
+                        </div>
+    
+                    </div>
+                    <div class="row-eiken-2 styled-select">
+                        <div class="col-sm-1 jukenhi">
+                            <b><?php echo $this->translate('実施日');?></b>
+                        </div>
+                        <div class="col-sm-2 date-width">
+                            <input type="text" name="startDate" id="startDate" tabindex="4" class="form-control datepicker"
+                                value="<?php echo (isset($data['startDate']) && $data['startDate'] != '') ? $data['startDate'] : '' ?>">
+                        </div>
+                        <div class="col-sm-1 eiken-icon">
+                            <span class="icon-calendar" onclick="EIKEN_EXAM_RESULT.showCalendar('startDate')"></span>
+                        </div>
+                        <div class="col-sm-1 left-width-100">（から）</div>
+                        <div class="col-sm-2 date-width">
+                            <input type="text" name="endDate" id="endDate" tabindex="5" class="form-control datepicker"
+                                value="<?php echo (isset($data['endDate']) && $data['endDate'] != '') ? $data['endDate'] : '' ?>">
+                        </div>
+                        <div class="col-sm-1 eiken-icon">
+                            <span class="icon-calendar" onclick="EIKEN_EXAM_RESULT.showCalendar('endDate')"></span>
+                        </div>
+                        <div class="col-sm-1 left-width-100">（まで）</div>
+                    </div>
+    
+                </div>
+                <div class="box-footer height-80">
+                    <div class="col-sm-12 text-right">
+                        <a class="btn btn-clear-eikenExam1" tabindex="6" href="/history/eiken/exam-result"><?php echo $this->translate('クリア');?></a>
+                        <a id="btnSearch" class="btn btn-small" tabindex="7" href="#"><i class="fa fa-search"></i><?php echo $this->translate('検索');?></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box">
+            <div class="box-header"><?php echo $this->translate('団体試験結果');?></div>
+            <div class="box-body" id="list-container">
+                <div class="top-mark">
+                    <label class="font-mark"> 
+                        団体で受験した検定の一覧となります。<br>
+                        結果がまだ取り込まれていない検定は、「試験結果取込」ボタンを押してください。<br>
+                    </label>
+                </div>
+                <?php $isEmptyData = empty($listExam); ?>
+                <div style="overflow-x: scroll; width: 100%">
+                    <table
+                        class="table table-bordered tbl-striped border-collapse-separate">
+                        <thead>
+                        <tr class="eiken-title header-sort">
+                            <th class="eiken-examname no-border-exam-result text-nowrap">
+                                検定名<?php if ($sortKey == 'col1'): ?><?php if ($sortOrder == 'desc'): ?><i
+                                    class="search-long-arrow-down"></i> <?php else: ?><i
+                                    class="search-long-arrow-up"></i> <?php endif; ?><?php endif; ?></th>
+                            <th class="eiken-year no-border-exam-result text-nowrap">年度</th>
+                            <th class="eiken-times eiken-kai-text no-border-exam-result text-center text-nowrap">
+                                回 <?php if ($sortKey == 'col3'): ?><?php if ($sortOrder == 'desc'): ?><i
+                                    class="search-long-arrow-down"></i> <?php else: ?><i
+                                    class="search-long-arrow-up"></i> <?php endif; ?><?php endif; ?></th>
+                            <th class="eiken-setname no-border-exam-result text-nowrap">実施団体名</th>
+                            <th class="eiken-excuteDate no-border-exam-result text-nowrap">実施日</th>
+                            <th class="no-border-exam-result confirmed text-nowrap">確定数</th>
+                            <th class="no-border-exam-result unconfirm text-nowrap">未確定数</th>
+                            <th class="eiken-status no-border-exam-result text-nowrap">新着試験結果</th>
+                            <th class="eiken-action no-border-exam-result-last text-nowrap <?php echo !$isEmptyData ? 'mw500' : '' ?>">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php if (!$isEmptyData): ?>
+                            <?php $index = 8; ?>
+                            <?php foreach ($listExam as $key => $exam): ?>
+                                <?php
+                                $total = (isset($exam['examTotal']) && $exam['examTotal'] > 0) ? $exam['examTotal'] : '';
+                                $statusMapping = isset($exam['examMapping']) ? $exam['examMapping'] : 0;
+                                $statusImport = isset($exam['examImporting']) ? $exam['examImporting'] : 0;
+                                if ($statusMapping == 1) {
+                                    $status = $this->translate('突合わせ済');//Mapped
+                                } else {
+                                    if ($statusImport == 1) {
+                                        $status = $this->translate('取込済');//Imported
+                                    } else {
+                                        $status = $this->translate('未取込');//Not Imported
+                                    }
+                                }
+                                $disableButton = "disabled='disabled'";
+                                if ((in_array($statusMapping, array(1, 2)) || in_array($statusImport, array(1, 2)))) {
+                                    $disableButton = '';
+                                }
+                                $buttonUrl = '';
+                                $urlExport = $buttonUrl = $this->url('history/default', array('controller' => 'eiken', 'action' => 'exam-result'));
+                                if ($exam['examName'] == \History\HistoryConst::EXAM_NAME_EIKEN) {
+                                    $buttonUrl = $this->url('history/default', array('controller' => 'eiken', 'action' => 'get-data-by-year-and-Kai', 'year' => $exam['examYear'], 'kai' => $exam['examKai']));
+                                    $urlExport = $this->url('history/default', array('controller' => 'eiken', 'action' => 'export-eiken', 'year' => $exam['examYear'], 'kai' => $exam['examKai']));
+                                } elseif ($exam['examName'] == \History\HistoryConst::EXAM_NAME_IBA) {
+                                    $buttonUrl = $this->url('history/default', array('controller' => 'iba', 'action' => 'get-data-by-exam-date', 'examdate' => $exam['examDate'],  'jisshiId' => $exam['jisshiId'], 'examType' => $exam['examType']));
+                                    $urlExport = $this->url('history/default', array('controller' => 'iba', 'action' => 'exportiba', 'jisshiId' => $exam['jisshiId'], 'examType' => $exam['examType']));
+                                } else {
+                                    $buttonUrl = $this->url('history/default', array('controller' => 'eiken', 'action' => 'exam-result'));
+                                }
+                                ?>
+                                <tr>
+                                    <td class="no-border-exam-result text-nowrap"><?php echo ($exam['examName'] == \History\HistoryConst::EXAM_NAME_IBA) ? $this->translate('英検IBA') : $this->translate($exam['examName']) ?></td>
+                                    <td class="no-border-exam-result"><?php echo $exam['examYear'] ?></td>
+                                    <td class="no-border-exam-result text-right"><?php echo ($exam['examKai'] != 'ibaKai') ? $exam['examKai'] : '—' ?></td>
+                                    <td class="no-border-exam-result"><?php echo isset($exam['setName']) ? $exam['setName'] : ($exam['examName'] == \History\HistoryConst::EXAM_NAME_EIKEN ? '—' : '') ?></td>
+                                    <td class="no-border-exam-result"><?php echo (!empty($exam['examDate'])) ? $this->translate(date_format(date_create($exam['examDate']), "Y/m/d")) : '' ?></td>
+                                    <?php
+                                    $eikenUnconfirm = ($exam['examName'] == \History\HistoryConst::EXAM_NAME_EIKEN && isset($dataEiken[$exam['examYear'] . $exam['examKai'] . '0']['total'])) ? $dataEiken[$exam['examYear'] . $exam['examKai'] . '0']['total'] : '';
+                                    $ibaUnconfirm = ($exam['examName'] != \History\HistoryConst::EXAM_NAME_EIKEN && isset($dataIba[$exam['jisshiId']. $exam['examType'] . '0']['total'])) ? $dataIba[$exam['jisshiId']. $exam['examType'] . '0']['total'] : '';
+                                    ?>
+                                    <td class="no-border-exam-result text-right">
+                                        <?php
+                                        if ($exam['examName'] == \History\HistoryConst::EXAM_NAME_EIKEN) {
+                                            if (isset($dataEiken[$exam['examYear'] . $exam['examKai'] . '1']['total'])) {
+                                                echo $dataEiken[$exam['examYear'] . $exam['examKai'] . '1']['total'];
+                                            } else {
+                                                echo '0';
+                                            }
+                                        } else {
+                                            if (isset($dataIba[$exam['jisshiId']. $exam['examType'] . '1']['total'])) {
+                                                echo $dataIba[$exam['jisshiId']. $exam['examType'] . '1']['total'];
+                                            } else {
+                                                echo '0';
+                                            }
+                                        }
+                                        ?>
+                                    </td>
+                                    <td class="no-border-exam-result text-right"<?php if (($exam['examName'] == \History\HistoryConst::EXAM_NAME_EIKEN && $eikenUnconfirm > 0)
+                                        || ($exam['examName'] != \History\HistoryConst::EXAM_NAME_EIKEN && $ibaUnconfirm > 0)
+                                    ) {
+                                        echo ' style="color:red"';
+                                    } ?>>
+                                        <?php
+                                        if ($exam['examName'] == \History\HistoryConst::EXAM_NAME_EIKEN) {
+                                            if (isset($dataEiken[$exam['examYear'] . $exam['examKai'] . '0']['total'])) {
+                                                echo $dataEiken[$exam['examYear'] . $exam['examKai'] . '0']['total'];
+                                            } else {
+                                                echo '0';
+                                            }
+                                        } else {
+                                            if (isset($dataIba[$exam['jisshiId']. $exam['examType'] . '0']['total'])) {
+                                                echo $dataIba[$exam['jisshiId']. $exam['examType'] . '0']['total'];
+                                            } else {
+                                                echo '0';
+                                            }
+                                        }
+                                        ?>
+                                    </td>
+                                    <td class="no-border-exam-result text-nowrap"><?php echo isset($exam['hasNewData']) ? $exam['hasNewData'] == 1 ? $this->translate('lbHasNewData') : $this->translate('lbFullData') : ($exam['examName'] == \History\HistoryConst::EXAM_NAME_EIKEN ? '—' : '') ?></td>
+                                    <td class="no-border-exam-result-last">
+                                        <?php if (!empty($exam['examName']) && $exam['examName'] != \History\HistoryConst::EXAM_NAME_IBA): ?>
+                                            <div
+                                                id="linkCheckKekka_<?php echo $exam['examYear'] . '_' . $exam['examKai']; ?>"
+                                                class="hidden"><?php echo $this->url('history/default', array('controller' => 'eiken', 'action' => 'check-kekka-value')); ?></div>
+                                            <div
+                                                id="linkConfirmExamScreen_<?php echo $exam['examYear'] . '_' . $exam['examKai']; ?>"
+                                                class="hidden"><?php echo $this->url('history/default', array('controller' => 'eiken', 'action' => 'confirm-exam-result')); ?></div>
+                                        <?php else: ?>
+                                            <div id="linkCheckKekka_<?php echo $exam['examYear']; ?>"
+                                                 class="hidden"><?php echo $this->url('history/default', array('controller' => 'iba', 'action' => 'check-kekka-value', 'examdate' => $exam['examDate'])); ?></div>
+                                            <div id="linkConfirmExamScreen_<?php echo $exam['examYear']; ?>"
+                                                 class="hidden"><?php echo $this->url('history/default', array('controller' => 'iba', 'action' => 'confirm-exam-result')); ?></div>
+                                        <?php endif; ?>
+                                        <button type="button" <?php echo $isViewer ? 'disabled' : '' ?>
+                                                tabindex="<?php echo $index++ ?>"
+                                                class="btn btn-eiken-action-choice btn-OrgRegistDetail"
+                                                onclick="EIKEN_EXAM_RESULT.checkKekkaValue(<?php echo $exam['examYear'] ?>, <?php echo (!empty($exam['examName']) && $exam['examName'] == \History\HistoryConst::EXAM_NAME_EIKEN) ? $exam['examKai'] : 0; ?>, <?php echo $exam['id']; ?>, <?php echo $statusMapping; ?>, <?php echo $statusImport; ?>,'<?php echo (!empty($exam['jisshiId']) && $exam['jisshiId'] != 'jisshiId') ? $exam['jisshiId'] : 0; ?>','<?php echo (!empty($exam['examType']) && $exam['examType'] != 'examType') ? $exam['examType'] : 0; ?>')">
+                                            <?php echo $this->translate('試験結果取込'); ?>
+                                        </button>
+                                        <?php if ($statusMapping == 2 || $statusImport == 2) { ?>
+                                            <button type="button" <?php echo $isViewer ? 'disabled' : '' ?>
+                                                    tabindex="<?php echo $index++ ?>"
+                                                    onclick="EIKEN_EXAM_RESULT.errorMapping();"
+                                                    class="btn btn-PaymanList"><?php echo $this->translate('取込結果表示'); ?></button>
+                                            <button type="button" <?php echo $isViewer ? 'disabled' : '' ?>
+                                                    tabindex="<?php echo $index++ ?>"
+                                                    onclick="EIKEN_EXAM_RESULT.errorMapping();"
+                                                    class="btn btn-eiken-action-choice btn-RecommendlvList"><?php echo $this->translate('生徒名簿突合せ'); ?></button>
+                                        <?php } else {
+                                            $disableButtonMapping = $isViewer ? 'disabled="disabled"' : $disableButton ?>
+                                            <a tabindex="<?php echo $index++ ?>"
+                                               class="btn btn-PaymanList" <?php echo $disableButton ?>
+                                               href="<?php echo $buttonUrl; ?>"><?php echo $this->translate('取込結果表示'); ?></a>
+                                            <button type="button" tabindex="<?php echo $index++ ?>"
+                                                    class="btn btn-eiken-action-choice btn-RecommendlvList" <?php echo $disableButtonMapping ?>
+                                                    onclick="EIKEN_EXAM_RESULT.mappingTestResult('<?php echo $exam['examName'] ?>', <?php echo $exam['examYear']; ?>, <?php echo(!empty($exam['examKai'] && $exam['examKai'] != 'ibaKai') ? $exam['examKai'] : 0) ?>, <?php echo $exam['id']; ?>, <?php echo !empty($exam['examMapping']) ? 1 : 0; ?>, '<?php echo (!empty($exam['jisshiId']) && $exam['jisshiId'] != 'jisshiId') ? $exam['jisshiId'] : 0; ?>','<?php echo (!empty($exam['examType']) && $exam['examType'] != 'examType') ? $exam['examType'] : 0; ?>')"><?php echo $this->translate('生徒名簿突合せ'); ?></button>
+                                        <?php }
+                                        $disableButtonExport = $roleLimit ? "disabled='disabled'" : $disableButton; 
+                                        ?>
+                                        
+                                        <a <?php echo $disableButtonExport; ?>
+                                            class="<?php echo $disableButtonExport; ?> btn export-excel-btn"
+                                            tabindex="<?php echo $index++ ?>" href="<?php echo $urlExport; ?>">
+                                            <?php echo $this->translate('exportExcel'); ?>
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <tr class="payment-row-45">
+                                <td colspan="10"><?php echo $this->translate($noRecord); ?></td>
+                            </tr>
+                        <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+            <?php if(!empty($listExam)):?>
+                 <div class="box_padding text-center pagination_student_color">
+                       <nav><ul class="pagination"><?php  echo $paging; ?></ul></nav>
+                </div>
+            <?php endif; ?>
+        </div>
+        </div>
+    </div>
+</form>
+<div id="msg15" class="hidden"><?php echo $msg15 ?></div>
+<div id="msg16" class="hidden"><?php echo $msg16 ?></div>
+<div id="msg24" class="hidden"><?php echo $msg24 ?></div>
+<div id="examNameCurrentSelect" class="hidden"></div>
+<div id="examYearCurrentSelect" class="hidden"></div>
+<div id="examKaiCurrentSelect" class="hidden"></div>
+<div id="mappingStatus" class="hidden"></div>
+<div id="currentYear" class="hidden"><?php echo $currentYear ?></div>
+<div id="pastYear" class="hidden"><?php echo $pastYear ?></div>
+<div id="pastKai" class="hidden"><?php echo $pastKai ?></div>
+
+<?php echo $this->headScript()->prependFile($this->basePath('js/jquery-ui.js')) ?>
+<script>
+$(document).ready(function() {
+    var noRecordExcel = "<?php echo ($noRecordExcel) ? $noRecordExcel : ''; ?>";
+    if(noRecordExcel.length > 0){
+        ERROR_MESSAGE.show(noRecordExcel);
+    }
+    EIKEN_EXAM_RESULT.init();
+});
+</script>

@@ -1,0 +1,248 @@
+<?php
+    $this->headLink()
+    ->prependStylesheet($this->basePath('css/goalsetting/study-history.css'))?>
+
+
+<div class="studyhistory">
+    <div class="box frm-spi-search" id="studygearSearch">
+        <?php
+        $form = $this->form;
+        $form->setAttribute('action', $this->url(null, // your route name ...
+        array(
+            'controller' => 'studygear',
+            'action' => 'listhistorystudy'
+        )));
+        $form->prepare();
+        echo $this->form()->openTag($form);
+        ?>
+        
+        <input type="hidden" name="searchVisible" id="searchVisible" value="<?php echo $searchVisible; ?>">
+    	<div class="box-header" data-toggle="collapse" data-target="#search-box">
+    	   <div class="search-header  sorting-field">
+    	   <i class="search-chevron-down"></i>
+    	           <b><?php echo $this->translate('検索条件')?></b>
+           </div>
+    	</div>
+    	<div id="search-box" aria-expanded="true" class="collapse in">
+    	  <div class="box-body body-h110">
+            <div class="row bottom10px">
+    			<div class="col-sm-1 spi-lbl-school-year">
+    				<label><?php echo $this->translate('学年')?></label>
+    			</div>
+    			<div class="col-sm-2 styled-select width187">
+    						 <?php echo $this->formRow($form->get('ddlSchoolYear'));?>
+    				</div>
+    			<div class="col-sm-1 spi-lbl-class">
+    				<label><?php echo $this->translate('クラス')?></label>
+    			</div>
+    			<div class="col-sm-2 styled-select width187">
+    						 <?php echo $this->formRow($form->get('ddlClass'));?>
+    			</div>
+    			<div class="col-sm-1 spi-lbl-eikengrade">
+    				<label><?php echo $this->translate('学習級')?></label>
+    			</div>
+    			<div class="col-sm-2 styled-select">
+					 <?php echo $this->formRow($form->get('eikenGrade'));?>
+    			</div>
+    		</div>
+    		<div class="row">
+    			<div class="col-sm-1 width96">
+    				<label><?php echo $this->translate('学習時間')?></label>
+    			</div>
+    			<div class="col-sm-2 width-120">
+    						 <?php echo $this->formRow($form->get('fromDate'));?>
+    						 <!-- onclick="ADD_PUPIL.showCalendar(0)" -->
+    			</div>
+    			<div class="col-sm-1 width-100">
+    						<span class="icon-calendar fl" id="calendar" onclick="HISTORY_STUDY.showCalendar('fromDate')"></span>
+    						<span class="title fl">(から)</span>
+    			</div>
+
+    			<div class="col-sm-2 width-120">
+    						 <?php echo $this->formRow($form->get('toDate'));?>
+    			</div>
+    			<div class="col-sm-1 width-100">
+    						<span class="icon-calendar fl" id="calendar" onclick="HISTORY_STUDY.showCalendar('toDate')"></span>
+    						<span class="title fl">(まで)</span>
+    			</div>
+    		</div>
+    	 </div>
+    	 <div class="box-footer">
+    		<div class="row pull-right no-margin-top-and-bottom">
+    			<a class="btn btn-small-100 margin-right-10" id="btnClear"
+    				href="javascript:void(0)" onclick="HISTORY_STUDY.clearForm()">クリア</a> <a
+    				id="btnSearch" class="btn btn-small-180" href="javascript:void(0);"> <i
+    				class="fa-search"></i>検索
+    			</a>
+    		</div>
+    	 </div>
+       </div>
+    	<?php echo $this->form()->closeTag(); ?>
+    </div>
+    <div class="box contenttable">
+        <div class="box-header"><?php echo $this->translate('スタディギア学習進捗照会（学年、クラス）')?>
+		</div>
+        <div class="box-body">
+        <div>
+            <label class="font-mark"> スタディギアの日別の学習状況となります。<br>
+                                                    分野別の総学習時間と学習者数、および測定（模擬試験）の結果です。<br>
+                                                    人数をクリックすると、該当日の個人の一覧を確認できます。
+            
+            </label>
+        </div>
+        <div class="top scolllist">
+            <div class="body <?php if($numDays >= 7) echo 'scroll';?>">
+            <table class="table table-bordered table-top">
+              <thead>
+                <tr class="bgtitle">
+                <?php for ($i=0; $i<=$numDays; $i++) {?>
+                    <th colspan="2"  >
+                        <?php echo date('m/d', strtotime($fromDate . "+ $i days")).'('.$dateArr[date('w', strtotime($fromDate . "+ $i days"))].')'?>
+                    </th>
+                    <?php }?>
+                   <th class="headcol bodertopnone"><?php echo $this->translate('学習分野');?></th>
+                </tr>
+                <tr class="bgtitle textfont">
+                   <?php for ($i=0; $i<=$numDays; $i++) {?>
+                    <th><?php echo $this->translate('時間');?></th>
+                    <th><?php echo $this->translate('人数');?></th>
+                    <?php }?>
+                    <th class="headcol bodertopnone2 "></th>
+                </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                    <?php for ($i=0; $i<=$numDays; $i++) {
+                            $date = date('Ymd', strtotime($fromDate . "+ $i days"));?>
+                        <td><?php echo $listHistory[$date]['vocabularyTime'];?></td>
+                        <td class="text-right"><a href="/goalsetting/studygear/studygeardetail/type/1/date/<?php echo $date.$urlParam?>"><ins><?php echo $listHistory[$date]['vocabularyPeople'];?></ins></a></td>
+                    <?php }?>
+                    <td class="headcol boder-top-none"><?php echo $this->translate('単熟語')?></td>
+                  </tr>
+                  <tr>
+                   <?php for ($i=0; $i<=$numDays; $i++) {
+                            $date = date('Ymd', strtotime($fromDate . "+ $i days"));?>
+                        <td><?php echo $listHistory[$date]['grammarTime'];?></td>
+                        <td class="text-right"><a href="/goalsetting/studygear/studygeardetail/type/2/date/<?php echo $date.$urlParam?>"><ins><?php echo $listHistory[$date]['grammarPeople'];?></ins></a></td>
+                    <?php }?>
+                    <td class="headcol boder-top-none"><?php echo $this->translate('文法')?></td>
+                  </tr>
+                  <tr>
+                    <?php for ($i=0; $i<=$numDays; $i++) {
+                             $date = date('Ymd', strtotime($fromDate . "+ $i days"));?>
+                        <td><?php echo $listHistory[$date]['readingTime'];?></td>
+                        <td class="text-right"><a href="/goalsetting/studygear/studygeardetail/type/3/date/<?php echo $date.$urlParam?>"><ins><?php echo $listHistory[$date]['readingPeople'];?></ins></a></td>
+                    <?php }?>
+                    <td class="headcol boder-top-none"><?php echo $this->translate('リーディング')?></td>
+                  </tr>
+                  <tr>
+                    <?php for ($i=0; $i<=$numDays; $i++) {
+                               $date = date('Ymd', strtotime($fromDate . "+ $i days"));
+                               ?>
+                        <td><?php echo $listHistory[$date]['listeningTime'];?></td>
+                        <td class="text-right"><a href="/goalsetting/studygear/studygeardetail/type/4/date/<?php echo $date.$urlParam?>"><ins><?php echo $listHistory[$date]['listeningPeople'];?></ins></a></td>
+                    <?php }?>
+                    <td class="headcol boder-top-none"><?php echo $this->translate('リスニング')?></td>
+                 </tr>
+                 <tr>
+                    <?php for ($i=0; $i<=$numDays; $i++) {
+                               $date = date('Ymd', strtotime($fromDate . "+ $i days"));
+                               ?>
+                        <td><?php echo $listHistory[$date]['eikenTime'];?></td>
+                        <td class="text-right"><a href="/goalsetting/studygear/studygeardetail/type/5/date/<?php echo $date.$urlParam?>"><ins><?php echo $listHistory[$date]['eikenPeople'];?></ins></a></td>
+                    <?php }?>
+                    <td class="headcol boder-top-none"><?php echo $this->translate('英検形式に慣れる')?></td>
+                 </tr>
+               <tr class="bgtitle textfont">
+                   <?php for ($i=0; $i<=$numDays; $i++) {
+                        $date = date('Ymd', strtotime($fromDate . "+ $i days"));?>
+                        <td><?php echo $listHistory[$date]['totalTime'];?></td>
+                        <td class="text-right"><a href="/goalsetting/studygear/studygeardetail/date/<?php echo $date.$urlParam?>"><ins><?php echo $listHistory[$date]['totalPeople'];?></ins></a></td>
+                    <?php }?>
+                    <td class="headcol bgtitle boder-top-none"><?php echo $this->translate('合計')?></td>
+               </tr>
+              </tbody>
+            </table>
+            </div>
+        </div>
+        <?php if(!empty($listExam)){?>
+        <div class="bottom ">
+            <div class="body">
+            <div class="col-xs-1"><?php echo $this->translate('学習進捗');?></div>
+            <div class="col-xs-10">
+	            <table class="table table-bordered table-striped  table-bottom" id = "tblExam">
+	            <thead>
+	            	<tr >
+	                <?php for ($i=0; $i<=$numDays; $i++) {?>
+	                    <th colspan="2"  >
+	                        <?php echo date('n/d', strtotime($fromDate . "+ $i days")).'('.$dateArr[date('w', strtotime($fromDate . "+ $i days"))].')'?>
+	                    </th>
+	                    <?php }?>
+	                   <th class="headcol "></th>
+	                </tr>
+	                <tr >
+	                   <?php for ($i=0; $i<=$numDays; $i++) {?>
+	                    <th><?php echo $this->translate('合格');?></th>
+	                    <th><?php echo $this->translate('不合格');?></th>
+	                    <?php }?>
+	                    <th class="headcol"></th>
+	                </tr>
+	            </thead>
+	              <tbody>
+	                 <?php foreach ($listExam as $key=>$value) {?>
+	                    <tr>
+	                    <?php for ($i=0; $i<=$numDays; $i++) {
+	                            $date = date('Ymd', strtotime($fromDate . "+ $i days"));?>
+	                        <td class = "boder-top-none"><?php echo $listExam[$key][$date]['pass'];?></td>
+	                        <td class = "boder-top-none"><?php echo $listExam[$key][$date]['fail'];?></td>
+	                    <?php }?>
+	                    <td class="headcol boder-top-none"><?php echo $this->translate($key)?></td>
+	                  </tr>
+	                  <?php }?>
+				
+	            </table>
+	            </div>
+            </div>
+        </div>
+        <?php }else {?>
+           <div class="bottom1 scolllist">
+                <div class="body <?php if($numDays >= 7) echo 'scroll';?>">
+                <table class="table table-bordered table-bottom1">
+                <thead>
+                    <tr class="bgtitle">
+                    <?php for ($i=0; $i<=$numDays; $i++) {?>
+                        <th colspan="2"  >
+                            <?php echo date('m/d', strtotime($fromDate . "+ $i days")).'('.$dateArr[date('w', strtotime($fromDate . "+ $i days"))].')'?>
+                        </th>
+                        <?php }?>
+                       <th class="headcol bodertopnone"><?php echo $this->translate('測定回');?></th>
+                    </tr>
+                    <tr class="bgtitle textfont">
+                       <?php for ($i=0; $i<=$numDays; $i++) {?>
+                        <th><?php echo $this->translate('合格');?></th>
+                        <th><?php echo $this->translate('不合格');?></th>
+                        <?php }?>
+                        <th class="headcol bodertopnone2"></th>
+                    </tr>
+                   </thead>
+                </table>
+                </div>
+                
+            </div>
+        	<div class="hiddenRow">
+    			<input type="hidden" id="hasRow" name="Language" value="false">
+    		</div>
+            <?php }?>
+        </div>
+    </div>
+</div>
+<?php $this->headScript()->prependFile($this->basePath('js/jquery/dataTables.bootstrap.js'))
+   						 ->prependFile($this->basePath('js/jquery/jquery.dataTables.js'));?>
+<?php $this->headScript()->prependFile($this->basePath('js/jquery-ui.js'));?>
+<?php $this->headScript()->prependFile($this->basePath('js/goal-setting/history-study.js'));?>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	HISTORY_STUDY.init();
+});
+</script>

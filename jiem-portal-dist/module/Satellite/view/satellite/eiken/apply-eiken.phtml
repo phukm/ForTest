@@ -1,0 +1,271 @@
+<?php
+$form->setAttribute('action', $this->url('eiken', array(
+            'controller' => 'eiken',
+            'action' => 'apply-eiken'
+)));
+?>
+<script>
+    var translate = <?php echo empty($translate) ? 0 : $translate; ?>;
+    var doubleEikenNotSupport = <?php echo !empty($doubleEikenNotSupport) ? $doubleEikenNotSupport : 0; ?>;
+    var applyEikenLevelId = <?php echo empty($applyEikenLevelId) ? 0 : $applyEikenLevelId; ?>;
+    var hallTypeInv = <?php echo $halltypeInv; ?>;
+    var kyu = <?php echo json_encode($kyu); ?>;
+    var kyu2 = <?php echo json_encode($kyu2); ?>;
+    var ht = $('input[name="hallType"]:checked').val();
+</script>
+<?php if(!empty($messagePaymentKyu)){ ?>
+    <script>ERROR_MESSAGE.show('<?php echo $messagePaymentKyu; ?>',function(){ window.location = '../'; }); </script>
+<?php } else { ?>
+<?php $this->headLink()->prependStylesheet($this->basePath('css/apply-eiken.css')) ?>
+<?php echo $this->form()->openTag($form); ?>
+<input type="hidden" name="exemption" id="exemption" value="0">
+<div class="panel panel-default <?php echo ($isMobile) ? 'mobile' : 'pc' ?>">
+    <div class="box-header">
+        <div class="text-header"><?php echo $this->translate('applyEiken'); ?></div>
+    </div>
+    <div class="box-body">
+        <div>
+            <label><?php echo $this->translate('受験級（金額)'); ?><span class="star">*</span></label>
+            <p class="lblDescription"><?php echo $this->translate('Description-Exam-Grade-Table'); ?><p>
+        </div>
+        <?php if(count($kyuIdAppliedNonDS) > 0) :?>
+        <p style="padding: 15px; background-color: rgb(0, 194, 244); color: #fff; border-radius: 5px ">
+            <?php foreach($kyuIdAppliedNonDS as $v): ?>
+            <?php echo sprintf($this->translate('geKyuPaymentMSG57'),$mappingLevel[$v]). '<br />' ?>
+            <?php endforeach; ?>
+        </p>
+        <?php endif; ?>
+        <div class="row col-sm-12">
+            <table class="table table-bordered" id="eiken-level">
+                <thead>
+                <tr> 
+                    <th class="chooseKyu text-center">受験</th>
+                    <th class="kyu text-center" >級</th>
+                    <th class="price text-center">受験料</th>
+                    <th class="price text-center" style="display: none;">受験料</th>
+                    <th class="examDate text-center">試験日</th>
+                    <th class="hallType text-center">実施会場の選択</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <?php $chooseKyu = $dataKyu ? array_flip($dataKyu) : ''; ?>
+                    <?php if(isset($data['chooseKyu']))
+                        $chooseKyu = array_flip($dataKyu ? $dataKyu : $data['chooseKyu']);
+                    ?>
+                    <?php foreach ($kyu as $kyuId => $val): ?>
+                        <tr>
+                            <?php if(in_array($kyuId, $kyuIdAppliedNonDS)) :?>
+                                <td class="text-center"></td>
+                                <td class="kyu">
+                                    <?php echo $val['name'] . '<br><span class="star">(申込中)<span>'; ?>
+                                </td>
+                                <td></td><td></td><td></td>
+                            <?php elseif (!in_array($kyuId, $availableKyus) && !in_array($kyuId, $kyuIdAppliedDS)) : ?>
+                                <td class="text-center"></td>
+                                <td class="kyu">
+                                    <?php echo $val['name']; ?>
+                                </td>
+                                <td></td><td></td><td></td>
+                            <?php else: ?>
+                                <td class="text-center">
+                                    <?php echo $this->formrow($form->get('chooseKyu[]')->setCheckedValue($kyuId)->setChecked(isset($chooseKyu[$kyuId]) ? true : false)); ?> 
+                                </td>
+                                <td class="kyu">
+                                    <?php 
+                                        echo $val['name'];
+                                        if(in_array($kyuId,$isPayment)){ 
+                                            echo '<br><span class="star">(支払済)<span>'; 
+                                        }else if(in_array($kyuId,$isRegister)){
+                                             echo '<br><span class="star">(登録済)<span>'; 
+                                        }
+                                    ?>
+                                </td>
+                                <td id="price<?php echo $kyuId;?>"></td>
+                                <td id="examDate<?php echo $kyuId;?>"></td>
+                                <td class="hallType styled-select">
+                                    <?php if ($halltypeInv == 1 || $kyuId == 1 || $kyuId == 2): ?>
+
+                                    <?php $form->get('hallType'.$kyuId)->setValueOptions(array('1'=>'本会場')); ?>
+                                    <?php else: ?>
+                                    <?php 
+                                        $form->get('hallType'.$kyuId)->setValueOptions(array(
+                                            '0'=>'準会場',
+                                            '1'=>'本会場' 
+                                        ));
+                                    ?>
+                                    <?php endif; ?>
+
+                                    <?php
+                                        echo $this->formrow($form->get('hallType'.$kyuId)->setAttributes(array(
+                                            'name' => 'hallType'.$kyuId,
+                                            'id'=>'hallType'.$kyuId,
+                                            'class' => 'form-control',
+                                            'onChange' => 'APPLY_EIKEN.showApplyInfo('.$kyuId.');'
+                                        ))); 
+                                    ?>
+                                </td>
+                            <?php endif; ?>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+        <div id="applyInfo" class="hide">
+            <p class="lblDescription"><?php echo $this->translate('msgShowPupilInfo'); ?></p>
+            <div class="row">
+                <div class="col-sm-3 lblTitle" >
+                    <label><?php echo $this->translate('氏名（漢字）'); ?><span class="star">*</span></label>
+                </div>
+                <div class="col-sm-9" id="nameKanji">
+                    <div class="col-sm-6 txtName">
+                        <?php echo $this->formRow($form->get('txtFirstNameKanji')); ?>
+                    </div>
+                    <div class="col-sm-6 txtName">
+                        <?php echo $this->formRow($form->get('txtLastNameKanji')); ?>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3 lblTitle">
+                    <label><?php echo $this->translate('氏名（カナ）'); ?><span class="star">*</span></label>
+                </div>
+                <div class="col-sm-9" id="nameKana">
+                    <div class="col-sm-4 txtName">
+                        <?php echo $this->formRow($form->get('txtFirstNameKana')); ?>
+                    </div>
+                    <div class="col-sm-4 txtName">
+                        <?php echo $this->formRow($form->get('txtLastNameKana')); ?>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <label class="col-sm-3 lblTitle lblSex" for="rdSex"><?php echo $this->translate('性別'); ?><span
+                        class="star">*</span></label> 
+                    <?php echo $this->formRow($form->get('rdSex')); ?>
+            </div>
+            <div class="row">
+                <label class="col-sm-3 lblTitle"><?php echo $this->translate('生年月日'); ?><span
+                        class="star">*</span></label>
+                <div  class="col-sm-9" id="birthdate">
+                    <div class="col-xs-12 birthdate" >        
+                        <div class="styled-select col-sm-4 col-xs-4">
+                            <?php echo $this->formRow($form->get('ddlYear')->setAttribute('onChange', 'APPLY_EIKEN.loadDay();')); ?>
+                        </div>
+                        <p class="col-sm-1 col-xs-1"> <?php echo $this->translate('年'); ?> </p>
+
+                        <div class="styled-select col-sm-2 col-xs-2">
+                            <?php echo $this->formRow($form->get('ddlMonth')->setAttribute('onChange', 'APPLY_EIKEN.loadDay();')); ?> 
+                        </div>
+                        <p class="col-sm-1 col-xs-1"> <?php echo $this->translate('月'); ?> </p>
+                        <div class="styled-select col-sm-2 col-xs-2">
+                            <?php echo $this->formRow($form->get('ddlDay')); ?> 
+                        </div>
+                        <p class="col-sm-1 col-xs-1"> <?php echo $this->translate('日'); ?> </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-sm-3 lblTitle"><?php echo $this->translate('郵便番号'); ?><span class="star">*</span></label>
+                <div class="col-sm-9 postcode" id="postcode">
+                    <div class="col-sm-2 col-xs-2 postcode1"><?php echo $this->formRow($form->get('txtPostalCode1')); ?></div>
+                    <div class="col-sm-1 col-xs-1 text-center">&nbsp;-&nbsp;</div>
+                    <div class="col-sm-3 col-xs-4 postcode2"><?php echo $this->formRow($form->get('txtPostalCode2')); ?></div>
+                    <div class="col-sm-6 col-xs-5"><a <?php echo $hadRegister ? 'disabled="disabled"' : '' ?> href="javascript:void(0);" onclick="APPLY_EIKEN.loadAddressByZipcode()" id="btnCheck" class="btn btn-small-100">住所検索</a></div>
+                </div>
+            </div> 
+            <div class="row">
+                <label class="col-sm-3 lblTitle"><?php echo $this->translate('都道府県'); ?><span
+                        class="star">*</span></label> 
+                <div class="col-sm-7 styled-select ddlCity">
+                    <?php echo $this->formRow($form->get('ddlCity')); ?>
+                </div>
+            </div>
+            <div class=" row">
+                <label class="col-sm-3 lblTitle"><?php echo $this->translate('市区'); ?><span
+                        class="star">*</span></label> 
+                <div class="col-sm-7 col-xs-9 txtDistrict">
+                    <?php echo $this->formRow($form->get('txtDistrict')); ?>
+                </div>
+                <div class="col-sm-2 col-xs-3">
+                    <label class="text-normal">（全角）</label> 
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-sm-3 lblTitle"><?php echo $this->translate('町村'); ?><span
+                        class="star">*</span></label> 
+                <div class="col-sm-7 col-xs-9 txtTown">
+                    <?php echo $this->formRow($form->get('txtTown')); ?>
+                </div>
+                <div class="col-sm-2 col-xs-3">
+                    <label class="text-normal">（全角）</label> 
+                </div>
+            </div>
+            <div class="row" id="phoneNo">
+                <label class="col-sm-3 lblTitle"><?php echo $this->translate('電話番号'); ?><span
+                        class="star">*</span></label>
+                <div class="col-sm-9 phoneNo" id="phoneNo">
+                        <div class="col-sm-1 col-xs-1">
+                            <span>（&nbsp</span>
+                        </div>
+                        <div class="col-sm-3 col-xs-3 txtPhoneNo1">
+                            <?php echo $this->formRow($form->get('txtPhoneNo1')); ?>
+                        </div>
+                        <div class="col-sm-1 col-xs-1">
+                            <span>&nbsp）</span>
+                        </div>
+                        <div class="col-sm-3 col-xs-3 txtPhoneNo2">
+                            <?php echo $this->formRow($form->get('txtPhoneNo2')); ?>
+                        </div>
+                        <div class="col-sm-1 col-xs-1 text-center">&nbsp;-&nbsp;</div>
+                        <div class="col-sm-3 col-xs-3 txtPhoneNo3">
+                            <?php echo $this->formRow($form->get('txtPhoneNo3')); ?>
+                        </div>
+                </div>
+            </div>
+            <div class=" row">
+                <label class="col-sm-3 lblTitle"><?php echo $this->translate('メールアドレス'); ?></label> 
+                <div class="col-sm-7">
+                    <?php echo $this->formRow($form->get('txtEmail')); ?>
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-sm-3 lblTitle"><?php echo $this->translate('受験者の職業'); ?><span
+                        class="star">*</span></label> 
+                <div class="col-sm-7 styled-select">
+                    <?php echo $this->formRow($form->get('ddlJobName')); ?>
+                </div>
+            </div>
+            <div class="row row-SchoolCode">
+                <label class="col-sm-3 lblTitle"><?php echo $this->translate('SchoolCode'); ?><span
+                        class="star">*</span></label> 
+                <div class="col-sm-7 styled-select">
+                    <?php echo $this->formRow($form->get('ddlSchoolCode')); ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="box-footer">
+        <button type="button" class="btn pull-right mw120 margin-left-10 btn-red btn-full" id="btnNext"><i class="arrow-circle-right-w"></i> 次へ </button>
+        <button type="button" onclick="window.location.href = '/'" class="btn pull-right btn-full" id="btnCancel">キャンセル</button>
+    </div>
+</div>
+<?php echo $this->form()->closeTag(); ?>
+
+<?php $this->headScript()->prependFile($this->basePath('js/jiem.js')) ?>
+<?php $this->headScript()->appendFile($this->basePath('js/apply-eiken.js')) ?>
+<script type="text/javascript">
+$(document).ready(function() {
+	APPLY_EIKEN.init();
+    <?php if(!empty($error)){ ?>
+    ERROR_MESSAGE.show("<?php echo $error; ?>");
+    <?php } ?>
+    if(hallTypeInv == 1){
+        $('input[name="hallType"]').each(function(){
+            if($(this).val() == 0){
+                 $(this).attr('disabled', 'disabled').parent().addClass('disabled')
+            }
+        });
+    }
+});
+</script>
+<?php } ?>

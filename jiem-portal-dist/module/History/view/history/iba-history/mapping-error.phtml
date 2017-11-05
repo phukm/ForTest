@@ -1,0 +1,295 @@
+<?php $this->headLink()->appendStylesheet ( $this->basePath ( 'css/history/iba-mapping-result.css' ) );
+$this->headLink()->appendStylesheet($this->basePath ( 'css/history/hackIE9.css' ), 'screen', 'IE 9');
+$paging = $this->paginationHelper($paginator , $page, '/history/iba/mapping-error/year/' . $year. '/jisshiId/' . $jisshiId. '/examType/' . $examType, $numPerPage);
+?>
+<?php $tabIndex = 1;
+    ?>
+ <script>
+ var listPupil = <?php echo $jsonListPupil;?>;
+ </script>
+<div class="confirm-result">
+	<!-- Nav tabs -->
+	<ul class="nav nav-tabs nav-confirm-result nav-custom-grey" role="tablist">
+		<li role="presentation" class="active">
+		  <a href="#mapping-error"
+			aria-controls="mapping-error" role="tab" data-toggle="tab">
+			 <?php echo $this->translate('生徒名簿突合せ結果（IBA）：未突合') ;?>
+		  </a>
+		</li>
+		<li ><a href="<?php echo '/history/iba/mapping-success/year/' . $year. '/jisshiId/' . $jisshiId. '/examType/' . $examType ;?>" ><?php echo $this->translate('生徒名簿突合せ結果（IBA）：突合済') ;?></a>
+		</li>
+	</ul>
+
+	<!-- Tab panes -->
+	<div class="tab-content">
+		<!-- mapping-error -->
+		<div role="tabpanel" class="tab-pane active" id="mapping-error">
+			<!-- 2 div data-->
+			<div>
+				<label class="font-mark"> 生徒名簿との突合せ結果です。<br>
+                                                    突合せができた受験者は「突合済」タブに表示されます。<br>
+                                                    突合せができなかった受験者は「未突合」タブに表示されます。<br>
+                      <span class="marginleft"></span>「氏名（漢字）」欄に氏名を入力して生徒名簿に存在する生徒と突合せを行ってください。<br>
+                                                    作業を終えたら「保存」ボタンを押してください。（作業途中でも「保存」ボタンは押せます）
+				
+				</label>
+
+			</div>
+			<div class="row">
+				<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-left">
+
+					<span class="title-result-exam"><?php echo $this->translate('取込結果') ;?></span>
+					<div class="data-result-exam">
+						<table id="table-left" class="table-result-exam table table-bordered tbl-striped">
+							<thead>
+								<tr>
+									<th rowspan="2" class="jname"><?php echo $this->translate('氏名(カナ)') ;?></th>
+									<th rowspan="2" class="jbirth-day"><?php echo $this->translate('生年月日') ;?></th>
+									<th rowspan="2" class="jschool-year"><?php echo $this->translate('学年') ;?></th>
+									<th rowspan="2"  class="jkumi"><?php echo $this->translate('クラス') ;?></th>
+									<th rowspan="2" class="jnumber"><?php echo $this->translate('番号') ;?></th>
+									<th rowspan="2" class="jtestset"><?php echo $this->translate('テスト種別') ;?></th>
+									<th rowspan="2" class="jtestset-no"><?php echo $this->translate('テストセット番号') ;?></th>
+									<th rowspan="2" class="jscore-total"><?php echo $this->translate('総合') ;?></th>
+									<th rowspan="2" class="jscore-read"><?php echo $this->translate('リーディング') ;?></th>
+									<th rowspan="2" class="jscore-listen"><?php echo $this->translate('リスニング') ;?></th>
+									
+									<th colspan="3" class="jeiken"><?php echo $this->translate('英検級レベル判定') ;?>
+								</tr>
+								<tr>
+								    <th class="jeiken-kyulv-total"><?php echo $this->translate('総合') ;?></th>
+									<th class="jeiken-kyulv-read"><?php echo $this->translate('リーディング') ;?></th>
+									<th class="jeiken-kyulv-listen"><?php echo $this->translate('リスニング') ;?></th>
+								</tr>
+							</thead>
+							<!-- 20 row -->
+							<tbody>
+							     <tr><td class="td-first"></td></tr>
+							       <?php if(!empty($mappingData["mappingError"])):?>
+							         <?php foreach ($mappingData["mappingError"] as $key=>$items): ?>
+							             <?php foreach ($items as $keyChild=>$item): ?>
+							              <tr id="error-result-exam-<?php echo $item['id']; ?>">
+    							             <!-- Name Kana -->
+    						                 <td class="jname">
+    						                  <?php if(!empty($keepSession[$item['id']])): ?>
+                                             <input id="input-error-result-exam-<?php echo $item['id']; ?>"
+    					                       data-follow="error-pupil-manager-<?php echo $item['id']; ?>"
+    					                       data-focus="error-result-exam-<?php echo $item['id']; ?>"
+                                               data-value="<?php echo $this->escapehtml($keepSession[$item['id']]['nameKana']); ?>"
+                                               value="<?php echo $this->escapehtml($keepSession[$item['id']]['nameKana']); ?>"
+                                               data-id="<?php echo !empty($item['id']) ? $item['id'] : '&nbsp';  ?>"
+                                               class="form-control mapping-error-autocomplete" type="text" tabindex="<?php echo $tabIndex++; ?>">
+                                             <?php else :?>
+                                               <input id="input-error-result-exam-<?php echo $item['id']; ?>"
+    						                      data-follow="error-pupil-manager-<?php echo $item['id']; ?>"
+    						                      data-focus="error-result-exam-<?php echo $item['id']; ?>"
+    						                      data-value="<?php echo !empty($item['nameKana']) ? $this->escapehtml($item['nameKana']) : '&nbsp';  ?>"
+    						                      value="<?php echo !empty($item['nameKana']) ? $this->escapehtml($item['nameKana']) : '&nbsp';  ?>"
+    						                      data-id="<?php echo !empty($item['id']) ? $item['id'] : '&nbsp';  ?>"
+    						                      class="form-control mapping-error-autocomplete" type="text" tabindex="<?php echo $tabIndex++; ?>">
+                                             <?php endif; ?>
+    						                 </td>
+    						                  <!-- Name Kantana -->
+    						                  <!-- <td class="jnameKana"><?php echo !empty($item['nameKana']) ? $item['nameKana'] : '&nbsp';  ?></td> -->
+    						                  <!-- Birthday -->
+    						                  <td class="jbirth-day"><?php echo (!empty($item['birthday']))?$item['birthday']->format('Y/n/j'):'&nbsp'; ?></td>
+                                                <td class="jschool-year "><?php echo !empty($item['schoolYear']) ? $this->escapehtml($item['schoolYear']) : '&nbsp';  ?></td>
+                                                <td  class="jkumi"><?php echo !empty($item['classCode']) ? $this->escapehtml($item['classCode']) : '&nbsp'; ; ?></td>
+                                                <td  class="jnumber"><?php echo !empty($item['pupilNo']) ? $this->escapehtml($item['pupilNo']) : '&nbsp'; ; ?></td>
+                                                <td class="jtestset"><?php echo !empty($item['testType']) ? $this->escapehtml($item['testType']) : '&nbsp';  ?></td>
+                                                <td class="jtestset-no text-right"><?php echo !empty($item['testSetNo']) ? $this->escapehtml($item['testSetNo']) : '&nbsp';  ?></td>
+                                                <td class="jscore-total text-right"><?php echo !empty($item['total']) ? $this->escapehtml($item['total']) : '&nbsp';  ?></td>
+                                                <td class="jscore-read text-right"><?php echo !empty($item['read']) ? $this->escapehtml($item['read']) : '&nbsp';  ?></td>
+                                                <td class="jscore-listen text-right"><?php echo !empty($item['listen']) ? $this->escapehtml($item['listen']) : '&nbsp';  ?></td>
+                                                <td class="jeiken-kyulv-total text-right">
+                                                <?php 
+                                                if($item['eikenLevelTotal']!==NULL){
+                                                	if(!empty($iBAEikenLevelTotal[$item['eikenLevelTotal']])){
+                                                		echo $this->escapehtml($iBAEikenLevelTotal[$item['eikenLevelTotal']]);
+                                                	}else{
+                                                	    echo $this->escapehtml($item['eikenLevelTotal']); 
+                                                	}
+                                                }
+                                                ?>
+                                                </td>
+                                                <td class="jeiken-kyulv-read text-right">
+                                                <?php 
+                                                if($item['ekenLevelRead']!==NULL){
+                                                	if(!empty($iBAEikenLevelReadListen[$item['ekenLevelRead']])){
+                                                		echo $this->escapehtml($iBAEikenLevelReadListen[$item['ekenLevelRead']]);
+                                                	} else{
+                                                		echo $this->escapehtml($item['ekenLevelRead']);
+                                                	}
+                                                }
+                                                ?>
+                                                </td>
+                                                <td class="jeiken-kyulv-listen text-right">
+                                                <?php 
+                                                if($item['eikenLevelListening']!==NULL){
+                                                	if(!empty($iBAEikenLevelReadListen[$item['eikenLevelListening']])){
+                                                		echo $this->escapehtml($iBAEikenLevelReadListen[$item['eikenLevelListening']]);
+                                                	} else {
+                                                		echo $this->escapehtml($item['eikenLevelListening']);
+                                                	}
+                                                }
+                                                ?>
+                                                </td>
+    						             </tr>
+							             <?php endforeach;?>
+							         <?php endforeach;?>
+							       <?php endif;?>
+							       
+							</tbody>
+							<!--end 20 row -->
+						</table>
+					</div>
+
+				</div>
+				<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-right">
+					<span class="title-pupil-manager"><?php echo $this->translate('生徒名簿') ;?></span>
+					<div class="data-pupil-manager">
+						<table id="table-right"
+							class="table-pupil-manager table table-bordered tbl-striped">
+							<thead>
+								<tr>
+									<th class="jname"><?php echo $this->translate('氏名(漢字)') ;?></th>
+									<th class="jnameKana"><?php echo $this->translate('氏名(カナ)') ;?></th>
+									<th class="jbirth-day"><?php echo $this->translate('生年月日') ;?></th>
+									<th class="jschool-year"><?php echo $this->translate('学年') ;?></th>
+									<th  class="jkumi"><?php echo $this->translate('クラス') ;?></th>
+									<th class="jnumber"><?php echo $this->translate('番号') ;?></th>
+								</tr>
+							</thead>
+							<!--20 row -->
+							<tbody>
+							     <tr><td class="td-first"></td></tr>
+							     <?php if(!empty($mappingData["mappingError"])){?>
+							     <?php foreach($mappingData["mappingError"] as $key=>$items){
+							         foreach ($items as $keyChild=>$item){
+							             if(!empty($keepSession[$item['id']])){
+							                 ?>
+                                             <tr id="error-pupil-manager-<?php echo $item['id']; ?>">
+
+             									<td class="jname"><?php echo (!empty($keepSession[$item['id']]['nameKanji'])) ? $this->escapehtml($keepSession[$item['id']]['nameKanji']):'&nbsp'; ?></td>
+             									<!-- NameKana -->
+             									<td class="jnameKana"><?php echo (!empty($keepSession[$item['id']]['nameKana'])) ? $this->escapehtml($keepSession[$item['id']]['nameKana']):'&nbsp'; ?></td>
+             									<!-- Birthday -->
+             									<td class="jbirth-day"><?php echo (!empty($keepSession[$item['id']]['birthday'])) ? $this->escapehtml($keepSession[$item['id']]['birthday']):'&nbsp'; ?></td>
+             									<!-- SchoolYear -->
+             									<td class="jschool-year"><?php echo (!empty($keepSession[$item['id']]['orgSchoolYearName'])) ? $this->escapehtml($keepSession[$item['id']]['orgSchoolYearName']):'&nbsp'; ?></td>
+             									<!-- Class-Kumi -->
+             									<td  class="jkumi"><?php echo (!empty($keepSession[$item['id']]['className'])) ? $this->escapehtml($keepSession[$item['id']]['className']):'&nbsp'; ?></td>
+             									<!-- Number -->
+             									<td class="jnumber"><?php echo (!empty($keepSession[$item['id']]['number'])) ? $this->escapehtml($keepSession[$item['id']]['number']):'&nbsp'; ?></td>
+
+         								    </tr>
+     								     <?php }elseif(!empty($mappingData['pupilError'][$item['tempPupilId']]) && ($item['mappingStatus']== 2 || $item['mappingStatus']== 3 )){
+						                 //duplicate
+						                 ?>
+							                 <tr id="error-pupil-manager-<?php echo $item['id']; ?>">
+            									<!-- NameKanji -->
+            									<td class="jname">
+            									<?php 
+                                            	  echo (!empty($mappingData['pupilError'][$item['tempPupilId']]['firstNameKanji'])) ? $this->escapehtml($mappingData['pupilError'][$item['tempPupilId']]['firstNameKanji']):'&nbsp'; 
+                                            	  echo (!empty($mappingData['pupilError'][$item['tempPupilId']]['lastNameKanji'])) ? $this->escapehtml($mappingData['pupilError'][$item['tempPupilId']]['lastNameKanji']):'&nbsp'; 
+                                            	 ?>
+            									</td>
+            									<!-- NameKana -->
+            									<td class="jnameKana">
+            									<?php 
+                                        		 echo (!empty($mappingData['pupilError'][$item['tempPupilId']]['firstNameKana'])) ? $this->escapehtml($mappingData['pupilError'][$item['tempPupilId']]['firstNameKana']):'&nbsp';
+                                        		 echo (!empty($mappingData['pupilError'][$item['tempPupilId']]['lastNameKana'])) ? $this->escapehtml($mappingData['pupilError'][$item['tempPupilId']]['lastNameKana']):'&nbsp';
+                                        		 ?>
+            									</td>
+            									<!-- Birthday -->
+            									<td class="jbirth-day">
+            									<?php 
+                                            	   echo !(empty($mappingData['pupilError'][$item['tempPupilId']]['birthday'])) ? $mappingData['pupilError'][$item['tempPupilId']]['birthday']->format('Y/n/j'):'&nbsp'; 
+                                            	   ?>
+            									</td>
+            									<!-- SchoolYear -->
+            									<td class="jschool-year">
+            									<?php echo (!empty($mappingData['pupilError'][$item['tempPupilId']]['orgSchoolYearId'])) ? $this->escapehtml($mappingData['pupilError'][$item['tempPupilId']]['orgSchoolYearName']):'&nbsp'; ?>
+            									</td>
+            									<!-- Class-Kumi -->
+            									<td  class="jkumi">
+            									<?php echo (!empty($mappingData['pupilError'][$item['tempPupilId']]['classId'])) ? $this->escapehtml($mappingData['pupilError'][$item['tempPupilId']]['className']):'&nbsp'; ?>
+            									</td>
+            									<!-- Number ID-->
+            									<td class="jnumber">
+            									<?php echo (!empty($mappingData['pupilError'][$item['tempPupilId']]['number'])) ? $this->escapehtml($mappingData['pupilError'][$item['tempPupilId']]['number']):'&nbsp'; ?>
+            									</td>
+        								    </tr>
+						                 <?php 
+							              }else{
+                                    ?>
+                                    <tr id="error-pupil-manager-<?php echo $item['id']; ?>">
+    									<!-- NameKanji -->
+    									<td class="jname"></td>
+    									<!-- NameKana -->
+    									<td class="jnameKana"></td>
+    									<!-- Birthday -->
+    									<td class="jbirth-day"></td>
+    									<!-- SchoolYear -->
+    									<td class="jschool-year"></td>
+    									<!-- Class-Kumi -->
+    									<td  class="jkumi"></td>
+    									<!-- Number ID-->
+    									<td class="jnumber"></td>
+								    </tr>
+                                    <?php }
+							           }
+							         }
+							     }?>
+
+							    
+
+							<tbody>
+								<!--end 20 row -->
+
+						</table>
+					</div>
+				</div>
+			</div>
+			<!-- 2 div data-->
+			<!-- Paging -->
+            <?php if (count($paginator) > $numPerPage) : ?>
+    			<div class="text-center paging">
+    				<nav>
+    					<ul class="pagination">
+                            <?php  echo $paging; ?>
+						</ul>
+    				</nav>
+    			</div>
+			<?php endif;?>
+			<!--End Paging -->
+
+
+		</div>
+		<!-- End mapping-error -->
+
+	</div>
+	<!-- Group Button -->
+	<div class="box-footer">
+
+		<div style="text-align: right;">
+			<button type="button" id="btnCancel" class="btn btn-large-180"
+				onclick="IBA_MAPPING_RESULT.mappingCancel()" tabindex="<?php echo $tabIndex++;?>"><?php echo $this->translate('キャンセル') ;?> </button>
+			<button type="button" id="btnSubmitToMapping"
+				class="btn btn-large-180 btn-red" onclick="IBA_MAPPING_RESULT.mappingSave()" tabindex="<?php echo $tabIndex++;?>">
+				<i class="fa-download-w"></i><?php echo $this->translate('保存') ;?></button>
+		</div>
+	</div>
+	<!--End Group Button -->
+</div>
+
+<?php
+    $this->headScript()->appendFile($this->basePath('js/jquery-ui.js'));
+    $this->inlineScript()->appendFile($this->basePath('js/history/iba-mapping-result.js'));
+    echo $this->inlineScript();
+?>
+<script type="text/javascript">
+$("document").ready(function(){
+	IBA_MAPPING_RESULT.init();
+});
+</script>

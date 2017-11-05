@@ -1,0 +1,126 @@
+<?php
+        $this->headLink()
+        ->prependStylesheet($this->basePath('css/OrgInforManagement.css'))
+        ->prependStylesheet($this->basePath('css/studentandclass.css'))
+        ->prependStylesheet($this->basePath('css/ImportStudent.css'))
+?>
+<script type="text/javascript">
+    var $masagepupil = <?php echo $masagepupil; ?>;
+</script>
+<?php $this->headScript()->prependFile($this->basePath('js/uploadform.js')) ?>
+<div class="importstd">
+    <div class="box">
+        <div class="box-header">
+            <p><?php echo $this->translate('アップロード'); ?></p>
+        </div>
+        <div class="box-body">
+            <p><?php echo $this->translate('生徒一覧ファイル（~.csv）を選択し、アップロードしてください。'); ?></p>
+            <div class="importstd-form">
+                <ul class="error2"></ul>
+                <?php
+                $form->setAttribute('action', $this->url('pupil-mnt/default', array(
+                            'controller' => 'pupil',
+                            'action' => 'import'
+                )));
+                $form->prepare();
+                ?>
+                <?php echo $this->form()->openTag($form); ?>
+                <?php $fileElement = $form->get('csvfile'); ?>
+                <div class="fl choose-file">
+                    <?php echo $this->formLabel($fileElement); ?>
+                    <input type="text" class="importstd-textbox" id="filename"
+                           readonly="true" value="" />
+                </div>
+                <div class="importstd-btngroup fl">
+                    <a class="btn btn-small btn-file" id="csvfilefocus"
+                       href="javascript:void(0)"><i class="folder-open-small"> </i><strong>参照</strong>
+                           <?php echo $this->formFile($fileElement); ?>
+                    </a>
+
+                    <?php echo $this->formElementErrors($fileElement); ?>
+                </div>
+                <div class="importstd-btngroup fr">
+                    <a id="upload-btn" onclick="IMPORT_PUPIL.onclickform()" href="javascript:void(0)"
+                       class="btn btn-small btn-red importstd-button-space"><i
+                            class="fa-upload-small-w"></i> <strong>アップロード</strong> </a>
+                </div>
+                <?php echo $this->form()->closeTag(); ?>
+            </div>
+        </div>
+    </div>
+    <div class="box pupilshowhide">
+        <div class="box-header displaynone">
+            <p><?php echo $this->translate('アップロードファイル内容'); ?></p>
+        </div>
+        <div class="box-body border-bot displaynone">
+            <div class="student_manager">
+                <div class="std_list">
+                    <ul class="error import-error"></ul>
+                    <!--list -->
+                    <div class=" importstd-list ">
+                        <table
+                            class="table table-bordered table-striped importstd-list-table">
+                            <thead>
+                                <tr>
+                                    <th class="rightleftLine"><?php echo $this->translate('ImportLine'); ?></th>
+                                    <th class="rightleft0"><?php echo $this->translate('ImportYear'); ?></th>
+                                    <th class="rightleft1"><?php echo $this->translate('ImportSchoolYear'); ?></th>
+                                    <th class="rightleft2"><?php echo $this->translate('ImportClass'); ?></th>
+                                    <th class="rightleft3"><?php echo $this->translate('ImportPupilNumber'); ?></th>
+                                    <th class="rightleft4"><?php echo $this->translate('ImportFirstnameKanji'); ?></th>
+                                    <th class="rightleft5"><?php echo $this->translate('ImportLastnameKanji'); ?></th>
+                                    <th class="rightleft6"><?php echo $this->translate('ImportFirstnameKana'); ?></th>
+                                    <th class="rightleft7"><?php echo $this->translate('ImportLastnameKana'); ?></th>
+                                    <th class="rightleft8"><?php echo $this->translate('ImportBirthday'); ?></th>
+                                    <th class="rightleft9"><?php echo $this->translate('ImportGender'); ?></th>
+                                    <th class="rightleft10"><?php echo $this->translate('ImportEinaviId'); ?></th>
+                                    <th class="rightleft11"><?php echo $this->translate('ImportEikenId'); ?></th>
+                                    <th class="rightleft12"><?php echo $this->translate('ImportEikenPassword'); ?></th>
+                                    <th class="rightleft13"><?php echo $this->translate('ImportEikenLevel'); ?></th>
+                                    <th class="rightleft14"><?php echo $this->translate('ImportEikenYear'); ?></th>
+                                    <th class="rightleft15"><?php echo $this->translate('ImportKai'); ?></th>
+                                    <th class="rightleft16"><?php echo $this->translate('ImportEikenScoreReading'); ?></th>
+                                    <th class="rightleft17"><?php echo $this->translate('ImportEikenScoreListening'); ?></th>
+                                    <th class="rightleft18"><?php echo $this->translate('ImportEikenScoreWriting'); ?></th>
+                                    <th class="rightleft19"><?php echo $this->translate('ImportEikenScoreSpeaking'); ?></th>
+                                    <th class="rightleft20"><?php echo $this->translate('ImportIBALevel'); ?></th>
+                                    <th class="rightleft21"><?php echo $this->translate('ImportIBADate'); ?></th>
+                                    <th class="rightleft22"><?php echo $this->translate('ImportIBAScoreReading'); ?></th>
+                                    <th class="rightleft23"><?php echo $this->translate('ImportIBAScoreListening'); ?></th>
+                                    <th class="rightleft24"><?php echo $this->translate('単語レベル'); ?></th>
+                                    <th class="rightleft25"><?php echo $this->translate('文法レベル'); ?></th>
+                                </tr>
+                            </thead>
+                            <tbody id="load_dt_std">
+                            </tbody>
+                        </table>
+                    </div>
+                    <form name="fileupload" id="upoadfiles" method="post"
+                          action="<?php
+                          echo $this->url('pupil-mnt/default', array(
+                              'controller' => 'pupil',
+                              'action' => 'saveImport'
+                          ));
+                          ?>">
+                        <input id="scrfile" name="scrfile" type="hidden" value="" />
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="box-body">
+            <div class="importstd-btngroup">
+                <a class="btn btn-large-180 showbt"
+                   href="<?php echo $this->url('pupil-mnt/default', array('controller' => 'pupil', 'action' => 'index')); ?>"><strong
+                        class="text-center">キャンセル</strong></a> <a href="javascript:void(0)"
+                                                          class="btn btn-large-180 btn-red importstd-button-space removebotom displaynone importsave"
+                                                          onclick="IMPORT_PUPIL.onclickforms()"><i class="fa-download-w"></i>
+                    <strong>保存</strong> </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="lblSize"></div>
+<?php
+$this->headScript()->prependFile($this->basePath('js/pupil/csvpupil.js?v=0.1'));
+$this->headScript()->prependFile($this->basePath('js/jquery-ui.js'));
+?>

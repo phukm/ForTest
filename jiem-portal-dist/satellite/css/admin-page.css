@@ -1,0 +1,14 @@
+.admin-page .box {height: 215px;}
+.admin-page .box .box-header { height: 35px; }
+.admin-page .box .box-body {height: 110px;}
+.admin-page .box .box-body form label span { margin-top: 3px; float: left;}
+.admin-page .box .box-body form label {float:left; margin-right: 51px;}
+.admin-page .box .box-body .form-control { margin-left: 85px; width: 140px;}
+.admin-page .box .box-body .first-row {margin-top: 0px;}
+.admin-page .box .box-body .organizationNameKanji {margin-left: 120px;}
+.admin-page .box .box-body .organizationNameKana {margin-left: 120px;}
+.admin-page .box .box-body .second-row {margin-top: 20px;}
+.admin-page .box .box-body .englishExamType {margin-left: 43px; width: 140px;}
+.admin-page .box .box-body .second-row > label {margin-top: 3px; margin-right: 30px;}
+.admin-page .box .box-body #datetimepicker1 {width: 120px; margin-left: 30px;}
+.admin-page .box .box-footer {height: 65px;}

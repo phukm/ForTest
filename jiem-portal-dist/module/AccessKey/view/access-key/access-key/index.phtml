@@ -1,0 +1,112 @@
+<?php echo $this->headLink()->appendStylesheet($this->basePath('css/icon-awesome.css')); ?>
+<?php echo $this->headLink()->appendStylesheet($this->basePath('css/accesskey/accesskey.css')); ?>
+<?php $this->headScript()->appendFile($this->basePath('js/access-key/access-key.js')); ?>
+<?php
+$form->setAttribute('action', $this->url('access-key', array(
+    'action' => 'index'
+)));
+
+$form->prepare();
+echo $this->form()->openTag($form);
+?>
+
+<div class="body-error">
+    <!-- message error for validate client side -->
+    <div class="row jiem-error layout-hidden-item"></div>
+
+    <!-- message error for validate server side -->
+    <?php if ($isError) : ?>
+        <div id="validServer" class="row jiem-error">
+            <div class="alert">
+                <ul>
+                    <?php
+                    if (!empty($form->getMessages())) {
+                        foreach ($form->getMessages() as $key => $row) {
+                            $form->get($key)->setAttribute('class', $form->get($key)->getAttribute('class').' error');
+                            foreach ($row as $value) {
+                                ?>
+                                <li>
+                                    <a onclick="forcusField(this)" href="#<?php echo $key; ?>"><?php echo nl2br($value); ?></a>
+                                </li>
+                                <?php
+                            }
+                        }
+                    }
+                    ?>
+                </ul>
+            </div>
+        </div>
+    <?php endif; ?>
+</div>
+<div class="box index-access-key">
+
+    <div class="box-header text-left">
+        <b class="title"><?php echo $this->translate('titleAccessKey'); ?></b>
+    </div>
+
+    <div class="box-body">
+        <div class="row">
+            <p class="desc-title"><?php echo $this->translate('descAccessKey'); ?></p>
+            <p class="desc-title"><?php echo $this->translate('moreDescAccesskey'); ?></p>
+            <?php
+                $today = strtotime(date("Y-m-d H:i:s"));
+                $date1 = strtotime("2017-03-10 00:00:00");
+                $date2 = strtotime("2017-03-31 00:00:00");
+                $date3 = strtotime("2017-04-01 00:00:00");
+                $date4 = strtotime("2017-08-07 00:00:00");
+                
+                if($date1 <= $today && $today <= $date2){
+                    echo '<p class="desc-title">2016年第3回のアクセスキーをお使いください。</p>';
+                }else if($date3 <= $today && $today <= $date4){
+                    echo '<p class="desc-title">2017年第1回のアクセスキーをお使いください。</p>';
+                }     
+            ?>
+            
+        </div>
+
+        <div class="row r1">
+            <div class="col-sm-3">
+                <strong><?php echo $this->translate('lableAccessKeyOrgNo'); ?><span class="required">*</span></strong>
+            </div>
+            <div class="col-sm-9">
+                <?php
+                // add class error for element when validate server side
+                if ($isError) {
+                    $form->get('organizationNo')->setAttributes(array('class' => 'form-control error'));
+                }
+                echo $this->formElement($form->get('organizationNo'));
+                ?>
+                <span><?php echo $this->translate('descAccessKeyOrgNo'); ?></span>
+            </div>
+        </div>
+
+        <div class="row r2">
+            <div class="col-sm-3">
+                <strong><?php echo $this->translate('labelAccessKeyNo'); ?><span class="required">*</span></strong>
+            </div>
+            <div class="col-sm-9">
+                <?php
+                // add class error for element when validate server side
+                if ($isError) {
+                    $form->get('accessKey')->setAttributes(array('class' => 'form-control error'));
+                }
+                echo $this->formElement($form->get('accessKey'));
+                ?>
+            </div>
+        </div>
+    </div>
+
+    <div class="box-footer text-center">
+        <div>
+            <button type="button" class="btn btn-red btn-large-180" id="submitForm">
+                <i class="arrow-circle-right-w"></i>
+                <strong><?php echo $this->translate('Next'); ?></strong>
+            </button>
+        </div>
+    </div>
+</div>
+<?php echo $this->formHidden($form->get('security')); ?>
+<?php echo $this->form()->closeTag(); ?>
+<script>
+    var forcusBlue = '<?php if(!empty($form->getMessages())){ echo 1; } ?>';
+</script>

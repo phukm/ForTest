@@ -1,0 +1,282 @@
+<?php
+$this->headLink()->appendStylesheet($this->basePath('css/resultacg.css'));
+$this->headScript()->appendFile($this->basePath('js/report/actual-goal-level.js?v=0.1'));
+?>
+<script>
+    $(document).ready(function () {
+        $('form:first *:input[type!=hidden][disabled!=disabled]:first').focus();
+        ACTUAL_GOAL_LEVEL.init();
+    });
+</script>
+<div class="box frm-resultacg">
+    <div class="box-header collapsed" data-toggle="collapse" data-target="#search-box">
+        <div class="search-header  sorting-field">
+            <i class="search-chevron-down"></i>
+            <?php echo $this->translate('ActualLevelSearchBox'); ?>
+        </div>
+
+    </div>
+    <div id="search-box" aria-expanded="true" class="collapse in">
+        <form method="POST" id="searchActualGoalLevel">
+            <input type="hidden" name="searchVisible" id="searchVisible" value="1">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-sm-2 width48">
+                        <label><b><?php echo $this->translate('年度'); ?></b></label>
+                    </div>
+                    <div class="col-sm-2 styled-select width98">
+                        <select id="year" name="year" class="form-control">
+                            <?php foreach ($listYear as $year) { ?>
+                                <option value="<?php echo $year ?>" <?php echo $search['year'] == $year ? 'selected' : ''; ?>><?php echo $year ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <div class="col-sm-2 width48">
+                        <label><?php echo $this->translate('学年'); ?></label>
+                    </div>
+                    <div class="col-sm-2 styled-select width140">
+                        <select id="orgSchoolYearId" name="orgSchoolYearId" class="form-control" autocomplete="off">
+                            <option value=""></option>
+                            <?php foreach ($listSchoolYear as $key => $schoolYear) { ?>
+                                <option value="<?php echo $key ?>" <?php echo $search['orgSchoolYearId'] == $key ? 'selected' : ''; ?>><?php echo $schoolYear ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <div class="col-sm-2 width118">
+                        <label><b><?php echo $this->translate('表示オプション'); ?></b></label>
+                    </div>
+                    <div class="col-sm-3">
+                        <label><input type="radio" <?php echo $search['type'] == 'Deem' ? 'checked="checked"' : ''; ?> value="Deem" id="typeDeem" name="type">みなし</label>
+                        <label><input type="radio" <?php echo $search['type'] == 'Actual' ? 'checked="checked"' : ''; ?> value="Actual" id="typeActual" name="type">実数</label>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer">
+                <div class="text-right">
+                    <a class="btn btn-small-100 margin-right-10" id="btnClear" href="javascript:void(0)"><?php echo $this->translate('クリア'); ?></a>
+                    <a href="#" class="btn btn-small-180" id="btnSearch"> <i class="fa-search"></i>検索</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="box frm-resultacg1">
+    <div class="box-header">
+        <span><b><?php echo $this->translate('LabelReportGoalLevel'); ?></b></span>
+    </div>
+    <div class="box-body">
+
+        <div class="resultacg-table-scroll">
+            <table class="table table-striped">
+                <tr>
+                    <th rowspan=2 colspan="2" class="with185"></th>
+                    <th rowspan=2 class="with75"><?php echo $this->translate('生徒数'); ?></th>
+                    <th colspan="2" class="txtcenter with160">目標</th>
+                    <th colspan="2" class="txtcenter with145">実績</th>
+                    <th colspan="2" class="txtcenter with160">1級</th>
+                    <th colspan="2" class="txtcenter with160">準1級</th>
+                    <th colspan="2" class="txtcenter with160">2級</th>
+                    <th colspan="2" class="txtcenter with160">準2級</th>
+                    <th colspan="2" class="txtcenter with160">3級</th>
+                    <th colspan="2" class="txtcenter with160">4級</th>
+                    <th colspan="2" class="txtcenter with160">5級</th>
+                </tr>
+                <tr>
+                    <th>目標級</th>
+                    <th>取得率</th>
+                    <th>取得率</th>
+                    <th>達成率</th>
+                    <th class="no-padding percent-pass">取得人数</th>
+                    <th class="people-pass">取得率</th>
+                    <th class="no-padding percent-pass">取得人数</th>
+                    <th class="people-pass">取得率</th>
+                    <th class="no-padding percent-pass">取得人数</th>
+                    <th class="people-pass">取得率</th>
+                    <th class="no-padding percent-pass">取得人数</th>
+                    <th class="people-pass">取得率</th>
+                    <th class="no-padding percent-pass">取得人数</th>
+                    <th class="people-pass">取得率</th>
+                    <th class="no-padding percent-pass">取得人数</th>
+                    <th class="people-pass">取得率</th>
+                    <th class="no-padding percent-pass">取得人数</th>
+                    <th class="people-pass">取得率</th>
+                </tr>
+                <?php
+                if ($listSchoolYear) {
+                    if (!empty($search['orgSchoolYearId'])) {
+                        $dataSchoolYear = array($search['orgSchoolYearId'] => isset($listSchoolYear[$search['orgSchoolYearId']]) ? $listSchoolYear[$search['orgSchoolYearId']] : '');
+                    } else {
+                        $dataSchoolYear = $listSchoolYear;
+                    }
+                    foreach ($dataSchoolYear as $schoolYearId => $orgSchoolName) {
+                        $orgSchoolName = $this->escapeHtml($orgSchoolName);
+                        //$orgSchoolName = isset($listSchoolYear[$schoolYearId]) ? trim($listSchoolYear[$schoolYearId]) : '-';
+                        $eikenLevelName = isset($resultGoal[$schoolYearId]) ? $resultGoal[$schoolYearId]['levelName'] : '-';
+                        $eikenLevelId = isset($resultGoal[$schoolYearId]) ? $resultGoal[$schoolYearId]['eikenLevelId'] : '-';
+                        $targetPass = isset($resultGoal[$schoolYearId]) ? intval($resultGoal[$schoolYearId]['targetPass']) : '-';
+
+                        $numberOfPeople = isset($resultSchoolYear[$schoolYearId]) ? $resultSchoolYear[$schoolYearId]['numberOfPeople'] : '-';
+
+                        $peoplePassLevel1 = isset($resultSchoolYear[$schoolYearId]) ? $resultSchoolYear[$schoolYearId]['peoplePassLevel1'] : '-';
+                        $peoplePassLevelPre1 = isset($resultSchoolYear[$schoolYearId]) ? $resultSchoolYear[$schoolYearId]['peoplePassLevelPre1'] : '-';
+                        $peoplePassLevel2 = isset($resultSchoolYear[$schoolYearId]) ? $resultSchoolYear[$schoolYearId]['peoplePassLevel2'] : '-';
+                        $peoplePassLevelPre2 = isset($resultSchoolYear[$schoolYearId]) ? $resultSchoolYear[$schoolYearId]['peoplePassLevelPre2'] : '-';
+                        $peoplePassLevel3 = isset($resultSchoolYear[$schoolYearId]) ? $resultSchoolYear[$schoolYearId]['peoplePassLevel3'] : '-';
+                        $peoplePassLevel4 = isset($resultSchoolYear[$schoolYearId]) ? $resultSchoolYear[$schoolYearId]['peoplePassLevel4'] : '-';
+                        $peoplePassLevel5 = isset($resultSchoolYear[$schoolYearId]) ? $resultSchoolYear[$schoolYearId]['peoplePassLevel5'] : '-';
+
+                        $precentPassLevel1 = isset($resultSchoolYear[$schoolYearId]) ? $resultSchoolYear[$schoolYearId]['precentPassLevel1'] : '-';
+                        $precentPassLevelPre1 = isset($resultSchoolYear[$schoolYearId]) ? $resultSchoolYear[$schoolYearId]['precentPassLevelPre1'] : '-';
+                        $precentPassLevel2 = isset($resultSchoolYear[$schoolYearId]) ? $resultSchoolYear[$schoolYearId]['precentPassLevel2'] : '-';
+                        $precentPassLevelPre2 = isset($resultSchoolYear[$schoolYearId]) ? $resultSchoolYear[$schoolYearId]['precentPassLevelPre2'] : '-';
+                        $precentPassLevel3 = isset($resultSchoolYear[$schoolYearId]) ? $resultSchoolYear[$schoolYearId]['precentPassLevel3'] : '-';
+                        $precentPassLevel4 = isset($resultSchoolYear[$schoolYearId]) ? $resultSchoolYear[$schoolYearId]['precentPassLevel4'] : '-';
+                        $precentPassLevel5 = isset($resultSchoolYear[$schoolYearId]) ? $resultSchoolYear[$schoolYearId]['precentPassLevel5'] : '-';
+
+                        switch ($eikenLevelId) {
+                            case 1:
+                                $targetPassFact = $precentPassLevel1;
+                                break;
+                            case 2:
+                                $targetPassFact = $precentPassLevelPre1;
+                                break;
+                            case 3:
+                                $targetPassFact = $precentPassLevel2;
+                                break;
+                            case 4:
+                                $targetPassFact = $precentPassLevelPre2;
+                                break;
+                            case 5:
+                                $targetPassFact = $precentPassLevel3;
+                                break;
+                            case 6:
+                                $targetPassFact = $precentPassLevel4;
+                                break;
+                            case 7:
+                                $targetPassFact = $precentPassLevel5;
+                                break;
+                            case '-':
+                                $targetPassFact = '-';
+                                break;
+                            default:
+                                $targetPassFact = 0;
+                                break;
+                        }
+                        ?>
+                        <tr>
+                            <td class="collapse-icon">
+                                <input type="hidden" id="orgschoolyear_<?php echo $schoolYearId; ?>" value="<?php echo $orgSchoolName; ?>"/>
+                                <?php if (!empty($resultClass[$schoolYearId])) { ?>
+                                    <a href="javascript:void(0)" class="toggle" data-id="<?php echo 'hidden-' . $schoolYearId; ?>">
+                                        <span class="search-chevron-right"></span>
+                                    </a>
+                                <?php } else { ?>
+                                    <span class="search-chevron-right"></span>
+                                <?php } ?>
+                            </td>
+                            <td class="txtleft no-border-left" onclick="ACTUAL_GOAL_LEVEL.putDataToExamHistoryList(<?php echo $schoolYearId; ?>, 0)">
+                                <?php echo $orgSchoolName ?>
+                            </td>
+                            <td onclick="ACTUAL_GOAL_LEVEL.putDataToExamHistoryList(<?php echo $schoolYearId; ?>, 0)"><?php echo $numberOfPeople !== '-' ? $numberOfPeople . '人' : '-'; ?></td>
+                            <td onclick="ACTUAL_GOAL_LEVEL.putDataToExamHistoryList(<?php echo $schoolYearId; ?>, 0)"><?php echo!empty($eikenLevelName) ? $eikenLevelName : '-'; ?></td>
+                            <td onclick="ACTUAL_GOAL_LEVEL.putDataToExamHistoryList(<?php echo $schoolYearId; ?>, 0)" class="txtcenter"><?php echo $targetPass !== '-' ? $targetPass . '%' : $targetPass; ?></td>
+                            <td onclick="ACTUAL_GOAL_LEVEL.putDataToExamHistoryList(<?php echo $schoolYearId; ?>, 0)" class="txtcenter"><?php echo $targetPassFact !== '-' ? $targetPassFact . '%' : '-'; ?></td>
+                            <td onclick="ACTUAL_GOAL_LEVEL.putDataToExamHistoryList(<?php echo $schoolYearId; ?>, 0)" class="txtcenter"><?php echo ($targetPassFact !== '-' && $targetPass !== '-') ? ($targetPass > 0 ? round(100 * ($targetPassFact / $targetPass)) . '%' : '0%') : '-'; ?></td>
+                            <td onclick="ACTUAL_GOAL_LEVEL.putDataToExamHistoryList(<?php echo $schoolYearId; ?>, 0)"><?php echo $peoplePassLevel1 !== '-' ? $peoplePassLevel1 . '人' : '-'; ?></td>
+                            <td onclick="ACTUAL_GOAL_LEVEL.putDataToExamHistoryList(<?php echo $schoolYearId; ?>, 0)" class="txtcenter"><?php echo $precentPassLevel1 !== '-' ? $precentPassLevel1 . '%' : '-'; ?></td>
+                            <td onclick="ACTUAL_GOAL_LEVEL.putDataToExamHistoryList(<?php echo $schoolYearId; ?>, 0)"><?php echo $peoplePassLevelPre1 !== '-' ? $peoplePassLevelPre1 . '人' : '-'; ?></td>
+                            <td onclick="ACTUAL_GOAL_LEVEL.putDataToExamHistoryList(<?php echo $schoolYearId; ?>, 0)" class="txtcenter"><?php echo $precentPassLevelPre1 !== '-' ? $precentPassLevelPre1 . '%' : '-'; ?></td>
+                            <td onclick="ACTUAL_GOAL_LEVEL.putDataToExamHistoryList(<?php echo $schoolYearId; ?>, 0)"><?php echo $peoplePassLevel2 !== '-' ? $peoplePassLevel2 . '人' : '-'; ?></td>
+                            <td onclick="ACTUAL_GOAL_LEVEL.putDataToExamHistoryList(<?php echo $schoolYearId; ?>, 0)" class="txtcenter"><?php echo $precentPassLevel2 !== '-' ? $precentPassLevel2 . '%' : '-'; ?></td>
+                            <td onclick="ACTUAL_GOAL_LEVEL.putDataToExamHistoryList(<?php echo $schoolYearId; ?>, 0)"><?php echo $peoplePassLevelPre2 !== '-' ? $peoplePassLevelPre2 . '人' : '-' ?></td>
+                            <td onclick="ACTUAL_GOAL_LEVEL.putDataToExamHistoryList(<?php echo $schoolYearId; ?>, 0)" class="txtcenter"><?php echo $precentPassLevelPre2 !== '-' ? $precentPassLevelPre2 . '%' : '-'; ?></td>
+                            <td onclick="ACTUAL_GOAL_LEVEL.putDataToExamHistoryList(<?php echo $schoolYearId; ?>, 0)"><?php echo $peoplePassLevel3 !== '-' ? $peoplePassLevel3 . '人' : '-' ?></td>
+                            <td onclick="ACTUAL_GOAL_LEVEL.putDataToExamHistoryList(<?php echo $schoolYearId; ?>, 0)" class="txtcenter"><?php echo $precentPassLevel3 !== '-' ? $precentPassLevel3 . '%' : '-'; ?></td>
+                            <td onclick="ACTUAL_GOAL_LEVEL.putDataToExamHistoryList(<?php echo $schoolYearId; ?>, 0)"><?php echo $peoplePassLevel4 !== '-' ? $peoplePassLevel4 . '人' : '-' ?></td>
+                            <td onclick="ACTUAL_GOAL_LEVEL.putDataToExamHistoryList(<?php echo $schoolYearId; ?>, 0)" class="txtcenter"><?php echo $precentPassLevel4 !== '-' ? $precentPassLevel4 . '%' : '-' ?></td>
+                            <td onclick="ACTUAL_GOAL_LEVEL.putDataToExamHistoryList(<?php echo $schoolYearId; ?>, 0)"><?php echo $peoplePassLevel5 !== '-' ? $peoplePassLevel5 . '人' : '-'; ?></td>
+                            <td onclick="ACTUAL_GOAL_LEVEL.putDataToExamHistoryList(<?php echo $schoolYearId; ?>, 0)" class="txtcenter"><?php echo $precentPassLevel5 !== '-' ? $precentPassLevel5 . '%' : '-' ?></td>
+                        </tr>
+                        <?php
+                        if (!empty($resultClass[$schoolYearId])) {
+                            foreach ($resultClass[$schoolYearId] as $classId => $valueClass) {
+                                $className = isset($class[$classId]) ? trim($class[$classId]['className']) : '-';
+                                $className = $this->escapeHtml($className);
+                                switch ($eikenLevelId) {
+                                    case 1:
+                                        $targetPassFactClass = $valueClass['precentPassLevel1'];
+                                        break;
+                                    case 2:
+                                        $targetPassFactClass = $valueClass['precentPassLevelPre1'];
+                                        break;
+                                    case 3:
+                                        $targetPassFactClass = $valueClass['precentPassLevel2'];
+                                        break;
+                                    case 4:
+                                        $targetPassFactClass = $valueClass['precentPassLevelPre2'];
+                                        break;
+                                    case 5:
+                                        $targetPassFactClass = $valueClass['precentPassLevel3'];
+                                        break;
+                                    case 6:
+                                        $targetPassFactClass = $valueClass['precentPassLevel4'];
+                                        break;
+                                    case 7:
+                                        $targetPassFactClass = $valueClass['precentPassLevel5'];
+                                        break;
+                                    case '-':
+                                        $targetPassFactClass = '-';
+                                        break;
+                                    default:
+                                        $targetPassFactClass = 0;
+                                        break;
+                                }
+                                ?>
+                                <tr onclick="ACTUAL_GOAL_LEVEL.putDataToExamHistoryList(<?php echo $schoolYearId; ?>, <?php echo $classId; ?>)" class="<?php echo 'hidden-' . $schoolYearId; ?>"   style="display: none;">
+                                    <td class="bgwhite collapse-icon">
+                                        <input type="hidden" id="class_<?php echo $classId; ?>" value="<?php echo $className; ?>"/>
+                                    </td>
+                                    <td class="bgwhite txtleft no-border-left"><?php echo $className; ?></td>
+                                    <td class="bgwhite"><?php echo $valueClass['numberOfPeople']; ?>人</td>
+                                    <td class="bgwhite"><?php echo $eikenLevelName; ?></td>
+                                    <td class="bgwhite txtcenter"><?php echo $targetPass !== '-' ? ($targetPass . '%') : $targetPass; ?></td>
+                                    <td class="bgwhite txtcenter"><?php echo $targetPassFactClass !== '-' ? $targetPassFactClass . '%' : $targetPassFactClass; ?></td>
+                                    <td class="bgwhite txtcenter"><?php echo ($targetPassFactClass !== '-' && $targetPass !== '-') ? ($targetPass > 0 ? round(100 * ($targetPassFactClass / $targetPass)) . '%' : '0%') : '-'; ?></td>
+                                    <td class="bgwhite"><?php echo $valueClass['peoplePassLevel1'] ?>人</td>
+                                    <td class="bgwhite txtcenter"><?php echo $valueClass['precentPassLevel1'] . '%' ?></td>
+                                    <td class="bgwhite"><?php echo $valueClass['peoplePassLevelPre1'] ?>人</td>
+                                    <td class="bgwhite txtcenter"><?php echo $valueClass['precentPassLevelPre1'] . '%' ?></td>
+                                    <td class="bgwhite"><?php echo $valueClass['peoplePassLevel2'] ?>人</td>
+                                    <td class="bgwhite txtcenter"><?php echo $valueClass['precentPassLevel2'] . '%' ?></td>
+                                    <td class="bgwhite"><?php echo $valueClass['peoplePassLevelPre2'] ?>人</td>
+                                    <td class="bgwhite txtcenter"><?php echo $valueClass['precentPassLevelPre2'] . '%' ?></td>
+                                    <td class="bgwhite"><?php echo $valueClass['peoplePassLevel3'] ?>人</td>
+                                    <td class="bgwhite txtcenter"><?php echo $valueClass['precentPassLevel3'] . '%' ?></td>
+                                    <td class="bgwhite"><?php echo $valueClass['peoplePassLevel4'] ?>人</td>
+                                    <td class="bgwhite txtcenter"><?php echo $valueClass['precentPassLevel4'] . '%' ?></td>
+                                    <td class="bgwhite"><?php echo $valueClass['peoplePassLevel5'] ?>人</td>
+                                    <td class="bgwhite txtcenter"><?php echo $valueClass['precentPassLevel5'] . '%' ?></td>
+                                </tr>
+                                <?php
+                            }
+                        }
+                    }
+                } else {
+                    ?>
+                    <tr><td class="bgwhite" colspan="21"><?php echo $this->translate('MSG17_No_Result_Found'); ?></td></tr>
+                    <?php
+                }
+                ?>
+            </table>
+        </div>
+        <form id="searchExamHistoryList" method="POST" action="/history/eiken/exam-history-list">
+            <input type="hidden" name="searchYear" value="<?php echo $search['year'] ?>"/>
+            <input type="hidden" name="searchSchoolYear" value=""/>
+            <input type="hidden" name="schoolYearName" value=""/>
+            <input type="hidden" name="searchClass" value=""/>
+            <input type="hidden" name="className" value=""/>
+            <input type="hidden" name="searchVisible" value="1"/>
+        </form>
+
+    </div>
+</div>

@@ -1,0 +1,244 @@
+.fa-angle-right {
+    background: url(/img/black/svg/angle-right.svg) no-repeat;
+    background-size: cover;
+    display: inline-block;
+    height: 18px;
+    width: 18px;
+    position: relative;
+    outline: none;
+    vertical-align: middle;
+    background-position: 0px -2px;
+}
+.fa-download {
+    background: url(/img/white/svg/download.svg) no-repeat;
+    background-size: cover;
+    display: inline-block;
+    height: 18px;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+}
+.fa-download-1 {
+    background: url(/img/white/svg/download.svg) no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 23px;
+    width: 23px !important;
+    margin-bottom: 3px;
+    top: -4px;
+}
+.chevron-circle-right {
+    background: url('/img/white/svg/chevron-circle-right.svg') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 18px;
+    width: 18px !important;
+    margin-bottom: 3px;
+}
+.chevron-circle-right-m {
+    background: url('/img/white/svg/chevron-circle-right.svg') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 24px;
+    width: 24px !important;
+    margin-bottom: 3px;
+}
+.icon-preview {
+    background: url('/img/black/svg/fa-preview.svg') no-repeat;
+    background-size: cover;
+    display: block;
+    height: 16px;
+    width: 16px;
+    position: absolute;
+    margin: 2px 0 0 25px;
+    outline: none;
+}
+.icon-calendar {
+    background: url('/img/black/svg/calendar.svg') no-repeat;
+    background-size: cover;
+    height: 16px;
+    width: 16px;
+    display: inline-block;
+    outline: none;
+    vertical-align: middle;
+    margin: 0px 8px;
+}
+.icon-sign-out {
+    background: url('/img/other/sign-out.svg') no-repeat;
+    background-size: 12px;
+    fill: #666666;
+    display: inline-block;
+    height: 12px;
+    width: 12px;
+    vertical-align: middle;
+    position: relative;
+    outline: none;
+    background-position: 1px -2px;
+}
+.icon-home {
+    background: url('/img/white/svg/home.svg') no-repeat;
+    background-size: 14px;
+    fill: #666666;
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    vertical-align: middle;
+    position: relative;
+    outline: none;
+    background-position: 0px 0px;
+}
+.icon-signout-white {
+    background: url('/img/white/svg/sign-out.svg') no-repeat;
+    background-size: 30px;
+    fill: #666666;
+    display: inline-block;
+    height: 34px;
+    width: 34px;
+    vertical-align: middle;
+    position: relative;
+    outline: none;
+    background-position: 0px 0px;
+}
+.icon-question-sign-white {
+    background: url('/img/white/svg/question-circle.svg') no-repeat;
+    background-size: 30px;
+    fill: #666666;
+    display: inline-block;
+    height: 34px;
+    width: 34px;
+    vertical-align: middle;
+    position: relative;
+    outline: none;
+    background-position: 0px 0px;
+}
+.icon-comment-white {
+    background: url('/img/white/svg/comment.svg') no-repeat;
+    background-size: 30px;
+    fill: #666666;
+    display: inline-block;
+    height: 34px;
+    width: 34px;
+    vertical-align: middle;
+    position: relative;
+    outline: none;
+    background-position: 0px -2px;
+}
+.icon-toggle-navigation {
+    background: url('/img/white/svg/align-justify.svg') no-repeat;
+    background-size: 30px;
+    fill: #666666;
+    display: inline-block;
+    height: 34px;
+    width: 34px;
+    vertical-align: middle;
+    position: relative;
+    outline: none;
+    background-position: 0px 0px;
+}
+.fa-search {
+    background: url('/img/black/svg/search.svg') no-repeat;
+    background-size: 12px;
+    display: inline-block;
+    height: 13px;
+    width: 18px;
+    vertical-align: middle;
+    position: relative;
+    outline: none;
+    background-position: 0px 0px;
+}
+.sign-in {
+    background: url('/img/white/svg/sign-in.svg') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 15px;
+    width: 15px !important;
+    margin-bottom: 3px;
+}
+.sign-in-1 {
+    background: url('/img/white/svg/sign-in.svg') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 23px;
+    width: 23px !important;
+    margin-bottom: 3px;
+    top: -4px;
+}
+.question-sign-1 {
+    background: url("../img/other/fa-question-sign.svg") no-repeat;
+    background-size: 27px;
+    display: inline-block;
+    height: 22px;
+    width: 25px;
+    vertical-align: middle;
+    position: relative;
+    outline: none;
+    margin-right: 2px;
+    background-position: 0px 0px;
+}
+.credit-card {
+    background: url('/img/visamasterjcb.png') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    height: 28px;
+    width: 138px;
+    position: relative;
+}
+.arrow-circle-left {
+    background: url('/img/black/svg/arrow-circle-left.svg') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 18px;
+    width: 18px !important;
+    margin-bottom: 3px;
+}
+.check-square {
+    background: url(/img/white/svg/check-square.svg) no-repeat;
+    background-size: cover;
+    display: inline-block;
+    height: 18px;
+    width: 18px;
+    position: relative;
+    outline: none;
+    vertical-align: middle;
+    margin-bottom: 3px;
+}
+.arrow-circle-right-w {
+    background: url('/img/white/svg/arrow-circle-right') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 18px;
+    width: 18px !important;
+    margin-bottom: 3px;
+}
+.trash {
+    background: url('/img/black/svg/trash.svg') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    outline: none;
+    height: 18px;
+    width: 18px !important;
+    margin-bottom: 3px;
+}

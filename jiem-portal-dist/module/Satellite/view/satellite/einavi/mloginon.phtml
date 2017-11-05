@@ -1,0 +1,50 @@
+<?php $this->headLink()->prependStylesheet($this->basePath('css/einavi.mobile.css')) ?>
+<script type="text/javascript">
+    var MSG = <?php echo empty($jsMessages) ? 0 : $jsMessages; ?>;
+</script>
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('einavi', array(
+    'controller' => 'Einavi',
+    'action'     => 'loginon'
+)));
+$form->prepare();
+?>
+<?php echo $this->form()->openTag($form); ?>
+    <div class="panel">
+        <div class="panel-body">
+            <p class="text-login-einavi">
+                <?php echo $this->translate("header-text-einavi-login"); ?>
+            </p>
+
+            <div class="form-group">
+                <?php
+                $form->get('txtMailAdd')->setAttributes(array(
+                    "placeholder" => "英ナビ！ID"
+                ));
+                echo $this->formRow($form->get('txtMailAdd'));
+                $form->get('txtPassword')->setAttributes(array(
+                    "placeholder" => "パスワード"
+                ));
+                echo $this->formRow($form->get('txtPassword'));
+                ?>
+            </div>
+            <div class="form-group btn-login-group">
+                <button type="submit" class="btn-large-full btn-red btn-register-red" tabindex="4"><i class="sign-in-1"></i>クーポン適用</button>
+                <p class="for-got-pass-mobi">
+                    <a tabindex="3" class="for-got-pass" href="/einavi/forgot-password">
+                        <img class="icon-key" src="/img/other/key.svg">パスワードをお忘れの方</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading"><?php echo $this->translate('英ナビ！IDをまだお持ちでない方'); ?></div>
+        <div class="panel-body panel-body-registerbox">
+            <a tabindex="5" class="btn btn-large-full btn-register-silver"
+               href="<?php echo $this->url('satellite/default', array('controller' => 'einavi', 'action' => 'register')); ?>">
+                新規登録</a>
+        </div>
+    </div>
+<?php echo $this->form()->closeTag(); ?>
+<?php $this->headScript()->appendFile($this->basePath('js/einavi/einavi.login.js')) ?>

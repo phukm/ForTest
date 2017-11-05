@@ -1,0 +1,247 @@
+<?php  $paging = $this->eikenPaginationHelper($paginator , $page, '/history/eiken/pupil-achievement', $numPerPage, (empty($param)) ? '' : '/search/'.$param);
+
+    $this->headLink()->appendStylesheet($this->basePath('css/history/eiken-pupil-achievement.css'));
+    $this->headLink()->appendStylesheet($this->basePath('css/studentandclass.css'));
+    $this->headScript()->appendFile($this->basePath('js/history/pupil-achievement.js'));
+?>
+<?php
+    $form->setAttribute('action', $this->url('history/default', array(
+        'controller' => 'eiken',
+        'action' => 'pupil-achievement'
+    )));
+    $form->prepare();
+    echo $this->form()->openTag($form); ?>
+<input type="hidden" name="sortKey" id="sortKey">
+<input type="hidden" name="sortOrder" id="sortOrder" value="<?php echo $sortOrder; ?>">
+<input type="hidden" name="searchVisible" id="searchVisible" value="<?php echo $searchVisible; ?>">
+<div class="inquiryeiken">
+	<div class="box">
+		<div class="box-header" data-toggle="collapse" data-target="#search-box">
+		    <div class="search-header  sorting-field">
+                <i class="search-chevron-down"></i>
+                <b><?php echo $this->translate('検索条件') ;?></b>
+            </div>
+        </div>
+        <div id="search-box" aria-expanded="true" class="collapse in">
+		<div class="box-body box-search">
+
+            <div class="row search_list">
+				<div class="fl col1">
+					<label><?php echo $this->translate('学年') ;?></label>
+				</div>
+				<div class="fl col2 styled-select">
+    			  <?php echo $this->formselect($form->get('orgSchoolYear')); ?>
+    			</div>
+				<div class="fl col3">
+					<label><?php echo $this->translate('クラス') ;?></label>
+				</div>
+				<div class="fl col4 styled-select">
+    			  <?php echo $this->formselect($form->get('classj')); ?>
+    			</div>
+				<div class="fl col5">
+					<label><?php echo $this->translate('氏名') ;?></label>
+				</div>
+				<div class="fl col6 input-name">
+    			  <?php echo $this->formrow($form->get('name')); ?>
+    			</div>
+			</div>
+		</div>
+		<div class="box-footer box-submit">
+			<div class="row fr">
+				<a href="javascript:void(0)" id="clearsearch"
+					class="btn btn-small btn-clear"><?php echo $this->translate("クリア"); ?></a>
+				<a class="btn btn-small btn-search-list" href="javascript:void(0);"
+					id="submitsearch"><i class="fa-search"></i> <?php echo $this->translate("検索"); ?></a>
+			</div>
+		</div>
+		</div>
+	</div>
+	<div class="box">
+		<div class="box-header">
+            <?php echo $this->translate('英検試験結果一覧') ;?>
+		</div>
+		<div class="box-body">
+		    <div>
+    		    <label class="font-mark"> 英検の試験結果の一覧となります。<br>
+                    <span class="marginleft"></span>「個人成績表」ボタンを押すと、個人の成績表が確認できます。
+                </label>
+		    </div>
+			<div class = "row">
+				<strong>
+					<?php echo $this->escapehtml($sessionYear) . '年度第' . $this->escapehtml($sessionKai) . '回'; ?>
+				</strong>
+				<?php
+				$arrUrl = array(
+					'controller'    => 'eiken',
+					'action'        => 'pupil-achievement',
+					'isExportExcel' => 1,
+				);
+
+				if ($param) {
+					$arrUrl['search'] = $param;
+				}
+				?>
+				<a href = "<?php echo $this->url('history/default', $arrUrl); ?>"
+				   <?php echo empty($roleLimit) ? '' : 'disabled'; ?> class="btn btn-red pull-right mrgt25">
+					<?php echo $this->translate('EXCEL出力'); ?>
+				</a>
+			</div>
+                    <div class="clearfix"></div>
+					<table class="table table-bordered table-striped">
+						<thead>
+							<tr class="trhead">
+								<th class="orgclassfication"><?php echo $this->translate('学校<br>区分') ;?></th>
+								<th class="schoolyear"><?php echo $this->translate('学年') ;?></th>
+								<th class="class"><?php echo $this->translate('クラス') ;?></th>
+								<th class="number"><?php echo $this->translate('番号') ;?></th>
+								<th class="namekacomme"><?php echo $this->translate('氏名<br>（漢字）') ;?></th>
+								<th class="eikenlevel"><?php echo $this->translate('受験級') ;?></th>
+								<th class="passfail1"><?php echo $this->translate('一次合<br>否結果') ;?></th>
+								<th class="eikentotal1"><?php echo $this->translate('一次<br>試験<br>スコア') ;?></th>
+                                                                <th class="eikenBand1"><?php echo $this->translate('英検<br>バンド<br>一次') ;?></th>
+								<th class="passfail2"><?php echo $this->translate('二次合<br>否結果') ;?></th>
+								<th class="eikentotal2"><?php echo $this->translate('二次<br>試験<br>スコア') ;?></th>
+                                                                <th class="eikenBand2"><?php echo $this->translate('英検<br>バンド<br>二次') ;?></th>
+								<th class="action"><?php echo $this->translate('突合状況') ;?></th>
+                                                                <th class="action"><?php echo $this->translate('操作') ;?></th>
+							</tr>
+						</thead>
+						<tbody>
+					   <?php if (!empty($inquiryeiken)) { ?>
+					   <?php foreach ($inquiryeiken as $key => $value): ?>
+						<tr class="trbody">
+								<td class="orgclassfication">
+    								<?php
+    								    $orgClassification = $value['schoolClassification'];
+
+    								    if(in_array($orgClassification, array_keys($classification)) && $orgClassification){
+    								        echo $this->escapehtml($classification[$orgClassification]);
+    								    }else{
+    								        echo $value['schoolClassification'];
+    								    }
+    								?>
+								</td>
+								<td class="schoolyear"><?php echo $this->escapehtml($value['schoolYearName']);?></td>
+								<td class="class"><?php echo $this->escapehtml($value['className']);?></td>
+								<td class="number">
+    								<?php
+    								    if($value['pupilId'] != null){
+    								        echo $value['pupilNo'];
+    								    }else{
+    								        echo '&nbsp;';
+    								    }
+    								?>
+								</td>
+								<td class="namekacomme">
+								<?php
+    								if(!empty($value['pupilId'])){
+    								    echo $this->escapehtml($value['tempNameKanji']);
+    								}else{
+    								    echo $this->escapehtml($value['pupilName']);
+    								}
+								?>
+								</td>
+								<td class="eikenlevel"><?php echo $this->escapehtml($value['eikenlevelLevelName']);?></td>
+								<td class="passfail1">
+    								<?php
+                                        if ($value['oneExemptionFlag'] == 1) {
+                                            if(!empty($value['firstExamResultsFlagForDisplay'])){
+                                                echo $value['firstExamResultsFlagForDisplay'];
+                                            }else{
+                                                echo '&nbsp'; 
+                                            }
+                                        } else{
+                                            if ($value['primaryPassFailFlag'] == 1) {
+                                                echo '合格';
+                                            } elseif ($value['primaryPassFailFlag'] != 1) {
+                                                echo '不合格';
+                                            } else {
+                                                echo '&nbsp';
+                                            }
+                                        }
+                                    ?>
+                                </td>
+                                <td class="eikentotal1">
+                                    <?php 
+                                    if(in_array($value['eikenLevelId'], array(1, 2, 3, 4, 5))){
+                                        echo $value['cSEScoreReading'] + $value['cSEScoreListening'] + $value['cSEScoreWriting'];
+                                    }else{
+                                        echo $value['cSEScoreReading'] + $value['cSEScoreListening'];
+                                    }
+                                    
+                                    ?>
+                                </td>
+                                <td class="eikenBand1"><?php echo $value['eikenBand1']; ?></td>
+								<td class="passfail2">
+    								<?php
+                                                                    if ($value['secondPassFailFlag'] == 1) {
+                                                                        echo '合格';
+                                                                    } elseif($value['secondPassFailFlag'] === 0){
+                                                                        echo '不合格';
+                                                                    }else{
+                                                                        echo '&nbsp';
+                                                                    }
+                                                                ?>
+                                </td>
+                                <td class="eikentotal2"><?php echo $value['scoreRound2'];?></td>
+                                <td class="eikenBand2"><?php echo $value['eikenBand2']; ?></td>
+                                <td class="confirm-status">
+                                    <?php 
+                                        if($value['mappingStatus'] == 0){
+                                            echo "未確定";
+                                        }elseif($value['mappingStatus'] == 1){
+                                            echo "確定済";
+                                        }else{
+                                            echo "&nbsp";
+                                        }
+                                    ?>
+                                </td>
+								<td class="view-button"><a class="btn btn-view view-label"
+									href="<?php
+                                        echo $this->url('history/default', array(
+                                            'controller' => 'eiken',
+                                            'action' => 'personal-achievement',
+                                            'id' => $value['id']
+                                        ));
+                                        ?>">
+                                    <?php echo $this->translate('個人成績表') ;?>
+    							</a></td>
+							</tr>
+					<?php endforeach; ?>
+					<?php } else { ?>
+					<tr class="no-result">
+                        <td colspan="11" class="noresult">
+									<p><?php echo $this->translate("MSG17");?></p></td>
+                    </tr>
+                    <?php }; ?>
+					</tbody>
+					</table>
+			<?php if (!empty($inquiryeiken) && count($paginator) > $numPerPage) { ?>
+    			<div class="text-center paging">
+    				<nav>
+    					<ul class="pagination">
+                            <?php  echo $paging; ?>
+						</ul>
+    				</nav>
+    			</div>
+			<?php }?>
+		</div>
+		<div class="box-footer">
+            <div class="row ">
+                <a href="<?php echo $this->url('history/default',array('controller' => 'eiken', 'action' => 'exam-result'));?>" class="btn btn-large-180 ">
+				    <i class="arrow-circle-left"></i> 戻る
+			    </a>
+            </div>
+		</div>
+	</div>
+</div>
+<?php  echo $this->form()->closeTag(); ?>
+
+<script>
+$(document).ready(function() {
+    var noRecordExcel = "<?php echo $noRecordExcel; ?>";
+    if(noRecordExcel.length > 0){
+        ERROR_MESSAGE.show(noRecordExcel);
+    }
+});
+</script>

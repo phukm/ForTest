@@ -1,0 +1,116 @@
+
+#apply-eiken-detail .text-bold{
+    font-weight: bold;
+}
+
+.text-normal{
+    font-weight: normal;
+}
+
+.mt20{
+    margin-top: 20px;
+}
+
+.mr10{
+    margin-right: 10px;
+}
+
+.mr20{
+    margin-right: 20px;
+}
+
+.mw120{
+    width: 120px;
+}
+
+.wp30{
+    width: 20%;
+}
+
+.label-column{
+    width: 50%;
+}
+
+.wp25{
+    width: 25%;
+}
+
+.wp20{
+    width: 20%;
+}
+
+#apply-eiken-detail .text-bold{
+    font-weight: bold;
+}
+
+#apply-eiken-detail{
+    font-size: 24px;
+    padding: 30px 20px; 
+}
+
+#apply-eiken-detail .box-footer{
+    margin-top: 15px;
+    margin-left: 0px !important;
+}
+
+#apply-eiken-detail .box-footer .btn{
+    font-weight: bold;
+    width: 28%;
+    height: 50px;
+    font-size: 25px;
+}
+
+.radio-box{
+    width: 20px;
+    height: 20px;
+}
+#apply-eiken-detail{
+    padding: 30px;
+}
+
+#apply-eiken-detail td{
+    vertical-align: top;
+}
+
+#apply-eiken-detail table {
+    margin: auto; 
+} 
+#apply-eiken-detail .box-header { 
+    margin-left: -15px; margin-bottom: 10px; 
+}
+#apply-eiken-detail thead td {
+    background-color: #ffd5d5;
+    font-weight: bold;
+}
+table thead td{
+    text-align: center !important;
+}
+table.text-center tbody td{
+    text-align: center;
+}
+.user-name-infor{
+    border-bottom: 1px solid red;
+    font-size: 26px;
+}
+.box-header{
+    color: #000000;
+    display: block;
+    padding: 15px 4.25%;
+    font-size: 18px;
+    border-bottom: 1px solid #DADADA;
+    position: relative;
+    font-weight: bold;
+    line-height: 18px;
+    height: 37px;
+}
+table.text-center tbody td.round2date{
+    text-align: left;
+    width:40%;
+}
+.width-185{
+    width: 36% !important;
+    font-size: 70% !important;
+}
+.popicy-apply{
+    margin-bottom: 0px;
+}

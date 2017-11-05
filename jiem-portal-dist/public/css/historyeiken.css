@@ -1,0 +1,452 @@
+
+/* historyeiken */
+.center{text-align: center !important;}
+.frm-historyeiken input[type="radio"] {
+    margin-right: 8px;
+}
+.frm-historyeiken .col-sm-3 label {
+    margin-right: 18px;
+    font-weight: 200;
+}
+.frm-historyeiken .box-header{
+	color: #000000;
+    display: block;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-bottom: 1px solid #DADADA;
+    position: relative;
+    font-weight: bold;
+    line-height: 17px;	
+}
+        .headcol {
+            position:absolute; 
+            width:5em; 
+            right:0;
+            top:auto;
+            border-right: 0px none black; 
+            border-top-width:3px; /*only relevant for first row*/
+/*             margin-top:-3px; compensate for top border */
+        }
+/*         .headcol:after{content: 'Row ';} */
+        .long { letter-spacing:5em; }
+
+.resultacg-table-scroll{	
+ width: auto; 
+            overflow-x:scroll;  
+            margin-right:5em; 
+            overflow-y:visible;
+            padding-bottom:1px; 
+	
+}      
+.frm-historyeiken .table-bordered{
+    margin-bottom: 0px!important;
+	
+}
+.frm-historyeiken .box-body {
+    border-radius: 0px;
+    padding: 9px 0px 0px 20px;
+}
+.frm-historyeiken .width48{
+	width: 48px;
+
+}
+.frm-historyeiken .width98{
+    width: 98px;
+        margin-right: 40px;     
+}
+.frm-historyeiken .width140{
+    width: 140px;    
+        margin-right: 40px; 
+}
+.frm-historyeiken .width62{
+    width: 62px;    
+}
+.frm-historyeiken .width250{
+    width: 250px;
+}
+.frm-historyeiken .hidden-row {
+    visibility: hidden;
+    border: none !important;
+}
+.frm-historyeiken #btnClear{
+        margin-right: 15px;
+}
+
+.frm-historyeiken1 .width70{
+    min-width: 70px;
+}
+.frm-historyeiken1 .width125{
+    min-width: 125px;
+}
+.frm-historyeiken1 .width55{
+    min-width: 55px;
+}
+.frm-historyeiken1 .width90{
+    min-width: 88px;
+}
+.frm-historyeiken1 .width82{
+    min-width: 82px;
+}
+.frm-historyeiken1 .width165{
+    min-width: 165px;
+}
+.frm-historyeiken1 .width245{
+    min-width: 243px;
+}
+
+.frm-historyeiken1 .btn-small-107 {
+    width: 107px;
+     font-size: 12px;
+    min-height: 25px;
+    padding: 0px 10px;
+}
+.frm-historyeiken1 .btn-small-105 {
+    width: 105px;
+    margin-left: 5px;
+     font-size: 12px;
+    min-height: 25px;
+    padding: 0px 10px;
+}
+/* ibahistorypupil */
+
+.ibahistorypupil .width65{
+    min-width:65px;
+}
+.ibahistorypupil .width45{
+        min-width:45px;
+}
+.ibahistorypupil .width75{
+        min-width:75px;
+}
+.ibahistorypupil .width125{
+        min-width:125px;
+}
+.ibahistorypupil .width120{
+        min-width:120px;
+}
+.ibahistorypupil .width115{
+        min-width:115px;
+}
+.ibahistorypupil .width150{
+        min-width:150px;
+}
+.ibahistorypupil .width70{
+        min-width:70px;
+}
+.ibahistorypupil .width95{
+        min-width:95px;
+}
+.ibahistorypupil .width135{
+        min-width:135px;
+}
+.ibahistorypupil .width77{
+        min-width:77px;
+}
+.ibahistorypupil .width105{
+        min-width:105px;
+}
+.ibahistorypupil .width55{
+        min-width:55px;
+}
+.ibahistorypupil .width60{
+        min-width:60px;
+}
+.ibahistorypupil .width140{
+        min-width:140px;
+}
+.ibahistorypupil .confirm{
+        text-align: left !important;
+}
+.ibahistorypupil .btn-small-89 {
+    width: 89px;
+     font-size: 12px;
+    min-height: 25px;
+    padding: 0px 10px;
+}
+.ibahistorypupil  table {
+        border-collapse:inherit;
+        border-spacing: 0em!important;
+        width: 1225px;
+    }
+.ibahistorypupil  th, td {
+        border: 1px solid gray;
+    }
+.ibahistorypupil  th {
+        background-color: #ffd5d5;
+        border-width: 1px;
+    }
+.ibahistorypupil  td {
+        border-width: 1px;
+    }
+.ibahistorypupil  tr:first-child td {
+        border-top-width: 0;
+    }
+
+.ibahistorypupil  tr:nth-child(even) {
+        background-color: #eee;
+    }
+    .ibahistorypupil .scrolltable {
+        /* overflow-x: scroll;*/
+        height: 100%;
+        display: flex;
+        display: -webkit-flex;
+        flex-direction: column;
+        -webkit-flex-direction: column;
+        -moz-flex-direction: column;
+           -ms-flex-direction: column;
+    }  
+ .ibahistorypupil .box-body {
+  border-radius: 0px;
+  padding: 5px 20px 20px 20px;
+}   
+ 
+.ibahistorypupil .body { 
+        width: auto; 
+        overflow-x:scroll;  
+        margin-right:110px; 
+        overflow-y:hidden;
+        border-left: 1px solid #ddd;
+ }
+ .ibahistorypupil .headcol {
+        position:absolute;
+        top:auto;
+        right: 20px;
+        margin-left: 0px;
+        width: 111px;
+        border-top:none;
+        text-align: left;
+        margin-bottom: -2px;    
+    }
+     .ibahistorypupil .headcole {
+        height: 81px;    
+    }
+.ibahistorypupil  .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+  border-top: 0px solid #ddd;
+  border-right: 0px solid #ddd;
+  line-height: 1.40857;
+  padding: 10px;
+  text-align: left;
+  vertical-align: middle;
+
+}
+.ibahistorypupil  .table>tbody>tr>td{
+  border-top: 0px solid #ddd;
+   border-right: 0px solid #ddd;
+  line-height: 1.40857;
+  padding: 10px;
+  text-align: right;
+  vertical-align: middle;
+
+}
+
+.ibahistorypupil .exam-date{
+  border-top: 0px solid #ddd;
+   border-right: 1px solid #ddd;
+  line-height: 1.40857;
+  padding: 10px;
+  text-align: left !important;
+  vertical-align: middle;
+
+}
+
+.ibahistorypupil .testset{
+  border-top: 0px solid #ddd;
+   border-right: 1px solid #ddd;
+  line-height: 1.40857;
+  padding: 10px;
+  text-align: left !important;
+  vertical-align: middle;
+
+}
+    
+.ibahistorypupil .headcol{
+   border-left: 1px solid #898989 !important; 
+   }
+.ibahistorypupil .long { letter-spacing:0em; }
+    div.scrolltable .table{
+        margin-bottom: -1px;
+    }
+.ibahistorypupil .columEnd{
+        border-right: none;
+    }
+/* frm-historypupil */
+
+.frm-historypupil .width65{
+	min-width:65px;
+}
+.frm-historypupil .width45{
+        min-width:45px;
+}
+.frm-historypupil .width75{
+        min-width:75px;
+}
+.frm-historypupil .width125{
+        min-width:125px;
+}
+.frm-historypupil .width120{
+        min-width:120px;
+}
+.frm-historypupil .width121{
+        min-width:121px;
+}
+.frm-historypupil .width115{
+        min-width:115px;
+}
+
+.frm-historypupil .width150{
+        min-width:150px;
+}
+.frm-historypupil .width70{
+        min-width:70px;
+}
+
+.frm-historypupil .btn-small-89 {
+    width: 89px;
+     font-size: 12px;
+    min-height: 25px;
+    padding: 0px 10px;
+}
+ .frm-historypupil .scrolltable {
+        /* overflow-x: scroll;*/
+        height: 100%;
+        display: flex;
+        display: -webkit-flex;
+        flex-direction: column;
+        -webkit-flex-direction: column;
+        -moz-flex-direction: column;
+           -ms-flex-direction: column;
+    }
+ .frm-historypupil .body { 
+        width: auto; 
+        overflow-x:scroll;  
+        margin-right:110px; 
+        overflow-y:hidden;
+    
+ }
+ .frm-historypupil .headcol {
+        position:absolute;
+        top:auto;
+        right: 20px;
+        margin-left: 0px;
+        width: 111px;
+        border-top:none;
+        text-align: left;
+        margin-bottom: -2px;
+        
+    }
+  .frm-historypupil  table {
+        border-collapse: inherit;
+        border-spacing: 0em!important;
+        width: 1700px;
+    }
+  .frm-historypupil  th, td {
+        border: 1px solid gray;
+    }
+  .frm-historypupil  th {
+        background-color: lightgrey;
+        border-width: 1px;
+    }
+  .frm-historypupil  td {
+        border-width: 1px;
+    }
+  .frm-historypupil  tr:first-child td {
+        border-top-width: 0;
+    }
+  .frm-historypupil  tr:nth-child(even) {
+        background-color: #eee;
+    }
+  .frm-historypupil  .table>tbody>tr>td, .table>tfoot>tr>td, .table>tfoot>tr>th {
+  border-top: 0px solid #ddd;
+   border-right: 1px solid #ddd;
+  line-height: 1.40857;
+  padding: 10px;
+  text-align: right;
+  vertical-align: middle;
+}  
+ .frm-historypupil .headcol{
+   border-left: 1px solid #898989 !important; 
+   }
+   .frm-historypupil .long { letter-spacing:0em; }
+    div.scrolltable .table{
+        margin-bottom: 0px;
+    }
+   .frm-historypupil .columEnd{
+        border-right: none;
+    }
+    .frm-historypupil .box-body {
+  border-radius: 0px;
+  padding: 5px 20px 20px 20px;
+}  
+
+.table>tbody>tr>th{
+	text-align: center;
+}
+
+.ibahistorypupil .headcol{
+	text-align: center;
+	line-height: 61px;
+}
+
+.paging{
+    height:53px;
+}
+
+.ibahistorypupil .pagination .active a {
+    background: #dddddd;
+    border: none;
+    border-bottom: 1px solid #dddddd;
+    border-top: 1px solid #dddddd;
+}
+
+.ibahistorypupil .table>tbody>tr>td p{
+    text-align: left;
+    margin-bottom: 0px;
+}
+
+/* sub-table */
+.ibahistorypupil .sub-table{
+    border:1px solid #ddd;
+}
+
+.ibahistorypupil .schoolyear-label{
+    border-right:1px solid #ddd;background-color: #ffd5d5;width:90px;
+}
+.schoolyear-label label{
+    width:90px;margin: 5px 0px 5px 0px;text-align:center;
+}
+.ibahistorypupil .schoolyear-data{
+    width:112px;
+}
+.schoolyear-data p{
+    width:112px;margin: 5px 0px 5px 0px;text-align:center;
+}
+
+.ibahistorypupil .class-label, .ibahistorypupil .number-label{
+    border-right:1px solid #ddd;border-left:1px solid #ddd;background-color: #ffd5d5;width:90px;
+}
+.class-label label, .number-label label{
+    width:90px;margin: 5px 0px 5px 0px;text-align:center;
+}
+.ibahistorypupil .class-data, .ibahistorypupil .number-data{
+    width:112px;
+}
+.class-data p, .number-data p{
+    width:112px;margin: 5px 0px 5px 0px;text-align:center;
+}
+
+.ibahistorypupil .name-label{
+    border-right:1px solid #ddd;border-left:1px solid #ddd;background-color: #ffd5d5;width:90px;
+}
+.name-label label{
+    width:90px;margin: 5px 0px 5px 0px;text-align:center;
+}
+.ibahistorypupil .name-data{
+    width:190px;
+}
+.name-data p{
+    margin: 5px 0px 5px 0px;text-align:center;
+}
+
+.ibahistorypupil .marginleft{
+    margin-left: -7px;
+}

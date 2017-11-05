@@ -1,0 +1,173 @@
+<?php $this->headLink()->appendStylesheet($this->basePath('css/history/iba-mapping-result-r3.css')); ?>
+<?php $paginator = $this->paginationHelper($data, $page, '/history/iba/iba-mapping-result/year/' . $year . '/jisshiId/' . $jisshiId. '/examType/' . $examType, 20); ?>
+<div class="iba-mapping-result">
+    <div class="box frm-eiken-form-search" id="divSeachForm">
+        <div class="box-header"  data-toggle="collapse" data-target="#search-box">
+            <div class="search-header  sorting-field">
+                <i class="search-chevron-down"></i>
+                <b><?php echo $this->translate('検索条件'); ?></b>
+            </div>
+        </div>
+        <form id="formSearch" method="POST">
+            <input type="hidden" name="year" id="year" value="<?php echo $year; ?>">
+            <input type="hidden" name="jisshiId" id="jisshiId" value="<?php echo $jisshiId; ?>">
+            <input type="hidden" name="examType" id="examType" value="<?php echo $examType; ?>">
+            <input type="hidden" name="token" id="token" value="<?php echo $token; ?>">
+            <div id="search-box" aria-expanded="true" class="collapse in">
+                <div class="box-body height-110">
+                    <div class="styled-select">
+                        <div class="col-sm-1">
+                            <b>学年</b>
+                        </div>
+                        <div class="col-sm-1 styled-select dropdown">
+                            <select name="schoolYearId" class="form-control" id="schoolYearId" tabindex="1">
+                                <option value=""></option>
+                                <?php foreach ($schoolYear as $val) { ?>
+                                    <option <?php if (isset($searchParams['schoolYearId']) && $searchParams['schoolYearId'] == $val['id']) echo 'selected'; ?> value="<?php echo $val['id']; ?>"><?php echo $val['displayName']; ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <div class="col-sm-1 ">
+                            <b>クラス</b>
+                        </div>
+                        <div class="col-sm-1 styled-select dropdown">
+                            <select name="classId" class="form-control" id="classId" tabindex="1">
+                                <option value=""></option>
+                                <?php foreach ($class as $val) { ?>
+                                    <option <?php if (isset($searchParams['classId']) && $searchParams['classId'] == $val['id']) echo 'selected'; ?> value="<?php echo $val['id']; ?>"><?php echo $val['className']; ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <div class="col-sm-1">
+                            <b>氏名</b>
+                        </div>
+                        <div class="col-sm-1 styled-select dropdown">
+                            <input type="text" name="nameKana" id="nameKana" value="<?php echo isset($searchParams['nameKana']) ? $searchParams['nameKana'] : ''; ?>" tabindex="4" class="form-control"/>
+                        </div>
+                        <div class="col-sm-1">
+                            <b>突合状況</b>
+                        </div>
+                        <div class="col-sm-1 styled-select dropdown clear-margin">
+                            <select name="mappingStatus" class="form-control" id="status" tabindex="1">
+                                <option value=""></option>
+                                <?php foreach ($mappingStatus as $status => $item) { ?>
+                                    <option <?php if (isset($searchParams['mappingStatus']) && $searchParams['mappingStatus'] === (string)$status) echo 'selected'; ?> value="<?php echo $status; ?>"><?php echo $item; ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <div class="col-sm-12 text-right">
+                        <a id="btnClear" class="btn btn-clear" tabindex="6" href="/history/iba/clear<?php echo $str = '/year/' . $year . '/jisshiId/' . $jisshiId. '/examType/' . $examType; ?>">クリア</a>
+                        <button type="button" id="btnSearch" class="btn btn-small" tabindex="7">
+                            <i class="fa fa-search"></i>検索
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="box">
+        <div class="box-header"><?php echo $this->translate('実施日 ' . $testDate); ?></div>
+        <div class="box-body" id="list-container">
+            <div class="top-mark">
+                <label class="font-mark color-red">
+                    名簿突合わせ　確定数
+                    <span><?php echo isset($arrayConfirm['confirmed']) ? $arrayConfirm['confirmed'] : 0; ?></span>　
+                    未確定数  <span><?php echo isset($arrayConfirm['unconfirm']) ? $arrayConfirm['unconfirm'] : 0; ?></span>
+                </label>
+                <div class="m-g-b-5 text-right">                  
+                        <button type="button" id="btnDetails" class="btn btn-higher"><i class="pencil-square"></i>編集する</button><button id="btnConfirm" class="btn btn-higher btn_del" type="button">
+                        <i class="arrow-circle-right"></i>確定する</button>
+                </div>
+            </div>
+            <table class="table table-bordered table-striped" id="iba-mapping">
+                <thead>
+                    <tr class="red">
+                        <th rowspan="2"><input type="checkbox" name="selectAll" id="selectAll"></th>
+                        <th colspan="4">試験結果レコード</th>
+                        <th colspan="5"><span>名簿上の生徒データ</span></th>
+                        <th rowspan="2" class="width64">突合状況</th>
+                    </tr>
+                    <tr class="red">
+                        <th class="width114">氏名（カナ）</th>
+                        <th class="width110">生年月日</th>
+                        <th class="width60">受験級</th>
+                        <th class="width60">点数</th>
+                        <th class="width114"><span> 氏名（カナ）</span></th>
+                        <th class="width110"><span>生年月日</span></th>
+                        <th class="width60"><span>年度</span></th>
+                        <th class="width114"><span>学年</span></th>
+                        <th class="width60"><span>クラス</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if($result): ?>
+                    <?php foreach($result as $value): ?>
+                    <tr class="red">
+                        <td><input id="<?php echo $value['id']; ?>" type="checkbox" name="id[]" value="<?php echo $value['id']; ?>"></td>
+                        <td class="width114"><?php echo isset($value['nameKana']) ? $value['nameKana'] : ''; ?></td>
+                        <td><?php echo isset($value['birthday']) ? $value['birthday'] : ''; ?></td>
+                        <td><?php echo isset($value['eikenLevelTotal']) ? $value['eikenLevelTotal'] : ''; ?></td>
+                        <td class="text-right"><?php echo isset($value['total']) ? $value['total'] : ''; ?></td>
+                        <td class="width114"><span><?php echo isset($value['preTempNameKana']) ? $value['preTempNameKana'] : ''; ?></span></td>
+                        <td><span><?php echo isset($value['tempBirthday']) ? $value['tempBirthday'] : ''; ?></span></td>
+                        <td><span><?php echo (isset($value['year']) && !empty($value['pupilId'])) ? $value['year'] : ''; ?></span></td>
+                        <td><span><?php echo isset($value['tempSchoolYearName']) ? $value['tempSchoolYearName'] : ''; ?></span></td>
+                        <td><span><?php echo isset($value['tempClassName']) ? $value['tempClassName'] : ''; ?></span></td>
+                        <td><?php echo isset($value['mappingStatus']) ? $value['mappingStatus'] : ''; ?></td>
+                    </tr>
+                    <?php endforeach; ?>
+                    <?php else: echo '<tr><td colspan="11" class="text-left">'.json_decode($messages)->noResultIsFoundMSG12.'</td></tr>'; ?>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+            <?php if(!empty($paginator)){ ?>
+                <div class="text-center paging">
+                    <nav>
+                        <ul class="pagination">
+                            <?php echo $paginator; ?>
+                        </ul>
+                    </nav>
+                </div>
+            <?php } ?>
+        </div>
+        <div class="box-footer">
+            <div class="text-left col-sm-4">
+                <a class="btn btn-large-180" href="/history/eiken/exam-result">
+                    <i class="arrow-circle-left"></i> 戻る
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<?php $this->headScript()->prependFile($this->basePath('js/history/mapping-iba-exam-result.js')) ?>
+<script>
+    var saveDataSuccess = <?php echo \History\HistoryConst::SAVE_TO_DATABASE_SUCCESS; ?>;
+    var messages = <?php echo isset($messages) ? $messages : '0'; ?>;
+    var pupilByYear = <?php echo isset($pupilByYear) ? $pupilByYear : '0'; ?>;
+    var warningMessage = '<?php echo isset($warningMessage) ? $warningMessage : '0'; ?>';
+    var unconfirm = <?php echo isset($arrayConfirm['unconfirm']) ? $arrayConfirm['unconfirm'] : 0; ?>;
+    MAPPING_EXAM_RESULT.callGetClass();
+    MAPPING_EXAM_RESULT.initital();
+</script>
+<?php
+if($flagNoNameKanna && isset($arrayConfirm['unconfirm']) && $arrayConfirm['unconfirm']>0){
+?>
+<script type="text/javascript">       
+                      
+	ALERT_MESSAGE.show(warningMessage,
+            function()
+            {
+                
+            }, function(){});
+            
+        $('#nonameKana').click(function () {
+            var year = $("#year").val();
+            window.open(COMMON.baseUrl + 'history/iba/empty-name-kana' + '?year=' + year);
+        });    
+</script>
+<?php 
+}
+?>

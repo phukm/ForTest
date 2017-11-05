@@ -1,0 +1,70 @@
+<?php echo $this->doctype(); ?>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <?php
+    echo $this->headTitle('英検受験者サポートシステム ' . $this->translate('Login'))->setSeparator(' - ')->setAutoEscape(false);
+    echo $this->headMeta()
+        ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+        ->appendHttpEquiv('X-UA-Compatible', 'IE=edge');
+    echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/eiken-logo.jpg'))
+        ->prependStylesheet($this->basePath('css/Login.css?v=0.1'))
+        ->prependStylesheet($this->basePath('css/JIEMStyle.css'))
+        ->prependStylesheet($this->basePath('css/bootstrap.min.css'))
+        ->prependStylesheet($this->basePath('css/icon-awesome-sa.css'))
+        ->prependStylesheet($this->basePath('css/jquery-ui.css'));
+    echo $this->headScript()
+        ->prependFile($this->basePath('js/localization/messages_ja.js'))
+        ->prependFile($this->basePath('js/bootstrap.min.js'))
+        ->prependFile($this->basePath('js/app.js'))
+        ->prependFile($this->basePath('js/jquery.validate.js'))
+        ->prependFile($this->basePath('js/jquery.min.js'))
+        ->prependFile($this->basePath('js/respond.min.js'), 'text/javascript', array('conditional' => 'lt IE 9'))
+        ->prependFile($this->basePath('js/html5shiv.js'), 'text/javascript', array('conditional' => 'lt IE 9'));
+    ?>
+    <!--[if lt IE 10]>
+    <style>#frmLogin .col-sm-6 { width: 279px !important; } </style> <![endif]-->
+</head>
+<body>
+<div class="wrapper login-background login">
+    <header class="main-header">
+        <div class="login-top text-center">
+            <div class="container login-page-header">
+                <div class="col-sm-2 col-xs-2">
+                    <img class="login-logo"
+                         src="<?php echo $this->basePath('img/eiken-logo.jpg') ?>"/>
+                </div>
+                <div class="col-sm-10 col-xs-10">
+                    <p class="login-label-header">英検受験者</p>
+
+                    <p class="login-label-header">サポートシステム</p>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="content-wrapper">
+        <?php echo $this->content; ?>
+    </div>
+    <footer class="main-footer">
+        <div class="top">
+            <div class="col-sm-2 pull-left">
+                <span><a href="/satellite/commercial_law">特定商取引法に<br>基づく表記</a></span>
+            </div>
+            <div class="col-sm-4 pull-left">
+                <span>お問い合わせ先<br>英検サービスセンター（個人受付）</span>
+            </div>
+            <div class="col-sm-2 pull-left">
+                <span>電話番号<br>03-3266-8311</span>
+            </div>
+            <div class="col-sm-4 pull-right">
+                <span>受付時間<br>9:30〜17:00 (土・日・祝日を除く)</span>
+            </div>
+        </div>
+        <div class="midder"></div>
+        <div class="bottom">
+            <div class="col-sm-12">Copyright © Eiken Foundation of Japan All rights reserved.</div>
+        </div>
+    </footer>
+</div>
+</body>
+</html>

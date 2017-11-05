@@ -1,0 +1,98 @@
+<?php $this->headLink()->prependStylesheet($this->basePath('css/resultacg.css')) ?>
+<div class="box">
+    <div class="box-header">
+        <?php echo $this->translate('英検級取得率：目標対実績（年度比較）'); ?>
+    </div>
+    <div class="box-body text-right">
+        <div class="resultacgy">
+
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th class="hidden-row"></th>
+                        <?php for ($year = $search['yearFrom']; $year <= $search['yearTo']; $year++) { ?>
+                            <th colspan="4" width="260"><?php echo $year; ?>年 </th>
+                        <?php } ?>
+                    </tr>
+                </thead>
+                <tr>
+                    <td class="hidden-row"></td>
+                    <td colspan="2">目標</td>
+                    <td colspan="2">実績</td>
+                    <td colspan="2">目標</td>
+                    <td colspan="2">実績</td>
+                    <td colspan="2">目標</td>
+                    <td colspan="2">実績</td>
+                </tr>
+                <tr class="table-header-resultacgy">
+                    <td class="hidden-row"></td>
+                    <td>目標級</td>
+                    <td>取得率</td>
+                    <td>取得率</td>
+                    <td>達成率</td>
+                    <td>目標級</td>
+                    <td>取得率</td>
+                    <td>取得率</td>
+                    <td>達成率</td>
+                    <td>目標級</td>
+                    <td>取得率</td>
+                    <td>取得率</td>
+                    <td>達成率</td>
+                </tr>
+                <?php
+                if ($listSchoolYear) {
+                    foreach ($listSchoolYear as $schoolYearId => $orgSchoolName) {
+                        ?>
+                        <tr>
+                            <td><?php echo $orgSchoolName; ?></td>
+                            <?php
+                            for ($year = $search['yearFrom']; $year <= $search['yearTo']; $year++) {
+                                $eikenLevelName = isset($resultGoal[$year][$schoolYearId]) ? $resultGoal[$year][$schoolYearId]['levelName'] : '-';
+                                $eikenLevelId = isset($resultGoal[$year][$schoolYearId]) ? $resultGoal[$year][$schoolYearId]['eikenLevelId'] : '-';
+                                $targetPass = isset($resultGoal[$year][$schoolYearId]) ? intval($resultGoal[$year][$schoolYearId]['targetPass']) : '-';
+                                switch ($eikenLevelId) {
+                                    case 1:
+                                        $targetPassFact = isset($resultSchoolYear[$year][$schoolYearId]['precentPassLevel1']) ? $resultSchoolYear[$year][$schoolYearId]['precentPassLevel1'] : '-';
+                                        break;
+                                    case 2:
+                                        $targetPassFact = isset($resultSchoolYear[$year][$schoolYearId]['precentPassLevelPre1']) ? $resultSchoolYear[$year][$schoolYearId]['precentPassLevelPre1'] : '-';
+                                        break;
+                                    case 3:
+                                        $targetPassFact = isset($resultSchoolYear[$year][$schoolYearId]['precentPassLevel2']) ? $resultSchoolYear[$year][$schoolYearId]['precentPassLevel2'] : '-';
+                                        break;
+                                    case 4:
+                                        $targetPassFact = isset($resultSchoolYear[$year][$schoolYearId]['precentPassLevelPre2']) ? $resultSchoolYear[$year][$schoolYearId]['precentPassLevelPre2'] : '-';
+                                        break;
+                                    case 5:
+                                        $targetPassFact = isset($resultSchoolYear[$year][$schoolYearId]['precentPassLevel3']) ? $resultSchoolYear[$year][$schoolYearId]['precentPassLevel3'] : '-';
+                                        break;
+                                    case 6:
+                                        $targetPassFact = isset($resultSchoolYear[$year][$schoolYearId]['precentPassLevel4']) ? $resultSchoolYear[$year][$schoolYearId]['precentPassLevel4'] : '-';
+                                        break;
+                                    case 7:
+                                        $targetPassFact = isset($resultSchoolYear[$year][$schoolYearId]['precentPassLevel5']) ? $resultSchoolYear[$year][$schoolYearId]['precentPassLevel5'] : '-';
+                                        break;
+                                    case '-':
+                                        $targetPassFact = '-';
+                                        break;
+                                    default:
+                                        $targetPassFact = 0;
+                                        break;
+                                }
+                                ?>
+                                <td class="row-style"><?php echo $eikenLevelName; ?></td>
+                                <td class="txtcenter"><?php echo $targetPass !== '-' ? $targetPass . '%' : $targetPass; ?></td>
+                                <td class="txtcenter"><?php echo $targetPassFact !== '-' ? $targetPassFact . '%' : '-'; ?></td>
+                                <td class="txtcenter"><?php echo ($targetPassFact !== '-' && $targetPass !== '-') ? ($targetPass > 0 ? round(100 * ($targetPassFact / $targetPass)) . '%' : '0%') : '-'; ?></td> 
+                            <?php } ?>
+                        </tr>
+                    <?php }
+                        } else {
+                    ?>
+                    <tr><td class="bgwhite" colspan="13"><?php echo $this->translate('MSG17_No_Result_Found'); ?></td></tr>
+                <?php } ?>
+            </table>
+
+        </div>
+    </div>
+</div>

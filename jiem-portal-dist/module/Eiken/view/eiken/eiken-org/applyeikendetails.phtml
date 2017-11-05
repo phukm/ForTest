@@ -1,0 +1,399 @@
+<?php $this->headScript()->appendFile( $this->basePath ( 'js/eiken/eiken-org.js' ) )?>
+<?php $this->headLink ()->prependStylesheet ( $this->basePath ( 'css/appeiken.css' ) )?>
+<script type="text/javascript">
+    var jsMessages  = <?php echo $jsMessages; ?>;
+   <?php if(!empty($eikenOrgDetailJS)) : ?>
+    var eikenOrgDetail = <?php echo $eikenOrgDetailJS; ?>;
+   <?php endif; ?>
+</script>
+<div class="box createekien">
+	<div class="box-header">
+		<strong><?php echo $this->translate('団体申込情報詳細：' . $year . '年度第' . $kaiNumber . '回') ;?></strong>
+	</div>
+	<div class="box-body">
+		<div class="title-action">
+			<a class="fl cl1"><?php echo $this->translate('ステータス') ;?>
+			 <?php if((!empty($applyEikenLevel['applyEikenOrg']['status']) && $applyEikenLevel['applyEikenOrg']['status'] == 'DRAFT') || empty($applyEikenLevel['applyEikenOrg']['status'])): ?>
+		     <i><?php echo $this->translate('ドラフト') ;?></i>
+		     <?php else: ?>
+		     <i><?php echo $this->translate('提出済み') ;?></i>
+		     <?php endif; ?>
+			</a>
+		</div>
+		<div class="row content-ekien">
+			<table class="table table-bordered" id="detail">
+				<thead>
+					<tr>
+						<th colspan="2"><?php echo $this->translate('受験級') ;?></th>
+						<th width="9%"><?php echo $this->translate('1級 ') ;?></th>
+						<th width="9%"><?php echo $this->translate('準1級 ') ;?></th>
+						<th width="9%"><?php echo $this->translate('2級') ;?></th>
+						<th width="9%"><?php echo $this->translate('準2級') ;?></th>
+						<th width="9%"><?php echo $this->translate('3級') ;?></th>
+						<th width="9%"><?php echo $this->translate('4級') ;?></th>
+						<th width="9%"><?php echo $this->translate('5級') ;?></th>
+						<th width="12%"><?php echo $this->translate('合計 ') ;?></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td width="70" rowspan="3" class="classcenter classwhite"><p>本会場</p></td>
+						<td class="classcenter" width="135"><p>申込済人数</p></p></td>
+						<?php $grandTotal = 0;
+                                                for ($i = 1; $i < 8; $i++): ?>
+                                                <td class="classright main-expect-<?php echo (8-$i); ?>">
+                                                    <?php if(!empty($applyEikenLevel['publicSite'][$i])) { 
+                                                        $grandTotal += $applyEikenLevel['publicSite'][$i]; 
+                                                        echo '<p><a id="txtMainHallExpectApplyNo'.(8-$i).'" href="/eiken/payment/paymentstatus/'.$eikenScheduleId.'?eikenLevelId='.$i.'&testSite=1&regist=1'.'&backUrl=1">'.$applyEikenLevel['publicSite'][$i].'</a></p>';                                                                                                           
+                                                    } ?>
+                                                </td>
+                                                <?php endfor; ?>
+						<td class="classright total-td <?php echo $grandTotal != 0 ? 'goukei' : ''; ?>" id="grand-total-main-combini">
+                                                    <?php echo $grandTotal != 0 ? '<p><a href="/eiken/payment/paymentstatus/'.$eikenScheduleId.'?testSite=1&regist=1'.'&backUrl=1">'.$grandTotal.'</a></p>' : '0'; ?>
+                                                </td>
+					</tr>
+					<tr>
+                                            <td class="classcenter"><p>支払済人数</p></td>
+                                            <?php $grandTotal = 0; for ($i = 1; $i < 8; $i++): ?>
+                                                <td  class="classright" >
+                                                    <?php if(!empty($totalKyuPayment['mainHall'][$i]['totalKyu'])) { $grandTotal += $totalKyuPayment['mainHall'][$i]['totalKyu']; echo '<p><a href="/eiken/payment/paymentstatus/'.$totalKyuPayment['mainHall'][$i]['eikenScheduleId'].'?eikenLevelId='.$totalKyuPayment['mainHall'][$i]['eikenLevelId'].'&testSite=1&pay=1'.'&backUrl=1">'.$totalKyuPayment['mainHall'][$i]['totalKyu'].'</a></p>'; } ?>
+                                                </td>
+                                            <?php endfor; ?>
+                                            <td class="classright total-td <?php echo $grandTotal != 0 ? 'goukei' : ''; ?>" id="grand-total-main-combini">
+                                                    <?php echo $grandTotal != 0 ? '<p><a href="/eiken/payment/paymentstatus/'.$eikenScheduleId.'?testSite=1&pay=1'.'&backUrl=1">'.$grandTotal.'</a></p>' : '0'; ; ?>
+                                            </td>
+                                        </tr>
+					<tr>
+                                        </tr>
+
+                     <?php if(!empty($eikenOrgDetail['cd'])):?>
+					<!-- 2 -->
+					<tr>
+						<td width="70" rowspan="3" class="classcenter classwhite"><p>準会場</p></td>
+						<td class="classcenter" width="125"><p>申込済人数</p></td>
+						<?php $grandTotal = 0;
+                                                for ($i = 1; $i < 8; $i++): ?>
+                                                <td class="classright">
+                                                    <?php if(!empty($applyEikenLevel['groupSite'][$i])) { 
+                                                        $grandTotal += $applyEikenLevel['groupSite'][$i]; 
+                                                        echo '<p><a href="/eiken/payment/paymentstatus/'.$eikenScheduleId.'?eikenLevelId='.$i.'&testSite=0&regist=1'.'&backUrl=1">'.$applyEikenLevel['groupSite'][$i].'</a></p>'; } ?>
+                                                </td>
+                                                <?php endfor; ?>
+						<td class="classright total-td <?php echo $grandTotal != 0 ? 'goukei' : ''; ?>" id="grand-total-standard-satteline">
+                                                    <?php echo $grandTotal != 0 ? '<p><a href="/eiken/payment/paymentstatus/'.$eikenScheduleId.'?testSite=0&regist=1&backUrl=1">'.$grandTotal.'</a></p>' : '0';  ?>
+                                                </td>
+					</tr>
+					<tr>
+                                            <td class="classcenter"><p>支払済人数</p></td>
+                                            <?php $grandTotal = 0; for ($i = 1; $i < 8; $i++):
+                                                if($i > 2){ ?>
+                                                    <td class="classright">
+                                                        <?php if(!empty($totalKyuPayment['standardHall'][$i]['totalKyu'])) { $grandTotal += $totalKyuPayment['standardHall'][$i]['totalKyu']; echo '<p><a href="/eiken/payment/paymentstatus/'.$totalKyuPayment['standardHall'][$i]['eikenScheduleId'].'?eikenLevelId='.$totalKyuPayment['standardHall'][$i]['eikenLevelId'].'&testSite=0&pay=1'.'&backUrl=1">'.$totalKyuPayment['standardHall'][$i]['totalKyu'].'</a></p>'; } ?>
+                                                    </td>
+                                                <?php } else { echo '<td class="classright"></td>'; } endfor; ?>
+                                            <td class="classright total-td <?php echo $grandTotal != 0 ? 'goukei' : ''; ?>" id="grand-total-standard-combini">
+                                                    <?php echo $grandTotal != 0 ? '<p><a href="/eiken/payment/paymentstatus/'.$eikenScheduleId.'?testSite=0&pay=1'.'&backUrl=1">'.$grandTotal.'</a></p>' : '0'; ?>
+                                            </td>
+                                        </tr>
+					<tr>
+						<td class="classcenter"><p>申込人数</p></td>
+
+						<?php $grandTotal = 0; if(!empty($applyEikenLevel['notMainHallSateLine']) || !empty($applyEikenLevel['notMainHallPayment']) || !empty($applyEikenLevel['noOfExpectationStandard'])):
+    						              $expectationData = !empty($applyEikenLevel['noOfExpectationStandard']) ? $applyEikenLevel['noOfExpectationStandard'] : ($applyEikenLevel['notMainHallSateLine']? $applyEikenLevel['notMainHallSateLine'] : $applyEikenLevel['notMainHallPayment']);
+    						?>
+    						<?php ?>
+    						  <td class="text-right"><p class="text-right"></p></td>
+    						  <td class="text-right"><p class="text-right"></p></td>
+    						  <?php $i=5; foreach ($expectationData as $level => $detailLevel): ?>
+    						      <?php if(in_array($level, array(1,2)) || $level == 'origin' ) continue; ?>
+    						      <td class="text-right standard-expect-<?php echo $i; ?>">
+    						          <p class="text-right"><?php $grandTotal += $detailLevel['total']; echo $detailLevel['total']; ?></p>
+    						      </p></td>
+    						  <?php $i--; endforeach;?>
+    						<?php else: ?>
+    						  <td class="text-right"><p class="text-right"></p></td>
+    						  <td class="text-right"><p class="text-right"></p></td>
+    						  <?php for($i=5; $i>=1; $i--):?>
+    						      <td class="text-right"><p class="text-right"></p></td>
+    						  <?php endfor;?>
+    						<?php endif;?>
+						<td class="classright total-td" id=""><?php echo $grandTotal; ?></td>
+					</tr>
+					<?php endif; ?>
+                                         <?php 
+                                         if ($isSpecialOrg) {
+                                             ?>
+                                             <tr>
+                                                <td colspan="2">
+                                                    公費適用人数
+                                                    <span tabindex="0" class="glyphicon glyphicon-info-sign"
+                                                          data-toggle="popover" data-trigger="hover"
+                                                          data-content="<?php echo $this->translate('toggleNote'); ?>"></span>
+                                                </td>
+                                               <?php
+                                               foreach ($totalPupilDisCount as $value) {
+                                                   ?>
+                                                    <td class="text-right"><p class="text-right" id=""><?php echo !empty($value) ? $value : 0 ?></p></td>
+                                                    <?php
+                                               }
+                                               ?>
+                                               <td class="classright total-td" id=""><?php echo array_sum($totalPupilDisCount); ?></td>      
+                                            </tr>
+                                             <?php 
+                                         }?>
+					<tr>
+						<td class="classcenter" colspan="2">
+							<p>申込人数合計</p>
+							<p class="font-size-12">（本会場の申込済人数と準会場の申込人数の合計）</p>
+						</td>
+						<td class="text-right"><p class="text-right" id="totalc7"></p></td>
+						<td class="text-right"><p class="text-right" id="totalc6"></p></td>
+						<td class="text-right"><p class="text-right" id="totalc5"></p></td>
+						<td class="text-right"><p class="text-right" id="totalc4"></p></td>
+						<td class="text-right"><p class="text-right" id="totalc3"></p></td>
+						<td class="text-right"><p class="text-right" id="totalc2"></p></td>
+						<td class="text-right"><p class="text-right" id="totalc1"></p></td>
+						<td class="classright total-td" id="grand-total"></td>
+					</tr>
+				</tbody>
+			</table>
+			<?php if(!empty($eikenOrgDetail['cd'])):?>
+                        <div class="heighthr"></div>
+			<div class="fl date-start">
+				<div class="col-sm-2">
+					<label>実施曜日</label>
+				</div>
+				<div class="col-sm-4" id="cdate0">
+
+				</div>
+			</div>
+			<div class="fl end-start" id="date1">
+			     <hr style="border-top: 1px solid #fff;" />
+				<div class="fl col1 kyubetsu-createEiken">
+					<label>級別実施曜日</label>
+				</div>
+
+				<div class="fl col2 Numkyu-createEiken">
+					<div class="row">
+					      <div class="col-sm-2">
+					      </div>
+					      <div class="col-sm-3">
+					          <table class="table table-bordered" width="100%">
+					            <thead>
+						              <tr>
+    									<th width="30%"><?php echo $this->translate('級') ;?></th>
+    									<th width="70%"><?php echo $this->translate('実施曜日') ;?></th>
+    								  </tr>
+					            </thead>
+    							<tbody>
+    								<tr>
+    								    <td><?php echo $this->translate('2級') ;?></td>
+    								    <td><?php echo $this->formRow($form->get('date1')); ?></td>
+    								</tr>
+    								<tr>
+    								    <td><?php echo $this->translate('準2級') ;?></td>
+    								    <td><?php echo $this->formRow($form->get('date2')); ?></td>
+    								</tr>
+    								<tr>
+    								    <td><?php echo $this->translate('3級') ;?></td>
+    								    <td><?php echo $this->formRow($form->get('date3')); ?></td>
+    								</tr>
+    								<tr>
+    								    <td><?php echo $this->translate('4級') ;?></td>
+    								    <td><?php echo $this->formRow($form->get('date4')); ?></td>
+    								</tr>
+    								<tr>
+    								    <td><?php echo $this->translate('5級') ;?></td>
+    								    <td><?php echo $this->formRow($form->get('date5')); ?></td>
+    								</tr>
+    							</tbody>
+    						</table>
+					      </div>
+					</div>
+				</div>
+			</div>
+			<div class="row totalcd r cdsuu-dantaimei col-sm-12">
+				<div class="col-sm-2">
+					<label>CDセット数</label>
+				</div>
+				<div class="col-sm-1" id="ctotal">
+
+				</div>
+			</div>
+			<div class="row r cl-jishikbn" id="localType">
+				<div class="col-sm-2">
+					<label>実施区分</label>
+				</div>
+				<div class="col-sm-6 clocalType">
+
+				</div>
+			</div>
+			<div class="row r cl-henkoflg goudou-dantaimei"  id="localType1">
+				<div class="col-sm-2">
+					<label>合同実施区分</label>
+				</div>
+				<div class="col-sm-10 styled-select clocalType1">
+
+				</div>
+			</div>
+			<div class="row r " id="eikenOrgNo1">
+				<div class="col-sm-2">
+					<label>合流する団体番号</label>
+				</div>
+				<div class="col-sm-4 corgnumber eikenOrgNo1">
+				</div>
+			</div>
+
+			<div class="row" id="eikenOrgNo2">
+				<div class="col-sm-2">
+					<label>吸収する団体名</label>
+				</div>
+				<div class="col-sm-4 corgnumber eikenOrgNo2">
+
+				</div>
+			</div>
+
+			<div class="row" id="eikenOrgNo123">
+				<div class="col-sm-2">
+					<label>合流する団体名</label>
+				</div>
+				<div class="col-sm-4 corgnumber eikenOrgNo123">
+
+				</div>
+			</div>
+		    <?php endif; ?>
+                        <div class="heighthr"></div>
+                        <div class="col-sm-2 refundLabel"> <label><?php echo $this->translate('refundLabel') ?></label> </div>
+                        <div class="col-sm-10 refundStatus"><?php echo $refundStatus ?></div>
+		</div>
+	</div>
+	<div class="box-footer">
+		<div class="col-sm-12">
+			<div class="text-left col-sm-6">
+				<a id="btnBack" class="btn btn-large-180" href="<?php echo $this->url('eikenorg', array(
+					'action' => 'index'
+				)); ?>"> <i
+						class="arrow-circle-left"></i>戻る
+				</a>
+			</div>
+			<div class="text-right  col-sm-6">
+				<?php if ($isValidTime && !\Dantai\PublicSession::isViewerRole()) { ?>
+					<a href="<?php echo $this->url('eikenorg', array('action' => 'create')); ?>"
+					   class="btn btn-large-180 margin-right-10"><i
+							class="pencil-square"></i><?php echo $this->translate('Edit'); ?>
+					</a>
+				<?php } else { ?>
+					<a href="javascript:;" class="btn btn-large-180 margin-right-10 disabled">
+						<i class="pencil-square"></i><?php echo $this->translate('Edit'); ?>
+					</a>
+				<?php } ?>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+     $(document).ready(function(){
+        $(function () {
+            $('[data-toggle="popover"]').popover();
+        })
+    	$('input:radio').attr('disabled', true);
+    	$('#totalc1').text((parseInt($('.main-expect-1').text()) | 0) + (parseInt($('.standard-expect-1').text()) | 0));
+ 		$('#totalc2').text((parseInt($('.main-expect-2').text()) | 0) + (parseInt($('.standard-expect-2').text()) | 0));
+ 		$('#totalc3').text((parseInt($('.main-expect-3').text()) | 0) + (parseInt($('.standard-expect-3').text()) | 0));
+ 		$('#totalc4').text((parseInt($('.main-expect-4').text()) | 0) + (parseInt($('.standard-expect-4').text()) | 0));
+ 		$('#totalc5').text((parseInt($('.main-expect-5').text()) | 0) + (parseInt($('.standard-expect-5').text()) | 0));
+ 		$('#totalc6').text((parseInt($('.main-expect-6').text()) | 0));
+ 		$('#totalc7').text((parseInt($('.main-expect-7').text()) | 0));
+ 		var grandTotal = ((parseInt($('.main-expect-1').text()) | 0) + (parseInt($('.standard-expect-1').text()) | 0))
+                 + ((parseInt($('.main-expect-2').text()) | 0) + (parseInt($('.standard-expect-2').text()) | 0))
+                 + ((parseInt($('.main-expect-3').text()) | 0) + (parseInt($('.standard-expect-3').text()) | 0))
+                 + ((parseInt($('.main-expect-4').text()) | 0) + (parseInt($('.standard-expect-4').text()) | 0))
+                 + ((parseInt($('.main-expect-5').text()) | 0) + (parseInt($('.standard-expect-5').text()) | 0))
+                 + ((parseInt($('.main-expect-6').text()) | 0) + (parseInt($('.standard-expect-6').text()) | 0))
+                 + ((parseInt($('.main-expect-7').text()) | 0) + (parseInt($('.standard-expect-7').text()) | 0));
+        $('#grand-total').text(grandTotal);
+ 		if(eikenOrgDetail.typeExamDate == 1)
+ 		    $('#cdate0').text('金曜日');
+ 		if(eikenOrgDetail.typeExamDate == 2)
+ 		    $('#cdate0').text('土曜日');
+ 		if(eikenOrgDetail.typeExamDate == 3)
+ 		    $('#cdate0').text('日曜日');
+ 		if(eikenOrgDetail.typeExamDate == 4)
+ 		    $('#cdate0').text('金・土の両日にわたり実施');
+		$('#ctotal').text(eikenOrgDetail.cd);
+		if(eikenOrgDetail.locationType == 1){
+			$('.clocalType').text('合同');
+		}else {
+			$('.clocalType').text('単独');
+		}
+		if(eikenOrgDetail.locationType1 == 1){
+			$('.clocalType1').text('他団体を吸収する');
+		}else if(eikenOrgDetail.locationType1 == 2){
+			$('.clocalType1').text('他団体に合流する');
+		}else {
+			$('#localType1').remove();
+		}
+		if(typeof eikenOrgDetail.eikenOrgNo2 != 'undefined' && $.trim(eikenOrgDetail.eikenOrgNo2) != ""){
+			$('.eikenOrgNo2').text((eikenOrgDetail.eikenOrgNo2));
+		}else {
+			$('#eikenOrgNo2').remove();
+		}
+		if(typeof eikenOrgDetail.eikenOrgNo1 != 'undefined' && $.trim(eikenOrgDetail.eikenOrgNo1) != ""){
+			$('.eikenOrgNo1').text((eikenOrgDetail.eikenOrgNo1));
+		}else {
+			$('#eikenOrgNo1').remove();
+		}
+
+		if(typeof eikenOrgDetail.dateExamPreLev2 != 'number' || eikenOrgDetail.dateExamPreLev2 == 0){
+			$('input[name=date2]').attr('checked', false);
+		}else if(eikenOrgDetail.dateExamPreLev2 == 2){
+			$('input[name=date2]:last').attr('checked', true);
+		}else if(eikenOrgDetail.dateExamPreLev2 == 1){
+			$('input[name=date2]:first').attr('checked', true);
+		}
+
+		if(typeof eikenOrgDetail.dateExamLev2 != 'number' || eikenOrgDetail.dateExamLev2 == 0){
+			$('input[name=date1]').attr('checked', false);
+		}else if(eikenOrgDetail.dateExamLev2 == 2){
+			$('input[name=date1]:last').attr('checked', true);
+		}else if(eikenOrgDetail.dateExamLev2 == 1){
+			$('input[name=date1]:first').attr('checked', true);
+		}
+
+		if(typeof eikenOrgDetail.dateExamLev3 != 'number' || eikenOrgDetail.dateExamLev3 == 0){
+			$('input[name=date3]').attr('checked', false);
+		}else if(eikenOrgDetail.dateExamLev3 == 2){
+			$('input[name=date3]:last').attr('checked', true);
+		}else if(eikenOrgDetail.dateExamLev3 == 1){
+			$('input[name=date3]:first').attr('checked', true);
+		}
+
+		if(typeof eikenOrgDetail.dateExamLev4 != 'number' || eikenOrgDetail.dateExamLev4 == 0){
+			$('input[name=date4]').attr('checked', false);
+		}else if(eikenOrgDetail.dateExamLev4 == 2){
+			$('input[name=date4]:last').attr('checked', true);
+		}else if(eikenOrgDetail.dateExamLev4 == 1){
+			$('input[name=date4]:first').attr('checked', true);
+		}
+
+		if(typeof eikenOrgDetail.dateExamLev5 != 'number' || eikenOrgDetail.dateExamLev5 == 0){
+			$('input[name=date5]').attr('checked', false);
+		}else if(eikenOrgDetail.dateExamLev5 == 2){
+			$('input[name=date5]:last').attr('checked', true);
+		}else if(eikenOrgDetail.dateExamLev5 == 1){
+			$('input[name=date5]:first').attr('checked', true);
+		}
+
+		if(eikenOrgDetail.typeExamDate != 4){
+			 $('#date1').remove();
+		}else {
+			$('#date1').css('display', 'block');
+		}
+		if(typeof eikenOrgDetail.eikenOrgNo123 != 'undefined' && $.trim(eikenOrgDetail.eikenOrgNo123) != ""){
+			$('.eikenOrgNo123').text(eikenOrgDetail.eikenOrgNo123);
+		}else {
+			$('#eikenOrgNo123').remove();
+		}
+		//eikenOrgNo123
+     });
+</script>

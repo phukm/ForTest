@@ -1,0 +1,219 @@
+<?php
+$this->headLink()->prependStylesheet($this->basePath('css/org/underminedOrg.css'));
+$this->headScript()->prependFile($this->basePath('js/jiem.js'));
+$isViewer = \Dantai\PublicSession::isViewerRole();
+
+$paging = $this->paginationHelper($paginator, $page, $this->url('org-mnt/default', array(
+            'controller' => 'org',
+            'action' => 'undetermined'
+        )), $numPerPage, (empty($param)) ? '' : '/search/' . $param );
+
+$this->headScript()->appendFile($this->basePath('js/jquery-ui.js'));
+
+$form->setAttribute('action', $this->url('org-mnt/default', array(
+            'controller' => 'org',
+            'action' => 'undetermined'
+)));
+
+echo $this->form()->openTag($form);
+?>
+<div class="row">
+    <div class="box frm-detail">
+        <div class="box-header collapsed" data-toggle="collapse" data-target="#search-box">
+            <div class="search-header  sorting-field">
+                <i class="search-chevron-down"></i>
+                <?php echo $this->translate('検索条件'); ?>
+            </div>
+        </div>
+        <div id="search-box" aria-expanded="true" class="collapse in">   
+            <div class="box-body undetermined">
+                <div class="row r1">
+                    <div class="col-sm-1 lblYear">
+                        <label><b><?php echo $this->translate('年度'); ?></b></label>
+                    </div>
+                    <div class="col-sm-1 styled-select txtYear"><?php echo $this->formRow($form->get('year')); ?></div>
+                    <div class="col-sm-1 lblKai">
+                        <label><?php echo $this->translate('回'); ?></label>
+                    </div>
+                    <div class="col-sm-1 styled-select txtKai"><?php echo $this->formRow($form->get('kai')); ?></div>
+                    <div class="col-sm-1 lblStatus">
+                        <label><b><?php echo $this->translate('ステータス'); ?></b></label>
+                    </div>
+                    <div class="col-sm-1 styled-select txtStatus"><?php echo $this->formRow($form->get('status')); ?></div>
+                </div>
+                <div class="row r2">
+                    <label class="col-sm-1 lblOrgNo"><b><?php echo $this->translate('団体番号'); ?></b></label>
+                    <div class="col-sm-1 txtOrgNo"><?php echo $this->formRow($form->get('organizationNo')); ?></div>
+                    <label class="col-sm-1 lblOrgName"><b><?php echo $this->translate('団体名'); ?></b></label>
+                    <div class="col-sm-1 txtOrgName">
+                        <?php echo $this->formRow($form->get('organizationName')); ?>
+                    </div>
+                </div>
+                <div class="box-footer btn-org">
+                    <div class="text-right">
+                        <a class="btn btn-small-100 margin-right-10" id="btnClear" tabindex="6"
+                           href="/org/org/undetermined"><?php echo $this->translate('クリア'); ?></a>
+                        <a  id="btnSearch" class="btn btn-small-180" type="button" tabindex="7"
+                            href="javascript:void(0);"><i class="fa-search"></i><?php echo $this->translate('検索'); ?>
+                        </a>
+                    </div>
+                </div>
+            </div>            
+        </div>
+    </div>
+</div>
+<?php echo $this->form()->closeTag(); ?>
+<div class="box search-form15">
+    <div class="box-header">
+        <span><b><?php echo $this->translate('未確定団体検索'); ?></b></span>
+    </div>
+    <div class="box-body">
+        <div class="text-right">
+            <!--button export for paid apply eiken-->
+            <form id="exportTemplate" method="post"
+                  action="<?php
+                  echo $this->url('org-mnt/default', array(
+                      'controller' => 'org',
+                      'action' => 'export-apply-eiken'
+                  ));
+                  ?>">
+                <button class="btn btn-red btn-small-180 pull-right ml10" type="submit" tabindex="8"
+                    <?php echo $isViewer ? 'disabled' : '' ?>>
+                    <img src="<?php echo $this->basePath('img/white/svg/download.svg') ?>" /> <?php echo $this->translate('paidOnlyButton'); ?>
+                </button>
+                <input type="hidden" name="exportType" id="exportType" class="export-type" value="1">
+            </form>
+            <!--button export all data.-->
+            <form id="exportTemplate" method="post"
+                  action="<?php
+                  echo $this->url('org-mnt/default', array(
+                      'controller' => 'org',
+                      'action' => 'export-apply-eiken'
+                  ));
+                  ?>">
+                <button class="btn btn-red btn-small-180 pull-right" type="submit" tabindex="8"
+                    <?php echo $isViewer ? 'disabled' : '' ?>>
+                    <img src="<?php echo $this->basePath('img/white/svg/download.svg') ?>" /> <?php echo $this->translate('paidAndRegisteredButton'); ?>
+                </button>
+                <input type="hidden" name="exportType" id="exportType" class="export-type" value="2">
+            </form>
+        </div>
+        <div class="row"></div>
+        <!-- id="hidethis" style="display: none;"  -->
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th width = '90'><?php echo $this->translate('団体番号'); ?></th>
+                    <th width = '120'><?php echo $this->translate('団体名（漢字）'); ?></th>
+                    <th width = '200'><?php echo $this->translate('メールアドレス'); ?></th>
+                    <th width = '130'><?php echo $this->translate('電話番号'); ?></th>
+                    <th width = '121'><?php echo $this->translate('ステータス'); ?></th>
+                    <th width = '80'><?php echo $this->translate('本会場申込人数'); ?></th>
+                    <th width = '80'><?php echo $this->translate('準会場申込人数'); ?></th>
+                    <th width='75'><?php echo $this->translate('支払済人数'); ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if ($items) { ?>
+                    <?php foreach ($items as $key => $value) { ?>
+                        <tr class="text-center">
+                            <td><?php echo isset($value['OrganizationNo']) ? $this->escapeHtml($value['OrganizationNo']) : ''; ?></td>
+                            <td><?php echo isset($value['OrgNameKanji']) ? $this->escapeHtml($value['OrgNameKanji']) : ''; ?></td>
+                            <td><?php echo isset($value['Email']) ? $this->escapeHtml($value['Email']) : ''; ?></td>
+                            <td><?php echo isset($value['TelNo']) ? $this->escapeHtml($value['TelNo']) : ''; ?></td>
+                            <td><?php echo isset($value['Status']) ? $this->escapeHTML($value['Status']) : ''; ?></td>
+                            <td class="text-right"><?php echo isset($value['MainHall']) ? $this->escapeHtml($value['MainHall']) : ''; ?></td>
+                            <td class="text-right"><?php echo isset($value['StandardHall']) ? $this->escapeHtml($value['StandardHall']) : ''; ?></td>
+                            <td class="text-right"><?php echo isset($value['PupilNo']) ? $this->escapeHtml($value['PupilNo']) : ''; ?></td>
+                        </tr>
+                        <?php
+                    }
+                } else {
+                    echo '<tr><td colspan="8">' . $this->translate("MSGnoresult") . '</td></tr>';
+                }
+                ?>
+            </tbody>
+        </table>
+        <?php if (count($paginator) > $numPerPage) { ?>
+            <div class="col-sm-12 text-center ">
+                <nav>
+                    <ul class="pagination">
+                        <?php echo $paging; ?>
+                    </ul>
+                </nav>
+            </div>
+        <?php } ?>
+    </div>
+</div>
+
+<form id="exportTemplate" method="post"
+      action="<?php
+      echo $this->url('org-mnt/default', array(
+          'controller' => 'org',
+          'action' => 'export-apply-eiken'
+      ));
+      ?>">
+    <input type="hidden" id="exportItem" name="exportItem" value="">
+    <input type="hidden" name="exportType" id="exportType" class="export-type" value="0">
+</form>
+
+<div id="exportModal" class="modal fade" data-backdrop="static" id="confirmPopupModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md common-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="modal-title"> Report</p>
+            </div>
+
+            <div class="modal-body radio-body">
+
+                <div class="modal-body radio-group" id="report_template">
+                    <p> Please choose a report file.</p>
+                    <label><input type="radio" name="radioOption" value="1" checked="checked"><span><?php echo $this->translate('Keihi format'); ?></span></label><br>
+                    <label><input type="radio" name="radioOption" value="2"><span><?php echo $this->translate('Moushikomi format'); ?></span></label>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-large-180 btn-cancel"  href="javascript:void(0)" >-->
+                <button type="button" id="cancelExportType" class="btn btn-large-180 btn-cancel" data-dismiss="modal">
+                    <strong>キャンセル</strong>
+                </button>
+                <button type="button" id="submitExportType" class="btn btn-red btn-large-180" href="" onclick="">
+                    <i class="fa-download-w"></i>
+                    <strong>ダウンロード</strong>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style type="text/css">
+    #report_template label input[type="radio"] {
+        position: relative;
+        margin: 0 5px 0 0;
+        top: 2px;
+    }
+</style>
+
+<script type="text/javascript">
+    var countItem = parseInt(<?php echo count($items) ?>);
+    var noRecordExcel = "<?php echo ($noRecordExcel) ? $noRecordExcel : ''; ?>";
+    $(document).ready(function () {
+        if(noRecordExcel.length > 0){
+            ERROR_MESSAGE.show(noRecordExcel);
+        }
+        $('form:first *:input[type!=hidden]:first').focus();
+        $('#btnSearch').click(function () {
+            $('#frm-undetermined').submit();
+        });
+
+        $('#btnExportListExam').click(function () {
+            if (countItem > 0) {
+                $('#frm-export-undermined-org').submit();
+            } else {
+                ALERT_MESSAGE.show('<?php echo $this->translate('MsgExportNoRecord'); ?>');
+            }
+        });
+
+    });
+</script>

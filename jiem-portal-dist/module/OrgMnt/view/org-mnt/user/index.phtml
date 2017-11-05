@@ -1,0 +1,250 @@
+<?php 
+    $this->headLink ()->prependStylesheet ( $this->basePath ( 'css/list_org_style.css' ) );
+    // create paginator
+    $paging = $this->paginationHelper($paginator, $page, 
+                                    $this->url('org-mnt/default', array('controller' => 'user','action' => 'index')),
+                                     $numPerPage);
+    // create form
+    $form->setAttribute('action',$this->url('org-mnt/default', array('controller' => 'user','action' => 'index')));
+    echo $this->form()->openTag($form);
+	$isRoleViewer = \Dantai\PublicSession::isViewerRole();
+?>
+<div class="box form-list-org-user">
+<div class="box-header collapsed" data-toggle="collapse" data-target="#search-box">
+                <div class="search-header  sorting-field">
+                    <i class="search-chevron-down"></i>
+                    <?php echo $this->translate('User Search'); ?>
+                </div>
+            </div>
+        <div id="search-box" aria-expanded="true" class="collapse in">
+	<div class="box-body">
+		<div class="col-sm-1 name_userid">
+			<strong><?php echo $this->translate('User ID') ;?></strong>
+		</div>
+		<div class="col-sm-3 wtd_s">
+			<?php echo $this->formRow($form->get('id')); ?><span>（半角英数字）</span>
+		</div>
+		<div class="col-sm-1 text-center name">
+			<strong><?php echo $this->translate('Name') ;?></strong>
+		</div>
+		<div class="col-sm-3 name_input">
+			<?php echo $this->formRow($form->get('name')); ?><span>（漢字）</span>
+		</div>
+		<div class="col-sm-1 text-center authority">
+			<strong><?php echo $this->translate('Authority') ;?></strong>
+		</div>
+		<div class="col-sm-3 authority_select styled-select" id="ddlRole">
+								<?php echo $this->formRow($form->get('Role')); ?>
+							</div>
+	</div>
+	<div class="box-footer text-right">
+		<a class="btn btn-small-100 margin-right-10" id="btnClear"
+			href="javascript:void(0);"> <?php echo $this->translate("Clear"); ?></a>
+		<a id="search_form_user" class="btn btn-small-180"
+			href="javascript:void(0);"><i class="fa-search"></i>
+            <?php echo $this->translate("検索");?>
+         </a>
+	</div>
+      </div>
+</div>
+<?php echo $this->form()->closeTag(); ?>
+<div class="box">
+	<div class="box-header form-list-org-user-header">
+		<strong><?php echo $this->translate('ユーザ情報') ;?></strong>
+	</div>
+	<div class="box-body content-list-org-user">
+		<form id="form-delete" method="post"
+			action="<?php echo $this->url( 'org-mnt/default', array ('controller'=>'user','action' => 'delete' ) ); ?>">
+			<div class="row std_list list-org-user-btn-list">
+				<div class="col-sm-9 title-list class-tite">
+					<label class="font-mark">
+                                            この団体に登録されているユーザの一覧です。<br/>
+                                            各ユーザの「表示」ボタンを押すと詳細画面に進みます。<br/>
+                                            詳細画面で「編集」ボタンを押すとメールアドレスやパスワードを変更できます。<br/>
+                                            団体責任者（管理者）は、ユーザを追加・削除できます。<br/>
+                                            ユーザを追加する場合は「追加」ボタンを押してください。<br/>
+                                            削除する場合は、左のチェックボタンにチェックをして「削除」ボタンを押してください。<br/>
+					</label>
+
+
+				</div>
+
+
+				<div class="col-sm-3 text-right">
+					<a class="btn btn-higher btn-add-top-list"
+						href="<?php echo $this->url ( 'org-mnt/default', array ("controller"=>"user",'action' => 'add' ) );?>"
+						<?php if($role == 5 || $isRoleViewer){ echo 'disabled="disabled"'; }?>> <i
+						<?php if($role == 5 || $isRoleViewer){ echo 'onclick="return false;"'; }?>
+						class="plus-circle"></i>
+          <?php echo $this->translate("追加"); ?>
+        </a> <a class="btn btn-higher btn_del"
+						data-myid="<?php echo $id_user; ?>"
+						<?php if($role == 5 || $isRoleViewer){ echo 'disabled="disabled"'; }?>
+						href="javascript:void(0);"> <i
+						<?php if($role == 5 || $isRoleViewer){ echo 'onclick="return false;"'; }?>
+						class="trash"></i>
+          <?php echo $this->translate("Delete"); ?>
+        </a>
+				</div>
+			</div>
+			<div class="row">
+				<table
+					class="table table-bordered list-org-user-table table-striped"
+					id="table-one">
+					<thead>
+						<tr>
+							<th class="checkbox_list"><input id="select_all" type="checkbox"></th>
+							<th class="jname"><?php echo $this->translate("User ID") ;?></th>
+							<th class="jname"><?php echo $this->translate("Full Name") ;?></th>
+							<th><?php echo $this->translate("Email Address") ;?></th>
+							<th><?php echo $this->translate("Role") ;?></th>
+							<th class="detail"><?php echo $this->translate("Detail") ;?></th>
+						</tr>
+					</thead>
+					<tbody id="load_dt_std">
+				<?php if(!empty($items)){?>
+		          <?php foreach ($items as $key=>$value):?>
+		            <tr id="<?php echo $value->getId(); ?>">
+							<td><input
+								id="<?php echo $value->getID();?>" class="checkbox1"
+								type="checkbox" name="input[<?php echo $value->getID();?>]"
+								data-id="<?php echo $value->getId();?>"></td>
+							<td><?php echo $this->escapeHtml($value->getUserId());?></td>
+							<td><?php echo $this->escapeHtml($value->getFirstNameKanji().$value->getLastNameKanji());?></td>
+							<td><?php echo $this->escapeHtml($value->getEmailAddress()) ;?></td>
+							<td><?php echo $this->escapeHtml($value->getRole()->getRoleName());?></td>
+							<td><a
+								class="btn_view  btn btn-mini list_org_user_a"
+								href="<?php echo $this->url ( 'org-mnt/default', array ("controller"=>"user", "action" => "show" , "id" =>$value->getId()));?>">
+		                <?php echo $this->translate("Show") ;?>
+		                </a></td>
+						</tr>
+		          <?php endforeach;?>
+		         <?php } ?>
+		        </tbody>
+				</table>
+                <?php
+                    if ( count($paginator) == 0 ) {
+                        echo '<p class="msgnull">' . $this->translate("MSGnoresult") . '</p>';
+                    }
+                ?>
+				<?php if( count($paginator) > $numPerPage) { ?>
+				<div
+					class="col-sm-12 text-center list-org-user-table list-org-user-pagination">
+					<nav>
+						<ul class="pagination">
+                            <?php  echo $paging; ?>
+						</ul>
+					</nav>
+				</div>
+				<?php } ?>
+			</div>
+		</form>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+var jsMessages_cl = <?php echo $jsMessages; ?>;
+var jsMessages = jsMessages_cl.data;
+$(document).ready(function() {
+    $('form:first *:input[type!=hidden]:first').focus();
+    COMMON.showCrossEditMessage();
+
+if(jsMessages.MSG58.length !=0 ){
+	ERROR_MESSAGE.show([{id: '', message: jsMessages.MSG58}], function(){}, 'inline');
+}
+//del
+$(".btn_del").click(function(event){
+    var checkdisable = $(this).attr("disabled");
+    if(checkdisable =="disabled"){
+        return false;
+    }
+	var myid = $(".btn_del").data('myid');
+	var check_checked = false;
+	var check_myid = false;
+	$('.checkbox1').each(function() { //loop through each checkbox
+  	  if($(this).is(':checked')){
+  		check_checked = true;
+  		 if(parseInt($(this).data('id')) == myid){
+  			check_myid = true;
+  	  		 }
+        }else{
+
+        }
+    });
+    if(check_checked==true){
+        if(check_myid != true){
+            	CONFIRM_MESSAGE.show(jsMessages.MSGselectdelete,
+            	    	function()
+            	    	{
+            		        $("#form-delete").submit();
+            	    	}, function(){});
+            }else{
+            	ERROR_MESSAGE.show(jsMessages.MSGdeletemyuser,
+                        function()
+                        {
+                    		//alert("Callback");
+                    	});
+                }
+    }else{
+        ERROR_MESSAGE.show(jsMessages.MSG1004,
+                function()
+                {
+            		//alert("Callback");
+            	});
+    }
+
+});
+// check box
+  $('#select_all').click(function(event) {  //on click
+      if(this.checked) { // check select status
+          $('.checkbox1').each(function() { //loop through each checkbox
+              this.checked = true;  //select all checkboxes with class "checkbox1"
+          });
+      }else{
+          $('.checkbox1').each(function() { //loop through each checkbox
+              this.checked = false; //deselect all checkboxes with class "checkbox1"
+          });
+      }
+  });
+//
+  $('.checkbox1').click(function(event) {  //on click
+	  var check_checked = true;
+      if(this.checked) { // check select status
+          $('.checkbox1').each(function() { //loop through each checkbox
+        	  if($(this).is(':checked')){
+
+
+              }else{
+            	  check_checked= false;
+              }
+          });
+          if(check_checked==true){
+        	  $('.list-org-user-table .checkbox_list #select_all').prop('checked', true);
+          }
+      }else{
+    	  $('.list-org-user-table .checkbox_list #select_all').prop('checked', false);
+      }
+  });
+
+  $('#btnClear').click(function(event) {
+		$("#txtUserId").val("");
+		$("#txtUserName").val("");
+		$("#ddlRole select").val("");
+  });
+
+  $("#search_form_user").click(function()
+	{
+		$("#SearchUser").submit();
+	});
+  $("#btnClear").click(function()
+	{
+		$("#txtUserId").attr("value","");
+		$("#txtUserName").attr("value","");
+		$("#role").attr("value","");
+		$("#SearchUser").submit();
+	});
+});
+
+  </script>

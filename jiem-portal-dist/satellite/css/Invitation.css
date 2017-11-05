@@ -1,0 +1,303 @@
+@CHARSET "UTF-8";
+
+/*LIST INVITATION*/
+.invitation{ }
+.invitation > div > div.box-search-list{
+    height: 65px;
+}
+.invitation > div > div.box-search-list > div > div.col1{
+    width: 45px;
+}
+.invitation > div > div.box-search-list > div > div.col2{
+    width: 675px;
+}
+.invitation > div > div.box-search-list > div > div.col2 > input{
+    width: 250px;
+}
+.invitation > div > div > div:FIRST-CHILD{
+    margin-right: 20px !important;
+}
+.invitation > div > div > div > div > textarea{
+    height: 200px;
+    width: 440px;
+    resize: none;
+    margin-top: 10px;
+}
+.invitation > div > div > div > div > select{
+    width: 250px;
+}
+.list-invitation{
+}
+.height-td-button{
+    line-height: 20px !important;
+    padding: 8px 9px 9px 12px !important;
+}
+.list-invitation > div > div > table > tbody > tr > td > a{
+    height: 25px;
+    font-weight: 500;
+    margin-top: 0px;
+}
+.list-invitation .btn-print{
+	width: 65px;
+}
+.list-invitation .btn-editmessage{
+    width: 120px;
+}
+.list-invitation > div > div > table > tbody > tr > td > a:FIRST-CHILD{
+    margin-right: 5px;
+}
+.invitation > div > div > div > a.btn-cancel{
+    margin-right: 10px;
+}
+.imgsave{
+    width: 22px;
+    height: 17px;
+}
+/*Print invitation*/
+.print-invitation{
+}
+.print-invitation .padding-left-17{
+    padding-left: 17px;
+}
+.box-search-print{
+    height: 65px;
+    padding: 20px;
+}
+.box-search-print > div > div.col1{
+    width: 45px;
+}
+.box-search-print > div > div.col2{
+    width: 130px;
+}
+.box-search-print > div > div.col2 > select{
+    width: 100px;
+}
+.box-search-print > div > div.col3{
+    width: 30px;
+}
+.box-search-print > div > div.col4{
+    width: 91px;
+}
+.box-search-print > div > div.col4 > select{
+    width: 60px;
+}
+.box-search-print > div > div.col5{
+    width: 50px;
+}
+.box-search-print > div > div.col6{
+    width: 171px;
+}
+.box-search-print > div > div.col6 > select{
+    width: 140px;
+}
+.box-search-print > div > div.col7{
+    width: 60px;
+}
+.box-search-print > div > div.col8{
+    width: 140px
+}
+.box-search-print > div > div.col8 > select{
+    width: 90px
+}
+.box-search-print > div > div.col9{
+    text-align: right;
+}
+.print-invitation > div > div > a{
+    padding-top: 3px;
+    width: 120px !important;
+}
+.print-invitation > div > div > table{
+    margin-top: 10px;
+}
+.print-invitation > div > div > table > tbody > tr > td > a:FIRST-CHILD{
+    width: 65px;
+    margin-right: 5px;
+    margin-top: 0px;
+}
+.print-invitation .btn-printpupil{
+    width: 100px;
+    margin-top: 0px;
+}
+/*Edit message*/
+.invitation > div > div > div.message{
+    width: 438px;
+    margin-bottom: -10px;
+}
+.invitation > div > div > div.message:FIRST-CHILD{
+    margin-right: 20px
+}
+/*Setting invitation */
+#setting input, #setting label, #setting select, #setting textarea{
+    outline: none !important;
+}
+#setting .vam{
+    margin-top: -10px;
+}
+#setting .setting_h200{
+    height: 200px;
+    resize: none;
+}
+#setting .setting_h80{
+    height: 80px;
+    resize: none;
+}
+#setting .pright{
+    padding-right: 205px;
+}
+#setting .pr15{
+    padding-right: 15px;
+}
+#setting label{
+    padding-right: 10px;
+    font-weight: normal;
+}
+#setting .setting_label{
+    font-weight: bold;
+    width: 135px;
+}
+#setting .setting_label_center{
+    padding: 0px 20px;
+    font-weight: bold;
+}
+#setting .setting_w120{
+    width: 120px;
+}
+#setting .setting_w100{
+    width: 100px;
+}
+#setting .setting_p30{
+    padding-left: 30px;
+}
+#setting .setting_p25{
+    padding-left: 25px;
+}
+#setting .setting_pr5{
+    padding-right: 5px;
+}
+#setting .setting_p15{
+    padding-left: 15px;
+}
+#setting .setting_w60{
+    width: 60px;
+}
+#setting .setting_w138{
+    width: 138px;
+}
+#setting .setting_w250{
+    width: 250px;
+}
+#setting .setting_w440{
+    width: 440px;
+}
+#setting .setting_w490{
+    width: 490px;
+}
+#setting .width100i{
+    width: 100px !important;
+}
+#setting .width65{
+    width: 65px;
+}
+#setting .mb15{
+    margin-bottom: 15px;
+}
+#setting .setting_m20{
+    padding: 20px;
+    padding-bottom: 5px;
+}
+#setting .pt20{
+    padding-top: 20px;
+    margin: 0px;
+}
+#setting .hr{
+    border-bottom: 1px solid #cdcdcd;
+    clear: both;
+}
+#setting .font-bold{
+    font-weight: bold;
+    vertical-align: text-top;
+}
+#setting input[type="radio"]{
+    margin-right: 5px;
+    vertical-align: text-top;
+}
+#setting input[type="checkbox"]{
+    margin-right: 10px;
+    vertical-align: text-top;
+}
+#setting textarea{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+#setting button:nth-child(2){
+    margin: 0px 5px;
+}
+#setting .setting_400x80{
+    width: 400px;
+    height: 80px;
+}
+.btn-fix{ padding-top: 3px !important; padding-left: 15px !important; outline: none; }
+.btn-fix span{ margin-left: 30px; }
+#setting .super{ vertical-align: super !important; }
+#setting .sub{ vertical-align: sub !important; }
+#setting .middle{ vertical-align: middle; line-height: 1.2 }
+#setting .top{ vertical-align: top; }
+#setting #eikenLevel tr td:nth-child(2n){
+    text-align: center;
+}
+#setting #eikenLevel tr td:nth-child(2n) input{
+    margin: 0;
+}
+#setting .DEM{
+    width: 440px;
+    height: 100px;
+    padding-top: 10px;
+}
+.color83{ color: #838383; }
+.ptb20{ padding-top: 20px; padding-bottom: 20px; }
+.pl5{ padding-left: 5px; }
+.pt6{ padding-top: 6px; }
+.pl30{ padding-left: 30px; }
+.p20{ padding: 20px; }
+.pt25{ padding-top: 25px; }
+.pl25{ padding-left: 25px; }
+.pl20i{ padding-right: 20px !important; }
+.ml10{ margin-left: 10px; }
+.ml15i{ margin-left: 15px !important; margin-right: 0px !important; }
+.m20{ margin: 20px 0px 20px 0px; }
+.mt25{ margin-top:25px; }
+.mt5{ margin-top: 5px; }
+.mr5{ margin-right: 5px; }
+.lh1-4{ line-height: 1.4 !important; }
+.m0{ margin: 0 !important; }
+.p0{ padding: 0 !important; }
+.mlr0{ margin-left: 0 !important; margin-right: 0 !important; }
+.pl8{ padding-left: 8px; }
+.pb10{ padding-bottom: 10px; }
+.pl15i{ padding-left: 15px !important; }
+.w85{ width: 85px; }
+table.invtable tr td,table.invtable tr th{
+    padding-left: 15px;
+}
+
+.text-center{ text-align: center !important; }
+.red{
+    color: red;
+}
+.c53{
+    color: #535353;
+}
+.hide{
+    display: none;
+}
+#setting #messages{
+    padding-left: 140px;
+}
+.disabled, .disabled span, .disabled label{
+    color: #d4d4d4;
+}
+.aeaeae{
+    color:#aeaeae;
+}
+
+

@@ -1,0 +1,149 @@
+
+<?php $this->headLink()->appendStylesheet($this->basePath('css/list_org_style.css')) ?>
+<?php
+$form->setAttribute('action', $this->url('basic-construction/default', array(
+            'controller' => 'Uac',
+            'action' => 'editProfile'
+)));
+$form->setAttribute('id', 'frmChangeProfile');
+$form->prepare();
+?>
+
+<?php
+if ($errors) {
+    $form->get('txtFistname')->removeAttribute('autofocus');
+    ?>
+    <div class="row jiem-error" id="show_error">
+        <div role="alert" class="alert">
+            <ul>
+                <?php foreach ($errors as $key => $error): ?>
+                    <li class='msg' style="cursor: pointer;"
+                        onclick="$('<?php echo $key == "all" ? '#txtFistname' : '#' . $key; ?>').focus()"><?php echo $this->translate($error); ?></li>
+                    <?php endforeach; ?>
+            </ul>
+        </div>
+    </div>
+<?php }else { ?>
+    <script>
+        $(document).ready(function () {
+            $('form:first *:input[type!=hidden]:first').focus();
+        });
+    </script>
+<?php } ?>
+
+<div class="box">
+    <div class="box-header">
+        <?php echo $this->translate("User information edit"); ?>
+    </div>
+    <?php echo $this->form()->openTag($form); ?>
+    <div class="box-body register-body">
+
+        <div class="row margin-bottom-register">
+            <div class="col-sm-2">
+                <p><?php echo $this->translate("OrganizationNo"); ?></p>
+            </div>
+            <div class="col-sm-5 input-org">
+                <p style="font-weight: normal;"><?php echo $user->getOrganizationNo(); ?></p>
+            </div>
+        </div>
+        <div class="row margin-bottom-register">
+            <div class="col-sm-2">
+                <p><?php echo $this->translate("UserId"); ?></p>
+            </div>
+            <div class="col-sm-5 input-user-id">
+                <p style="font-weight: normal;"><?php echo $user->getUserId(); ?></p>
+            </div>
+        </div>
+        <div class="row margin-bottom-register-name">
+            <div class="col-sm-2">
+                <p><?php echo $this->translate("Name (Kanji)"); ?><i
+                        class="text-rqred">*</i>
+                </p>
+            </div>
+
+            <div class="col-sm-8">
+                <?php
+                if (isset($errors["txtFistname"]) || empty($form->get('txtFistname')->getValue())) {
+                    $form->get('txtFistname')->setAttributes(array("class" => "form-control error"));
+                }
+                echo $this->formElement($form->get('txtFistname'));
+                
+                if (isset($errors["txtlastname"]) || empty($form->get('txtlastname')->getValue())) {
+                    $form->get('txtlastname')->setAttributes(array("class" => "form-control error"));
+                }
+                echo $this->formElement($form->get('txtlastname'));
+                ?>
+            </div>
+        </div>
+
+        <div class="row email-row">
+            <div class="col-sm-2">
+                <p><?php echo $this->translate("Email Address"); ?><span
+                        class="star">*</span>
+                </p>
+            </div>
+            <div class="col-sm-5">
+                <p class="email-info" style="font-weight: normal;">
+                    <?php
+                    if (isset($errors["txtEmailAddress"]) || empty($form->get('txtEmailAddress')->getValue())) {
+                        $form->get('txtEmailAddress')->setAttributes(array("class" => "form-control error"));
+                    }
+                    echo $this->formElement($form->get('txtEmailAddress'));
+                    ?>
+                </p>
+            </div>
+        </div>
+
+        <div class="row margin-bottom-register">
+            <div class="col-sm-2">
+                <p><?php echo $this->translate("Role"); ?></p>
+            </div>
+            <div class="col-sm-5">
+                <p style="font-weight: normal;"><?php echo $user->getRole()->getRoleName(); ?></p>
+            </div>
+        </div>
+        <div class="row">
+            <hr>
+        </div>
+        <div class="row status-row">
+            <div class="col-sm-2">
+                <p><?php echo $this->translate("Status"); ?></p>
+            </div>
+            <div class="col-sm-5 class-inline-email">
+                <p class="email-info" style="font-weight: normal;"><?php echo $this->translate($user->getStatus()); ?></p>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="row password-row">
+            <div class="col-sm-3">
+                <p><?php echo $this->translate("Msg_Do_You_Want_Change_Password"); ?></p>
+            </div>
+            <div class="col-sm-5 class-inline-email">
+                <p class="email-info" style="font-weight: normal;">
+                    <a style="width: 135px; font-weight: normal;" class="btn btn-small"
+                       href="<?php echo $this->url('changePassword', array("controller" => "Uac", "action" => "changePassword")); ?>"><?php echo $this->translate("ChangePassword"); ?></a>
+                </p>
+            </div>
+        </div>
+        <!-- Button -->
+        <div class="box-footer user-detail-footer">
+            <div class="row">
+                <div class="col-sm-12 text-right">
+                    <a class="btn btn-large-180 div-button-change" role="button"
+                       href="<?php echo $this->url('profile'); ?>">
+                           <?php echo $this->translate('Cancel') ?>
+                    </a>
+                    <button type="submit"
+                            class="btn btn-large-180 div-button-change btn-red">
+                        <i class="fa-download-w"></i><?php echo $this->translate('Save') ?>
+                    </button>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <?php echo $this->form()->closeTag(); ?>
+</div>

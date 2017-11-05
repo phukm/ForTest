@@ -1,0 +1,39 @@
+<?php echo $this->doctype(), PHP_EOL; ?>
+<html lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+
+    </head>
+    <?php
+    $agent = $_SERVER['HTTP_USER_AGENT'];
+    if (strlen(strstr($agent, 'Firefox')) > 0) {
+        $browser = 'firefox';
+    }
+    ?>
+    <body style = "font-family: Meiryo; margin: 0px auto;<?php echo  (isset($browser)) ? '-moz-transform: scale(0.5)' : '';?>">
+        <div style = "height: auto;<?php echo  (isset($browser)) ? 'position: absolute;top:0;left: -600px;' : 'zoom:50%;';?>">
+            <?php
+            switch ($templ) {
+                case 'school':
+                    include 'school-template.phtml';
+                    break;
+                case 'eiken':
+                    include 'eiken-template1.phtml';
+                    break;
+                case 'einavi':
+                    include 'einavi-template.phtml';
+                    break;
+                case 'payment-personal':
+                    include 'payment-personal-template1.phtml';
+                    break;
+                case 'payment-organization':
+                    include 'payment-organization-template.phtml';
+                    break;
+                default:
+                    break;
+            }
+            ?>
+        </div>
+    </body>
+</html>

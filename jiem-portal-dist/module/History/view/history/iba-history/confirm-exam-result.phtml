@@ -1,0 +1,124 @@
+<?php
+    $this->headLink()->prependStylesheet($this->basePath('css/history/iba-history-confirm-exam-result.css'));
+    $paging = $this->paginationHelper($result, $page, "/history/iba/confirm-exam-result", $limit);
+    $this->headScript()->appendFile($this->basePath('js/popup/progress.js'));
+?>
+<script type="text/javascript">
+	var jsMessages = <?php echo $jsMessages; ?>;
+    var EXAM_EIKEN = '<?php echo \History\HistoryConst::EXAM_NAME_EIKEN; ?>';
+    var EXAM_IBA = '<?php echo \History\HistoryConst::EXAM_NAME_IBA; ?>';
+</script>
+<div class="iba-box">
+    <div class="box">
+            <div class="box-header">
+            <?php echo ($examType == '01' || $examType == '02') ? $this->translate('英検IBA取込結果確認：' . $examDate . '実施分') : '' ;?>
+             </div>
+            <div class="box-body">
+               <div>
+                        <label class="font-mark"> <?php echo ($examType == '01' || $examType == '02') ? '英検IBA' : '' ?>の取込結果一覧となります。<br>
+                                                    生徒名簿との突合せを行う場合は、「生徒名簿突合せ」ボタンを押してください。<br>
+                                                    生徒名簿との突合せが不要であれば、「保存」ボタンを押してください。
+                </label>
+                </div>
+                <div class="row"></div>
+                    <table class="table table-bordered tbl-striped">
+                            <thead>
+                                    <tr class="">
+
+                                            <th rowspan ="2" class="text-center iba-col-2">
+                                            <?php echo $this->translate('学年');?>
+                                            </th>
+                                            <th rowspan ="2" class="text-center iba-col-3">
+                                            <?php echo $this->translate('クラス');?>
+                                            </th>
+                                            <th rowspan ="2" class="text-center iba-col-4">
+                                            <?php echo $this->translate('番号');?>
+                                            </th>
+                                            <th rowspan ="2" class="text-center iba-col-5">
+                                            <?php echo $this->translate('氏名（カナ）');?>
+                                            </th>
+                                            <th rowspan ="2" class="text-center iba-col-6">
+                                            <?php echo $this->translate('テスト種別');?>
+                                            </th>
+                                            <th rowspan ="2" class="text-center iba-col-7">
+                                            <?php echo $this->translate('総合');?>
+                                            </th>
+                                            <th rowspan ="2" class="text-center iba-col-8">
+                                            <?php echo $this->translate('リーディング');?>
+                                            </th>
+                                            <th rowspan ="2" class="text-center iba-col-9">
+                                            <?php echo $this->translate('リスニング');?>
+                                            </th>
+                                            <th class="text-center" colspan ="3">
+                                            <?php echo $this->translate('英検級レベル判定');?>
+                                            </th>
+                                    </tr>
+                                    <tr>
+                                    <th class="text-center iba-col-8">
+                                            <?php echo $this->translate('総合');?>
+                                            </th>
+                                            <th class="text-center iba-col-8">
+                                            <?php echo $this->translate('リーディング');?>
+                                            </th>
+                                            <th class="text-center iba-col-10">
+                                            <?php echo $this->translate('リスニング');?>
+                                            </th>
+                                    </tr>
+                                    </thead>
+                            <tbody>
+                            <?php
+
+    if (isset($result) && count($result) > 0 && $result[0]->password != null) {
+        $max = count($result) - (($page - 1) * $limit) < $limit ? count($result) - (($page - 1) * $limit) : $limit;
+        for ($i = 0; $i < $max; $i ++) {
+            ?>
+                                <!--update function for : #GNCCNCJDR5-761-->
+                                    <tr class="">
+                                            <td><?php echo $result[($page-1) * $limit + $i]->gakunen;?></td>
+                                            <td class=""><?php echo $result[($page-1) * $limit + $i]->class1;?></td>
+                                            <td class="text-right"><?php echo $result[($page-1) * $limit + $i]->syussekino;?></td>
+                                            <td><?php echo mb_convert_kana($result[($page-1) * $limit + $i]->shimeikana,"KVa");?></td>
+                                            <td><?php echo $result[($page-1) * $limit + $i]->testsyubetsu;?></td>
+                                            <td class="text-right"><?php echo $result[($page-1) * $limit + $i]->score_total;?></td>
+                                            <td class="text-right"><?php echo $result[($page-1) * $limit + $i]->score_read;?></td>
+                                            <td class="text-right"><?php echo $result[($page-1) * $limit + $i]->score_listen;?></td>
+                                            <td class="text-right"><?php echo \Dantai\Utility\MappingUtility::getKyuName($ibaMasterData, \History\HistoryConst::IBA_RESULT_TOTAL, $result[($page-1) * $limit + $i]->testsyubetsu, $result[($page-1) * $limit + $i]->score_total);?></td>
+                                            <td class="text-right"><?php echo \Dantai\Utility\MappingUtility::getKyuName($ibaMasterData, \History\HistoryConst::IBA_RESULT_READING, $result[($page-1) * $limit + $i]->testsyubetsu, $result[($page-1) * $limit + $i]->score_read);?></td>
+                                            <td class="text-right"><?php echo \Dantai\Utility\MappingUtility::getKyuName($ibaMasterData, \History\HistoryConst::IBA_RESULT_LISTENING, $result[($page-1) * $limit + $i]->testsyubetsu, $result[($page-1) * $limit + $i]->score_listen);?></td>
+                                    </tr>
+                                    <?php
+        }
+    } else {
+        echo '<td colspan="12">' . $noRecord . '</td>';
+    }
+    ?>
+                            </tbody>
+                    </table>
+                    <?php if (! empty($result) && count($result)>= $limit) { ?>
+                    <div class="text-center paging">
+                      <nav><ul class="pagination"><?php  echo $paging; ?></ul></nav>
+             </div>
+                    <?php } ?>
+            </div>
+            <div class="box-footer">
+                    <div class="text-right iba-col-sm-12">
+                            <a class="btn btn-large-180 cancel-save" onclick="IBA_HISTORY_CONFIRM_RESULT.cancelSaveExamResult()">キャンセル</a>
+                            <a class="btn btn-large-180" id="btnMapping" onclick="EIKEN_EXAM_RESULT.mappingTestResult('<?php \History\HistoryConst::EXAM_NAME_IBA?>', <?php echo $yearNo; ?>, <?php echo  !empty($kaiNo) ? $kaiNo : 0; ?>, <?php echo $examId; ?>, 0, '<?php echo $jisshiId; ?>','<?php echo $examType; ?>', 1)"> <i class="compass-icon"></i><?php echo $this->translate(' 生徒名簿突合せ') ;?>
+                            </a> &nbsp <a id="btnOk" href="javascript:void(0)" onclick="IBA_HISTORY_CONFIRM_RESULT.confirmOK('<?php echo $jisshiId?>','<?php echo $examType?>', <?php echo $examId; ?>)" class="btn btn-red  btn-large-180 margin_edit"><i class="fa-download-w"></i> <b>保存</b> </a>
+                    </div>
+            </div>
+
+
+    </div>
+</div>
+<div id="examNameCurrentSelect" class="hidden"></div>
+<div id="examYearCurrentSelect" class="hidden"></div>
+<div id="examKaiCurrentSelect" class="hidden"></div>
+<div id="mappingStatus" class="hidden"></div>
+<div id="currentYear" class="hidden"></div>
+<?php
+    $this->headScript()->appendFile($this->basePath('js/jquery-ui.js'));
+    $this->inlineScript()->appendFile($this->basePath('js/history/iba-history-confirm-exam-result.js'));
+    $this->inlineScript()->appendFile($this->basePath('js/history/eiken-exam-result.js'));
+    echo $this->inlineScript();
+?>

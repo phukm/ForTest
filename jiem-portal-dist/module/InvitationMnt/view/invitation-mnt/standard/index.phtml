@@ -1,0 +1,160 @@
+<?php use Dantai\PublicSession;
+
+echo $this->headLink()->prependStylesheet($this->basePath('css/standard-level-recommended.css')); ?>
+<?php
+$escaper = new Zend\Escaper\Escaper('utf-8');
+$isViewer = PublicSession::isViewerRole();
+?>
+
+<?php  $form->setAttribute('action',$this->url('invitation-mnt/default', array('controller'=>'standard','action' => 'index')));  ?>
+<?php  echo $this->form()->openTag($form); ?>
+<div class="box frm-stdl-search">
+<div class="box-header collapsed" data-toggle="collapse" data-target="#search-box">
+                <div class="search-header  sorting-field">
+                    <i class="search-chevron-down"></i> 
+                    <?php echo $this->translate('検索条件'); ?>
+                </div>
+            </div>
+        <div id="search-box" aria-expanded="true" class="collapse in">
+	<div class="box-body">
+		<div class="row firstrow">
+			<div class="col-sm-9">
+				<div class="col-sm-1"><?php echo $this->translate('Year') ?></div>
+
+				<div class="col-sm-2 styled-select width130">
+                <?php echo $this->formrow($form->get('ddbYear')->setAttribute('onChange','loadOrgSchoolYear();')); ?>
+            </div>
+
+				<div class="col-sm-1"><?php echo $this->translate('SchoolYear') ?></div>
+
+				<div class="col-sm-2 styled-select">
+                <?php echo $this->formrow($form->get('ddbSchoolYear')); ?>
+            </div>
+			</div>
+			<div class="col-sm-3 text-right">
+				<a class="btn btn-small-180" id="searchStandardLevelList"
+					type="submit" href="javascript:void(0);"> <i class="fa-search"></i> <?php echo $this->translate('Search') ?></a>
+			</div>
+		</div>
+	</div>
+    </div>
+</div>
+<?php echo $this->form()->closeTag(); ?>
+<div class="box frm-std-list-search">
+	<div class="box-header">基準級設定</div>
+	<div class="box-body">
+		<div class="row row-btn">
+			<div class="col-sm-10">
+				<label class="font-mark"> 各学年における取得すべき（基準となる）英検級の一覧となります。
+					英検未受験者にとっての目安となります。<br> 追加する場合は「追加」ボタンを押してください。
+					変更する場合は「詳細表示」を押してください。
+
+
+				</label>
+
+			</div>
+			<div class="col-sm-2 text-right">
+				<a class="btn btn-higher" <?php echo $isViewer ? 'disabled' :'' ?>
+					href="<?php echo $this->url('invitation-mnt/default', array('controller'=>'standard','action' => 'add')); ?>">
+					<i class="fa-plus-circle"></i> 追加
+				</a>
+			</div>
+		</div>
+
+		<table class="table table-bordered table-striped"
+			id="standardlist-table">
+
+			<thead>
+				<tr>
+					<th class="jyear">年度</th>
+					<th class="jschool-year">学年</th>
+					<th width="80">基準級</th>
+					<th></th>
+					<th width="100">操作</th>
+				</tr>
+			</thead>
+
+			<tbody>
+    			 <?php
+								
+								if (! empty ( $items )) {
+									foreach ( $items as $key => $value ) {
+										?>
+        <tr>
+					<td class=""><?php echo $escaper->escapeHtml($value->getYear()); ?></td>
+					<td class=""><?php echo $escaper->escapeHtml($value->getOrgSchoolYear()->getDisplayName()); ?></td>
+					<td class="tb-text-right"><?php echo $escaper->escapeHtml($value->getEikenLevel()->getLevelName()); ?></td>
+					<td class=""></td>
+					<td class="height-td-button"><a class="btn btn-small btn-td-view"
+						href="<?php echo $this->url('invitation-mnt/default', array('controller' => 'standard', 'action' => 'show', 'id' => '' . $value->getYear()));?>">
+							詳細表示 </a></td>
+				</tr>
+        <?php }}?>
+
+    		</tbody>
+		</table>
+		<?php if (! empty($mess)) {?>
+		     <div class="row"></div>
+             <div >
+				    <?php echo $mess;?>
+				    </div>
+              <?php }?>
+              <div class="bottom-mark">
+			<div>
+				<label class="font-mark">
+					全ての学年の基準級登録が完了できましたら、クラスを設定します。クラスを設定するために、「<span>次へ</span>」を押してください。
+                                </label>
+			</div>
+			<div>
+				<a class="btn btn-red btn-large-180" href="/org/class/index?trans=1">
+					<i class="arrow-circle-right-w"></i> 次へ
+				</a>
+			</div>
+		</div>
+
+
+	</div>
+</div>
+
+<?php
+/*
+ * if(!empty($mess)){?>
+ * <script type="text/javascript">
+ * ERROR_MESSAGE.show('<?php echo json_decode($mess) ;?>',
+ * function()
+ * {
+ * //alert("Callback");
+ * });
+ * </script>
+ * <?php }
+ */
+?>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('form:first *:input[type!=hidden]:first').focus();
+});
+function loadOrgSchoolYear()
+{
+	var id=$('#ddbYear').val();
+	var jsonurl = location.protocol + '//' + location.hostname + '/invitation/standard/getschoolyear?year='+id;
+
+    $.ajax({
+          type: 'GET',
+          url: jsonurl,
+          data: {},
+          success:function(data){
+        	  var options = '<option value=""></option>';
+     	     $.each(data, function () {
+     	         options = options + '<option value="'+this.id+'">'+this.displayName+'</option>';
+     	     });
+        	  $("#ddbSchoolYear").html(options);
+             },
+          error:function(){
+          }
+        });
+    }
+  $("#searchStandardLevelList").click(function()
+	{
+		$("#setstandard").submit();
+	});
+  </script>

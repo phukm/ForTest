@@ -1,0 +1,192 @@
+<?php $this->headLink ()->prependStylesheet ( $this->basePath ( 'css/goal-setting.css' ) )?>
+<?php if(!empty($cityPassRate)){?>
+<script type="text/javascript">
+       var pupilPassRate = <?php echo json_encode($pupilPassRate); ?>;
+       var cityPassRate = <?php echo json_encode($cityPassRate); ?>;
+       var nationwidePassRate = <?php echo json_encode($nationwidePassRate); ?>;
+       var cityName = <?php echo json_encode($org->getCity()->getCityName());?>;
+    </script>
+<?php }?>
+
+<div>
+<?php  $form->setAttribute('action',$this->url('goal-setting/default', array('controller'=>'goalpass','action' => 'provincialcity')));  ?>
+<?php  echo $this->form()->openTag($form); ?>
+	<div class="tbl-chart-goal">
+		<div class="box">
+                    <div class="box-header"  data-toggle="collapse" data-target="#search-box">
+                        <div class="search-header  sorting-field">
+                            <i class="search-chevron-down"></i>
+                            <b><?php echo $this->translate('searchHeader'); ?></b>
+                        </div>
+                    </div>
+                    <div id="search-box" aria-expanded="true" class="collapse in">
+			<div class="box-search">
+				<div class="row seacrch-row">
+					<div class="col-sm-1 ">
+						<label> 年度<span class="star">*</span></label>
+					</div>
+					<div class="col-sm-2 styled-select">
+						<?php echo $this->formrow($form->get('ddbYear')->setAttribute('onChange', 'loadOrgSchoolYear();'));?>
+					</div>
+					<div class="col-sm-3  ">
+						<label>学年<span class="star">*</span></label>
+					</div>
+					<div class="col-sm-4 styled-select fix-width-380">
+						<?php echo $this->formrow($form->get('ddbSchoolYear')); ?>
+					</div>
+					<div class="col-sm-5">
+						<div class="fl cl2">
+							<a href="/goalsetting/goalpass/provincialcity"
+								class="btn btn-small">クリア</a>
+						</div>
+						<div class="fl cl3">
+							<a class="btn btn-small-180" href="javascript:void(0);"
+								id="btnSearch"><i class="fa-search"></i> 検索</a>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+            </div>
+		<?php echo $this->form()->closeTag(); ?>
+		<div class="box">
+			<div class="box-header">
+			<?php echo $this->translate('全国・都道府県取得率照会')
+// if ($year != false) {
+//     echo $year;
+// }
+// ?>
+			</div>
+			<div class="box-body">
+			<?php if(!empty($cityPassRate)){?>
+				<div>
+					<div>
+					    <div class="row"></div>
+						<div class="pull-right">
+							<ul class="chart-legend">
+								<li><div class="rectangle"></div> 自校</li>
+								<li><div class="rectangle"></div> <?php echo $org->getCity()->getCityName()?></li>
+								<li><div class="rectangle"></div> 全国</li>
+							</ul>
+						</div>
+						<div id="chart"></div>
+						<!-- list -->
+						<div class="tbl-chart row">
+							<table class="table table-bordered table-striped text-center">
+								<thead>
+									<tr>
+										<th width=113></th>
+										<th width=113>1級</th>
+										<th width=113>準1級</th>
+										<th width=113>2級</th>
+										<th width=113>準2級</th>
+										<th width=113>3級</th>
+										<th width=113>4級</th>
+										<th width=113>5級</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>自校</td>
+										<td><?php echo round($pupilPassRate[1])?>%</td>
+										<td><?php echo round($pupilPassRate[2])?>%</td>
+										<td><?php echo round($pupilPassRate[3])?>%</td>
+										<td><?php echo round($pupilPassRate[4])?>%</td>
+										<td><?php echo round($pupilPassRate[5])?>%</td>
+										<td><?php echo round($pupilPassRate[6])?>%</td>
+										<td><?php echo round($pupilPassRate[7])?>%</td>
+									</tr>
+									<tr>
+										<td><?php echo $org->getCity()->getCityName()?></td>
+										<td><?php echo round($cityPassRate[1])?>%</td>
+										<td><?php echo round($cityPassRate[2])?>%</td>
+										<td><?php echo round($cityPassRate[3])?>%</td>
+										<td><?php echo round($cityPassRate[4])?>%</td>
+										<td><?php echo round($cityPassRate[5])?>%</td>
+										<td><?php echo round($cityPassRate[6])?>%</td>
+										<td><?php echo round($cityPassRate[7])?>%</td>
+									</tr>
+									<tr>
+										<td>全国</td>
+										<td><?php echo round($nationwidePassRate[1])?>%</td>
+										<td><?php echo round($nationwidePassRate[2])?>%</td>
+										<td><?php echo round($nationwidePassRate[3])?>%</td>
+										<td><?php echo round($nationwidePassRate[4])?>%</td>
+										<td><?php echo round($nationwidePassRate[5])?>%</td>
+										<td><?php echo round($nationwidePassRate[6])?>%</td>
+										<td><?php echo round($nationwidePassRate[7])?>%</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<?php }?>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$("#btnSearch").click(function()
+{
+	$("#goalPassForm").submit();
+});
+$(document).ajaxStart(function(){
+    $(".modal-backdrop").css({"opacity": 0});
+});
+$(document).ready(function () {
+    $('form:first *:input[type!=hidden]:first').focus();
+    var validator = $("#goalPassForm").validate({
+        onfocusout: false,
+        focusInvalid: false,
+        onkeyup: false,
+        onclick: false,
+        errorPlacement: function (error, element) {
+        },
+        showErrors: function (errorMap, errorList) {
+            this.defaultShowErrors();
+            ERROR_MESSAGE.show(errorList, function () {
+            }, 'inline');
+        }
+    });
+});
+function loadOrgSchoolYear()
+{
+	var id=$('#ddbYear').val();
+	if(id =='')
+	{id = -1;}
+	var jsonurl = location.protocol + '//' + location.hostname + '/goalsetting/goalpass/getschoolyear?year='+id;
+
+    $.ajax({
+          type: 'GET',
+          url: jsonurl,
+          data: {},
+          success:function(data){              
+        	  $("#ddbSchoolYear").empty();
+        	  $("#ddbSchoolYear").prepend("<option value='' selected='selected'></option>");
+        	  document.getElementById("ddbYear").focus();
+        	  if(data != '')
+              {
+        		 $("#ddbSchoolYear").append("<option value='0'>全</option>");
+              }       	  
+        	  var options = $("#ddbSchoolYear");
+          	     $.each(data, function () {
+          	         options.append($("<option />").val(this.schoolYearId).text(this.displayName));
+          	     });
+            },
+          error:function(){
+        	  $("#ddbSchoolYear").empty();
+          }
+        }).always(function(){
+            $(".modal-backdrop").remove(); //thanhnx6 fix bug F1GJIEM-1606
+        });
+}
+</script>
+<?php $this->headScript()->prependFile( $this->basePath('js/highcharts.js'))?>
+<?php
+
+if (! empty($cityPassRate)) {
+    $this->headScript()->prependFile($this->basePath('js/goal-setting/goal-setting-provincialcity.js'));
+}
+?>

@@ -1,0 +1,349 @@
+<script type="text/javascript">
+    datas = <?php echo $data;?>;
+	currYear = <?php echo $currYear;?>;
+	currMonth = <?php echo $currMonth;?>;
+	currDay = <?php echo $currDay;?>;
+</script>
+<?php  
+    $this->headLink ()->appendStylesheet($this->basePath('css/home-page.css?v=20161119'));
+    $this->headScript()
+        ->appendFile($this->basePath('js/highcharts.js'))
+        ->appendFile($this->basePath('js/localization/messages_ja.js'))
+        ->appendFile($this->basePath('js/timeline/timeline-locales.js'))
+        ->appendFile($this->basePath('js/timeline/timeline.js'))
+        ->appendFile('//www.google.com.vn/jsapi');
+    $this->inlineScript()->prependFile($this->basePath('js/timeline/timeline-index.js'));
+    echo $this->inlineScript();
+?>
+<div class="top-page">
+    <div class="row">
+        <div class="col-sm-12 border-box">
+            <div class="box-body ">
+    <?php if($isNotShowMSG === false){ ?>
+			<div class="msg-policy">
+                            <p><b>
+				<?php
+                                    $url = $this->url('org-mnt/default', array(
+                                            'controller' => 'org',
+                                            'action' => 'policy-grade-class'
+                                        ));
+                                    printf($this->translate('MSGWarningGradeAndClassInHomePage'),$url);
+                                ?>
+                            </b></p>
+			</div>
+    <?php } ?>
+    <?php if($listFileDownload){
+        ?>
+                <div>
+                    <?php foreach($listFileDownload as $key=>$value) {
+                        if ($value['type'] == '4s5s_credentials') {
+                            $linkDownload = $this->url('download-eiken-id', array('year' => $value['year'], 'kai' => $value['kai']));
+                            ?>
+                            <p>
+                                ＜<?php echo $value['year']?>年第<?php echo $value['kai']?>回検定分＞<br/>
+                                ［1次試験欠席者向け］4級・5級スピーキングテスト受験のための英検IDとパスワードは<a href="<?php echo $linkDownload;?>">こちら</a>からダウンロードできます。
+                            </p>
+                        <?php }
+                    }?>
+                </div>
+    <?php }?>
+			<div class="msg-policy">
+                <p>
+                            <b>
+                                <?php echo $this->translate('MSGReUsePUpil'); ?>
+                            </b>
+                </p>
+            </div>
+            <div class=""><p>
+                団体サポートシステムで、個人情報を取り扱われる際のご注意については<a href="<?php echo $this->url('pupil-mnt/default', array(
+                    'controller' => 'pupil',
+                    'action' => 'index'
+                )); ?>"><u>こちら</u></a>をご覧ください。
+                </p></div>
+        </div>
+    </div>
+    </div>
+	<div class="row">
+		<div class="col-sm-6 border-box h-114">
+			<div class="box-header h-30 title-head clear-bgr">
+				<p><?php echo  $this->translate('第').$eikenKai. $this->translate('回英検&nbsp;申込者数');?></p>
+			</div>
+			<div class="box-body box-body-top ">
+				<div class="col-sm-2 box-r">
+					<p class="p1"><?php echo($date1);?></p>
+					<?php echo($sumResApplyEiken);?>
+				</div>
+				<div class="col-sm-2 box-r a-right">
+					<p class="p1"><?php echo($date2);?></p>
+					<?php echo($compDateBefo);?>
+				</div>
+				<p class="c-r2">
+					<a class="btn w-180 tooltip-home"
+					   alt="<?php echo $this->translate('学年別・クラス別の申込・支払状況');?>"
+					   href="/eiken/payment/paymentstatus/<?php echo $eikenScheduleId; ?>"><?php echo $this->translate('詳細を見る');?>
+					</a>
+				</p>
+			</div>
+		</div>
+		<div class="col-sm-6 border-box h-114 clear-margin">
+			<div class="box-header h-30 title-head clear-bgr">
+				<p><?php echo $this->translate('スタディギア学習者数');?></p>
+			</div>
+			<div class="box-body box-body-top">
+				<div class="col-sm-2 box-r">
+					<p class="p1"><?php echo($date11);  ?></p>
+					<?php echo $dataC1;  ?>
+				</div>
+				<div class="col-sm-2 box-r a-right">
+					<p class="p1"><?php echo($date12);  ?></p>
+					<?php echo $dataC2;  ?>
+				</div>
+				<p class="c-r2">
+					<a class="btn w-180 tooltip-home"
+						alt="<?php echo $this->translate('学年別・クラス別のスタディギア学習状況');?>"
+						href="/goalsetting/studygear/index"><?php echo $this->translate('詳細を見る');?></a>
+				</p>
+			</div>
+		</div>
+	</div>
+    
+        <div class="row">
+            <div class="col-sm-12 border-box">
+                <div class="box-body round2-examdate">
+                    <?php 
+                        $dantaiService = new Application\Service\DantaiService();
+                        $year = $currentEikenSchedule['year'] ? $currentEikenSchedule['year'] : '';
+                        $kai = $currentEikenSchedule['kai'] ? $currentEikenSchedule['kai'] : '';
+                        $deadlineFrom = $currentEikenSchedule['deadlineFrom'] ? sprintf(str_replace('-', '%s', $currentEikenSchedule['deadlineFrom']->format('n-j')),'月').'日' : ''; 
+                        $deadlineTo = $currentEikenSchedule['deadlineTo'] ? sprintf(str_replace('-', '%s', $currentEikenSchedule['deadlineTo']->format('n-j')),'月').'日' : ''; 
+                        
+                        $combini = $currentEikenSchedule['combiniDeadline'] ? sprintf(str_replace('-', '%s',$currentEikenSchedule['combiniDeadline']->format('n-j')),'月','日') : ''; 
+                        
+                        $friDate = '';
+                        if($currentEikenSchedule['friDate']){
+                            if($currentEikenSchedule['friDate']->format('Y') == $year){
+                                $friDate = $currentEikenSchedule['friDate'] ? sprintf(str_replace('-', '%s',$currentEikenSchedule['friDate']->format('n-j')),'月').'日' : ''; 
+                            }else{
+                                $friDate = $currentEikenSchedule['friDate'] ? sprintf(str_replace('-', '%s',$currentEikenSchedule['friDate']->format('Y-n-j')),'年','月').'日' : ''; 
+                            }
+                        }
+                        
+                        $satDate = '';
+                        if($currentEikenSchedule['satDate']){
+                            if($currentEikenSchedule['satDate']->format('Y') == $year){
+                                $satDate = $currentEikenSchedule['satDate'] ? sprintf(str_replace('-', '%s',$currentEikenSchedule['satDate']->format('n-j')),'月').'日' : ''; 
+                            }else{
+                                $satDate = $currentEikenSchedule['satDate'] ? sprintf(str_replace('-', '%s',$currentEikenSchedule['satDate']->format('Y-n-j')),'年','月').'日' : ''; 
+                            }
+                        }
+                        
+                        $sunDate = '';
+                        $keepSundate = '';
+                        if($currentEikenSchedule['sunDate']){
+                            if($currentEikenSchedule['sunDate']->format('Y') == $year){
+                                $sunDate = $currentEikenSchedule['sunDate'] ? sprintf(str_replace('-', '%s',$currentEikenSchedule['sunDate']->format('n-j')),'月').'日' : ''; 
+                            }else{
+                                $sunDate = $currentEikenSchedule['sunDate'] ? sprintf(str_replace('-', '%s',$currentEikenSchedule['sunDate']->format('Y-n-j')),'年','月').'日' : ''; 
+                            }
+                        }
+                        $keepSundate = $sunDate;
+                        
+                        if($currentEikenSchedule['satDate'] && $currentEikenSchedule['satDate'] && $currentEikenSchedule['satDate']->format('n') == $currentEikenSchedule['sunDate']->format('n')){
+                            $sunDate = $currentEikenSchedule['sunDate'] ? $currentEikenSchedule['sunDate']->format('j').'日' : ''; 
+                        }
+                        
+                        $stringDate = '';
+                        if(in_array($orgCode, $satDateOrgCode)){
+                            if(empty($stringDate)){
+                                $stringDate .= $satDate.'（土）';
+                            }else{
+                                $stringDate .= '、'.$satDate.'（土）';
+                            }
+                        } 
+                        if(in_array($orgCode, $sunDateOrgCode)){
+                            if(empty($stringDate)){
+                                $stringDate .= $sunDate.'（日）';
+                            }else{
+                                $stringDate .= '、'.$sunDate.'（日）';
+                            }
+                        } 
+                        
+                    ?>
+                    <table class="table table-bordered table-striped schedule-table">
+                        </colgroup>
+                        <thead>
+                          <tr class="em-cell">
+                            <th colspan="2"><?php echo $year.'年度第'.$kai.'回'.'試験日程'; ?></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th><?php echo $this->translate('受付期間'); ?></th>
+                            <td class="color-red"><b><?php echo $deadlineFrom.'～'.$deadlineTo.'（書店は'.$combini.'日締切）'; ?></b></td>
+                          </tr>
+                          <tr>
+                            <th>一次試験</th>
+                            <td><b>本会場</b>：<?php echo $keepSundate; ?>(日)<br>
+                                <span style="padding-right:14px; ">準会場（すべての団体）</span>：<?php echo $stringDate; ?><br>
+                                <span>準会場（中学・高校のみ）</span>：<?php echo $friDate.'（金）'; ?>
+                          </tr>
+                          <tr>
+                            <th>二次試験</th>
+                            <td>
+                                <?php echo $round2Day1; ?><br>
+                                <?php if(!$isDantaiA): ?>
+                                <?php echo $round2Day2; ?><br>
+                                <?php endif ?>
+                            </td>
+                          </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    	<div class="row">
+
+			<div class="col-sm-12 border-box">
+				<p style="color:red;margin-top: 10px;font-weight: bold" class="text-center">
+                    団体サポートの英検申込受付を5月13日（土）22時まで延長します。<br>※書店での受付は終了しました。
+				</p>
+				<?php if ($isSpecialOrg){?>
+					<p style="color:red;margin-top: 10px; padding: 0px 10px 0px 10px" class="text-center">
+						各受験者への公費適用は、年度内につき１回のみです。すでに公費の補助を受けた受験者は団体サポートシステムからお申込できませんので、別のお申込方法をご利用いただきますようお願い申し上げます。
+					</p>
+				<?php } ?>
+				<?php if ($isSemiMainVenue){?>
+<!--					<p style="color:red;margin-top: 10px; padding: 0px 10px 0px 10px" class="text-center">
+						団体サポートシステムでは、準適本会場団体のお申込は、現在【本会場申込】のみ有効となっております。【準会場申込】をご希望される場合は設定変更が必要となります。
+						お手数ですが英検サービスセンター（03-3266-8010）までご連絡いただきますようお願い申し上げます。
+					</p>-->
+				<?php } ?>
+
+				<?php if (!empty($msgSystemNotification)) { ?>
+			<div class="title-head title-head-bgr">
+				<p>
+					<?php 
+					  if ($msgSystemNotification['btn'] == 1) {
+					       $btnClass = '<a class="btn btn-red  btn-180 btn-notification" href="' . $this->url('org-mnt/default', array('controller' => 'class', 'action' => 'index')) . '"><span class="awesome-sm chevron-circle-right-w"> </span>クラス情報</a>';
+					       $btnSetTarget = '<a class="btn btn-red  btn-180 btn-notification" href="' . $this->url('goal-setting/default', array('controller' => 'graduationgoalsetting', 'action' => 'index')) . '"><span class="awesome-sm chevron-circle-right-w"> </span>目標級設定</a>';
+
+					       echo sprintf($msgSystemNotification['msg'], $btnClass, $btnSetTarget);
+					   }
+
+					   $textLink   = '';
+					   $systemLink = '';
+
+					   if ($msgSystemNotification['btn'] == 2) {
+					       $systemLink = $this->url('goal-setting/default', array('controller' => 'graduationgoalsetting', 'action' => 'index'));
+					       $textLink   = '目標級設定';
+					   } else if ($msgSystemNotification['btn'] == 3) {
+					       $systemLink = $this->url('org-mnt/default', array('controller' => 'class', 'action' => 'index'));
+					       $textLink   = 'クラス情報';
+					   } else if ($msgSystemNotification['btn'] == 4) {
+					       $systemLink = $this->url('home-page/default', array('controller' => 'homepage', 'action' => 'detailb2'));
+					       $textLink   = '英検取得目標達成状況';
+					   } else if ($msgSystemNotification['btn'] == 5) {
+					       $systemLink = $this->url('i-b-a/default', array('controller' => 'iba', 'action' => 'policy'));
+					       $textLink   = '英検IBA申込';
+					   }
+
+					   if ($msgSystemNotification['btn'] != 1)
+					       echo $msgSystemNotification['msg'];
+
+					   if ($msgSystemNotification['btn'] != 0 && $msgSystemNotification['btn'] != 1) {
+					?>
+					   <a class="btn btn-red  btn-180 btn-notification" href="<?php echo $systemLink; ?>"> <span class="awesome-sm chevron-circle-right-w"> </span><?php echo $textLink; ?></a>
+					<?php } ?>
+				</p>
+			</div>
+			<?php } ?>
+    			<?php if(!empty($currentMsgApplyNotification)){ ?>
+    			         <div class="box-body c-r2">
+    			             <p>
+        			             <?php
+                					 echo $currentMsgApplyNotification['msg'] . "&nbsp;&nbsp;&nbsp;";
+        					     ?>
+        					 </p>
+        			         <p>
+            			         <?php
+                					 if($currentMsgApplyNotification['redirect']){
+                					     if($currentMsgApplyNotification['redirect'] == 10){
+            					 ?>
+        					                   <a class="btn btn-red  btn-180" href="<?php echo $this->url('eikenorg', array('action' => 'policy')); ?>"> <span class="awesome-sm chevron-circle-right-w"> </span>英検申し込み</a>
+										 <?php } elseif ($currentMsgApplyNotification['redirect'] == 16
+					                                   || $currentMsgApplyNotification['redirect'] == 17
+					                                       || $currentMsgApplyNotification['redirect'] == 18){ ?>
+					                           <a class="btn btn-red  btn-180" href="/iba/iba/policy"> <span class="awesome-sm chevron-circle-right-w"> </span>英検IBA申し込み</a>
+                                     <?php } ?>
+        					     <?php } ?>
+        					 </p>
+    					 </div>
+    			<?php } ?>
+                    <div class="box-body c-r2">
+                        <p>団体サポートに関するよくあるご質問は、英検ウェブサイトでも公開しています。<a target="_blank" href="http://faq.eiken.or.jp/category/show/75">詳しくはこちら</a>。</p>
+                    </div>
+    		</div>
+    	</div>
+	<div class="row">
+		<div class="col-sm-12 h-170 border-box timeline-box">
+			<div class="box-header">
+				<p><?php echo $this->translate('検定スケジュール');?></p>
+
+			</div>
+
+			<div class="box-body c-p">
+				<div class="col-sm-6 w-700">
+					<div id="mytimeline1"></div>
+					<div class="box-tools pull-right note-chart">
+						<span style="color: #e66100;"> •</span><?php echo $this->translate(' 英検本試験関連');?>
+						<span style="color: #00934f;"> •</span><?php echo $this->translate(' 英検IBA関連');?>
+					</div>
+				</div>
+				<div class="col-sm-3 clear-margin w-200">
+					<?php echo $lblEikenRes;?>
+					<p>	<?php echo $btnEikenRes;?>	</p>
+					<p>
+						<a class="btn  btn-180" href="/iba/iba/policy"><span
+							class="awesome-sm chevron-circle-right-b"></span>
+						  <?php echo $this->translate('英検IBA申し込み');?></a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+    <div class="row">
+        <div class="col-sm-12 border-box">
+            <div class="box-header">
+                <p><?php echo $this->translate('英検関連ニュース'); ?></p>
+            </div>
+            <div class="box-body">
+                <table class="table table-hover news">
+                    <?php
+                    if (count($news) > 0) :
+                        foreach ($news as $new) :
+                            ?>
+                            <tr class="noborder">
+                                <td style="width: 140px;">
+                                    <?php echo $new['newsDate']->format('Y'); ?>年
+                                    <?php echo $new['newsDate']->format('n'); ?>月
+                                    <?php echo $new['newsDate']->format('j'); ?>日
+                                </td>
+                                <td>
+                                    <a target="_blank" href="<?php echo $new['url']; ?>"><?php echo $new['description']; ?></a>
+                                </td>
+                            </tr>
+                            <?php
+                        endforeach;
+                    endif;
+                    ?>
+                            <tr class="noborder">
+                                <td colspan="2">
+                                    <span>英検からのその他のお知らせは<a target="_blank" href="https://www.eiken.or.jp/eiken/info/">こちら</a>から。</span>
+
+                                </td>
+                            </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

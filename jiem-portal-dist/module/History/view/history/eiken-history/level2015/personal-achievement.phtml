@@ -1,0 +1,435 @@
+<?php $this->headScript()->appendFile($this->basePath('js/history/eiken-history-personal-achievement.js')); ?>
+<?php $this->headLink()->appendStylesheet($this->basePath('css/history/eiken-history-personal-achievement.css')) ?>
+    <div class="per-achi old-template">
+        <div class="box b1">
+            <div class="box-header"><?php echo $items->titleEiken; ?></div>
+            <div class="box-body">
+                <table id="table1" class="table tb1 table-bordered tb-striped-c-e6 tb-striped-r-f2 tb1-str-td">
+                    <thead>
+                    <tr>
+                        <td colspan="2">氏名</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>漢字</td>
+                        <td><?php echo mb_convert_kana($items->getPupilName(), "KVC"); ?></td>
+                    </tr>
+                    <tr>
+                        <td>英字</td>
+                        <td><?php echo $items->getNameRomanji(); ?></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table id="table2" class="tb2 table-bordered tb-striped-c-e6 tb-striped-r-f2 tb2-str-td">
+                    <tbody>
+                    <tr>
+                        <td>受験級</td>
+                        <td class="<?php if ($items->getEikenLevelId() == 2 || $items->getEikenLevelId() == 4)
+                            echo 'w70';
+                        else echo "w50"; ?>"><?php echo $items->getLevelName; ?></td>
+                        <td>受験地番号</td>
+                        <td><?php echo $items->getExamLocation(); ?></td>
+                        <td>個人番号</td>
+                        <td><?php echo $items->getExamineeNumber(); ?></td>
+                    </tr>
+                    <tr>
+                        <td>英検ID</td>
+                        <td colspan="2"><?php echo $items->getEikenId(); ?></td>
+                        <td>パスワード</td>
+                        <td colspan="2">********</td>
+                    </tr>
+                    <tr>
+                        <td>学年・組</td>
+                        <td colspan="2"><?php echo trim($items->getSchoolYearCode()) . '・' . trim($items->getClassCode()); ?></td>
+                        <td>団体番号</td>
+                        <td colspan="2"><?php echo $items->getOrganizationNo(); ?></td>
+                    </tr>
+                    <tr>
+                        <td>団体名</td>
+                        <td colspan="5"><?php echo mb_convert_kana($items->getOrganizationName(), "KVC"); ?></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="box b2">
+            <ul class="nav nav-tabs">
+                <?php if ($items->getOneExemptionFlag() == 0 && $items->totalMondai) { ?>
+                    <li class="active"><a data-toggle="tab" href="#sectionA" id="tab1">一次試験個人成績表</a></li>
+                <?php } ?>
+                <?php if ($items->getEikenLevelId() < 6 && $items->getSecondExamResultsPassPoint()) { ?>
+                    <li class="<?php echo $items->active; ?>"><a data-toggle="tab" href="#sectionB" id="tab2">二次試験個人成績表</a>
+                    </li>
+                <?php } ?>
+            </ul>
+            <div class="box-body">
+                <div class="tab-content">
+                    <?php if ($items->getOneExemptionFlag() == 0 && $items->totalMondai) { ?>
+                        <div id="sectionA" class="tab-pane fade in active">
+                            <table id="table3" class="table some tb-striped-r-e6">
+                                <thead>
+                                <tr>
+                                    <td colspan="7">受験結果</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>受験級</td>
+                                    <td>一次試験結果</td>
+                                    <td>総合得点</td>
+                                    <td>満点</td>
+                                    <td>今回の合格点</td>
+                                    <td>合格者平均点</td>
+                                    <td>全体平均点</td>
+                                </tr>
+                                <tr>
+                                    <td class="b2-eiken-level"><?php echo $items->getLevelName; ?></td>
+                                    <td><?php echo ($items->getPrimaryPassFailFlag() == 1) ? '合格' : ($items->getTotalPrimaryScore() ? '不合格' : '');
+                                        echo $items->getPrimaryFailureLevel(); ?></td>
+                                    <td><?php echo $items->getTotalPrimaryScore(); ?></td>
+                                    <td><?php echo $items->getFirstExamResultsPerfectScore(); ?></td>
+                                    <td><?php echo $items->getFirstExamResultsPassPoint(); ?></td>
+                                    <td><?php echo $items->getFirstExamResultsAveragePass(); ?></td>
+                                    <td><?php echo $items->getFirstExamResultsExamAverage(); ?></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="progress-bar">
+                                <div class="content-info">
+                                    <div class="item-info" style="width: <?php echo ($items->getFirstExamResultsFailPoint() / $items->getFirstExamResultsPerfectScore()) * 100; ?>%"> 不合格Ｂ</div>
+                                    <div class="item-info" style="width: <?php echo ($items->getFirstExamResultsPassPoint() / $items->getFirstExamResultsPerfectScore()) * 100 - ($items->getFirstExamResultsFailPoint() / $items->getFirstExamResultsPerfectScore()) * 100; ?>%"> 不合格Ａ</div>
+                                    <div class="item-info">合格</div>
+                                    <div class="item-info-r"><span>★</span>印はあなたの位置</div>
+                                </div>
+                                <div class="content-bar border color-org">
+                                    <div class="item-bar border-r color-f2" style="width: <?php echo ($items->getFirstExamResultsPassPoint() / $items->getFirstExamResultsPerfectScore()) * 100; ?>%"></div>
+                                    <div class="item-bar border-r color-e6" style="width: <?php echo ($items->getFirstExamResultsFailPoint() / $items->getFirstExamResultsPerfectScore()) * 100; ?>%"></div>
+                                    <div class="item-bar" style="width: <?php echo ($items->getTotalPrimaryScore() / $items->getFirstExamResultsPerfectScore()) * 100; ?>%">
+                                        <span>★</span></div>
+                                </div>
+                                <div class="content-info">
+                                    <div class="item-info" style="width: <?php echo ($items->getFirstExamResultsFailPoint() / $items->getFirstExamResultsPerfectScore()) * 100; ?>%"> 0</div>
+                                    <div class="item-info" style="width: <?php echo ($items->getFirstExamResultsPassPoint() / $items->getFirstExamResultsPerfectScore()) * 100 - ($items->getFirstExamResultsFailPoint() / $items->getFirstExamResultsPerfectScore()) * 100; ?>%"><?php echo $items->getFirstExamResultsFailPoint(); ?></div>
+                                    <div class="item-info"><?php echo $items->getFirstExamResultsPassPoint(); ?></div>
+                                    <div class="item-info right"><?php echo $items->getFirstExamResultsPerfectScore(); ?></div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php } ?>
+                    <?php if ($items->getEikenLevelId() < 6 && $items->getSecondExamResultsPassPoint()) { ?>
+                        <div id="sectionB" class="tab-pane fade <?php echo $items->active; ?>">
+                            <table id="table4" class="table some tab2 tb-striped-r-e6">
+                                <thead>
+                                <tr>
+                                    <td colspan="7">受験結果</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>受験級</td>
+                                    <td>二次試験結果</td>
+                                    <td>あなたの得点</td>
+                                    <td>満点</td>
+                                    <td>合格点</td>
+                                </tr>
+                                <tr>
+                                    <td class="b2-eiken-level-tab"><?php echo $items->getLevelName; ?></td>
+                                    <td><?php echo ($items->getSecondPassFailFlag() == 1) ? '合格' : ($items->getTotalSecondScore() ? '不合格' : '');
+                                        echo $items->getSecondUnacceptableLevel(); ?></td>
+                                    <td><?php echo $items->getTotalSecondScore(); ?></td>
+                                    <td><?php echo $items->getSecondExamResultsPerfectScore(); ?></td>
+                                    <td><?php echo $items->getSecondExamResultsPassPoint(); ?></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="progress-bar">
+                                <div class="content-info">
+                                    <div class="item-info" style="width: <?php echo ($items->getSecondtExamResultsFailPoint() / $items->getSecondExamResultsPerfectScore()) * 100; ?>%;"> 不合格Ｂ</div>
+                                    <div class="item-info" style="width: <?php echo ($items->getSecondExamResultsPassPoint() / $items->getSecondExamResultsPerfectScore()) * 100 - ($items->getSecondtExamResultsFailPoint() / $items->getSecondExamResultsPerfectScore()) * 100; ?>%"> 不合格Ａ</div>
+                                    <div class="item-info">合格</div>
+                                    <div class="item-info-r"><span>★</span>印はあなたの位置</div>
+                                </div>
+                                <div class="content-bar border color-org">
+                                    <div class="item-bar border-r color-f2" style="width: <?php echo ($items->getSecondExamResultsPassPoint() / $items->getSecondExamResultsPerfectScore()) * 100 ?>%"></div>
+                                    <div class="item-bar border-r color-e6" style="width: <?php echo ($items->getSecondtExamResultsFailPoint() / $items->getSecondExamResultsPerfectScore()) * 100; ?>%;"></div>
+                                    <div class="item-bar" style="width: <?php echo ($items->getTotalSecondScore() / $items->getSecondExamResultsPerfectScore()) * 100; ?>%">
+                                        <span>★</span></div>
+                                </div>
+                                <div class="content-info">
+                                    <div class="item-info" style="width: <?php echo ($items->getSecondtExamResultsFailPoint() / $items->getSecondExamResultsPerfectScore()) * 100; ?>%;"> 0</div>
+                                    <div class="item-info" style="width: <?php echo ($items->getSecondExamResultsPassPoint() / $items->getSecondExamResultsPerfectScore()) * 100 - ($items->getSecondtExamResultsFailPoint() / $items->getSecondExamResultsPerfectScore()) * 100; ?>%"><?php echo $items->getSecondtExamResultsFailPoint(); ?></div>
+                                    <div class="item-info"><?php echo $items->getSecondExamResultsPassPoint(); ?></div>
+                                    <div class="item-info right"><?php echo $items->getSecondExamResultsPerfectScore(); ?></div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php } ?>
+                </div>
+            </div>
+            <div class="footer">成績に関するお問い合わせには一切応じられません</div>
+        </div>
+        <?php if (!$items->active) { ?>
+            <div class="box b3">
+                <div class="box-header">
+                    <span><b>解答状況</b></span>
+                </div>
+                <div class="box-body">
+                    <?php if ($items->getTrueFalse && $items->totalMondai) {
+                        echo $this->partial('case' . $items->caseId . '.phtml', array('items' => $items, 'type' => 'answer'));
+                    }
+                    else { ?>
+                        <div class="answerSituation">
+                            <table id="table5" class="some tb-striped-c-e6">
+                                <thead>
+                                <tr>
+                                    <td>筆記</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>大問番号</td>
+                                </tr>
+                                <tr>
+                                    <td>問題番号</td>
+                                </tr>
+                                <tr>
+                                    <td>正解番号</td>
+                                </tr>
+                                <tr>
+                                    <td>正誤</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="clear"></div>
+                        </div>
+                    <?php } ?>
+                </div>
+            </div>
+            <div class="box b4">
+                <div class="box-header">分野別得点</div>
+                <div class="box-body">
+                    <table id="table6" class="table some  tb-striped-r-f2 ">
+                        <thead>
+                        <tr>
+                            <td>分野</td>
+                            <td>あなたの得点／配点</td>
+                            <td colspan="2">得点率(%)〈<i class="star-1 color1"><span class="shadow-star">★</span></i>は合格者、<i class="star-2 color2"><span class="shadow-star">★</span></i>は全受験者の平均得点率〉
+                            </td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>語い・熟語・文法</td>
+                            <td><?php echo $items->getVocabularyFieldScore() . '/' . $items->getVocabularyScore(); ?></td>
+                            <td><?php echo $items->getVocabularyPercentCorrectAnswers(); ?>%</td>
+                            <td rowspan="4" class="clr-padding">
+                                <div class="grid-box-chart">
+                                    <div class="line-1">
+                                        <div class="col-1">10</div>
+                                        <div class="col-1">20</div>
+                                        <div class="col-1">30</div>
+                                        <div class="col-1">40</div>
+                                        <div class="col-1">50</div>
+                                        <div class="col-1">60</div>
+                                        <div class="col-1">70</div>
+                                        <div class="col-1">80</div>
+                                        <div class="col-1">90</div>
+                                        <div class="col-1 clr-border">100</div>
+                                        <div class="content-bar border">
+                                            <div style="width: <?php echo $items->getVocabularyPercentCorrectAnswers(); ?>%;" class="item-bar color-org"></div>
+                                            <div style="width: <?php echo ($items->getVocabularyOverallAverage() / $items->getVocabularyScore()) * 100; ?>%" class="item-bar color2">
+                                                <span>★</span></div>
+                                            <div style="width: <?php echo ($items->getVocabularyPassAverage() / $items->getVocabularyScore()) * 100; ?>%" class="item-bar color1">
+                                                <span>★</span></div>
+                                        </div>
+                                    </div>
+                                    <div class="line-1">
+                                        <div class="content-bar border">
+                                            <div style="width: <?php echo $items->getReadingPercentCorrectAnswers(); ?>%" class="item-bar color-org"></div>
+                                            <div style="width: <?php echo ($items->getReadingOverallAverage() / $items->getReadingScore()) * 100; ?>%" class="item-bar color2">
+                                                <span>★</span></div>
+                                            <div style="width: <?php echo ($items->getReadingPassAverage() / $items->getReadingScore()) * 100; ?>%" class="item-bar color1">
+                                                <span>★</span></div>
+                                        </div>
+                                    </div>
+                                    <div class="line-1">
+                                        <div class="content-bar border">
+                                            <div style="width: <?php echo $items->getListeningPercentCorrectAnswers(); ?>%" class="item-bar color-org"></div>
+                                            <div style="width: <?php echo ($items->getListeningOverallAverage() / $items->getListeningScore()) * 100; ?>%" class="item-bar color2">
+                                                <span>★</span></div>
+                                            <div style="width: <?php echo ($items->getListeningPassAverage() / $items->getListeningScore()) * 100; ?>%" class="item-bar color1">
+                                                <span>★</span></div>
+                                        </div>
+                                    </div>
+                                    <div class="line-1">
+                                        <div class="content-bar border">
+                                            <div style="width: <?php echo $items->getCompositionPercentCorrectAnswers(); ?>%" class="item-bar color-org"></div>
+                                            <div style="width: <?php echo ($items->getCompositionOverallAverage() / $items->getCompositionScore()) * 100; ?>%" class="item-bar color2">
+                                                <span>★</span></div>
+                                            <div style="width: <?php echo ($items->getCompositionPassAverage() / $items->getCompositionScore()) * 100; ?>%" class="item-bar color1">
+                                                <span>★</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>読解</td>
+                            <td><?php echo $items->getReadingFieldScore() . '/' . $items->getReadingScore(); ?></td>
+                            <td><?php echo $items->getReadingPercentCorrectAnswers(); ?>%</td>
+                        </tr>
+                        <tr>
+                            <td>リスニング</td>
+                            <td><?php echo $items->getListeningFieldScore() . '/' . $items->getListeningScore(); ?></td>
+                            <td><?php echo $items->getListeningPercentCorrectAnswers(); ?>%</td>
+                        </tr>
+                        <tr>
+                            <td>作文</td>
+                            <td><?php echo $items->getCompositionFieldScore() . '/' . $items->getCompositionScore(); ?></td>
+                            <td><?php echo $items->getCompositionPercentCorrectAnswers(); ?>%</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="box b5">
+                <div class="box-header">
+                    <span><b>大問別得点・出題のねらいと学習アドバイス</b></span>
+                </div>
+                <div class="box-body">
+                    <?php echo $this->partial('case' . $items->caseId . '.phtml', array('items' => $items, 'type' => 'part')); ?>
+                </div>
+            </div>
+        <?php } ?>
+        <?php if ($items->getEikenLevelId() < 6 && $items->getSecondExamResultsPassPoint()) { ?>
+            <div class="box b7" <?php echo $items->display; ?>>
+                <div class="box-header">
+                    <span>分野別得点とその評価のポイント</span>
+                </div>
+                <div class="box-body">
+                    <table id="table7" class="table some  tb-striped-r-f2 ">
+                        <thead>
+                        <tr>
+                            <td>分野</td>
+                            <td>あなたの得点／配点</td>
+                            <td>評価のポイント</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                            $ds = new Application\Service\DantaiService();
+                            $getSecondScore1 = trim($ds->convertFullToHaf($items->getSecondScore1()));
+                            foreach ($items->getSkill2 as $key => $skill) {
+                            $nijitokuten = 'getScoreAccordingField' . $key;
+                            $nijihaiten = 'getScoringAccordingField' . $key; ?>
+                            <tr>
+                                <td><?php echo $skill ?></td>
+                                <td><?php
+                                            if ($key == 1 && $getSecondScore1 === '0' && $items->getEikenLevelId() > 5) {
+                                                echo '免除';
+                                            } else {
+                                                echo str_replace(array('　', ' ', '０', '１', '２', '３', '４', '５', '６', '７', '８', '９'), array('', '', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'), $items->$nijitokuten() . '/' . $items->$nijihaiten());
+                                            }
+                                            ?></td>
+                                        <td <?php if ($key == 1 && $getSecondScore1 === '0' && $items->getEikenLevelId() > 5) {
+                                        echo 'style="text-align: center;"';
+                                    } ?>>
+                                            <?php
+                                            if ($key == 1 && $getSecondScore1 === '0' && $items->getEikenLevelId() > 5) {
+                                                echo 'ー';
+                                            } else {
+                                                echo $items->getDescription2[$key][$items->getEikenLevelId()];
+                                            }
+                                            ?></td>
+                                    </tr>
+                            </tr>
+                        <?php } ?>
+                        <tr>
+                            <td>合計</td>
+                            <td><?php echo $items->getTotalSecondScore() . '点/' . $items->getSecondExamResultsPerfectScore() . '点'; ?></td>
+                            <td><?php echo $items->getDescription2[5][1]; ?></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        <?php } ?>
+        <div class="box b6">
+            <div class="box-header">
+                <span>【英検CSEスコアと英検バンド】</span>
+            </div>
+            <?php if ($items->getOneExemptionFlag() == 0 && $items->totalMondai) { ?>
+                <div class="box-body b6-1">
+                    <table id="table8" class="table tb1 table-bordered">
+                        <tbody>
+                        <tr>
+                            <td rowspan="2">英検CSE<br>スコア</td>
+                            <td rowspan="2"><span>一次スコア </span> <br>（3技能）</td>
+                            <td rowspan="2"><?php echo $items->getCSEScoreReading() + $items->getCSEScoreListening() + $items->getCSEScoreWriting(); ?></td>
+                            <td><span>Reading</span></td>
+                            <td><span>Listening</span></td>
+                            <td><span>Writing</span></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo $items->getCSEScoreReading(); ?></td>
+                            <td><?php echo $items->getCSEScoreListening(); ?></td>
+                            <td><?php echo $items->getCSEScoreWriting(); ?></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table id="table9" class="table tb2 table-bordered">
+                        <tbody>
+                        <tr>
+                            <td rowspan="2">英検バンド<br>一次</td>
+                            <td><span>Reading</span> <br> <span>Listening</span><br> <span>Writing</span></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo $items->getEikenBand1(); ?></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            <?php } ?>
+            <?php if ($items->getEikenLevelId() < 6 && $items->getSecondExamResultsPassPoint()) { ?>
+                <div class="box-body b6-2" <?php echo $items->display; ?>>
+                    <table id="table10" class="table tb1 table-bordered">
+                        <tbody>
+                        <tr>
+                            <td rowspan="2">英検CSE<br>スコア</td>
+                            <td rowspan="2"><span>総合スコア </span> <br>（3技能）</td>
+                            <td rowspan="2"><?php echo $items->getCSEScoreReading() + $items->getCSEScoreListening() + $items->getCSEScoreSpeaking(); ?></td>
+                            <td><span>Reading</span></td>
+                            <td><span>Listening</span></td>
+                            <td><span>Speaking</span></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo $items->getCSEScoreReading(); ?></td>
+                            <td><?php echo $items->getCSEScoreListening(); ?></td>
+                            <td><?php echo $items->getCSEScoreSpeaking(); ?></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table id="table11" class="table tb2 table-bordered">
+                        <tbody>
+                        <tr>
+                            <td rowspan="2">英検バンド<br>ニ次</td>
+                            <td><span>Speaking</span></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo $items->getEikenBand2(); ?></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            <?php } ?>
+            <div class="footer">※ CSE(Common Scale for English)とは、（一財）日本生涯学習研究所が算出した尺度です。詳しくは裏面をご覧ください。</div>
+            <div class="box-footer setting_m20">
+                <a href="<?php echo ($items->backAction) ? $items->backAction : $this->url('history/default', array('controller' => 'eiken', 'action' => 'exam-result')); ?>" class="btn btn-large-180"><i class="arrow-circle-left"></i> 戻る</a>
+            </div>
+        </div>
+    </div>
+    <div class="scrollup"></div>
+<?php if(!empty($items->part2)){ ?>
+    <style> .per-achi .b3 table tbody tr td { min-width: <?php echo round(638/$items->part2) ?>px } </style>
+<?php } ?>

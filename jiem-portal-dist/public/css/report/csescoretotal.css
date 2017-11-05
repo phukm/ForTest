@@ -1,0 +1,85 @@
+/*
+tuan bycode
+*/
+.csescore .rowcontent{background: #F2f2f2;position: relative;padding-top: 10px;border-bottom: 1px solid #696969;}
+.csescore .contentLeft{width: 439px}
+.csescore .contentLeft .row{margin-bottom: -9px}
+.csescore .margincontent{margin-left: 20px}
+.csescore .table-bordered>thead>tr.bgtitle>th,.csescore .table-bordered>tbody>tr.bgtitle>td{background: #e6e6e6;padding-bottom: 8px;padding-top: 8px;padding-right: 0px}
+.csescore .table .kennaming{ width: 66px;}
+.csescore .table .year{width: 55px;}
+.csescore .table .time{width: 10px;}
+.csescore .table .dayomen{width: 102px;}
+.csescore .table .rateomen{width: 65px; padding-top: 29px;}
+.csescore .table .average{width: 53px;}
+.csescore .table .lowest{width: 53px;}
+.csescore .table .highest{width: 53px;}
+.csescore .table .reading{width: 105px;}
+.csescore .table .listening{width: 105px;}
+.csescore .table .lighting{width: 105px;}
+.csescore .table .speaking{width: 105px;}
+.csescore .boxtop .borderright{border-right: 1px solid #cccccc;}
+.csescore .boxtop .row .col-sm-10 label{float: left;font-weight: normal;}
+.csescore .boxtop .row .col-sm-10 label input{width: 35px;text-align: left;}
+.csescore .boxtop .row .shoolyear{width: 40px}
+.csescore .boxtop .row .orgshoollYear .form-control{width: 150px}
+.csescore .boxtop .row .orgshoollYear{width: 170px}
+.csescore .boxtop{padding-top: 7px}
+.csescore .boxtop .title{width: 70px;}
+.csescore .boxtop .widthclass{width: 70px}
+.csescore .boxtop .borderleft{padding-left: 20px !important}
+.csescore .boxtop .borderleft .namelabel{width: 60px}
+.csescore .boxtop .borderleft .ddyear{width: 115px}
+.csescore .boxtop .borderleft .ddyear select{width: 100px;padding-right: 22px;}
+.csescore .boxtop .borderleft .labelwidth{width: 51px}
+.csescore .boxtop .borderleft p{color: #8e8e8e}
+.csescore .boxtop .widthclassstestName{width: 60px}
+.csescore .boxtop .box-footer{padding-bottom: 0px;padding-top: 12px}
+.contentLeft span i.crice{height: 6px;width: 6px;display: inline-block;border-radius: 6px;margin-right: 5px}
+.contentLeft span i.red{background: #e60012}
+.contentLeft span i.orange{background:#ff8107}
+.contentLeft span{width: 50px;}
+.margincontent .rowtop span{font-size: 12px}
+.margincontent .rowtop .spanpink{margin-left: 50px;width: 100px}
+.margincontent .rowtop .spangreen1{width: 87px;}
+.margincontent .rowtop .spangreen2{width: 99px;}
+.margincontent .rowtop .spangreen3{width: 87px;}
+.contentLeft span i.green{background:#3556fc}
+.contentLeft span i.green1{background: #18904d}
+.contentLeft span i.green2{background: #b8f4ff}
+.contentLeft span i.green3{background: #21fe3b}
+.contentLeft span i.pink{background: #f61cfe}
+.csescore  .boxcontent .box-body{padding-top: 0px;padding-bottom: 0px}
+.csescore  .boxcontent .box-body .rowtop{margin-top: 0px;padding-left: 10px;}
+.csescore  .boxcontent .box-body .distop{position: absolute;top:35px;left: 5px}
+.csescore  .boxcontent .box-body .distop span{font-size: 11px;float: left;width: 100%;display: inline-block;line-height: 15px}
+.csescore .rowbottom{padding-top: 10px;}
+.csescore .rowbottom span.widhtyear{width: 95px;text-align: right;}
+.csescore .rowbottom span.widhtyear2{width: 290px;text-align: right;}
+.csescore .rowbottom {margin-bottom: 0px}
+.csescore  .hr{margin-top: 10px}
+.csescore #chart1,.csescore #chart2{cursor: pointer;}
+.cse-hightchart1{
+    height: 150px; 
+    margin: 0 auto; 
+    float: left; 
+    width: 400px;
+    margin-left: 20px;
+}
+.cse-hightchart2{
+    height: 150px; 
+    margin: 0 auto; 
+    float: left; 
+    width: 400px;
+    margin-left: 25px;
+}
+
+.row table tr th{
+    background-color: #FFD5D5;
+    border: 1px solid #ccc;
+    text-align: center !important;
+}
+
+.row table tr td{
+    background-color: #fff;
+}

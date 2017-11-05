@@ -1,0 +1,15 @@
+<?php $this->headScript()->appendFile( $this->basePath ( 'js/eiken/eiken-org.js' ) )?>
+<script type="text/javascript">
+   var dantaiStatus = <?php echo $dantaiStatus; ?>;
+   var jsMessages  = {};
+   var eikenOrgDetail  = {};
+   var msg = '<?php echo sprintf('%d年度第%d回の申込期間外です。',$currentTime['year'],$currentTime['kai']) ?>';
+</script>
+<div class="box eiken-policy">
+
+</div>
+<script>
+    $(document).ready(function(){
+        EIKEN_ORG.checkValid(msg);
+    });
+</script>

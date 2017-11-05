@@ -1,0 +1,266 @@
+/*IBA*/
+
+.fl {
+    float:left;
+}
+
+.fr{
+    float: right;
+    line-height: 30px;
+    margin-top: 15px; 
+    margin-bottom: 10px;
+}
+
+.inquiryiba .btn-clear{
+    width: 100px;
+    margin-right: 16px;
+}
+
+.inquiryiba table
+{
+    /*border-collapse: separate;*/
+    margin-top: 8px;
+}
+
+.inquiryiba .box-search{
+    display: block;
+    line-height: 18px;
+    padding: 10px 20px 10px 20px;
+}
+
+.inquiryiba .box-submit{
+    padding: 7px 20px 7px 20px;
+}
+
+.inquiryiba .input-name{
+    margin-top: 3px;
+}
+
+.inquiryiba .search_list .col1 {
+    margin-top: 3px;
+    width: 55px;
+}
+
+.inquiryiba .search_list .col3 {
+    width: 72px;
+    margin: 3px 0 0 29px;
+}
+
+.inquiryiba .search_list .col5 {
+    width: 55px;
+    margin: 3px 6px 0 23px;
+}
+
+.inquiryiba .search_list .col2,.inquiryiba .search_list .col4{
+    width: 166px;
+}
+
+.inquiryiba .styled-select{
+    width: 150px;
+}
+
+.inquiryiba .search_list .col2 select,.inquiryiba .search_list .col4 select{
+    width: 140px;
+}
+.inquiryiba .search_list .col6{
+    width: 250px
+}
+
+.inquiryiba .inquiryeiken-list .table > tbody > tr{
+    height: 43px;
+}
+
+.inquiryiba-list .trhead{
+    height: 46px;
+    max-width: 898px;
+}
+
+.inquiryiba .view-label{
+    padding: 2px 12px 0 12px;
+}
+
+.inquiryiba .trbody .view-button{
+    text-align: center;
+}
+
+.inquiryiba .r2 .cl2{width: 717px;padding-right: 20px;}
+.inquiryiba .r2 .cl2 a{width: 100px;float: right;display: inline-block;margin: 0;}
+.inquiryiba .r2 .cl3 a{width: 198px;float: right;display: inline-block;margin: 0;}
+.inquiryiba .r2 .cl3 a .awesome{margin-right: 5px;}
+.inquiryiba .cl3 a {margin-top: 0}
+.inquiryiba .liststd-button-group{margin-bottom: 10px;}
+.inquiryiba .liststd-button .awesome-lage,.student_manager .std_list .col-sm-5 .awesome-lage{display: block;margin-top: 4px;margin-left: 16px;}
+.inquiryiba .r2 .cl3 .btn-search-list{
+    width: 180px;
+}
+
+.inquiryiba .trhead th {
+    font-weight: bold;
+    padding: 5px;
+}
+
+.inquiryiba .trhead th .eikenkyulvtotal{
+	padding: 10px 5px;
+}
+.inquiryiba .trhead th .eikenkyulvread{
+    padding: 10px 5px;
+}
+.inquiryiba .trhead th .eikenkyulvlisten{
+    padding: 10px 5px;
+}
+
+.inquiryiba .trbody td {
+    padding: 5px;
+}
+.inquiryiba .trhead .schoolyear {
+    width: 100px !important;
+    text-align:center;
+}
+.inquiryiba .trhead .class {
+    width: 65px !important;
+    text-align:center;
+}
+.inquiryiba .trhead .number {
+    width: 50px !important;
+    text-align:center;
+}
+.inquiryiba .trhead .namekana {
+    width: 115px !important;
+    text-align:center;
+}
+.inquiryiba .trhead .testset {
+    width: 55px !important;
+    text-align:center;
+}
+.inquiryiba .trhead .scoretotal {
+    width: 58px !important;
+    text-align:center;
+}
+.inquiryiba .trhead .scoreread {
+    width: 58px !important;
+    text-align:center;
+}
+.inquiryiba .trhead .scorelisten {
+    width: 58px !important;
+    text-align:center;
+}
+.inquiryiba .trhead .eikenkyulv {
+    text-align:center;
+}
+.inquiryiba .trhead .eikenkyulvtotal {
+    width: 80px !important;
+    text-align:center;
+}
+.inquiryiba .trhead .eikenkyulvread {
+    width: 80px !important;
+    text-align:center;
+}
+.inquiryiba .trhead .eikenkyulvlisten {
+    width: 80px !important;
+    text-align:center;
+}
+.inquiryiba .trhead .confirm {
+    width: 77px !important;
+    text-align:center;
+}
+
+.inquiryiba .trhead .action {
+    max-width: 105px !important;
+    text-align:center;
+}
+
+.inquiryiba .trbody .orgclassfication {
+    max-width: 70px;
+}
+.inquiryiba .trbody .schoolyear {
+    max-width: 60px;
+}
+.inquiryiba .trbody .class {
+    max-width: 55px;
+}
+.inquiryiba .trbody .number {
+    max-width: 40px;
+}
+.inquiryiba .trbody .namekacomme {
+    max-width: 90px;
+}
+.inquiryiba .trbody .eikenlevel {
+    max-width: 60px;
+}
+.inquiryiba .trbody .passfail1 {
+    max-width: 70px;
+}
+.inquiryiba .trbody .eikentotal1 {
+    max-width: 70px;
+}
+.inquiryiba .trbody .passfail2 {
+    max-width: 70px;
+}
+.inquiryiba .trbody .eikentotal2 {
+    max-width: 70px;
+}
+.inquiryiba .trbody .view-button {
+    max-width: 105px;
+}
+
+.inquiryiba .trbody .schoolyear {
+    text-align: left;
+}
+.inquiryiba .trbody .class {
+    text-align: left;
+}
+.inquiryiba .trbody .number {
+    text-align: right;
+}
+.inquiryiba .trbody .scoretotal {
+    text-align: right;
+}
+.inquiryiba .trbody .scoreread {
+    text-align: right;
+}
+.inquiryiba .trbody .scorelisten {
+    text-align: right;
+}
+.inquiryiba .trbody .eikenkyulvtotal {
+    text-align: right;
+}
+.inquiryiba .trbody .eikenkyulvread {
+    text-align: right;
+}
+.inquiryiba .trbody .eikenkyulvlisten {
+    text-align: right;
+}
+
+.pagination_inquiryiba_color .pagination a {
+    color: black;
+}
+
+.inquiryiba .pagination .active a {
+    background: #dddddd;
+    border: none;
+    border-bottom: 1px solid #dddddd;
+    border-top: 1px solid #dddddd;
+}
+
+.box_padding .pagination li a {
+    height: 32px
+}
+.inquiryiba .noresult {
+    padding-bottom: 0;
+}
+
+.inquiryiba .box_padding nav{
+    padding: 0;
+}
+
+.paging{
+	height:53px;
+}
+.headcole{
+    text-align: center; 
+    line-height: 59px !important;
+}
+
+.inquiryiba .marginleft{
+    margin-left: -7px;
+}

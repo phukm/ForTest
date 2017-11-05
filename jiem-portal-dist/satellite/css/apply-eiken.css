@@ -1,0 +1,332 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 15, 2016, 2:10:40 PM
+    Author     : AnhNT56
+*/
+
+.pc .lblTitle {
+    width: 25%;
+}
+.box-header {
+    color: #000000;
+    display: block;
+    padding: 15px 15px;
+    font-size: 18px;
+    border-bottom: 1px solid #DADADA;
+    position: relative;
+    font-weight: bold;
+    line-height: 18px;
+    height: 37px;
+}
+label .radio-box {
+    height: 13px;
+    position: relative;
+    top: 2px;
+    margin-right: 5px;
+}
+thead tr {
+    background-color: #ffd5d5;
+}
+.text-normal {
+    font-weight: 500 !important;
+}
+.rd-pleft20{
+    padding-left: 20px;
+}
+.lblDescription {
+    line-height: 1.5;
+}
+.pc .txtName{
+    width: 200px;
+}
+.pc .col-sm-9 .txtName:first-child {
+    margin-right: 15px;
+}
+.pc .birthdate .col-xs-1 {
+    text-align: center;
+}
+.pc .postcode1{
+    width: 55px;
+}
+.postcode2 input {
+    width: 75%;
+}
+.pc .minus:after {
+    width: 20px;
+}
+.pc .margin-left-10 {
+    margin-left: 10px;
+}
+.pc #btnCheck {
+    margin-top: -7px
+}
+.pc .birthdate {
+    margin-bottom: 0px;
+}
+.pc #birthdate .birthdate {
+    margin-bottom: -10px;
+}
+.pc .phoneNo .col-sm-1, .pc .postcode .col-sm-1{
+    width: 20px;
+}
+.pc .phoneNo .txtPhoneNo1,.pc .phoneNo .txtPhoneNo2, .pc .phoneNo .txtPhoneNo3{
+    width: 80px;
+}
+.pc .testSite{
+    line-height: 15px;
+}
+.pc .postcode .errorMess, .pc .phoneNo .errorMess{
+    padding-top: 0px;
+    min-height: 20px;
+}
+.phoneNo .col-xs-1:first-child{
+    margin-left: -9px;
+}
+.pc .errorMess{
+    line-height: 1.5 !important;
+    padding-top: 5px;
+}
+.pc #nameKanji .errorMess, .pc #nameKana .errorMess{
+    min-height: 20px;
+    padding-top: 0px;
+}
+.pc .box-footer .btn {
+    font-weight: bold;
+}
+/*mobile*/
+.mobile .box-header {
+    border-bottom: none;
+}
+.mobile, .mobile input, .mobile select {
+    font-size: 24px;
+}
+.mobile .lblTitle {
+    width: 35%;
+}
+.mobile .panel-body {
+    padding: 10px 25px;
+}
+.mobile label {
+    font-weight: bold;
+}
+.mobile .col-xs-1 {
+    top: 20px;
+    text-align: center;
+}
+.mobile .row {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin: auto 0px;
+}
+.mobile .col-sm-9 .txtName:first-child {
+    padding-bottom: 20px;
+}
+.mobile .minus:after {
+    content: '';
+    width: 10px;
+    border: 1px solid;
+    position: absolute;
+    right: 10%;
+    top: 30px;
+}
+.mobile .radio-box {
+    height: 20px;
+    width: 20px;
+    top: 1px;
+}
+.mobile .text-header {
+    font-size: 26px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid red;
+    font-weight: bold;
+}
+.mobile #btnCheck {
+    height: 60px;
+    width: 150px;
+    font-size: 24px;
+    padding-top: 20px;
+}
+.mobile .errorMess {
+    margin-top: 15px;
+    margin-bottom: 0px;
+}
+.mobile #birthdate .errorMess {
+    padding-top: 75px;
+}
+.mobile .testSite .errorMess {
+    margin-top: 5px;
+}
+.mobile .btn-full {
+    font-size: 24px;
+    width: 100%;
+    margin-bottom: 10px;
+    height: 60px;
+    padding-top: 10px;
+}
+.mobile tbody .text-center input {
+    width: 20px;
+    height: 20px;
+}
+.mobile .lblSex {
+    width: 17% !important;
+}
+.mobile .btn-full > i {
+    width: 25px !important;
+    margin-right: 5px;
+    margin-top: -5px;
+    height: 25px;
+}
+.mobile .phoneNo .col-xs-1, .mobile .postcode .col-xs-1{
+    font-size: 35px !important;
+}
+
+.mobile .box-footer {
+    padding-top: 0px;
+    background-color: #ffffff;
+    overflow: hidden;
+}
+
+.mobile .box-footer .btn {
+    font-weight: bold;
+}
+
+.mobile .birthdate select {
+    padding: 10px 10px;
+}
+.mobile .birthdate div:first-child {
+    width: 205px;
+}
+.mobile .col-xs-3 .text-normal{
+    margin-top: 20px;
+}
+.mobile select{
+    height: 60px;
+}
+/*end mobile*/
+.errorMess {
+    color: red;
+    margin-bottom: 0px;
+}
+.error input[type="radio"], .error input[type="checkbox"], input[type="checkbox"].error, input[type="radio"].error {
+    outline: 2px dashed #ff0000 !important;
+}
+input.error, input.error:focus, select.error, select.error:focus, .error select, .error select:focus, .error input, .error input:focus {
+    border: 2px solid red !important;
+}
+#eiken-level.error select{
+    border: 1px solid #cccccc !important;
+}
+.table {
+    margin-bottom: 0px;
+    margin-top: -10px;
+}
+ul.selectZipcode {
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 0;
+}
+ul.selectZipcode li {
+    cursor: pointer;
+    list-style: none;
+    border-bottom: 1px solid #ccc;
+    padding: 5px;
+    padding-left: 10px;
+}
+ul.selectZipcode li:first-child {
+    border-top: 1px solid #ccc;
+}
+ul.selectZipcode li:hover {
+    background: #ddd;
+}
+.text-center {
+    text-align: center !important;
+}
+.errorNoneChecked {
+    outline: none !important;
+}
+.width-18{
+    width: 18px;
+}
+.mw120 {
+    width: 120px;
+}
+.mr20 {
+    margin-right: 20px;
+}
+.msgSelectKyu{
+    color: red;
+    line-height: 1.5;
+}
+.box-body .col-xs-1, .box-body .col-sm-1, .box-body .col-xs-2, .box-body .col-sm-2, .box-body .col-sm-3, .box-body .col-xs-3, .box-body .col-xs-4, .box-body .col-sm-4, .box-body .col-xs-5, .box-body .col-sm-5, .box-body .col-xs-6, .box-body .col-sm-6, .box-body .col-xs-7, .box-body .col-sm-7, .box-body .col-xs-8, .box-body .col-sm-8, .box-body .col-xs-9, .box-body .col-sm-9,.box-body .col-xs-12, .box-body .col-sm-12{
+    min-height: 29px;
+    line-height: 29px;
+    left: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+.box-body, .box-footer {
+    border-radius: 0px;
+    padding: 20px;
+}
+.star{
+    color: red;
+}
+.box-body input, .box-body select{
+    color: #000000;
+}
+.table-bordered>thead>tr>th{
+   background-color: #ffd5d5; 
+}
+.mobile table{
+    font-size: 21px;
+}
+.mobile select:enabled{
+    -webkit-text-fill-color: #000;
+    border: 2px solid rgba(0, 0, 0, 0.60);
+}
+.fixwidth{
+    width: 145px;
+}
+.pc .chooseKyu {
+    width: 50px;
+}
+.pc .kyu {
+    width: 80px;
+}
+.pc .price {
+    width: 80px;
+}
+
+.pc .hallType {
+    width: 130px;
+}
+.pc .hallType select{
+    width: 110px;
+}
+.mobile .chooseKyu {
+    width: 70px;
+}
+.mobile .kyu {
+    width: 100px;
+}
+.mobile .price {
+    width: 90px;
+}
+
+.mobile td.hallType {
+    width: 175px;
+    padding: 10px 13px;
+}
+.mobile .hallType select{
+    width: 145px;
+}
+.mobile td{
+   vertical-align: middle !important;
+}
+.mobile td.examDate{
+   word-break: break-all;
+}

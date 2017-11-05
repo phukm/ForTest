@@ -1,0 +1,74 @@
+<?php $this->headScript()->prependFile($this->basePath('js/messages/common-message.js')); ?>
+<div class="login-description" style="color: red; font-size: 18px; margin-top: 10px;">
+</div>
+    <?php
+if ($errors) {
+    $form->get('organizationNo')->removeAttribute('autofocus');
+    ?>
+    <div class="error-form-login1" id="show_error"
+         style="margin: 6.25%; color: red; font-size: 20px; border: 1px solid red; padding-top: 15px;">
+        <ul>
+            <?php foreach ($errors as $key => $error): ?>
+                <li class='msg' style="cursor: pointer;"
+                    onclick="$('<?php echo $key == "all" ? '#orgNo' : '#' . $key; ?>').focus()"><?php echo $this->translate($error); ?></li>
+                <?php endforeach; ?>
+        </ul>
+    </div>
+    <style>
+        .fa-sign-in:before {
+            content: "\f090";
+        }
+    </style>
+<?php }else { ?>
+    <script>
+        $(document).ready(function () {
+            $('form:first *:input[type!=hidden]:first').focus();
+        });
+    </script>
+<?php } ?>
+
+<?php
+$form->setAttribute('action', $this->url('satellite', array(
+            'controller' => 'Satellite',
+            'action' => 'index'
+)));
+$form->setAttribute('class', 'form-horizontal ver-center');
+$form->setAttribute('id', 'frmLogin');
+$form->setAttribute('action', 'login');
+$form->prepare();
+?>
+<?php echo $this->form()->openTag($form); ?>
+<div class="login-description">団体IDと認証キーを入力して【ログイン】ボタンを押してください。</div>        
+<div class="stll-input-1">
+    <p style="color:red;margin-bottom: 30px;font-weight: normal;" class="text-center">個人支払（コンビニ・クレジット）は5月9日（火）締切となります。</p>
+    <?php
+    if (isset($errors["organizationNo"]) || isset($errors["all"])) {
+        $form->get('organizationNo')->setAttributes(array(
+            "class" => "form-control error"
+        ));
+    }
+    $form->get('organizationNo')->setAttributes(array(
+        "placeholder" => "団体ID"
+    ));
+    echo $this->formElement($form->get('organizationNo'));
+    ?>
+
+    <?php
+    if (isset($errors["authenKey"]) || isset($errors["all"])) {
+        $form->get('authenKey')->setAttributes(array(
+            "class" => "form-control error"
+        ));
+    }
+    $form->get('authenKey')->setAttributes(array(
+        "placeholder" => "認証キー"
+    ));
+    echo $this->formElement($form->get('authenKey'));
+    ?>
+</div>
+
+<div class="stll-button-1">
+    <button class="btn btn-large-full btn-red" type="submit">
+        <i class="sign-in-1"></i> ログイン
+    </button>
+</div>
+<?php echo $this->form()->closeTag(); ?>

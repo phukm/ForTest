@@ -1,0 +1,153 @@
+@CHARSET "UTF-8";
+.login{}
+
+.login-page-header
+{
+	padding: 40px 0px 50px 0px;
+	width: 345px;
+}
+
+.login .box-body .row >div > li{
+	margin: 0px 0px 0px 15px;
+  line-height: 15px;
+}
+.login .box-body > div > div > a{
+	color: red;
+	font-size: 16px;
+}
+.login .box-body{padding-bottom: 0px;}
+.login-box-header{
+	background: #fff;
+   	color: #444;
+	margin-top:5px;
+	font-size: 24px;
+	line-height: 25px;
+	font-weight: bold;
+  	/*position: relative;*/
+}
+
+.btn-login{
+	width: 180px;
+	height: 40px;
+	background-color: #e40011;
+}
+.reset-link 
+{
+	margin-top:15px;
+	color: #7f7f7f;
+	text-decoration: underline;
+}
+.login-label-header
+{
+	font-size: 24px;
+	line-height: 22px;
+	padding: 8px 0px 0px 55px;
+  float: left;
+  font-weight: bold;
+  margin: 0px;
+}
+.login-label-body
+{
+	font-size: 14px;
+	font-weight: bolder;
+	vertical-align: middle;
+	line-height: 20px;
+        width: 480px;
+}
+.login-label-body input
+{
+	font-weight: normal;
+}
+.login-label-body .error
+{
+	font-weight: normal;
+}
+.login-top{
+  background-color: #fff;
+  height: 155px;
+  box-shadow: 0 0px 1px rgba(0, 0, 0, 0.4);
+}
+
+.login-logo{
+	width: 75px;
+	height: 65px;
+}
+
+.login-description{
+	font-size:14px; 
+        font-weight: normal; 
+        text-align: center;
+}
+
+.login-background{
+	background-color: #eeeeee;
+}
+
+.login footer{
+	margin-top: -40px;
+}
+.login-line-height-18{
+	line-height: 18px;
+}
+.login .content-wrapper
+{padding-bottom: 45px;}
+.login .row{margin-top: 0px; margin-bottom: 15px;}
+.login .width100{width: 100px;}
+.login .width140{width: 140px;}
+.login .width280{width: 279px;}
+.login .width380{width: 380px;}
+#frmLogin .col-sm-6{width: 279px !important;}
+
+.error-form-login{
+	color: red; 
+	border: 1px solid red; 
+	padding: 10px;
+	margin-top: 10px;
+	margin-bottom:-20px;
+	width: 620px;
+}
+.fix-width-620{
+	width: 620px;
+	margin-top:40px;
+}
+
+.width380{
+	width: 380px;
+}
+.width100{
+	width: 100px;
+}
+.width140{
+	width: 140px;
+}
+.width280{
+	width: 280px;
+}
+
+.frm-login-pd{
+	padding-top: 10px;
+}
+.img-login{
+	width: 18px;
+}
+.comment-note{
+    line-height: 26px;
+    padding-right: 0;
+    float: left;
+    font-weight: normal;
+}
+.label-field-login{
+    line-height: 26px;
+    width: 100px;
+}
+
+.forgot-password{
+    margin-top: 15px;
+}
+.forgot-password p.description{
+    margin-bottom: 0;
+}
+
+.forgot-password a{
+    text-decoration: underline;
+}

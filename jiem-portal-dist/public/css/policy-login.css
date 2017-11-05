@@ -1,0 +1,50 @@
+.icon-link-term {
+    background: rgba(0, 0, 0, 0) url("../img/icon-arw-cr.png") no-repeat scroll 0 2px;
+    display: inline-block;
+    min-height: 14px;
+    padding: 0 0 0 20px;
+}
+
+.policy {
+    border: solid 10px #ECE6D5;
+    height: 400px;
+    width: 100%;
+    overflow: auto;
+    padding: 20px;
+    text-align: justify;
+}
+.content-policy{
+    margin-bottom: 3px;
+}
+.title-main{
+    /*font-weight: bold;*/
+}
+
+.agree-policy {
+    background-color: #D9EDF7;
+    margin-top: 5px;
+    width: 50%;
+    line-height: 50px;
+}
+
+a.link-term {
+    color: #000;
+    text-decoration: none;
+}
+a.link-term:hover{
+    text-decoration: underline;
+    color: red;
+}
+.content-left{
+    text-align: left
+}
+.content-right{
+    text-align: right
+}
+.title{
+    text-align: center;
+    font-weight: bold;
+}
+.content{
+    text-align: justify;
+}

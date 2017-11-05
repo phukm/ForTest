@@ -1,0 +1,137 @@
+<?php
+    $maxOfPage = 20;
+    $paging = $this->paginationHelper($data, $page, '/history/eiken/confirm-exam-result', $maxOfPage);
+    $this->headLink()->prependStylesheet($this->basePath('css/history/eiken-history-confirm-result.css'));
+    $this->headScript()->appendFile($this->basePath('js/popup/progress.js'));
+    $this->headScript()->prependFile($this->basePath('js/history/eiken-history-confirm-result.js'));
+    $this->headScript()->appendFile($this->basePath('js/history/eiken-exam-result.js'));
+?>
+<script type="text/javascript">
+	var jsMessages = <?php echo $jsMessages; ?>;
+    var EXAM_EIKEN = '<?php echo \History\HistoryConst::EXAM_NAME_EIKEN; ?>';
+    var EXAM_IBA = '<?php echo \History\HistoryConst::EXAM_NAME_IBA; ?>';
+</script>
+<div class="eiken-form">
+    <div class="box">
+        <div class="box-header"><?php echo '英検取込結果確認：' . $yearNo.'年度第'.$kaiNo.'回';?></div>
+        <div class="box-body" id="list-container">
+            <div class="top-mark">
+                    <label class="font-mark"> 
+                        英検の取込結果一覧となります。<br />
+                        生徒名簿との突合せを行う場合は、「生徒名簿突合せ」ボタンを押してください。<br />
+                        生徒名簿との突合せが不要であれば、「保存」ボタンを押してください。<br />
+                    </label>
+            </div>
+            <table class="table table-bordered tbl-striped margin-top-9">
+                <thead>
+                    <tr class="eiken-title">
+                        <th class="eiken-orgClass"><?php
+                            echo $this->translate ( '学校区分' );
+                            ?></th>
+                        <th class="eiken-schoolYear"><?php
+                            echo $this->translate ( '学年' );
+                            ?></th>
+                        <th class="eiken-class"><?php
+                            echo $this->translate ( 'クラス' );
+                            ?></th>
+                        <th class="eiken-nameKanji"><?php
+                            echo $this->translate ( '氏名（漢字）' );
+                            ?></th>
+                        <th class="eiken-level"><?php
+                            echo $this->translate ( '受験級' );
+                            ?></th>
+                        <th class="eiken-total1"><?php
+                            echo $this->translate ( '一次得点合計' );
+                            ?></th>
+                        <th class="eiken-band1"><?php
+                            echo $this->translate ( '英検バンド<br>一次' );
+                            ?></th>
+                        <th class="eiken-passFail1"><?php
+                            echo $this->translate ( '一次合否結果' );
+                            ?></th>
+                        <th class="eiken-total2"><?php
+                            echo $this->translate ( 'ニ次得点合計' );
+                            ?></th>
+                        <th class="eiken-band2"><?php
+                            echo $this->translate ( '英検バンド<br>ニ次' );
+                            ?></th>
+                        <th class="eiken-passFail2"><?php
+                            echo $this->translate ( '二次合否結果' );
+                            ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php
+                    if (isset($data) && count($data) > 0) {
+                        $max = count($data) - (($page - 1) * $maxOfPage) < $maxOfPage ? count($data) - (($page - 1) * $maxOfPage) : $maxOfPage;
+                        for ($i = 0; $i < $max; $i ++) {
+                            $value = $data[($page-1)*$maxOfPage+$i];
+                            $orgClass = isset($value->gakkokbn) ? $value->gakkokbn : '';
+                            $orgClass = (isset($listMappingOrgClass[$orgClass]) && $listMappingOrgClass[$orgClass] != '') ? $listMappingOrgClass[$orgClass] : $value->gakkokbn;
+                            $eikenLevel = isset($listMappingLevel[$value->kyucd]) ? $listMappingLevel[$value->kyucd] : '';
+                            if(in_array($value->kyucd, array(1, 2, 3))){
+                                $eikenTotal1 = $value->cse_writing + $value->cse_reading + $value->cse_listening;
+                            }else{
+                                $eikenTotal1 = $value->cse_reading + $value->cse_listening;
+                            }
+                            
+                            $eikenTotal2 = $value->cse_speaking;
+                            $passFail2 = '';
+                            $pass1stFlag = !empty($value->ichijikekka_hyoji) ? $value->ichijikekka_hyoji : '';
+                            if ($eikenTotal2 != '') {
+                                if ($value->nijigouhiflg == 1) {
+                                    $passFail2 = '合格';
+                                } else if ($value->nijigouhiflg === '0'){
+                                    $passFail2 = '不合格';
+                                }
+                            }
+                            $passFail1 = '';
+                            if ($value->ichimenflg != 1) {
+                                if ($value->ichijigouhiflg == 1) {
+                                    $passFail1 = '合格';
+                                } else if($value->ichijigouhiflg === '0') {
+                                    $passFail1 = '不合格';
+                                }
+                            }else if($value->ichimenflg == 1){
+                                $passFail1 = $pass1stFlag;
+                            }
+                ?>
+                    <tr>
+                        <td class="text-left"><?php echo $orgClass; ?></td>
+                        <td class="text-left"><?php echo $value->gakunenno; ?></td>
+                        <td class="text-left"><?php echo $value->kumi; ?></td>
+                        <td class="text-left"><?php echo str_replace(array(' ',' ','　'), array('','',''), $value->simei); ?></td>
+                        <td class="text-right"><?php echo $eikenLevel; ?></td>
+                        <td class="text-right"><?php echo $eikenTotal1; ?></td>
+                        <td class="text-right"><?php echo $value->eikenband_1; ?></td>
+                        <td class="text-left"><?php echo $passFail1; ?></td>
+                        <td class="text-right"><?php echo $eikenTotal2; ?></td>
+                        <td class="text-right"><?php echo $value->eikenband_2; ?></td>
+                        <td class="text-left"><?php echo $passFail2; ?></td>
+                    </tr>
+                    <?php }
+                    } else {
+                        echo '<td colspan="11">'.$noRecord.'</td>';
+                    } ?>
+                </tbody>
+            </table>
+            <?php if ($paging != '') { ?>
+            <div class="box_padding text-center pagination_student_color">
+                <nav><ul class="pagination"><?php  echo $paging; ?></ul></nav>
+            </div>
+            <?php } ?>
+        </div>
+        <div class="box-footer user-detail-footer">
+            <div class="row no-margin-top">
+                <div class="col-sm-12 text-right">
+                    <a class="btn btn-large-180 cancel-save" onclick="EIKEN_HISTORY_CONFIRM_RESULT.cancelSaveExamResult()">キャンセル</a>
+                    <a class="btn btn-large-180 <?php echo ($noResult) ? 'disabled' : '' ?>" onclick="EIKEN_EXAM_RESULT.mappingTestResult('<?php echo \History\HistoryConst::EXAM_NAME_EIKEN?>', <?php echo $yearNo; ?>, <?php echo  !empty($kaiNo) ? $kaiNo : 0; ?>, <?php echo $examId; ?>, 0, 0, 1, 1)"><i class="fa-compass"></i><?php echo $this->translate ('生徒名簿突合せ');?></a>
+                    <a class="btn btn-red btn-large-180 <?php echo ($noResult) ? 'disabled' : '' ?>" onclick="EIKEN_HISTORY_CONFIRM_RESULT.saveData()"><i class="fa-download-w"></i>保存</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+   var yearKaiValue = <?php echo $yearKaiValue; ?>;
+</script>

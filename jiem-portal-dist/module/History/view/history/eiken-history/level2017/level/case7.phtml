@@ -1,0 +1,121 @@
+<?php if ($type == 'answer' && $items->totalMondai) { ?>
+    <div class="answerSituation">
+        <table id="table12" class="some tb-striped-c-e6">
+            <thead>
+            <tr>
+                <td colspan="<?php echo max($items->part1, $items->part2) + 1 ?>">筆記</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>大問番号</td>
+                <td colspan="<?php echo $items->totalMondai[0] ?>">【 1 】</td>
+                <td colspan="<?php echo $items->totalMondai[1] ?>">【 2 】</td>
+                <td colspan="<?php echo $items->totalMondai[2] ?>">【 3 】</td>
+            </tr>
+            <tr>
+                <td>問題番号</td>
+                <?php for ($i = 1; $i <= $items->part1; $i++) { ?>
+                    <td><?php echo '(' . $i . ')'; ?></td>
+                <?php } ?>
+            </tr>
+            <tr>
+                <td>正解番号</td>
+                <?php for ($i = 0; $i < $items->part1; $i++) { ?>
+                    <td><?php echo $items->getAnswerNo[$i]; ?></td>
+                <?php } ?>
+            </tr>
+            <tr>
+                <td>正誤</td>
+                <?php for ($i = 0; $i < $items->part1; $i++) { ?>
+                    <td><strong><?php echo $items->getTrueFalse[$i]; ?></strong></td>
+                <?php } ?>
+            </tr>
+            </tbody>
+        </table>
+        <div class="clear"></div>
+    </div>
+
+    <hr/>
+    <table id="table13" class="some tb-striped-c-e6 w-33">
+        <thead>
+        <tr>
+            <td colspan="<?php echo $items->part2 + 2; ?>">リスニング</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>大問番号</td>
+            <td colspan="<?php echo $items->totalMondai[3] ?>"> 第1部</td>
+            <td colspan="<?php echo $items->totalMondai[4] ?>"> 第2部</td>
+            <td colspan="<?php echo $items->totalMondai[5]; ?>"> 第3部</td>
+        </tr>
+        <tr>
+            <td>問題番号</td>
+            <?php for ($i = 1; $i <= $items->part2; $i++) { ?>
+                <td><?php echo '(' . $i . ')'; ?></td>
+            <?php } ?>
+        </tr>
+        <tr>
+            <td>正解番号</td>
+            <?php for ($i = $items->part1; $i < $items->part2 + $items->part1; $i++) { ?>
+                <td><?php echo $items->getAnswerNo[$i]; ?></td>
+            <?php } ?>
+        </tr>
+        <tr>
+            <td>正誤</td>
+            <?php for ($i = $items->part1; $i < $items->part2 + $items->part1; $i++) { ?>
+                <td><strong><?php echo $items->getTrueFalse[$i]; ?></strong></td>
+            <?php } ?>
+        </tbody>
+    </table>
+<?php } ?>
+<?php if ($type == 'part' && $items->totalMondai) { ?>
+    <table id="table14" class="table some tb-striped-r-f2 ">
+        <thead>
+        <tr>
+            <?php foreach ($items->getTitleTableEiken['Title8'] as $val) { ?>
+                <td><?php echo $val; ?></td>
+            <?php } ?>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="first">
+            <td rowspan="3"><?php echo $items->getSkill[1][1]?></td>
+            <td><span>大問1</span><br>短文の語句空所補充</td>
+            <td><?php echo $items->valueMondai[0]; ?></td>
+            <td><?php echo $items->getPurpose[1][1][$items->getEikenLevelId()]; ?></td>
+            <td><?php echo ltrim(str_replace('◆', '<br>◆', $items->getStydyAdvice1()),'<br>'); ?></td>
+        </tr>
+        <tr class="event">
+            <td><span>大問2</span><br>会話文の文空所補充</td>
+            <td><?php echo $items->valueMondai[1]; ?></td>
+            <td class="text-justify"><?php echo $items->getPurpose[2][1][$items->getEikenLevelId()]; ?></td>
+            <td rowspan="2"><?php echo ltrim(str_replace('◆', '<br>◆', $items->getStydyAdvice2()),'<br>'); ?></td>
+        </tr><tr class="event">
+            <td><span>大問3</span><br>日本文付き短文の語句整序</td>
+            <td><?php echo $items->valueMondai[2]; ?></td>
+            <td><?php echo $items->getPurpose[2][2][$items->getEikenLevelId()]; ?></td>
+        </tr>
+
+        <tr class="first">
+            <td rowspan="3"><?php echo $items->getSkill[1][2]; ?>
+            <td><span>第1部</span><br>会話の応答文選択</td>
+            <td><?php echo $items->valueMondai[3]; ?></td>
+            <td><?php echo $items->getPurpose[3][1][$items->getEikenLevelId()]; ?></td>
+            <td rowspan="3"><?php echo ltrim(str_replace('◆', '<br>◆', $items->getStydyAdvice3()),'<br>'); ?></td>
+        </tr>
+        <tr class="event">
+            <td><span>第2部</span><br>会話の内容一致選択</td>
+            <td><?php echo $items->valueMondai[4]; ?></td>
+            <td><?php echo $items->getPurpose[3][2][$items->getEikenLevelId()]; ?></td>
+        </tr>
+        <tr class="event">
+            <td><span>第3部</span><br>イラストの内容一致選択</td>
+            <td><?php echo $items->valueMondai[5]; ?></td>
+            <td><?php echo $items->getPurpose[3][3][$items->getEikenLevelId()]; ?></td>
+        </tr>
+
+        </tbody>
+    </table>
+<?php } ?>

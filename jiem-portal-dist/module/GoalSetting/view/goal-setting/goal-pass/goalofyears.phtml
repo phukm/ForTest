@@ -1,0 +1,68 @@
+<?php $this->headLink ()->prependStylesheet ( $this->basePath ( 'css/goal-setting.css' ) )?>
+<div class="box">
+	<div class="box-header">
+       <?php echo $this->translate('年度別学年別取得率照会');?>
+	</div>
+	<div class="box-body text-right">
+		<div class="tbl-study-goal">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th class="hidden-row"></th>
+						<th colspan="4" width=260><?php echo ($year -2)?>年</th>
+						<th colspan="4" width=260><?php echo ($year -1)?>年</th>
+						<th colspan="4" width=260><?php echo $year?>年</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="hidden-row"></td>
+                                                <td colspan="2">目標</td>
+						<td colspan="2">実績</td>
+						<td colspan="2">目標</td>
+						<td colspan="2">実績</td>
+						<td colspan="2">目標</td>
+						<td colspan="2">実績</td>
+					</tr>
+					<tr class="table-header-study-goal">
+						<td class="hidden-row"></td>
+						<td>目標級</td>
+						<td>取得率</td>
+						<td>取得率</td>
+						<td>達成率</td>
+						<td>目標級</td>
+						<td>取得率</td>
+						<td>取得率</td>
+						<td>達成率</td>
+						<td>目標級</td>
+						<td>取得率</td>
+						<td>取得率</td>
+						<td>達成率</td>
+					</tr>
+                <?php
+                foreach ($schoolyear as $key => $value) {
+                    ?>
+					<tr>
+						<td><?php echo $this->escapeHtml($schoolyear[$key]['displayName']);?></td>
+						<td class="row-style"><?php echo $levelName?></td>
+						<td><?php if(!empty($levelName)) { echo "50";} else echo "0";?>%</td>
+						<td><?php echo $goal[$key][3]?>%</td>
+						<td><?php echo round($goal[$key][3]/50*100)?>%</td>
+						<td class="row-style"><?php echo $levelName?></td>
+						<td><?php if(!empty($levelName)) { echo "50";} else echo "0";?>%</td>
+						<td><?php echo $goal[$key][2]?>%</td>
+						<td><?php echo round($goal[$key][2]/50*100)?>%</td>
+						<td class="row-style"><?php echo $levelName?></td>
+						<td><?php if(!empty($levelName)) { echo "50";} else echo "0";?>%</td>
+						<td><?php echo $goal[$key][1]?>%</td>
+						<td><?php echo round($goal[$key][1]/50*100)?>%</td>
+					</tr>
+					<?php }?>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<?php //$this->headScript()->prependFile( $this->basePath ( 'js/jiem.js' ) )?>
+<?php //$this->headScript()->prependFile( $this->basePath ('js/messages/common-message.js'))?>
+<?php //$this->headScript()->prependFile( $this->basePath('js/apply-eiken-pupil.js'))?>

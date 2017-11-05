@@ -1,0 +1,62 @@
+<div class="box create-grade">
+    <div class="box-header">
+        <?php echo $this->translate('アップロードファイル内容'); ?>
+    </div>
+    <div class="box-body">
+        <div class="row">
+            <div class="col-sm-12 top-mark">
+                <label class="font-mark"> 
+                    <?php echo $this->translate('アップロードしたファイルには、システムにない学年及びクラスの情報が含まれています。該当する学年及びクラスは以下の通りです。'); ?><br />
+                    <?php echo $this->translate('これらの学年とクラスを、正しいマスターデータとしてシステムに登録しますか?'); ?>
+                    <br>
+                    <?php echo $this->translate('DescCreateOrgAndClassMasterDataImport'); ?>
+                </label>
+            </div>
+            <div class="col-sm-12 content">
+                <table class="table table-bordered header">
+                    <thead>
+                        <tr>
+                            <th class="year"><?php echo $this->translate('年度'); ?></th>
+                            <th class="universal-grade"><?php echo $this->translate('学年一般名称'); ?></th>
+                            <th class="grade"><?php echo $this->translate('学年'); ?></th>
+                            <th class="class"><?php echo $this->translate('クラス'); ?></th>
+                        </tr>
+                    </thead>
+                </table>
+                <div class="content-data">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <?php
+                            if ($data) {
+                                foreach ($data as $value) {
+                                    ?>
+                                    <tr>
+                                        <td class="year"><?php echo $this->escapeHtml($value['Year']); ?></td>
+                                        <td class="universal-grade"><?php echo $this->escapeHtml($value['SchoolYear']); ?></td>
+                                        <td class="grade"><?php echo $this->escapeHtml($value['OrgSchoolYear']); ?></td>
+                                        <td class="class"><?php echo $this->escapeHtml($value['Class']); ?></td>
+                                    </tr>
+                                    <?php
+                                }
+                            }
+                            ?>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="masterDataImport" value="<?php echo htmlentities(json_encode($data)); ?>"/>
+    <input type="hidden" id="dataImportAfterCreateMasterData" value="<?php if($dataImport){ echo htmlentities(json_encode($dataImport)); } ?>"/>
+    <input type="hidden" id="flagConfirmSave" value="0"/>
+
+    <div class="box-footer text-right">
+        <a class="btn btn-large-180" onclick="importPupilConfig.cancelEven();" href="javascript:void(0);"><?php echo $this->translate('Cancel') ?></a>
+        <a class="btn btn-red btn-large" onclick="importPupilConfig.saveMasterData();" id="submit-save-master-data" href="javascript:void(0)"><?php echo $this->translate('マスターデータを登録する') ?></a>
+    </div>
+</div>
+<script>
+    var MSG54CancelImport = '<?php echo $this->translate("MSG54CancelImport"); ?>';
+    importPupilConfig.ready();
+</script>

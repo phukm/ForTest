@@ -1,0 +1,711 @@
+<?php echo $this->doctype(), PHP_EOL; ?>
+<?php
+/* @var $invitationLetter \Application\Entity\InvitationLetter */
+$invitationLetter = $this->invitationLetter;
+/* @var $IBATestResult \Application\Entity\IBATestResult */
+$IBATestResult = $this->IBATestResult;
+/* @var $eikenTestResult \Application\Entity\EikenTestResult */
+$eikenTestResult = $this->eikenTestResult;
+?>
+
+    <html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <style>
+            #eiken-version hr { width: 132px; height: 3px; margin-left: 120px; margin-top: -4px; background-color: black; /* Rotate div */ -ms-transform: rotate(-45deg); /* IE 9 */ -webkit-transform: rotate(-45deg); /* Chrome, Safari, Opera */ transform: rotate(-45deg); }
+            #eiken-version .e1 { height: 280px; margin-top: 71px; width: 291px; margin-left: 11px; background: url("<?php echo $this->imageToBase64('img/template-eiken-1.jpg') ?>"); background-repeat: no-repeat; background-size: contain; }
+            #eiken-version .e2 { height: 193px; margin-left: 2px; margin-top: 29px; width: 197px; background: url("<?php echo $this->imageToBase64('img/template-eiken-2.jpg') ?>"); background-repeat: no-repeat; background-size: contain; }
+        </style>
+    </head>
+    <body>
+    <div id="eiken-version" style="width: 2365px; height: 3428px; padding: 30px 60px 50px 55px; font-family: Meiryo; margin: 0px auto;">
+        <div style="display: block;clear: both;height: 200px;">
+            <div style="width: 212px; height: 227px;float: left;">
+                <img style="width: 212px; height: 227px" src="<?php echo $this->imageToBase64('img/template-eiken-logo.jpg') ?>"/>
+                <div>
+                    <b></b>
+                </div>
+            </div>
+            <div style="width: 385px; margin-left: 28px;float: left;">
+                <div style="font-size: 48px; margin-top: 52px">
+                    <?php echo $this->escape($this->callIfCallable($invitationLetter->getEikenSchedule(), 'getYear')) ?>年度第<?php echo $this->escape($this->callIfCallable($invitationLetter->getEikenSchedule(), 'getKai')) ?>回
+                </div>
+                <div style="font-size: 38.9px; font-weight: 500; margin-top: -5px"><?php echo $this->escape($configApplication["HallType"][$invitationLetter->getInvitationSetting()->getHallType()]); ?>（団体）受験</div>
+            </div>
+            <div style="width: 1379px;float: left;">
+                <div style="font-size: 68px; margin-top: 41px; font-family: Meiryo Reguler;">
+                    <b>実用英語技能検定</b>
+                </div>
+                <div style="width: 170px; height: 52px; font-size: 41px; margin-left: 2px; margin-top: -3px; border: 5px solid #9e1015; border-radius: 2px; line-height: 53px">
+                    <b>受験案内</b>
+                </div>
+            </div>
+            <div style="float: left;width: 200px; height: 50px; background-color: black; color: white; font-size: 50px; padding: 23px 75px 40px 75px; margin: 4px 5px">
+                団体専用
+            </div>
+        </div>
+        <div style="border:4px solid #e8c5c7;width: 2360px; margin-top: 30px;float: left;clear: both ">
+            <div style="display: block;float: left; height: 61px;">
+                <div style="display: block;float: left;width: 195px; color: white;background-color: #a41f24;border:5px solid #a7262b; text-align: center;font-size: 37px;padding-top:5px;line-height:48px">
+                    学校名
+                </div>
+                <div style="display: block;float: left;width: 601px; font-size:37px; padding-left: 25px;padding-top:5px">
+                    <?php echo $this->escape($invitationLetter->getOrganizationName()); ?>
+                </div>
+                <div style="display: block;float: left;width: 118px; color: white;background-color: #a41f24; border:5px solid #a7262b; text-align: center;font-size: 37px;padding-top:5px;line-height:48px">
+                    年
+                </div>
+                <div style="display: block;float: left;width: 300px; font-size:37px; padding-top:5px;text-align: center;">
+                    <?php echo $this->escape($this->callIfCallable($invitationLetter->getPupil(), array('getOrgSchoolYear', 'getDisplayName'))); ?>
+                    <?php // echo $this->escape($this->callIfCallable($invitationLetter->getEikenSchedule(),array('getYear','getYear'))) ?>
+                </div>
+                <div style="display: block;float: left;width: 115px; color: white;background-color: #a41f24; border:5px solid #a7262b; text-align: center;font-size: 37px;padding-top:5px;line-height:48px">
+                    組
+                </div>
+                <div style="display: block;float: left;width: 193px; font-size:37px;padding-top:5px;text-align: center;">
+                    <?php echo $this->escape($this->callIfCallable($invitationLetter->getPupil(), array('getClass', 'getClassName'))) ?>
+                </div>
+                <div style="display: block;float: left;width: 118px; color: white;background-color: #a41f24; border:5px solid #a7262b; text-align: center;font-size: 37px;padding-top:5px;line-height:48px">
+                    番号
+                </div>
+                <div style="display: block;float: left;width: 105px; font-size:37px; padding-top:5px;text-align: center;">
+                    <?php echo $invitationLetter->getNumberPupil() != null ? $this->escape($invitationLetter->getNumberPupil()) : '&nbsp;&nbsp;' ?>
+                    <?php // echo $this->escape($this->callIfCallable($invitationLetter->getPupil(),'getNumber'))?>
+                </div>
+                <div style="display: block;float: left;width: 117px; color: white;background-color: #a41f24; border:5px solid #a7262b; text-align: center;font-size: 37px;padding-top:5px;line-height:48px">
+                    氏名
+                </div>
+                <div style="display: block;float: left;width: 390px; font-size:37px; padding-left: 28px;padding-top:5px">
+                    <?php echo $this->escape($this->callIfCallable($invitationLetter->getPupil(), 'getFirstNameKanji') . $this->callIfCallable($invitationLetter->getPupil(), 'getLastNameKanji')) ?>
+                </div>
+            </div>
+            <?php if ($invitationLetter->getPrintMessage()): ?>
+                <div style="display: block;float: left; border-top:4px solid #e8c5c7 ">
+                    <div style="display: block;float: left;width: 195px; color: white;background-color: #a41f24;border:5px solid #a7262b; text-align: center;font-size: 36px; padding: 108px 0px;line-height:48px">
+                        先生からのメッセ一ジ
+                    </div>
+                    <div style="display: table-cell;width: 2288px; height: 320px; font-size:38px;vertical-align: middle; line-height:45px;padding: 0 35px">
+                        <?php echo nl2br($this->escape($invitationLetter->getMessages1())) ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+            <div style="display: block;float: left; border-top:4px solid #e8c5c7 ">
+                <div style="display: block;float: left;width: 195px; color: white;background-color: #a41f24;border:5px solid #a7262b;text-align: center; font-size: 36px; padding: 175px 0px;line-height:45px">
+                    今回の<br>
+                    受験目標級
+                </div>
+                <div style="display: block;float: left;width: 2130px; font-size:40px; padding-left: 25px;padding-top:8px; background-color: #f4dadd;height: 440px;">
+                    <div class="e1" style="display: block;float: left;text-align: center; padding-top:73px;font-size:98px; font-weight:700; color:white">
+                        <?php
+                        $className = $invitationLetter->getRecommendLevelName() ? : $this->callIfCallable($invitationLetter->getRecommendLevel(), array('getEikenLevel', 'getLevelName'));
+                        $length = mb_strlen($className, 'UTF-8');
+                        switch ($length) {
+                            case 3:
+                                echo '<div style="font-size:49px;float:left;margin:49px 0 0 62px;">', $this->escape(mb_substr($className, 0, 1, 'UTF-8')), '</div>';
+                                echo '<div style="font-size:98px;float:left;">', $this->escape(mb_substr($className, 1, 1, 'UTF-8')), '</div>';
+                                echo '<div style="font-size:49px;float:left;margin-top:49px;">', $this->escape(mb_substr($className, 2, 1, 'UTF-8')), '</div>';
+                                break;
+                            case 2:
+                                echo '<div style="font-size:98px;float:left;margin:0 0 0 111px;">', $this->escape(mb_substr($className, 0, 1, 'UTF-8')), '</div>';
+                                echo '<div style="font-size:49px;float:left;margin:49px 0 0 0;">', $this->escape(mb_substr($className, 1, 1, 'UTF-8')), '</div>';
+                                break;
+                            case 1:
+                                echo '<div style="font-size:98px;float:left;margin:0 0 0 111px;">', $this->escape($className), '</div>';
+                                break;
+                        }
+                        ?>
+                    </div>
+                    <div style="display: block;float: left;padding:13px 0px 0px 30px; line-height:45px; font-size:38px;width: 1798px;">
+                        <div style="display: block;float: left;width: 1726px; height: 180px;">
+                            <?php echo nl2br($this->escape($this->callIfCallable($invitationLetter->getRecommendLevelMsg(), 'getMessages'))) ?>
+                        </div>
+                        <div style="display: block;float: left;">
+                            <div class="e2" style="float: left">
+                            </div>
+                            <div style="display: block;float: left;padding:25px 0px 0px 7px; width: 1517px;height: 193px;">
+                                <div style="width: 1580px;height: 130px;">
+                                    <?php
+                                    echo nl2br($this->escape(
+                                        $this->callIfCallable($invitationLetter->getQuestionGuide(), 'getMessages')
+                                    )
+                                    )
+                                    ?>
+                                </div>
+                                    <span style="line-height:81px; font-size:40px">
+                                        <?php echo nl2br($this->escape($this->callIfCallable($invitationLetter->getQuestionFormat(), 'getMessages'))) ?>
+                                    </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="display: block;float: left; border-top:2px solid #eeccd0 ">
+                <div style="display: block;float: left;width: 195px; color: white;background-color: #a41f24;border:5px solid #a7262b; text-align: center;padding: 128px 0px;line-height:48px">
+                    <div style="font-size: 35px">目標級</div>
+                    <div style="font-size: 32px">取得メリット</div>
+                </div>
+                <div style="display: block;float: left;width: 2155px;height: 352px; font-size:40px; padding-top:8px;background-color: #f4dadd">
+                    <div style="display: block;float: left;width:2064px; height:293px; margin: 13px 15px 0px 17px; border-radius:15px;background-color: white ;padding: 32px 25px 0px 33px; line-height:45px;font-size:38px">
+                        <?php echo nl2br($this->escape($this->callIfCallable($invitationLetter->getAcquisitionMerit(), 'getMessages'))) ?>
+                    </div>
+                </div>
+            </div>
+            <div style="display: block;float: left; border-top:4px solid #dda5a8">
+                <div style="display: block;float: left;width: 195px; height: 159px; color: white;background-color: #a41f24;border:5px solid #a7262b; text-align: center;font-size: 36px;padding: 98px 0px;line-height:45px">
+                    目標級<br>英語力の<br>目安
+                </div>
+                <div style="display: block;float: left;width: 2155px;height: 354px; font-size:40px; padding-top:8px;background-color: #f4dadd">
+                    <div style="width:2115px; height:296px; margin: 45px 15px 0px 21px; border-radius:15px; background-color: white;display: inline-flex">
+                        <div style="width: 258px; height: 297px;display: block;float: left;">
+                            <img style="width: 258px; height: 297px" src="<?php echo $this->imageToBase64('img/template-eiken-3.jpg') ?>"/>
+                        </div>
+                        <div style="display: block;float: left; line-height:70px;width:1857px;font-size:38px;">
+                            <div style="border-bottom: 5px solid #f4dadd;padding-left:25px;width: 1819px; height: 70px;">
+                                <?php echo $this->callIfCallable($invitationLetter->getCanDoListMessageReading(), 'getMessages') ?>
+                            </div>
+                            <div style="border-bottom: 5px solid #f4dadd;padding-left:25px;width: 1819px; height: 70px;">
+                                <?php echo $this->callIfCallable($invitationLetter->getCanDoListMessageListening(), 'getMessages') ?>
+                            </div>
+                            <div style="border-bottom: 5px solid #f4dadd;padding-left:25px;width: 1819px; height: 70px;">
+                                <?php echo $this->callIfCallable($invitationLetter->getCanDoListMessageSpeaking(), 'getMessages') ?>
+                            </div>
+                            <div style="padding-left:25px;width: 1819px; height: 70px;">
+                                <?php echo $this->callIfCallable($invitationLetter->getCanDoListMessageWriting(), 'getMessages') ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <style>
+            .test_result {
+                margin: 34px 0 0 50px;
+                padding-top: 34px;
+                font-size: 38px;
+            }
+            .test_result td {
+                height: 50px;
+                border-right: 4px solid #b0aeae;
+                border-bottom: 4px solid #b0aeae;
+                line-height: 51px;
+                vertical-align: middle;
+                text-align: center;
+            }
+            .test_result td.top {
+                border-top: 4px solid #b0aeae;
+                border-bottom: 4px dotted #dea8ab;
+            }
+            .test_result td.first {
+                border: 7px solid #a7262b;
+                font-size: 73px;
+            }
+            .test_result .col_with {
+                width: 370px;
+            }
+        </style>
+        <?php if (!empty($IBATestResult)): ?>
+            <div style="display: block;float: left;border:4px solid #e8c5c7;width: 2356px; height: 818px; margin: 46px 0px 0px 3px; border-bottom: none;display: block;clear: both">
+                <div style="display: block;float: left; border-bottom:4px solid #e8c5c7; width: 100%;">
+                    <div style="display: block;float: left;border-right:5px solid #e8c5c7;">
+                        <div style="width: 536px; color: white;background-color: #a41f24;border:2px solid #a7262b; text-align: center;font-size: 45px;">
+                            前回受験の振り返り
+                        </div>
+                    </div>
+                    <div style="display: block;float: left;width: 270px;height: 63px; color: white;background-color: #a41f24; border:5px solid #a7262b; text-align: center;font-size: 44px; line-height:57px">
+                        試験日
+                    </div>
+                    <div style="display: block;float: left;width: 592px; font-size:40px; padding-left: 30px;padding-top:8px">
+                        <?php echo empty($IBATestResult->getExamDate()) ? '' : $this->escape($IBATestResult->getExamDate()->format('Y/m/d')) ?>
+                    </div>
+                    <div style="display: block;float: left;width: 275px;height: 63px; color: white;background-color: #a41f24; border:5px solid #a7262b; text-align: center;font-size: 45px;line-height:62px">
+                        受験級
+                    </div>
+                    <div style="display: block;float: left;font-size:40px; padding-left: 31px;padding-top:8px">
+                        <?php echo $this->escape($IBATestResult->getEikenLevelTotal() ? : '-') ?>
+                    </div>
+                </div>
+                <table class="test_result" cellspacing="0" cellpadding="0">
+                    <colgroup>
+                        <col style="width: 408px"/>
+                        <col class="col_with"/>
+                        <col class="col_with"/>
+                        <col class="col_with"/>
+                        <col class="col_with"/>
+                        <col class="col_with"/>
+                    </colgroup>
+                    <tr style="background-color: #f4dadd">
+                        <td rowspan="2" style="height:101px;background: #a7262b;" class="first">
+                        </td>
+                        <td class="top">
+                            語彙・熟語・文法
+                        </td>
+                        <td class="top">
+                            構成
+                        </td>
+                        <td class="top">
+                            リーディング
+                        </td>
+                        <td class="top">
+                            リスニング
+                        </td>
+                        <td class="top">
+                            合計
+                        </td>
+                    </tr>
+                    <tr style="background-color: #f4dadd">
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="height:120px;border-top: none;" class="first">
+                            スコア
+                        </td>
+                        <td>
+                            <div style="font-size:61px;padding:31px 0px 0px 14px;line-height:38px">
+                                <?php echo $IBATestResult->getCorrectAnswerNumberGrammar() ?>
+                            </div>
+                            <hr>
+                            <div style="float: right; padding-right:38px; line-height: 38px; font-size:47px; margin-top: -10px;"><?php echo $IBATestResult->getQuestionNumberGrammar() ?></div>
+                        </td>
+                        <td>
+                            <div style="font-size:61px;padding:31px 0px 0px 30px;line-height:38px"><?php echo $IBATestResult->getCorrectAnswerNumberStructure() ?></div>
+                            <hr/>
+                            <div style="float: right; padding-right:38px; line-height: 38px; font-size:47px; margin-top: -10px;"><?php echo $IBATestResult->getQuestionNumberStructure() ?></div>
+                        </td>
+                        <td>
+                            <div style="font-size:61px;padding:31px 0px 0px 14px;line-height:38px"><?php echo $IBATestResult->getCorrectAnswerNumberReading() ?></div>
+                            <hr/>
+                            <div style="float: right; padding-right:38px; line-height: 38px; font-size:47px; margin-top: -10px;"><?php echo $IBATestResult->getQuestionNumberReading() ?></div>
+                        </td>
+                        <td>
+                            <div style="font-size:61px;padding:31px 0px 0px 38px;line-height:38px"><?php echo $IBATestResult->getCorrectAnswerNumberListening() ?></div>
+                            <hr/>
+                            <div style="float: right; padding-right:38px; line-height: 38px; font-size:47px; margin-top: -10px;"><?php echo $IBATestResult->getQuestionNumberListening() ?></div>
+                        </td>
+                        <td>
+                            <div style="font-size:61px;padding:31px 0px 0px 35px;line-height:38px"><?php echo $IBATestResult->getCorrectAnswerNumberTotal() ?></div>
+                            <hr/>
+                            <div style="float: right; padding-right:38px; line-height: 38px; font-size:47px; margin-top: -10px;"><?php echo $IBATestResult->getQuestionNumberTotal() ?></div>
+                        </td>
+                    </tr>
+                </table>
+                <table class="test_result" cellspacing="0" cellpadding="0" style="padding-top: 0;">
+                    <colgroup>
+                        <col style="width: 408px"/>
+                        <col class="col_with"/>
+                        <col class="col_with"/>
+                        <col class="col_with"/>
+                        <col class="col_with"/>
+                        <col class="col_with"/>
+                    </colgroup>
+                    <tr style="background-color: #f4dadd">
+                        <td rowspan="2" style="height:101px;background: #a7262b;" class="first">
+                        </td>
+                        <td class="top">
+                            語彙・熟語（文法）
+                        </td>
+                        <td class="top">
+                            構成
+                        </td>
+                        <td class="top">
+                            読解
+                        </td>
+                        <td class="top">
+                            リスニング
+                        </td>
+                        <td class="top">
+                            合計
+                        </td>
+                    </tr>
+                    <tr style="background-color: #f4dadd">
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="height:120px;border-top: none;" class="first">
+                            分野別取率
+                        </td>
+                        <td>
+                            <div style="font-size:61px;"><?php echo $IBATestResult->getCorrectAnswerPercentGrammar(), '%' ?></div>
+                        </td>
+                        <td>
+                            <div style="font-size:61px;"><?php echo $IBATestResult->getCorrectAnswerPercentStructure(), '%' ?></div>
+                        </td>
+                        <td>
+                            <div style="font-size:61px;"><?php echo $IBATestResult->getCorrectAnswerPercentReading(), '%' ?></div>
+                        </td>
+                        <td>
+                            <div style="font-size:61px;"><?php echo $IBATestResult->getCorrectAnswerPercentListening(), '%' ?></div>
+                        </td>
+                        <td>
+                            <div style="font-size:61px;"><?php echo $IBATestResult->getCorrectAnswerPercentTotal(), '%' ?></div>
+                        </td>
+                    </tr>
+                </table>
+                <div style="display: block;clear: both; padding: 36px 0px 0px 47px; font-size:38px;line-height:44px">
+                    <?php echo nl2br($this->escape($this->callIfCallable($invitationLetter->getResultComment(), 'getMessages'))) ?>
+                    <br/>
+                    <?php echo nl2br($this->escape($this->callIfCallable($invitationLetter->getResultComment2(), 'getMessages'))) ?>
+                </div>
+            </div>
+        <?php elseif (!empty($eikenTestResult)): ?>
+            <div style="display: block;float: left;border:4px solid #e8c5c7;width: 2356px; height: 818px; margin: 46px 0px 0px 3px; border-bottom: none;display: block;clear: both">
+                <div style="display: block;float: left; border-bottom:4px solid #e8c5c7; width: 100%;">
+                    <div style="display: block;float: left;border-right:5px solid #e8c5c7;">
+                        <div style="width: 536px; color: white;background-color: #a41f24;border:2px solid #a7262b; text-align: center;font-size: 45px;">
+                            前回受験の振り返り
+                        </div>
+                    </div>
+                    <div style="display: block;float: left;width: 270px;height: 63px; color: white;background-color: #a41f24; border:5px solid #a7262b; text-align: center;font-size: 44px; line-height:57px">
+                        受験回
+                    </div>
+                    <div style="display: block;float: left;width: 592px; font-size:40px; padding-left: 30px;padding-top:8px">
+                        <?php echo $this->escape($eikenTestResult->getYear() . '年度 第' . $eikenTestResult->getKai() . '回') ?>
+                    </div>
+                    <div style="display: block;float: left;width: 275px;height: 63px; color: white;background-color: #a41f24; border:5px solid #a7262b; text-align: center;font-size: 45px;line-height:62px">
+                        受験級
+                    </div>
+                    <div style="display: block;float: left;font-size:40px; padding-left: 31px;padding-top:8px">
+                        <?php echo $this->escape($this->callIfCallable($eikenTestResult->getEikenLevel(), 'getLevelName')) ?>
+                    </div>
+                </div>
+                <?php if ($eikenTestResult->getOneExemptionFlag() != 1): ?>
+                    <table class="test_result" cellspacing="0" cellpadding="0">
+                        <colgroup>
+                            <col style="width: 408px"/>
+                            <col class="col_with"/>
+                            <col class="col_with"/>
+                            <col class="col_with"/>
+                            <col class="col_with"/>
+                            <col class="col_with"/>
+                        </colgroup>
+                        <tr style="background-color: #f4dadd">
+                            <td style="height:101px;background: #a7262b;font-size: 49px;color: #fff;" class="first">
+                                一次試験結果
+                            </td>
+                            <td class="top" style="border-right: 4px solid #b0aeae;border-bottom: 4px solid #b0aeae;">
+                                英検バンド<br>一次
+                            </td>
+                            <td class="top" style="border-right: 4px solid #b0aeae;border-bottom: 4px solid #b0aeae;">
+                                一次合計<br>合格基準：<?php echo $masterData[$eikenTestResult->getEikenLevelId().$isInland1.$eikenTestResult->getExecutionDayOfTheWeek()]['cseBand1']; ?>
+                            </td>
+                            <td class="top" style="border-right: 4px solid #b0aeae;border-bottom: 4px solid #b0aeae;">
+                                Reading
+                            </td>
+                            <td class="top" style="border-right: 4px solid #b0aeae;border-bottom: 4px solid #b0aeae;">
+                                Listening
+                            </td>
+                            <td class="top" style="border-bottom: 4px solid #b0aeae;">
+                                Writing
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="height:120px;border-top: none;" class="first">
+                                <?php echo (null === $eikenTestResult->getPrimaryPassFailFlag()) ? '' : (($eikenTestResult->getPrimaryPassFailFlag() === 1) ? '合格' : '不合格') ?>
+                            </td>
+                            <td>
+                                <?php echo empty($eikenTestResult->getEikenBand1()) ? '' : $eikenTestResult->getEikenBand1(); ?>
+                            </td>
+                            <td>
+                                <div style="text-align: left; font-size:61px;padding:30px 0px 0px 30px;line-height:38px">
+                                    <?php echo intval($eikenTestResult->getCSEScoreReading()) + intval($eikenTestResult->getCSEScoreListening()) + intval($eikenTestResult->getCSEScoreWriting()); ?>
+                                </div>
+                                <hr/>
+                                <div style="float: right; padding-right:38px; line-height: 38px; font-size:47px; margin-top: -10px;">
+                                    <?php echo $masterData[$eikenTestResult->getEikenLevelId().$isInland1.$eikenTestResult->getExecutionDayOfTheWeek()]['reading'] + $masterData[$eikenTestResult->getEikenLevelId().$isInland1.$eikenTestResult->getExecutionDayOfTheWeek()]['listening'] + $masterData[$eikenTestResult->getEikenLevelId().$isInland1.$eikenTestResult->getExecutionDayOfTheWeek()]['writing']; ?>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="text-align: left;font-size:61px;padding:30px 0px 0px 30px;line-height:38px"><?php echo intval($eikenTestResult->getCSEScoreReading()) ?></div>
+                                <hr/>
+                                <div style="float: right; padding-right:56px; line-height: 38px; font-size:47px; margin-top: -10px;">
+                                    <?php echo $masterData[$eikenTestResult->getEikenLevelId().$isInland1.$eikenTestResult->getExecutionDayOfTheWeek()]['reading'] ?></div>
+                            </td>
+                            <td>
+                                <div style="text-align: left;font-size:61px;padding:30px 0px 0px 30px;line-height:38px"><?php echo intval($eikenTestResult->getCSEScoreListening()) ?></div>
+                                <hr/>
+                                <div style="float: right; padding-right:38px; line-height: 38px; font-size:47px; margin-top: -10px;">
+                                    <?php echo $masterData[$eikenTestResult->getEikenLevelId().$isInland1.$eikenTestResult->getExecutionDayOfTheWeek()]['listening']; ?></div>
+                            </td>
+                            <td>
+                                <div style="text-align: left;font-size:61px;padding:30px 0px 0px 30px;line-height:38px">
+                                    <?php echo empty($eikenTestResult->getCSEScoreWriting()) ? '' : $eikenTestResult->getCSEScoreWriting(); ?></div>
+                                <hr/>
+                                <div style="float: right; padding-right:55px; line-height: 38px; font-size:47px; margin-top: -10px;">
+                                    <?php echo empty($masterData[$eikenTestResult->getEikenLevelId().$isInland1.$eikenTestResult->getExecutionDayOfTheWeek()]['writing']) ? '' : $masterData[$eikenTestResult->getEikenLevelId().$isInland1.$eikenTestResult->getExecutionDayOfTheWeek()]['writing'] ?></div>
+                            </td>
+                        </tr>
+                    </table>
+                <?php else: ?>
+                    <table class="test_result" cellspacing="0" cellpadding="0">
+                        <colgroup>
+                            <col style="width: 408px"/>
+                            <col class="col_with"/>
+                            <col class="col_with"/>
+                            <col class="col_with"/>
+                            <col class="col_with"/>
+                            <col class="col_with"/>
+                        </colgroup>
+                        <tr style="background-color: #f4dadd">
+                            <td rowspan="2" style="height:101px;background: #a7262b;" class="first">
+                            </td>
+                            <td class="top">
+                            </td>
+                            <td class="top">
+                            </td>
+                            <td class="top">
+                            </td>
+                            <td class="top">
+                            </td>
+                            <td class="top">
+                            </td>
+                        </tr>
+                        <tr style="background-color: #f4dadd">
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="height:120px;border-top: none;" class="first">
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                                <div style="font-size:61px;padding:31px 0px 0px 14px;line-height:38px;"></div>
+                                <hr/>
+                                <div style="float: right; padding-right:38px; line-height: 38px; font-size:47px; margin-top: -10px;"></div>
+                            </td>
+                            <td>
+                                <div style="font-size:61px;padding:31px 0px 0px 14px;line-height:38px;"></div>
+                                <hr/>
+                                <div style="float: right; padding-right:38px; line-height: 38px; font-size:47px; margin-top: -10px;"></div>
+                            </td>
+                            <td>
+                                <div style="font-size:61px;padding:31px 0px 0px 14px;line-height:38px;"></div>
+                                <hr/>
+                                <div style="float: right; padding-right:38px; line-height: 38px; font-size:47px; margin-top: -10px;"></div>
+                            </td>
+                            <td>
+                                <div style="font-size:61px;padding:31px 0px 0px 14px;line-height:38px;"></div>
+                                <hr/>
+                                <div style="float: right; padding-right:38px; line-height: 38px; font-size:47px; margin-top: -10px;"></div>
+                            </td>
+                        </tr>
+                    </table>
+                <?php endif; ?>
+                <?php if ($eikenTestResult->getEikenLevelId() <= 5 && null !== $eikenTestResult->getSecondPassFailFlag()): ?>
+                    <table class="test_result" cellspacing="0" cellpadding="0" style="padding-top: 0;">
+                        <colgroup>
+                            <col style="width: 408px"/>
+                            <col class="col_with"/>
+                            <col class="col_with"/>
+                        </colgroup>
+                        <tr style="background-color: #f4dadd">
+                            <td style="height:101px;background: #a7262b;font-size: 49px;color: #fff;" class="first">
+                                二次試験結果
+                            </td>
+                            <td class="top" style="border-right: 4px solid #b0aeae;border-bottom: 4px solid #b0aeae;">
+                                英検バンド<br>二次
+                            </td>
+                            <td class="top" style="border-bottom: 4px solid #b0aeae;">
+                                Speaking<br>合格基準：<?php echo $masterData[$eikenTestResult->getEikenLevelId().$isInland2.$eikenTestResult->getSecondExecutionDayOfTheWeek()]['cseBand2'] ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="height:120px;border-top: none;" class="first">
+                                <?php echo (null === $eikenTestResult->getSecondPassFailFlag()) ? '' : (($eikenTestResult->getSecondPassFailFlag() === 1) ? '合格' : '不合格')
+                                ?>
+                            </td>
+                            <td>
+                                <?php echo empty($eikenTestResult->getEikenBand2()) ? '' : $eikenTestResult->getEikenBand2(); ?>
+                            </td>
+                            <td>
+                                <div style="text-align: left;font-size:61px;padding:30px 0px 0px 30px;line-height:38px"><?php echo $eikenTestResult->getCSEScoreSpeaking(); ?></div>
+                                <hr/>
+                                <div style="float: right; padding-right:38px; line-height: 38px; font-size:47px; margin-top: -10px;"><?php echo $masterData[$eikenTestResult->getEikenLevelId().$isInland2.$eikenTestResult->getSecondExecutionDayOfTheWeek()]['speaking'] ?></div>
+                            </td>
+                        </tr>
+                    </table>
+                <?php else: ?>
+                    <table class="test_result" cellspacing="0" cellpadding="0" style="padding-top: 0;">
+                        <colgroup>
+                            <col style="width: 408px"/>
+                            <col class="col_with"/>
+                            <col class="col_with"/>
+                        </colgroup>
+                        <tr style="background-color: #f4dadd">
+                            <td rowspan="2" style="height:101px;background: #a7262b;" class="first">
+                            </td>
+                            <td class="top">
+                            </td>
+                            <td class="top">
+                            </td>
+                        </tr>
+                        <tr style="background-color: #f4dadd">
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="height:120px;border-top: none;" class="first">
+                            </td>
+                            <td>
+                                <div style="font-size:61px;padding:31px 0px 0px 14px;line-height:38px;"></div>
+                                <div style="float: right; padding-right:38px; line-height: 38px; font-size:47px; margin-top: -10px;"></div>
+                            </td>
+                            <td>
+                                <div style="font-size:61px;padding:31px 0px 0px 14px;line-height:38px;"></div>
+                                <hr/>
+                                <div style="float: right; padding-right:38px; line-height: 38px; font-size:47px; margin-top: -10px;"></div>
+                            </td>
+                        </tr>
+                    </table>
+                <?php endif; ?>
+                <div style="display: block;clear: both; padding: 36px 0px 0px 47px; font-size:38px;line-height:44px">
+                    <?php echo nl2br($this->escape($this->callIfCallable($invitationLetter->getResultComment(), 'getMessages'))) ?>
+                    <br/>
+                    <?php echo nl2br($this->escape($this->callIfCallable($invitationLetter->getResultComment2(), 'getMessages'))) ?>
+                </div>
+            </div>
+        <?php else: ?>
+            <div style="display: block;float: left;border:4px solid #e8c5c7;width: 2356px; height: 818px; margin: 46px 0px 0px 3px; border-bottom: none;display: block;clear: both">
+                <div style="display: block;float: left; border-bottom:4px solid #e8c5c7; width: 100%;">
+                    <div style="display: block;float: left;border-right:5px solid #e8c5c7;">
+                        <div style="width: 536px; color: white;background-color: #a41f24;border:2px solid #a7262b; text-align: center;font-size: 45px;">
+                            前回受験の振り返り
+                        </div>
+                    </div>
+                    <div style="display: block;float: left;width: 270px;height: 63px; color: white;background-color: #a41f24; border:5px solid #a7262b; text-align: center;font-size: 44px; line-height:57px">
+                        受験回
+                    </div>
+                    <div style="display: block;float: left;width: 592px; font-size:40px; padding-left: 30px;padding-top:8px">
+                    </div>
+                    <div style="display: block;float: left;width: 275px;height: 63px; color: white;background-color: #a41f24; border:5px solid #a7262b; text-align: center;font-size: 45px;line-height:62px">
+                        受験級
+                    </div>
+                    <div style="display: block;float: left;font-size:40px; padding-left: 31px;padding-top:8px">
+                    </div>
+                </div>
+                <table class="test_result" cellspacing="0" cellpadding="0">
+                    <colgroup>
+                        <col style="width: 408px"/>
+                        <col class="col_with"/>
+                        <col class="col_with"/>
+                        <col class="col_with"/>
+                        <col class="col_with"/>
+                        <col class="col_with"/>
+                    </colgroup>
+                    <tr style="background-color: #f4dadd">
+                        <td rowspan="2" style="height:101px;background: #a7262b;" class="first">
+                        </td>
+                        <td class="top">
+                        </td>
+                        <td class="top">
+                        </td>
+                        <td class="top">
+                        </td>
+                        <td class="top">
+                        </td>
+                        <td class="top">
+                        </td>
+                    </tr>
+                    <tr style="background-color: #f4dadd">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="height:120px;border-top: none;" class="first"></td>
+                        <td>
+                        </td>
+                        <td>
+                            <div style="font-size:61px;padding:31px 0px 0px 14px;line-height:38px;"></div>
+                            <hr>
+                            <div style="float: right; padding-right:38px; line-height: 38px; font-size:47px; margin-top: -10px;"></div>
+                        </td>
+                        <td>
+                            <div style="font-size:61px;padding:31px 0px 0px 14px;line-height:38px;"></div>
+                            <hr>
+                            <div style="float: right; padding-right:38px; line-height: 38px; font-size:47px; margin-top: -10px;"></div>
+                        </td>
+                        <td>
+                            <div style="font-size:61px;padding:31px 0px 0px 14px;line-height:38px;"></div>
+                            <hr>
+                            <div style="float: right; padding-right:38px; line-height: 38px; font-size:47px; margin-top: -10px;"></div>
+                        </td>
+                        <td>
+                            <div style="font-size:61px;padding:31px 0px 0px 14px;line-height:38px;"></div>
+                            <hr>
+                            <div style="float: right; padding-right:38px; line-height: 38px; font-size:47px; margin-top: -10px;"></div>
+                        </td>
+                    </tr>
+                </table>
+                <table class="test_result" cellspacing="0" cellpadding="0" style="padding-top: 0;">
+                    <colgroup>
+                        <col style="width: 408px"/>
+                        <col class="col_with"/>
+                        <col class="col_with"/>
+                    </colgroup>
+                    <tr style="background-color: #f4dadd">
+                        <td rowspan="2" style="height:101px;background: #a7262b;" class="first"></td>
+                        <td class="top"></td>
+                        <td class="top"></td>
+                    </tr>
+                    <tr style="background-color: #f4dadd">
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="height:120px;border-top: none;" class="first">
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                            <div style="font-size:61px;padding:31px 0px 0px 14px;line-height:38px;"></div>
+                            <hr/>
+                            <div style="float: right; padding-right:38px; line-height: 38px; font-size:47px; margin-top: -10px;"></div>
+                        </td>
+                    </tr>
+                </table>
+                <div style="display: block;clear: both; padding: 36px 0px 0px 47px; font-size:38px;line-height:44px">
+                    <?php echo nl2br($this->escape($this->callIfCallable($invitationLetter->getResultComment(), 'getMessages'))) ?>
+                    <br/>
+                    <?php
+                    echo nl2br($this->escape($this->callIfCallable($invitationLetter->getResultComment2(), 'getMessages')));
+                    ?>
+                </div>
+            </div>
+        <?php endif; ?>
+        <img style="width: 2363px; margin-left:2.5px" src="<?php echo $this->systemConfig['eiken_ads'] ?>"/>
+        <!-- /container -->
+    </div>
+    <div style="width: 2365px; height:100px;display: block; page-break-before:always; "></div>
+    </body>
+    </html>
+<?php echo $htmlPayment; ?>

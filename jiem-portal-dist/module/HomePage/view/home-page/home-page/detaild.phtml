@@ -1,0 +1,60 @@
+<!-- Styles -->
+<?php $this->headLink ()->prependStylesheet ( $this->basePath ( 'css/home-page.css' ) )?>
+<!-- Scripts -->
+<?php
+$this->headScript()->prependFile($this->basePath('js/highcharts.js'));
+?>
+detail d day 2
+</br>
+
+<div id="dataGraphC"
+	data-graph="<?php echo $this->escapeHtmlAttr($dataGraphJ);?>"></div>
+<script>
+var dataGraphJ = <?php echo $dataGraphJ;?>
+/*
+dataGraphJ[0][0]
+Object {1: "63", year: 2013, time: 1}
+dataGraphJ[0][0].year
+2013
+*/
+</script>
+
+<?php
+// $return = Json::decode($dataGraph);
+var_dump($dataGraph);
+
+// $dataGraph[0]
+/*
+ * array(3) {
+ * [0]=>
+ * array(3) {
+ * ["year"]=>
+ * int(2013)
+ * ["time"]=>
+ * int(1)
+ * [1]=>
+ * string(2) "63"
+ * }
+ * [1]=>
+ * array(3) {
+ * ["year"]=>
+ * int(2013)
+ * ["time"]=>
+ * int(2)
+ * [1]=>
+ * string(1) "8"
+ * }
+ * [2]=>
+ * array(3) {
+ * ["year"]=>
+ * int(2013)
+ * ["time"]=>
+ * int(3)
+ * [1]=>
+ * string(2) "13"
+ * }
+ * }
+ * $dataGraph[0][0]['year'] == 2013
+ */
+
+?>

@@ -1,0 +1,442 @@
+<?php echo $this->doctype(), PHP_EOL; ?>
+<?php
+$invitationLetter = $this->invitationLetter; /* @var $invitationLetter \Application\Entity\InvitationLetter  */
+$hallType = intval($invitationLetter->getHallType());
+$priceOfHall = $priceEikenLevel[$semiMainVenue ? 0 : $hallType];
+ksort($priceOfHall);
+?>
+<html lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <style>
+            .cl0 {
+                border: 4px solid #e8c5c7;
+                margin-top: 15px;
+                width: 2350px;
+            }
+
+            .cl0-other {
+                border: 4px solid #e8c5c7;
+                width: 2350px;
+            }
+
+            .cl1 {
+                background-color: #a41f24;
+                text-align: center;
+                font-size: 37px;
+                border-right: 4px solid #e8c5c7;
+                line-height: 80px;
+                color: white;
+                height: 81px;
+            }
+
+            .cl2 {
+                width: 650px;
+                float: left;
+                border-right: 4px solid #e8c5c7;
+                border-left: 2px solid #e8c5c7;
+            }
+
+            .cl3 {
+                background-color: #f4dadd;
+                text-align: center;
+                font-size: 35px;
+            }
+
+            .number {
+                background-color: #a41f24;
+                color: white;
+                padding: 0 15px 0 15px;
+            }
+
+            .cl4 {
+                background-color: #f4dadd;
+                font-size: 37px;
+                margin-top: 5px;
+                padding-left: 20px;
+            }
+
+            .cl5-list {
+                float: left;
+                width: 325px;
+                padding-right: 10px;
+                border-right: 4px dotted #e8c5c7;
+                margin: 20px 0 20px 10px;
+                text-align: center;
+                font-size: 24px;
+            }
+
+            .last {
+                border-right: none;
+            }
+
+            .cl5-for {
+                background-color: #f4dadd;
+                border-right: 3px solid white;
+                padding: 20px 10px 20px 10px;
+                vertical-align: middle;
+                font-size: 22px;
+            }
+
+            .rect {
+                margin: 0 30px 30px 30px;
+                background-color: white;
+                height: 180px;
+                position: relative;
+            }
+        </style>
+    </head>
+    <body
+        style="padding: 30px 60px 50px 55px; font-family: Meiryo; margin: 0px auto;">
+        <div style="float: left; width: 2360px;">
+            <div style="float: left;">
+                <img style="width: 180px; height: 200px; border: none;"
+                     src="<?php echo $this->imageToBase64('img/template-eiken-logo.jpg'); ?>">
+            </div>
+            <div style="width: 385px; margin-left: 28px; float: left;">
+                <div style="font-size: 40px; font-weight: 600; margin-top: 10px">
+                    <?php echo $this->escape($this->callIfCallable($invitationLetter->getEikenSchedule(), 'getYear')) ?>年度第<?php echo $this->escape($this->callIfCallable($invitationLetter->getEikenSchedule(), 'getKai')) ?>回
+                </div>
+                <div style="font-size: 40px; margin-top: 45px">
+                    <?php echo $this->escape($configApplication["HallType"][$hallType]); ?>（団体）受験
+                </div>
+            </div>
+            <div style="width: 1385px; float: left;">
+                <div
+                    style="font-size: 68px; float: left; margin-top: 20px; font-family: Meiryo Reguler;">
+                    <strong>実用英語技能検定</strong>
+                </div>
+                <div
+                    style="width: 300px; float: left; height: 52px; font-size: 41px; margin-left: -552px; margin-top: 120px; border: 5px solid #9e1015; border-radius: 2px; line-height: 53px">
+                    <strong>お申し込み方法</strong>
+                </div>
+            </div>
+            <div
+                style="width: 200px; float: right; height: 50px; background-color: black; color: white; font-size: 50px; padding: 23px 75px 40px 75px; margin: 4px 5px">
+                団体専用</div>
+        </div>
+        <div style="clear: both;"></div>
+        <div style="margin-top: 15px;">
+            <div
+                style="border: 4px solid #e8c5c7; display: block; height: 60px; float: left; width: 2350px;">
+                <div
+                    style="width: 195px; float: left; color: white; background-color: #a41f24; text-align: center; font-size: 37px; line-height: 60px">
+                    学校名</div>
+                <div
+                    style="width: 601px; float: left; font-size: 37px; padding-left: 25px;">
+                    <?php echo $this->escape($invitationLetter->getOrganizationName()); ?>&nbsp;
+                </div>
+                <div
+                    style="width: 118px; float: left; color: white; background-color: #a41f24; text-align: center; font-size: 37px; line-height: 60px">
+                    年</div>
+                <div
+                    style="width: 300px; float: left; font-size: 37px; text-align: center;">
+                        <?php echo $this->escape($pupil->getOrgSchoolYear()->getDisplayName()); ?>
+                </div>
+                <div
+                    style="width: 115px; float: left; color: white; background-color: #a41f24; text-align: center; font-size: 37px; line-height: 60px">
+                    組</div>
+                <div
+                    style="width: 193px; float: left; font-size: 37px; text-align: center;">
+                        <?php echo $this->escape($pupil->getClass()->getClassName()) ?>
+                </div>
+                <div
+                    style="width: 118px; float: left; color: white; background-color: #a41f24; text-align: center; font-size: 37px; line-height: 60px">
+                    番号</div>
+                <div
+                    style="width: 105px; float: left; font-size: 37px; text-align: center;">
+                        <?php echo $pupil->getNumber() != Null ? $this->escape($pupil->getNumber()): '&nbsp;&nbsp;' ?>
+                </div>
+                <div
+                    style="width: 117px; float: left; color: white; background-color: #a41f24; text-align: center; font-size: 37px; line-height: 60px">
+                    氏名</div>
+                <div
+                    style="width: 390px; float: left; font-size: 37px; padding-left: 28px;">
+                        <?php echo $this->escape($pupil->getFirstNameKanji() . $pupil->getLastNameKanji()) ?>
+                </div>
+            </div>
+            <div style="clear: both;"></div>
+            <div class="cl0" style="height: 335px;">
+                <div style="float: left">
+                    <div class="cl1" style="width: 1409px;">
+                        <div style="color: white;">実施要領</div>
+                    </div>
+                    <div class="cl2" style="float: left; height: 259px">
+                        <div
+                            style="width: 100%; background-color: #f4dadd; text-align: center; font-size: 35px; float: left;">
+                            一次試験 <br> <span style="font-size: 25px;">[筆記＋リスニング]</span>
+                        </div>
+                        <div style="width: 100%; background-color: #fff; float: left;">
+                            <?php if ($invitationLetter->getExamDate12() == Null) { ?>
+                                <p style="margin: 20px 10px 10px 10px; font-size: 25px;">
+                                    試験日程： 
+                                    <?php echo $invitationLetter->getExamDate1() != Null ? $invitationLetter->getExamDate1()->format('Y年n月j日') : '' ?>（<?php echo $this->convertWdayJapan($invitationLetter->getExamDate1()->format('D')) ?>）
+                                </p>
+                                <p style="margin: 20px 10px 10px 10px; font-size: 25px;">
+                                    受験会場：<?php echo $this->escape($invitationLetter->getExamPlace1()); ?>
+                                </p>
+                            <?php } else { ?>
+                                <p style="margin: 20px 10px 10px 10px; font-size: 25px;">
+                                    試験日程：
+                                    <span style="font-size: 25px;">
+                                        <?php echo $invitationLetter->getExamDate1() != Null ? $invitationLetter->getExamDate1()->format('Y年n月j日') : '' ?>（<?php echo $this->convertWdayJapan($invitationLetter->getExamDate1()->format('D')) ?>）
+                                    </span> 
+                                    <br/>
+                                    <span style="font-size: 25px;margin-left: 132px;">
+                                        <?php echo $invitationLetter->getExamDate12() != Null ? $invitationLetter->getExamDate12()->format('Y年n月j日') : '' ?>（<?php echo $this->convertWdayJapan($invitationLetter->getExamDate12()->format('D')) ?>）
+                                    </span>
+                                </p>
+                                <p style="margin: 10px 10px 10px 10px; font-size: 25px;">
+                                    受験会場：<?php echo $this->escape($invitationLetter->getExamPlace1()); ?>
+                                </p>
+                            <?php } ?>
+                        </div>
+                    </div>
+                    <div class="cl2" style="float: left; height: 259px;width: 750px;">
+                        <div
+                            style="width: 100%; background-color: #f4dadd; text-align: center; font-size: 35px; float: left;">
+                            二次試験<br> <span style="font-size: 25px;">[面接試験]</span>
+                        </div>
+                        <div style="width: 100%; background-color: #fff; float: left;">
+                            <p style="margin: 8px 10px 0px 10px; font-size: 25px;">
+                                試験日程：（A日程）<?php echo $dataEikenSchudule->getRound2Day1ExamDate() != Null ? $dataEikenSchudule->getRound2Day1ExamDate()->format('Y年n月j日') : '' ?>（<?php echo $this->convertWdayJapan($dataEikenSchudule->getRound2Day1ExamDate()->format('D')) ?>）
+                            </p>
+                            <p style="margin: 0px 0px 0px 135px; font-size: 25px;">
+                                （B日程）<?php echo $dataEikenSchudule->getRound2Day2ExamDate() != Null ? $dataEikenSchudule->getRound2Day2ExamDate()->format('Y年n月j日') : '' ?>（<?php echo $this->convertWdayJapan($dataEikenSchudule->getRound2Day2ExamDate()->format('D')) ?>）
+                            </p>
+                             <p style="margin: 0px 0px 0px 10px; font-size: 25px;">
+                                受験会場：英検本会場
+                            </p>
+                            <p style="margin: 0px 5px 0px; font-size: 25px;">※詳細は『二次受験票』にてご案内</p>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    style="position: relative; float: left; height: 229px">
+                    <div>
+                        <div style="width: 399px; float: left;" class="cl1">
+                            検定料 <span style="font-size: 30px; color: #fff;">（税込）</span>
+                        </div>
+                        <div style="float: left; font-size: 25px; line-height: 3px; vertical-align: middle; float: left;">
+                            <?php if($hallType != 1) {?>
+                            <p style="margin-left: 20px;">※5級～2級は準会場での受験料金です。</p>
+                            <?php } ?>
+                            <p style="margin-left: 20px;">※一次試験免除者も同額です。</p>
+                        </div>
+                    </div>
+                    <div style="float: left; font-size: 30px; margin: 0; width:930px;">
+                        <?php
+                        $price1 = array_slice($priceOfHall, 0, 3);
+                        $price2 = array_slice($priceOfHall, 3, 3);
+                        $price3 = array_slice($priceOfHall, 6, 3);
+                        ?>
+                        <ul
+                            style="float: left; list-style-type: none; margin-top: 10px; margin-bottom: 10px; width: 29%;">
+                                <?php foreach ($price1 as $key => $price) { ?>
+                                <li><?php echo $price["name"] . '：' . number_format($price["price"]); ?>円</li>
+                            <?php } ?>
+                        </ul>
+                        <ul
+                            style="float: left; list-style-type: none; margin-top: 10px; margin-bottom: 10px; width: 29%;">
+                                <?php foreach ($price2 as $key => $price) { ?>
+                                <li><?php echo $price["name"] . '：' . number_format($price["price"]); ?>円</li>
+                            <?php } ?>
+                        </ul>
+                        <ul
+                            style="float: left; list-style-type: none; margin-top: 10px; margin-bottom: 10px; width: 29%;">
+                                <?php foreach ($price3 as $key => $price) { ?>
+                                <li><?php echo $price["name"] . '：' . number_format($price["price"]); ?>円</li>
+                            <?php } ?>
+                        </ul>
+
+                    </div>
+                    <div
+                        style="width: 930px; float: left; border: 4px solid #a41f24; position: absolute; bottom: -109px; left: 0px; line-height: 80px; float: left;">
+                        <div
+                            style="width: 400px; color: white; background-color: #a41f24; text-align: center; font-size: 36px; float: left">
+                            お申し込み期限</div>
+                        <div
+                            style="width: 527px; float: left; font-size: 36px; background-color: #FEFBC6;">
+                            <span style="margin-left: 20px;"><?php echo $invitationLetter->getDeadline() != Null ? $invitationLetter->getDeadline()->format('n月j日') : '' ?>（<?php echo $this->convertWdayJapan($invitationLetter->getDeadline()->format('D')) ?>）厳守</span>
+
+                        </div>
+
+                    </div>
+                    <div style="clear: both;"></div>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <?php if ($invitationSetting->getPaymentType() == 1 && $invitationSetting->getOrganizationPayment() == 1) { ?>
+                <div
+                    style="border: 4px solid #e8c5c7; margin-top: 20px; width: 2350px">
+                    <div style="color: white;">
+                        <div
+                            style="background-color: #a41f24; color:#fff; padding-left: 20px; padding-right: 20px; font-size: 37px; line-height: 70px; width: 15%">
+                            お申し込み方法</div>
+                    </div>
+
+                    <div
+                        style="position: relative; height: 80px; margin-bottom: 5px; margin-top: 10px;">
+                        <div
+                            style="float: left; position: absolute; left: 20px; z-index: 999;">
+                            <img
+                                src="<?php echo $this->imageToBase64('img/tpl-payment-ico-guide.png'); ?>"
+                                style="width: 88px; height: 88px" />
+                        </div>
+                        <div class="cl4"
+                             style="position: absolute; width: 2330px; margin-top: 16px;">
+                            <span style="margin-left: 100px;">スマートフォン/PCからお申し込みの場合</span>
+                        </div>
+                    </div>
+                    <div style="clear: both;"></div>
+
+                    <div style="font-size: 30px; margin: 20px;">
+                        <p style="height: 50px; margin-bottom: 10px;margin-top: 10px;">
+                            <span class="number">1</span> <span style="margin-left: 10px;">スマートフォンもしくはPCより下記のURLにアクセスしてください。
+                            </span>
+                        </p>
+                        <div class="cl4">
+                            <div style="width: 15%; float: left;">
+                                <p style="margin: 10px 0 0 25px;">QRコード</p>
+                                <div style="height: 245px; width: 245px;" class="rect">
+                                    <img
+                                        src="<?php echo $this->imageToBase64('img/tpl-payment-qrcode.png'); ?>"
+                                        style="border: none; height: 245px; width: 245px;" />
+                                </div>
+                            </div>
+
+                            <div style="width: 85%; float: right;">
+                                <p style="margin: 10px 0 0 25px;">URL</p>
+                                <div class="rect" style="height: 250px;">
+                                    <span style="margin-left: 20px; position: absolute; top: 82px;">
+                                        <a style="text-decoration: none; color: black;"
+                                           href="https://jukensha-support.eiken.or.jp">https://jukensha-support.eiken.or.jp</a>
+                                    </span> <br />
+                                </div>
+                            </div>
+                            <div style="clear: both;"></div>
+                        </div>
+                    </div>
+
+                    <div style="font-size: 30px; margin: 20px;">
+                        <p style="height: 80px; margin-bottom: 10px;margin-top: 10px;">
+                            <span class="number">2</span> <span style="margin-left: 10px;">画面の案内に従って必要事項を入力の上、送信してください。</span><br />
+                            <span style="margin-left: 60px;">受験お申し込みページの「団体ID」「認証キー」欄には以下の番号を入力してください。</span>
+                        </p>
+                        <div class="cl4">
+                            <div style="width: 25%; float: left;">
+                                <p style="margin: 10px 0 0 25px;">団体ID</p>
+                                <div style="height: 100px" class="rect">
+                                    <span style="position: absolute; top: 20px; left: 15px;"><?php echo dechex($this->escape($pupil->getOrganization()->getOrganizationNo())) ?></span>
+                                </div>
+                            </div>
+
+                            <div style="width: 20%; float: left;">
+                                <p style="margin: 10px 0 0 25px;">認証キー</p>
+                                <div class="rect" style="height: 100px;">
+                                    <span style="position: absolute; top: 20px; left: 15px;"><?php echo $this->authenKey; ?></span>
+                                </div>
+                            </div>
+                            <div style="width: 55%; float: left;">
+                                <p style="margin: 60px 0 0 0px; font-size: 35px;">
+                                    ※認証キーはあなた専⽤の番号です。他の⼈の受験案内状に記載された番号は使⽤できません
+                                </p>
+                            </div>
+                            <div style="clear: both;"></div>
+                        </div>
+                    </div>
+                </div>
+            <?php } ?>
+<!--            <div class="cl0" style="border-top: none;">
+                <div class="cl4">お支払い手続きのご注意</div>
+                <div style="font-size: 30px; margin: 20px;">
+                    <span style="position: relative; font-size: 25px;">
+                        ●上記以外の店舗では、お支払いいただけません。●本用紙をコンビニエンスストアのレジに提出してもお支払いできません。お支払い期限を過ぎた支払用紙はご利用できません。●コンビニエンスストアでのお支払いは現金のみとなります。●コンビニ端末で入力する情報は本用紙に印刷された番号のみです。住所・氏名などを入力する必要はありません。●お支払い後の返金は一切できません。また、次回以降の検定料への充当もできません。あらかじめご了承ください。
+                    </span>
+                </div>
+            </div>-->
+            <div style="width: 2354px">
+                <div style="margin-top: 30px;" class="cl4">ダブル受験について</div>
+                <div style="height: 180px; font-size: 30px;" class="rect">
+                    <?php echo $this->escape($invitationSetting->getDoubleEikenMessage()) ?>
+                </div>
+            </div>
+
+
+            <div class="cl0-other"
+                 style="border-top: none; margin-top: 0px; font-size: 25px;">
+                <div class="cl4">受験者サポートシステム（申込登録・クレジットカード支払・英ナビ利用登録）へのアクセス方法</div>
+                <div style="clear: both;"></div>
+
+                <div style="font-size: 30px; margin: 20px;">
+                    <p style="height: 50px; margin-bottom: 10px;margin-top: 10px;">
+                        <span class="number">1</span> <span style="margin-left: 10px;">
+                            スマートフォンもしくはPCより下記のURLにアクセスしてください。 </span>
+                    </p>
+                    <div class="cl4">
+                        <div style="width: 15%; float: left;">
+                            <p style="margin: 10px 0 0 25px;">QRコード</p>
+                            <div style="height: 245px; width: 245px;" class="rect">
+                                <img
+                                    src="<?php echo $this->imageToBase64('img/tpl-payment-qrcode.png'); ?>"
+                                    style="border: none; height: 245px; width: 245px;" />
+                            </div>
+                        </div>
+
+                        <div style="width: 85%; float: right;">
+                            <p style="margin: 10px 0 0 25px;">URL</p>
+                            <div class="rect" style="height: 250px;">
+                                <span style="margin-left: 20px; position: absolute; top: 82px;">
+                                    <a style="text-decoration: none; color: black;"
+                                       href="https://jukensha-support.eiken.or.jp">https://jukensha-support.eiken.or.jp</a>
+                                </span>
+                            </div>
+                        </div>
+                        <div style="clear: both;"></div>
+                    </div>
+                </div>
+
+                <div style="font-size: 30px; margin: 20px;">
+                    <p style="height: 80px; margin-bottom: 10px;">
+                        <span class="number">2</span> <span style="margin-left: 10px;">画面の案内に従って必要事項を入力の上、送信してください。</span><br />
+                        <span style="margin-left: 60px;">受験お申し込みページの「団体ID」「認証キー」欄には以下の番号を入力してください。</span>
+                    </p>
+                    <div class="cl4">
+                        <div style="width: 25%; float: left;">
+                            <p style="margin: 10px 0 0 25px;">団体ID</p>
+                            <div style="height: 100px" class="rect">
+                                <span style="position: absolute; top: 20px; left: 15px;"><?php echo dechex($this->escape($pupil->getOrganization()->getOrganizationNo())); ?></span>
+                            </div>
+                        </div>
+
+                        <div style="width: 20%; float: left;">
+                            <p style="margin: 10px 0 0 25px;">認証キー</p>
+                            <div class="rect" style="height: 100px;">
+
+                                <span style="position: absolute; top: 20px; left: 15px;"><?php echo $this->authenKey ?></span>
+                            </div>
+                        </div>
+                        <div style="width: 55%; float: left;">
+                            <p style="margin: 60px 0 0 0px; font-size: 35px;">
+                                ※認証キーはあなた専⽤の番号です。他の⼈の受験案内状に記載された番号は使⽤できません
+                            </p>
+                        </div>
+                        <div style="clear: both;"></div>
+                    </div>
+                </div>
+            </div>
+            <div style="width: 2350px">
+                <p style="font-size: 48px; margin-top: 10px; margin-bottom:10px; text-align:center">
+                    上記のURLにアクセスした後、「英ナビ！を使⽤する」から英ナビ！にログインして学習できます
+                </p>
+                <hr style="border-style: inset; border-width: 1px;">
+                <center style="font-size: 30px; margin-bottom: 10px;">
+                    【お申し込みに関するお問い合わせ】英検サービスセンター（個人受付）　電話番号：03-3266-8311 受付時間：9:30〜17:00（⼟・⽇・祝⽇を除く）
+                </center>
+            </div>
+        </div>
+
+
+    </body>
+</html>

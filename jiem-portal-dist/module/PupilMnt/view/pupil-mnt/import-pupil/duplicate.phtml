@@ -1,0 +1,82 @@
+<div class="duplicate">
+    <div class="box">
+        <div class="box-header">
+            <p><?php echo $this->translate('重複生徒一覧'); ?></p>
+        </div>
+        <div class="box-body">
+            <div class="duplicate-description">
+                <p class="f-description">以下はアップロードファイル上の生徒情報全てと、既にシステム上に登録されている生徒情報全ての中から、重複の可能性があるものを抽出した結果の一覧です。</p>
+                <p>詳細情報を確認し、必要であればファイル内から重複する生徒情報を削除または編集してから再度アップロードしてください。</p>
+            </div>
+            <table id="dialog" class="table table-bordered table-striped duplicate-header">
+                <thead class="duplicate-header">
+                    <tr>
+                        <td class="thyear"><strong><?php echo $this->translate('年度'); ?></strong></td>
+                        <td class="thnamekanji"><strong><?php echo $this->translate('氏名（漢字）'); ?></strong></td>
+                        <td class="thnamekanna"><strong><?php echo $this->translate('氏名（カナ）'); ?></strong></td>
+                        <td class="thbirthday"><strong><?php echo $this->translate('生年月日'); ?></strong></td>
+                        <td class="thstatus text-center"><strong><?php echo $this->translate('備考'); ?></strong></td>
+                        <td class="thaction"><strong><?php echo $this->translate('操作'); ?></strong></td>
+                    </tr>
+                </thead>
+            </table>
+            <div class="duplicate-list <?php if(!empty($duplicate) && count($duplicate)> 4){ echo 'scroll'; } ?>">
+                <table id="dialog" class="table table-bordered table-striped duplicate-body">
+                    <tbody class="duplicate-body">
+                        <?php $status = '';
+                        if (!empty($duplicate)) {
+                            foreach ($duplicate as $key => $value):
+                                $prefix = '||-||';
+                                $infoPupil = explode($prefix, $key);
+                                ?>
+                                <tr>
+                                    <td class="tdyear"><?php echo $this->escapeHtml($infoPupil[0]) ?></td>
+                                    <td class="tdnamekanji"><?php echo $this->escapeHtml($infoPupil[1]) ?></td>
+                                    <td class="tdnamekana"><?php echo $this->escapeHtml($infoPupil[2]) ?></td>
+                                    <td class="tdbirthday"><?php echo $this->escapeHtml($infoPupil[3]) ?></td>
+                                    <td class="tdstatus">
+                                        <?php 
+                                        switch($value['status']){
+                                            case 1:
+                                                echo $this->translate('MsgDuplicatePupilNameInFile');
+                                                break;
+                                            case 2:
+                                                echo $this->translate('MsgDuplicatePupilNameInDb');
+                                                break;
+                                            case 3:
+                                                echo $this->translate('MsgDuplicatePupilNameInFileAndDb');
+                                                break;
+                                            default:
+                                                echo '';
+                                                break;
+                                        }
+                                        ?>
+                                    </td>
+                                    <td class="tdaction">
+                                        <a class="btn btn-small" onclick="importPupilConfig.showDetailDuplicate('<?php echo $key;?>', '<?php echo $value['status'] ?>');"  href="javascript:void(0)">詳細</a>
+                                    </td>
+                                </tr>
+                        <?php endforeach;
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="box-footer">
+            <input type="hidden" id="dataImportPupil" value="<?php if($dataImport){ echo htmlentities(json_encode($dataImport)); } ?>"/>
+            <input type="hidden" id="dataDetailInFile" value="<?php if($dataDetailInFile){ echo htmlentities(json_encode($dataDetailInFile)); } ?>"/>
+            <input type="hidden" id="dataDetailInDb" value="<?php if($dataDetailInDb){ echo htmlentities(json_encode($dataDetailInDb)); } ?>"/>
+            <div class="duplicate-btn">
+                <a class="btn btn-large-180 showbt" onclick="importPupilConfig.cancelEven();" href="javascript:void(0)">
+                    <strong class="text-center">キャンセル</strong>
+                </a> 
+                <a class="btn btn-large-180 btn-red importstd-button-space removebotom importsave" href="javascript:void(0)" onclick="importPupilConfig.saveDataPupil(1);">
+                    <i class="arrow-circle-right-w"></i>
+                    <strong>続ける</strong> 
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="detailModal" class="modal fade"></div>

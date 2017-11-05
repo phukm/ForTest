@@ -1,0 +1,194 @@
+<?php $this->headLink()->prependStylesheet($this->basePath('css/IBA-policy.css')) ?>
+<div class="box IBA-policy ">
+    <?php $form->setAttribute('action', 'policy'); ?>
+    <?php echo $this->form()->openTag($form); ?>
+    <div class="box-header">
+        <h4><?php echo $this->translate('申込規約確認'); ?></h4>
+    </div>
+    <div class="box-body">
+        <div class="row r-title">
+            <div class="col-sm-12 title"><?php echo $this->translate("英検IBAの申込登録を行なうために申込規約を確認し、責任者名、メールアドレスを入力後、同意するボタンを押してください。") ?></div>
+        </div>
+        <!-- 		<div class="box-body "> -->
+        <div class="private-policy-header content-policy">
+            <div class="row r1">
+                <div class="col-sm-2">
+                    <img
+                        src="<?php echo $this->basePath("css/images/IBA/icon_avata.png"); ?>">
+                </div>
+                <div class="col-sm-8 text-center">
+                    <h4 class="inline">
+<?php echo $this->translate('英検IBA'); ?>
+                    </h4>
+                    <b class="inline">
+<?php echo $this->translate('（EIKEN Institution Based Assessment）'); ?>
+                    </b>
+                    <h4>
+<?php echo $this->translate('申込規約'); ?>
+                    </h4>
+                </div>
+            </div>
+            <p class="line1"><?php echo $this->translate('英検IBA（以下、「当テスト」）は、公益財団法人 日本英語検定協会（以下、「協会」）が団体を対象に提供するスコア判定型の能力判定テストです。以下の申込規約に同意の上お申し込みください。'); ?></p>
+            <div class="group">
+                <b><?php echo $this->translate('第１条　　（受験資格）'); ?></b>
+                <ul class="policy-list">
+                    <li><i>1．</i><?php echo $this->translate('当テストは、団体申込を対象として、1回の受験につき30名以上の場合に限りお申し込みできます。'); ?></li>
+                </ul>
+            </div>
+            <div class="group">
+                <b><?php echo $this->translate('第２条　　（お申し込みについて）'); ?></b>
+                <ul class="policy-list">
+                    <li><i>1．</i><?php echo $this->translate('当テストにお申し込みをご希望の際は、所定の申込用紙に必要事項をご記入いただき、郵送またはFAXでの送信、もしくはメール（PDF添付）か、インターネットからお申し込みください。'); ?></li>
+                    <li><i>2．</i><?php echo $this->translate('お申し込みの際は、試験実施予定日の2週間前までにお申し込みください。'); ?></li>
+                    <li><i>3．</i><?php echo $this->translate('申込完了後、協会より申込確認書をお送りいたします。内容をご確認の上、申込人数の追加、変更、その他のご要望などがある場合は、試験資材発送予定日（原則として試験実施5日前）までにご連絡ください。試験資材発送後のご要望変更などは承ることができないことがありますのでご注意ください。'); ?></li>
+                    <li><i>4．</i><?php echo $this->translate('お見積書が必要な場合はお申し込み時に申請してください。'); ?></li>
+                </ul>
+            </div>
+            <div class="group">
+                <b><?php echo $this->translate('第３条　　（試験の実施）'); ?></b>
+                <ul class="policy-list">
+                    <li><i>1．</i><?php echo $this->translate('試験資材の発送は、事前の指定がある場合を除き、原則として試験実施5日前までに協会より発送いたします。試験資材を確実に受領のうえ、送付品目、部数等を点検してください。万が一不足等がある場合は、速やかに協会にご連絡ください。'); ?></li>
+                    <li><i>2．</i><?php echo $this->translate('試験資材の点検後、試験実施日まで適切に保管してください。'); ?></li>
+                    <li><i>3．</i><?php echo $this->translate('試験の実施会場、実施日等は申込責任者が設定し、受験者に適切に通知してください。'); ?></li>
+                    <li><i>4．</i><?php echo $this->translate('試験の実施は、協会から送付される実施マニュアルに従って、適正に監督者を配置した管理体制のもと実施してください。'); ?></li>
+                    <li><i>5．</i><?php echo $this->translate('試験終了後、答案枚数を正確に確認し、協会指定の報告書に記入・マークしてください。'); ?></li>
+                </ul>
+            </div>
+            <div class="group">
+                <b><?php echo $this->translate('第４条　　（答案の返送）'); ?></b>
+                <ul class="policy-list">
+                    <li><i>1．</i><?php echo $this->translate('答案は一括で返送してください。分割で返送された場合、成績結果の再処理はできません。'); ?></li>
+                    <li><i>2．</i><?php echo $this->translate('答案の採点は、答案収納封筒に封入された答案が対象となります。白紙答案、記入ミス等の採点対象外の解答用紙が混入することのないよう適切に返送してください。'); ?></li>
+                    <li><i>3．</i><?php echo $this->translate('書き損じ等の答案が答案収納封筒に混入した場合、受験料請求の対象となる場合がありますのでご注意ください。'); ?></li>
+                    <li><i>4．</i><?php echo $this->translate('当テストはクローズドテストのため、問題冊子、リスニングCDを含むすべての試験資材を返送してください。また、試験問題、リスニングCDの複製および保管を禁じます。また、試験内容を許可なく他に伝えたり、漏洩することを禁じます。'); ?></li>
+                    <li><i>5．</i><?php echo $this->translate('答案の返送にあたっては、追跡可能な送付方法にて返送してください。郵送等での返送による答案紛失が発生した場合は、協会では責任を負いかねますのでご注意ください。'); ?></li>
+                </ul>
+            </div>
+            <div class="group">
+                <b><?php echo $this->translate('第５条　　（成績資料）'); ?></b>
+                <ul class="policy-list">
+                    <li><i>1．</i><?php echo $this->translate('成績資料は、原則として協会が答案を受領後、3営業日以内に専用WEBサイト（英検WEBサイト上の団体責任者・先生用ログインサービス）にアップロードいたします。団体責任者がダウンロード・印刷後、受験者に適切に回付してください。尚、ご希望の場合には成績資料の印刷・発送も行いますが、実受験者1名につき80円（税込）、および1団体につき1,000円（税込）の送料（発送手数料含む）を別途いただきます（専用WEBサイトにアップロード後、3営業日以内に発送）。1団体内で複数の発送先に送付する場合（例：学部により発送先が異なる）、発送先ごとに送料1,000円を頂戴いたします。'); ?></li>
+                    <li><i>2．</i><?php echo $this->translate('協会が答案を受領後、団体責任者宛に「着荷報告書 兼 成績資料ダウンロード情報 通知書」をお送りします。成績資料のダウンロード方法、およびダウンロードに必要なアクセスキー等を記載しておりますので必ず確認してください。アクセスキーについては、団体責任者に限り使用できるものとし、団体責任者が厳重に管理し他者に使用させたり、漏洩することを禁じます。団体責任者によるアクセスキーの第三者の利用、または漏洩などから生じた損害に対して、協会は一切の責任を負わないものとします。'); ?></li>
+                    <li><i>3．</i><?php echo $this->translate('規定の形式以外の成績資料のご要望については、ご要望の内容によりお受けしかねることがございます。'); ?></li>
+                    <li><i>4．</i><?php echo $this->translate('成績資料受領後の資料のご要望変更等はお受けできません。'); ?></li>
+                </ul>
+            </div>
+            <div class="group">
+                <b><?php echo $this->translate('第６条　　（受験料の支払い）'); ?></b>
+                <ul class="policy-list">
+                    <li><i>1．</i><?php echo $this->translate('受験料は、実受験者1名につき500円（税込）にてご請求いたします。各種オプションをご利用の場合は、別途料金をいただきます。'); ?></li>
+                    <li><i>2．</i><?php echo $this->translate('実受験者数が、第１条１項で定める最低受験者数である30名に満たない場合には、最低保証価格として30名分の受験料（30名×500円=15,000円）をご請求いたします。加えて、各種オプションをご利用の場合は、30名分のオプション料金を別途いただきます。'); ?></li>
+                    <li><i>3．</i><?php echo $this->translate('実受験者数が1,001名以上の場合、オプションによってはボリュームディスカウントをさせていただくものがございます。ただし、お申し込み時の人数から実受験者数が減り、1,000名以下になった場合は原則適応されませんのでご注意ください。詳しくは、別紙『オプション申込用紙』をご確認ください。'); ?></li>
+                    <li><i>4．</i><?php echo $this->translate('お支払い先は、試験終了後にお送りする請求書に従って指定の銀行口座にお支払いください。'); ?></li>
+                    <li><i>5．</i><?php echo $this->translate('お支払いは、請求書に記載されたお支払い期限までにお手続きください。受験料未納の場合、次回以降お申込をお受けできかねますので予めご了承ください。'); ?></li>
+                    <li><i>6．</i><?php echo $this->translate('答案返送費用、受験料の振込手数料は申込団体の負担とします。'); ?></li>
+                </ul>
+            </div>
+            <div class="group">
+                <b><?php echo $this->translate('第7条　　（規約の変更）'); ?></b>
+                <ul class="policy-list">
+                    <li><i>1．</i><?php echo $this->translate('協会が必要と判断した場合は、本規約は予告なく変更することがあります。'); ?></li>
+                </ul>
+            </div>
+            <div class="group">
+                <b><?php echo $this->translate('（附則）'); ?></b>
+                <p><?php echo $this->translate('本規約は、2015年4月1日より施行する。'); ?></p>
+            </div>
+            <h4 class="text-right"><?php echo $this->translate('◇お問い合わせ先◇'); ?></h4>
+            <h4 class="text-right"><?php echo $this->translate('公益財団法人　日本英語検定協会'); ?></h4>
+            <h4 class="text-right fontnoma"><?php echo $this->translate('英検サービスセンター（団体受付）'); ?></h4>
+            <h4 class="text-right fontnoma"><?php echo $this->translate('TEL 03-3266-8010'); ?></h4>
+            <h4 class="text-right fontnoma"><?php echo $this->translate('※平日10:00～17:00（土・日・祝日を除く）'); ?></h4>
+            <div class="group">
+                <b><?php echo $this->translate('【個人情報の取り扱いについて】'); ?></b>
+                <ul>
+                    <li><?php
+echo $this->translate('お申し込み、受験の際にご記入いただく個人情報は、試験の円滑な実施、および英検IBA統計資料作成のために利用いたします。これ以外の目的に利用する場合は、新たに皆さまの同意を得た上で行います。お預かりした個人情報は、第三者に提供することはありません。また、業務運営に際し、上記利用目的の範囲内で委託先に預託することがあります。ご本人から開示、訂正、追加又は削除のお申し出については下記（お問い合わせ先）にお申し出ください。個人情報の当協会へのご提供は、ご本人の任意ですが、当協会の受験者登録に必要な情報が提供されない場合、申込を辞退されたものとみなす場合もありうることを予めご承知おきください。なお、上記個人情報の取り扱いについて、受験者に対しても周知いただけますようお願いいたします。
+個人情報保護管理者：当協会事務局長　　個人情報の取り扱いに関する連絡先窓口：公益財団法人 日本英語検定協会・渉外課　<small>https://uketuke.eiken.or.jp/privacy21/index.html</small>
+						    ');
+?></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 	</div> -->
+        <div class="row linehr"></div>
+        <div class="form-group-policy">
+            <div class="row r1">
+                <div class="col-sm-2">
+                    <b><?php echo $this->translate('責任者名'); ?><i class="require">*</i></b>
+                </div>
+                <div class="col-sm-10">
+                    <div class="col-sm-4 cl1"><?php echo $this->formRow($form->get('firtNameKanji')); ?></div>
+                    <div class="col-sm-4 cl2"><?php echo $this->formRow($form->get('lastNameKanji')); ?></div>
+                </div>
+            </div>
+
+            <div class="row r2">
+                <div class="col-sm-2">
+                    <b><?php echo $this->translate('メールアドレス'); ?><i class="require">*</i></b>
+                </div>
+                <div class="col-sm-10">
+                    <div class="col-sm-4 cl1"><?php echo $this->formRow($form->get('mailAddress')); ?></div>
+                </div>
+            </div>
+
+            <div class="row r3">
+                <div class="col-sm-2">
+                    <b><?php echo $this->translate('メールアドレス'); ?><i class="require">*</i></b>
+                    <b class="br"><?php echo $this->translate('（確認のため再入力）'); ?></b>
+
+                </div>
+                <div class="col-sm-10">
+                    <div class="col-sm-4 cl1"><?php echo $this->formRow($form->get('confirmEmail')); ?></div>
+                </div>
+            </div>
+
+            <!--             <div class="row r4"> -->
+            <!--                 <div class="col-sm-2"> -->
+            <!--                     <b> -->
+<?php //echo $this->translate('電話番号');  ?>
+<!--                     <i class="require">*</i> -->
+            <!--                     </b> -->
+            <!--                 </div> -->
+            <!--                 <div class="col-sm-10"> -->
+            <!--                     <div class="col-sm-4 cl1"> -->
+<?php //echo $this->formRow($form->get('phoneNumber'));  ?>
+            <!--                     </div> -->
+            <!--                 </div> -->
+            <!--             </div> -->
+
+        </div>
+    </div>
+    <div class="box-footer">
+        <div class="text-right">
+            <a class="btn btn-large-180"
+               href="<?php echo $this->url('home-page/default', array("controller" => "homepage")); ?>"><?php echo $this->translate("Disagree"); ?></a>
+            <button type="button" id="submitform"
+                    class="btn btn-red btn-large-180">
+                <i class="arrow-circle-right-w"></i>
+<?php echo $this->translate("i-agree"); ?></button>
+
+        </div>
+    </div>
+<?php echo $this->form()->closeTag(); ?>
+</div>
+    <?php $this->headScript()->appendFile($this->basePath('js/apply-iba/policy.js')); ?>
+<?php if(isset($noORG)){ ?>
+<script>
+    $(document).ready(function(){
+        $('body').keydown(function(e) {
+        if (e.keyCode == 27) {
+          window.location.href= '/';
+        }
+      });
+    });
+    var noORG = '<?php echo $noORG; ?>';
+     ERROR_MESSAGE.show(noORG,
+                function()
+                {
+            		window.location.href= '/';
+            	});
+               
+</script>
+<?php } ?>

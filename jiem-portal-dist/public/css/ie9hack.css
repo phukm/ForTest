@@ -1,0 +1,11 @@
+.jiem-breadcrumbs > li + li:before {
+    background-size: 8px 9px !important;
+    margin: 0px 3px 10px 5px !important;
+    position: relative !important;
+}
+
+.styled-select select{
+    background: no-repeat right;
+    background-image: none !important;
+    padding: 0px 0px 0px 10px !important;
+}

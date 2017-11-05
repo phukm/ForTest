@@ -1,0 +1,171 @@
+<?php $paging = $this->paginationHelper($eikenPupils, $page, $this->url('eikenpupil', array ('action' => 'index', 'id' => $eikenLevel? $eikenLevel->getId() : '')), 20);?>
+<?php $this->headLink ()->prependStylesheet ( $this->basePath ( 'css/appeiken.css' ) )?>
+<script type="text/javascript">
+   var eikAppLevelMess = <?php echo $jsMessages; ?>;
+   var jsMessages = eikAppLevelMess;
+</script>
+<div class="box eikenRegistXlevel">
+	<div class="box-header">
+
+       <?php echo $this->translate('FormFirstName'), '：', $eikenLevel? $eikenLevel->getLevelName() : '';?>
+	</div>
+	<div class="box-body-listPupil text-right">
+		<div class="top-mark">
+                    <label class="font-mark">
+                        英検IDを新規に取得する場合は、「<?php echo $this->translate('AddNewApplicant'); ?>」ボタンを押してください。<br>
+                        すでに英検IDを持っている場合は、「<?php echo $this->translate('AddNewAppEikenID'); ?>」ボタンを押してください。
+                    </label>
+		</div>
+		<div class="row text-right　btn-higher-right">
+			<a class="btn btn-higher width68" tabindex="1"
+				href="<?php echo $this->url ( 'eikenid', array ('action' => 'register', 'levelid' => $eikenLevel? $eikenLevel->getId() : ''));?>">
+				<i class="user-plus"></i>
+				<?php echo $this->translate('AddNewApplicant'); ?>
+			</a> <a class="btn btn-higher width152" tabindex="2"
+				href="<?php echo $this->url ( 'eikenid', array ('action' => 'reference', 'levelid' => $eikenLevel? $eikenLevel->getId() : ''));?>">
+				<i class="street-view"></i>
+				<?php echo $this->translate('AddNewAppEikenID'); ?>
+			</a> <a onclick="eikenPupil.deleteEikPupil(<?php echo $eikenLevel? $eikenLevel->getId() : '';?>);" class="btn btn-higher"
+				tabindex="3"><i class="trash-inline"></i> <?php echo $this->translate('Delete'); ?> </a>
+		</div>
+		<div class="tbl-PupilId-margin">
+			<table class="table table-bordered tble-PupilId-margin">
+				<thead>
+					<tr>
+						<th class="checkbox-class text-checkbox-eikenRegisterLevel"><input
+							tabindex="4" id="select_all" type="checkbox"></th>
+						<th class="text-classyear-gakunen left"><?php echo $this->translate('SchoolYear');?></th>
+						<th class="text-class-kurasu left"><?php echo $this->translate('Class');?></th>
+						<th class="text-order right"><?php echo $this->translate('Order');?></th>
+						<th class="text-name-shimei left jname"><?php echo $this->translate('NameKanji');?></th>
+						<?php if (!$isPaymentOrg):?>
+						  <th class="text-paymentStatus-shiharai left"><?php echo $this->translate('PaymentStatus');?></th>
+						<?php endif;?>
+						<th class="text-personalInforRegist-kojinjouhoutouroku left"><?php echo $this->translate('RegStatus');?></th>
+						<th class="text-action-sousa left"><?php echo $this->translate('操作');?></th>
+					</tr>
+				</thead>
+				<tbody>
+    				<?php
+        if (isset($eikenPupils)) :
+            $tabindex = 5;
+            foreach ($eikenPupils as $eikenPupil) :
+                ?>
+                		    <tr id="<?php echo $eikenPupil->getEncryptId();?>"
+						class="<?php echo  $eikenPupil->getIsRegister()? 'registered' : 'unregistered';?>">
+						<td><input class="checkbox1" type="checkbox"
+							tabindex="<?php echo $tabindex;?>"
+							id="<?php echo $eikenPupil->getEncryptId();?>"
+							name="eik-chk[<?php echo $eikenPupil->getEncryptId();?>]"></td>
+						<td class="left">
+						      <?php 
+						          $schoolYear = '';
+						          if (!empty($eikenPupil->getApplyEikenPersonalInfo()->getOrgSchoolYear()))
+						              $schoolYear = $this->escapeHtml($eikenPupil->getApplyEikenPersonalInfo()->getOrgSchoolYear()->getDisplayName());
+						          else 
+						              $schoolYear = $this->escapeHtml($eikenPupil->getApplyEikenPersonalInfo()->getOrgSchoolYearName());
+						          echo $schoolYear; 
+					          ?>
+						</td>
+						<td class="left">
+						      <?php 
+						          $className = '';
+						          if (!empty($eikenPupil->getApplyEikenPersonalInfo()->getClass()))
+						              $className = $this->escapeHtml($eikenPupil->getApplyEikenPersonalInfo()->getClass()->getClassName());
+						          else
+						              $className = $this->escapeHtml($eikenPupil->getApplyEikenPersonalInfo()->getClassName());
+						          echo $className;
+					          ?>
+				        </td>
+						<td class="right"><?php echo $eikenPupil->getApplyEikenPersonalInfo()->getPupil()? $this->escapeHtml($eikenPupil->getApplyEikenPersonalInfo()->getPupil()->getNumber()) : '';?></td>
+						<td class="left"><?php echo $eikenPupil->getApplyEikenPersonalInfo()->getFirstNameKanji(), '', $this->escapeHtml($eikenPupil->getApplyEikenPersonalInfo()->getLastNameKanji());?></td>
+        						<?php if (!$isPaymentOrg):?>
+				        <td class="left"><?php echo $eikenPupil->getIsSateline() != 1? '' : $this->translate('Paid');?></td>
+        						<?php endif;?>
+        				<td class="left"><?php echo $eikenPupil->getIsRegister()? $this->translate('Regitered') : $this->translate('UnRegitered');?></td>
+						<td class="center"><a
+							href="<?php
+                echo $this->url('eikenpupil', array(
+                    'action' => 'view',
+                    'id' => $eikenPupil->getId()
+                ), array(
+                    'query' => array()
+                ));
+                ?>"
+							tabindex="<?php echo $tabindex + 1;?>"
+							class="btn btn-small-100 eik-btn-small-80"
+							<?php echo  !$eikenPupil->getApplyEikenPersonalInfo()->getEikenId()? 'disabled="disabled"' : '';?>>
+                						<?php echo $this->translate('View');?>
+            						</a> <a
+							href="<?php
+                echo $this->url('eikenid', array(
+                    'action' => 'reference',
+                    'levelid' => $eikenLevel ? $eikenLevel->getId() : '',
+                    'id' => $eikenPupil->getApplyEikenPersonalInfo()
+                        ->getId()
+                ), array(
+                    'query' => array(
+                        'app_eik_level' => $eikenPupil->getId()
+                    )
+                ));
+                ?>"
+							tabindex="<?php echo $tabindex + 2;?>" class="btn btn-small-100">
+                						<?php echo $this->translate('CheckEikenID');?>
+            						</a> <a
+							href="<?php
+                echo $this->url('eikenid', array(
+                    'action' => 'register',
+                    'levelid' => $eikenLevel ? $eikenLevel->getId() : '',
+                    'id' => $eikenPupil->getApplyEikenPersonalInfo()
+                        ->getId()
+                ), array(
+                    'query' => array(
+                        'app_eik_level' => $eikenPupil->getId()
+                    )
+                ));
+                ?>"
+							tabindex="<?php echo $tabindex + 3;?>" class="btn btn-small-100">
+                					    <?php echo $this->translate('GetEikenID');?>
+            					   </a></td>
+					</tr>
+            	<?php
+                $tabindex += 4;
+            endforeach
+            ;
+        
+
+
+
+
+
+
+
+
+
+                   endif;
+        ?>
+				</tbody>
+			</table>
+			<div class="pagging1 text-center pagination_student_color">
+				<nav>
+					<ul class="pagination">
+						<?php echo $paging;?>
+					</ul>
+
+				</nav>
+			</div>
+		</div>
+	</div>
+	<div class="box-footer">
+		<a
+			href="<?php echo $this->url('eikenorg', array ('action' => 'create'));?>"
+			tabindex="<?php echo $tabindex;?>"
+			class="btn btn-large-180 font-weight-modoru"><i
+			class="arrow-circle-left"></i>
+			<?php echo $this->translate('Back');?>
+		</a>
+	</div>
+</div>
+<?php $this->headScript()->prependFile( $this->basePath ( 'js/jiem.js' ) )?>
+<?php $this->headScript()->prependFile( $this->basePath ('js/messages/common-message.js'))?>
+<?php $this->headScript()->prependFile( $this->basePath('js/apply-eiken-pupil.js'))?>

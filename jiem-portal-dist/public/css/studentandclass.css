@@ -1,0 +1,740 @@
+/*
+tuan bycode
+*/
+.ulboder {
+    border: 1px solid #f4f4f4;
+}
+.ulboder ul li.active {
+    background: #ececec
+}
+.pd_sex div label input.padding_radio {
+    margin: 0 7px;
+}
+.pd_sex div > label {
+    font-weight: normal;
+}
+.search_student_btn {
+    padding: 16px;
+    margin-top: 0px;
+    min-width: 200px;
+}
+.box-search-std .sear {
+    width: 77.8%
+}
+.box-search-std .search_one {
+    width: 620px
+}
+.pagination_student_color .pagination a {
+    color: black;
+}
+.box-search-std .form-control {
+    height: 25px
+}
+.box-search-std .row {
+    margin-bottom: 0px
+}
+.wtd_s {
+    width: 160px;
+}
+.box-search-std .wtd_s input {
+    width: 150px;
+}
+.studentmng .form-control {
+    height: 25px
+}
+.box_padding nav {
+    padding: 10px 0 0 0;
+    margin: 0;
+}
+.box_padding .pagination {
+    padding: 0;
+    margin: 0;
+}
+.std_list .btn-view {
+    min-width: 60px;
+    height: 24px;
+    padding: 2px !important;
+    display: inline-block;
+    font-size: 12px;
+}
+.btn-views {
+    min-width: 100px
+}
+.form-search-2 {
+    width: 728px;
+}
+.select_seach {
+    width: 170px
+}
+.classmanaer table .btn { font-size: 12px }
+.classmanaer .class-tite { font-size: 14px }
+/*addd*/
+.classmanaer .col1 .cl1 {
+    width: 45px;
+}
+.classmanaer .col1 .cl2 {
+    width: 113px;
+}
+.classmanaer .col1 .cl2 select {
+    width: 90px;
+}
+.classmanaer .col2 .cl1 {
+    width: 45px;
+}
+.classmanaer .col2 .cl2 {
+    width: 172px;
+}
+.classmanaer .col2 .cl2 select {
+    width: 145px;
+}
+.classmanaer .col3 .cl1 {
+    width: 72px;
+}
+.classmanaer .col3 .cl2 {
+    min-width: 29px;
+}
+.classmanaer .col3 .cl2 a, .classmanaer .col3 .cl4 a {
+    width: 20px;
+    height: 20px;
+    margin-top: 3px;
+    margin-right: 1px
+}
+.classmanaer .col3 .cl2 a .fa, .classmanaer .col3 .cl4 a .fa {
+    display: block;
+    margin-top: -2px;
+    margin-left: -5px
+}
+.classmanaer .col3 .cl3 {
+    width: 43px;
+}
+.classmanaer .col3 .cl4 {
+    min-width: 67px;
+}
+.classmanaer .col3 .cl3 input {
+    width: 39px;
+    text-align: center;
+}
+.classmanaer .col4 {
+    width: 109px;
+    margin-top: 5px;
+}
+.classmanaer .col4 a { width: 100px; }
+.classmanaer .col5 {
+    margin-top: 5px;
+    float: right;
+}
+/*listclass*/
+.classmanaer .box-search {
+    /*border-bottom: 1px solid #dadada;*/
+    color: #444;
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 18px;
+    padding: 10px 20px 15px 20px;
+}
+.padding_row {
+    margin-bottom: 10px;
+    margin-top: -2px;
+}
+.seacrh_list {
+    width: 272px;
+    display: inline-block;
+    float: left
+}
+.class1 {
+    width: 45px
+}
+.class3 {
+    width: 100px;
+    text-align: center;
+}
+.class5 {
+    width: 219px;
+    text-align: center;
+}
+.styled-select .year-seacrh {
+    min-width: 85px;
+    color: #cccccc
+}
+.styled-select .year-school-seacrh {
+    min-width: 250px;
+    color: #cccccc
+}
+.class5 .button1 {
+    min-width: 178px;
+    height: 25px;
+}
+.box-footer .btn-red b {
+    color: white;
+}
+.title-list p {
+    margin: 0px;
+    padding: 0px;
+    height: 18px
+}
+.std_edit .year-seacrh {
+    width: 80px
+}
+.std_edit .year-school-seacrh {
+    width: 226px
+}
+.btn-list {
+    height: 50px;
+    width: 90px
+}
+.box_padding .pagination .active a {
+    background: #dddddd;
+    border: none;
+    border-bottom: 1px solid #dddddd;
+    border-top: 1px solid #dddddd;
+}
+.box_padding .pagination li a {
+    height: 32px
+}
+/*detail*/
+.title-add-class {
+    width: 55px
+}
+.remove-class {
+    margin-top: 10px
+}
+.back-rv {
+    width: 100px;
+    margin-left: 17px;
+    margin-right: 17px
+}
+.back-rv-w {
+    width: 140px
+}
+.select-myuti {
+    width: 185px;
+}
+.scroll_add li.active {
+    background: #d2d6de
+}
+.classmanaer .addclass .box-body {
+    border-radius: 0px;
+    padding-top: 20px;
+}
+.addclass .btn-addclass {
+    min-width: 100px;
+    height: 25px
+}
+.fl {
+    float: left;
+}
+.fl.choose-file {
+    width: 550px;
+}
+.generate {
+    width: 198px
+}
+.generate a {
+    display: inline-block;
+    width: 198px;
+    height: 60px;
+    padding-top: 20px;
+    font-size: 16px;
+}
+.class-mg {
+    margin-top: 15px
+}
+.center-input input {
+    text-align: left;
+}
+.center-input .cl4 {
+    text-align: center;
+}
+.detailclass b {
+    color: #000000;
+}
+.detailclass .col1 { width: 140px; padding-top: 2px; }
+.detailclass .col4 { width: 84px; }
+.detailclass .col3 { width: 225px; }
+/*list student*/
+
+.studentmanager .student_manager {
+    padding-top: 12px;
+}
+.studentmanager .content label { margin-top: 3px; }
+.addstudent .r8-1 .styled-select select, .addstudent .r10 .styled-select select { width: 80px; }
+.addstudent select { padding-right: 10px; }
+.addstudent .r9-1 .styled-select select { width: 80px; }
+.addstudent .r9-1 .col2 { margin-right: 24px; }
+.addstudent .r9-1 .col4 { margin-right: 24px; }
+.addstudent .r8-2 .styled-select select { width: 100px; }
+.addstudent .r10 .col2 { width: 100px; height: 25px; }
+.addstudent .r10 .datepick { margin-left: 5px; }
+.addstudent .r10 .icon-calendar { margin-bottom: 18px; }
+.addstudent .r4 .col3 label, .addstudent .r4 .col5 label, .addstudent .r4 .col7 label { line-height: 30px }
+.studentmanager .importstd-box .row { margin-top: 0px; margin-bottom: 0px; }
+.studentmanager .importstd-box .r2 { margin-top: -2px; }
+.studentmanager .search_list1 label { font-size: 14px; font-weight: bold; }
+.studentmanager .search_list1 .col1 { width: 46px; }
+.studentmanager .search_list1 .col2 { width: 134px; }
+.studentmanager .search_list1 .col2 select { width: 100px; }
+.studentmanager .search_list1 .col3 { width: 45px }
+.studentmanager .search_list1 .col4, .studentmanager .search_list1 .col6 { width: 166px; }
+.studentmanager .search_list1 .col4 select, .studentmanager .search_list1 .col6 select { width: 140px; }
+.studentmanager .search_list1 .col4 { width: 173px; }
+.studentmanager .search_list1 .col5 { width: 62px }
+.studentmanager .search_list1 .col6 { width: 170px }
+.studentmanager .search_list1 .col7 { width: 45px }
+.studentmanager .search_list1 .col8 { width: 220px }
+.studentmanager .cl1 { width: 55px; }
+.studentmanager .r2 .cl2 { width: 717px; padding-right: 20px; }
+.studentmanager .r2 .cl2 a { width: 100px; float: right; display: inline-block; margin: 0px; }
+.studentmanager .r2 .cl3 a { width: 198px; float: right; display: inline-block; margin: 0px }
+.studentmanager .r2 .cl3 a .awesome { margin-right: 5px; }
+.studentmanager .cl3 a { margin-top: 0px }
+.studentmanager .liststd-button-group { margin-bottom: 10px; }
+.studentmanager .liststd-button .awesome-lage, .student_manager .std_list .col-sm-5 .awesome-lage { display: block; margin-top: 4px; margin-left: 16px; }
+/*add edit student*/
+
+.addstudent .result-vocabulary {
+    margin-right: 35px;
+    width: 100px;
+}
+.detailstudent p { margin: 5px; line-height: 10px; }
+.detailstudent .box-footer { padding-top: 32px; }
+.detailstudent .r2, .r4, .r5, .r8, .r14 { margin-top: 25px; }
+.detailstudent .r3, .r6, .r12 { margin-top: 25px; }
+.detailstudent .r7 { margin-top: 24px; }
+.detailstudent .r11 { margin-top: 22px; }
+.detailstudent .r13 { margin-top: 19px; }
+.detailstudent .r15 { margin-top: 29px; }
+.detailstudent .r10 b { line-height: 29px; }
+.detailstudent .r10 p.col2 { line-height: 21px; margin-bottom: 9px; }
+.detailstudent .row .col1 { width: 140px; }
+.detailstudent .r8 .col2 { width: 160px; }
+.detailstudent .r8 .col3 { width: 135px; }
+.detailstudent .r4 span { margin: 5px; }
+.detailstudent .r6 .col2, .detailstudent .r6 .col3, .detailstudent .r6 .col5 { min-width: 120px; }
+.detailstudent .r6 .col3 { min-width: 58px; }
+.detailstudent .r6 .col4 { min-width: 190px; }
+.detailstudent .r6 .col5 { min-width: 71px; }
+.detailstudent .r6 .col6 { min-width: 150px; }
+.detailstudent .r6 .col7 { min-width: 71px; }
+/*.detailstudent .r6 .col8{min-width: ;}*/
+.detailstudent .r15 .col2 { margin-right: 15px; }
+.detailstudent .r15 .col3 { min-width: 80px; }
+.detailstudent .r15 .col4 { margin-right: 15px; }
+.detailstudent .r15 .col5 { min-width: 90px; }
+.r11 .col2, .r13 .col2, .r11 .col8 { min-width: 102px; }
+.r11 .col3, .r13 .col3, .r11 .col7, .r11 .col9 { min-width: 62px; }
+.r11 .col4, .r13 .col4 { min-width: 92px; }
+.r11 .col5, .r13 .col5 { min-width: 70px; }
+.r11 .col6 { min-width: 102px; }
+.r13 .col6, .r11 .col10 { min-width: 50px; }
+.addstudent .row .col1 { width: 140px; }
+.addstudent .r1 .col2 { width: 140px }
+.addstudent .r2 .col2, .addstudent .r3 .col2 { width: 220px; margin-right: 20px; }
+.addstudent .r2 .col3, .addstudent .r3 .col3 { width: 220px; }
+.addstudent .r4 .col2 { width: 80px; }
+.addstudent .r4 .col2.japanese-year { width: 140px }
+.addstudent .r4 .col4, .addstudent .r4 .col6 { width: 70px; }
+.addstudent .r4 .col6 { margin-left: -10px; }
+.addstudent .r4 .col2, .addstudent .r4 .col3, .addstudent .r4 .col4, .addstudent .r4 .col5, .addstudent .r4 .col6 { margin-right: 10px; }
+.addstudent .r4 .edit-std-year { padding-right: 17px; }
+.addstudent .r5 .col2 label { margin-right: 20px; font-weight: bold; }
+.addstudent .r6 .col2 { width: 130px; }
+.addstudent .r6 .col2 input { width: 80px; }
+.addstudent .r6 .col3, .addstudent .r6 .col5 { width: 57px; }
+.addstudent .r6 .edit-std-class { width: 70px; }
+.addstudent .r6 .col4 { width: 160px; }
+.addstudent .r6 .col4 select, .addstudent .r6 .col6 select { width: 140px; }
+.addstudent .r6 .col2 select { width: 100px; }
+.addstudent .r6 .col6 { width: 160px; }
+.addstudent .r6 .col7 { width: 60px; }
+.addstudent .r6 .col8 { width: 100px; }
+.addstudent .r7 .col2 input { width: 100px; }
+.addstudent .r7 b { line-height: 27px; }
+.addstudent .r8 b { line-height: 27px; }
+.addstudent .r8 .col2 input { width: 100px; }
+.addstudent .r8 .col2 { width: 160px; }
+.addstudent .r8 .col3 { width: 126px; }
+.addstudent .r8 .col4 { width: 120px; }
+.addstudent .r8-1 .col2 { width: 80px; }
+.addstudent .r9 .col2, .addstudent .r9 .col8, .addstudent .r11 .col2 { width: 92px; }
+.addstudent .r9 .col3, .addstudent .r9 .col5, .addstudent .r11 .col3 { width: 68px; }
+.addstudent .r9 .col3 input, .addstudent .r9 .col5 input, .addstudent .r11 .col3 input, .addstudent .r11 .col5 input { width: 50px }
+.addstudent .r9 .col4, .addstudent .r11 .col4 { width: 82px; }
+.addstudent .r9 .col6 { width: 100px; }
+.addstudent .r9 .col7, .addstudent .r9 .col9 { width: 72px; }
+.addstudent .r9 .col7 input, .addstudent .r9 .col9 input { width: 50px; }
+.addstudent .r9 .col10, .addstudent .r11 .col6 { min-width: 40px; }
+.addstudent .r9 .col11 { width: 68px; }
+.addstudent .r9 .total-poit p { width: 70px; }
+.addstudent .r9 .col3 { width: 74px; }
+.addstudent .r9 .col6 { width: 94px; }
+.addstudent .r9 .col7 { width: 74px; }
+.addstudent .r11 .col7 { width: 68px; }
+.addstudent .r11 .col2 { margin-right: -9px; }
+.addstudent .r11 .col3 { margin-right: 12px; }
+.addstudent .r11 .col4 { margin-right: -10px; }
+.addstudent .r11 .col3, .col5, .col7 input { width: 45px; }
+.addstudent .r11 .col7 input { padding-left: 9px; padding-right: 9px; width: 60px; }
+.addstudent .r11 b { line-height: 27px; }
+.addstudent .row { margin-bottom: 20px; margin-top: 20px; }
+.addstudent .box-body { margin-bottom: -20px; margin-top: -20px; }
+.detailstudent .box-body { margin-bottom: -20px; margin-top: -10px; }
+.addstudent .box-footer { padding-bottom: 0px; padding-top: 0px; }
+.addstudent p { }
+.addstudent p.form-control { width: 45px; }
+.detailstudent p, .addstudent .row select, .addstudent .row input, .detailstudent span { }
+.detailstudent b, .detailstudent span b { color: black; }
+/*edit*/
+.editstudent .r6 .edit-std-class { width: 70px; }
+.editstudent .r7 .col2 input { width: 100px; }
+.editstudent .r7 b { line-height: 27px; }
+.editstudent .r8 b { line-height: 27px; }
+.editstudent .r8 .col2 input { width: 100px; }
+.editstudent .r11 .col3, .col5, .col7 input { width: 45px; }
+.editstudent .r11 .col7 input { padding-left: 9px; padding-right: 9px; }
+.editstudent .r11 b { line-height: 27px; }
+.editstudent .r9 .col3 { width: 74px; }
+.editstudent .r9 .col6 { width: 94px; }
+.editstudent .r9 .col7 { width: 74px; }
+/* class */
+.classmanaer .form-control, .detailclass .form-control { font-weight: normal; }
+.list-classmanaer .seacrch-row .col-sm-1 { width: 48px; }
+.list-classmanaer .seacrch-row .col-sm-2 { width: 130px; }
+.list-classmanaer .seacrch-row .col-sm-2 select { width: 100px; }
+.list-classmanaer .seacrch-row .col-sm-3 { width: 45px; }
+.list-classmanaer .seacrch-row .col-sm-4 { width: 370px; }
+.list-classmanaer .seacrch-row .col-sm-4 select { width: 140px; }
+.list-classmanaer .seacrch-row .col-sm-5 { width: 301px; }
+.list-classmanaer .seacrch-row .col-sm-5 .cl2 { width: 120px; }
+.list-classmanaer .seacrch-row .col-sm-5 .cl2 .btn { width: 100px; display: inline-block; }
+.list-classmanaer .btn .awesome { margin-right: 4px; margin-top: 1px; }
+.classmanaer .btn-view { font-size: 12px; }
+.btn .awesome-add {
+    height: 17px !important;
+    width: 17px !important;
+    position: relative;
+    top: -5px !important;
+    right: 9px !important;
+    border: 0px;
+}
+.studentmanager .r2 .cl3 .btn-search-liststd {
+    width: 180px;
+}
+.list-classmanaer .seacrch-row label {
+    font-size: 14px;
+    font-weight: bold;
+}
+.lable-class-edit {
+    height: 16px;
+    padding-top: 4px;
+    font-size: 14px;
+    font-weight: bold;
+}
+.list-classmanaer .checkbox1 {
+    padding: 10px;
+}
+.list-classmanaer table thead th.year-class {
+    width: 65px;
+    text-align: center;
+}
+.list-classmanaer table tbody td.year-class {
+    text-align: center;
+}
+.list-classmanaer table thead th.year-school-class {
+    width: 124px;
+}
+.list-classmanaer table thead th.class-class {
+    width: 65px;
+}
+.list-classmanaer table thead th.number-class {
+    width: 77px;
+}
+.list-classmanaer table thead th.space-class {
+    width: 448px;
+}
+.list-classmanaer table thead th.view-class {
+    width: 86px;
+}
+.classmanaer .col1 .year-class-edit select {
+    width: 100px;
+}
+.classmanaer .col1 .year-class-edit {
+    width: 130px;
+}
+.table > tbody > tr > td.classright, .table > tbody > tr > th.classright, .table > tfoot > tr > td.classright, .table > tfoot > tr > th.classright, .table > thead > tr > td.classright, .table > thead > tr > th.classright { text-align: right; }
+.student-CEO-add {
+    margin-top: -2px;
+}
+.add-student-cse b {
+    line-height: 27px;
+}
+.add-student-cse-line-0 b {
+    line-height: 0;
+}
+.class-add-btn-search {
+    width: 180px;
+}
+.content .lable-number-student {
+    margin-top: 0px;
+}
+.margin-right-4 {
+}
+.content .detailclass .row { margin-top: 20px; }
+.content .detailclass .margin_edit { margin-left: 10px; }
+.addclass .table tr.error { outline: 1px solid red !important; }
+.addclass .generror p, .detailclass .generror p, .student_manager .generror p { color: red; padding-left: 20px; }
+.addclass .hidens, .addclass #counts { display: none }
+.addclass .btn-small > img, .addclass .btn-small-180 > img, .addclass .btn-small-140 > img, .addclass .btn-small-200 > img, .addclass .btn-small-100 > img { margin-top: 0px; width: 13px; }
+.addclass .btn .awesome-add { border: 0 none; height: 14px !important; position: relative; right: 7px !important; top: -5px !important; width: 14px !important; }
+.list-classmanaer table thead th.checkbox-class, .list-classmanaer table tbody td.checkbox-class { text-align: center; }
+.checkbox-class { width: 35px; }
+.list-classmanaer table thead th.year-class, .list-classmanaer table tbody td.year-class { text-align: left; padding-left: 10px; width: 175px; }
+.list-classmanaer table thead th.year-school-class, .list-classmanaer table tbody td.year-school-class { text-align: left; padding-left: 10px; width: 250px }
+.list-classmanaer table tbody td.class-class { text-align: left; padding-left: 10px; width: 250px }
+.list-classmanaer table tbody td.student-number { text-align: right; width: 118px }
+.addstudent .required { color: red; }
+.addstudent .hasDatepicker { background: white; }
+form#pupilmanager select, input#name {
+    margin-top: -3px;
+}
+form#delpupil .liststd-button-group {
+    margin-top: -2px;
+}
+#btnImport,#btnReset{
+    margin-left: -5px;
+}
+#btnTemplate,#btnDownload{
+    margin-right: 10px;
+}
+#btnDownload{
+    margin-left: 5px;
+}
+.margin-left-10 {
+    margin-left: 0px;
+}
+form#delpupil .liststd-button-group .text-right .del-btn-liststd {
+    margin-right: -1px;
+}
+.student_manager thead th.id-std {
+    min-width: 70px;
+}
+.student_manager tbody td.id-std {
+    text-align: right;
+}
+.student_manager thead th.year {
+    min-width: 55px;
+}
+.std_list .table > tbody > tr > td.year {
+    text-align: left;
+}
+.student_manager .checkbox_list {
+    height: 46px;
+}
+.student_manager .th-checkbox-list {
+    width: 33px;
+    min-width: 33px;
+    text-align: center;
+}
+.std_list .table > tbody > tr > td.checkbox-class {
+    text-align: center;
+}
+.student_manager thead tr th.year_school {
+    min-width: 105px;
+    padding-left: 15px;
+}
+.std_list .table > tbody > tr > td.year_school {
+    padding-left: 15px;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+.std_list .table > tbody > tr > td.student-number {
+    text-align: right;
+}
+.student_manager thead tr th.class_name {
+}
+.std_list .table > tbody > tr > td.class_name {
+    padding-left: 15px;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+.student_manager thead tr th.number {
+    width: 50px;
+    min-width: 50px;
+    max-width: 50px;
+}
+.std_list .table > tbody > tr > td.number {
+    width: 50px;
+    min-width: 50px;
+    max-width: 50px;
+}
+.student_manager thead tr th.number {
+    width: 50px;
+    min-width: 50px;
+    max-width: 50px;
+}
+.std_list .table > tbody > tr > td.number {
+    width: 50px;
+    min-width: 50px;
+    max-width: 50px;
+}
+.student_manager thead tr th.name1 {
+    min-width: 95px;
+    padding-left: 8px;
+    padding-right: 0px;
+}
+.std_list .table > tbody > tr > td.name1 {
+    word-wrap: break-word;
+    word-break: break-all;
+    padding-left: 10px;
+}
+.student_manager thead tr th.name2 {
+    min-width: 110px;
+    padding-left: 10px;
+}
+.std_list .table > tbody > tr > td.name2 {
+    padding-left: 10px;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+.student_manager thead tr th.br {
+    min-width: 100px;
+    padding-left: 10px;
+}
+.std_list .table > tbody > tr > td.br {
+    padding-left: 10px;
+}
+.std_list .table > tbody > tr > td.sex {
+    width: 47px;
+    min-width: 47px;
+    max-width: 47px;
+    padding-left: 8px;
+    padding-right: 0;
+    text-align: center;
+}
+.std_list .table > tbody > tr > td.status {
+    max-width: 70px;
+    padding-left: 10px;
+    text-align: center;
+}
+.std_list .table > tbody > tr {
+    height: 43px;
+}
+.checkbox1 {
+    padding: 0px !important;
+}
+
+#exportModal label{
+    display: block;
+    font-weight: normal;
+}
+#exportTemplateModal label{
+    display: block;
+    font-weight: normal;
+}
+
+#exportModal label input{
+    margin: 5px;
+}
+
+#exportModal label span{
+    position: relative;
+    bottom: 2px;
+}
+#exportModal .radio-group{
+    padding:0 15px;
+}
+#exportModal .modal-dialog{
+    width:540px;
+}
+#exportModal .radio-body{
+    padding:15px 15px 5px 15px;
+}
+
+#exportTemplateModal label input{
+    margin: 5px;
+}
+
+#exportTemplateModal label span{
+    position: relative;
+    bottom: 2px;
+}
+#exportTemplateModal .radio-group{
+    padding:0 15px;
+}
+#exportTemplateModal .modal-dialog{
+    width:735px;
+}
+#exportTemplateModal .radio-body{
+    padding:15px 15px 5px 15px;
+}
+#exportTemplateModal hr{
+    border-top-color: #e5e5e5;
+}
+
+.class_loading{
+    margin-top: -25px;
+    margin-left: 50px;
+    display: none;
+    position: absolute;
+    z-index: 1;
+}
+
+.loading_img{
+    width: 25px;
+    height: 25px;
+}
+
+.class_style{
+    position: relative;
+}
+
+.seperate {
+    width: 130px !important;
+}
+#duplicate {
+    padding-right: 0px !important;
+    width: 1005px;
+    right: 0px;
+    left: 130px;
+    top: 100px;
+}
+
+#duplicate .modal-body{
+    padding: 20px;
+}
+
+#duplicate table{
+    margin-bottom: 0px;
+}
+#duplicate .year{
+    width: 65px;
+}
+#duplicate .schoolyear, #duplicate .class, #duplicate .number{
+    width: 120px;
+}
+#duplicate .namekanji, #duplicate .namekana{
+    width: 185px;
+}
+#duplicate .birthday{
+    width: 110px;
+}
+#duplicate .gender{
+    width: 60px;
+}
+#duplicate .duplicate-body{
+    max-height: 165px;
+    overflow-y: scroll;
+}
+#duplicate .infile-list {
+    max-height: 165px;
+}
+#duplicate .infile-scroll {
+    overflow-y: scroll;
+}
+#duplicate .infile-scroll .gender{
+    width: 45px;
+}
+.scroll{
+        max-height: 400px;
+        overflow-y: scroll;
+}

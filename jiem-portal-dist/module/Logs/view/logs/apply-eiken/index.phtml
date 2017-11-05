@@ -1,0 +1,209 @@
+<?php  $paging = $this->eikenPaginationHelper($paginator , $page, '/logs/apply-eiken/index', $pageLimit, (empty($param)) ? '' : '/search/'.$param);
+
+    $this->headLink();
+    $this->headLink ()->prependStylesheet ( $this->basePath ( 'css/OrgInforManagement.css' ) );
+    $this->headLink()->appendStylesheet($this->basePath('css/logs/activity-logs.css'));
+    $this->headScript()->appendFile($this->basePath('js/logs/apply-eiken-log.js'));
+    $this->headScript()->appendFile($this->basePath('js/jquery-ui.js'));
+?>
+<?php
+    $form->setAttribute('action', $this->url('logs/default', array(
+        'controller' => 'apply-eiken',
+        'action' => 'index'
+    )));
+    $form->prepare();
+    echo $this->form()->openTag($form); 
+?>
+<input type="hidden" name="sortKey" id="sortKey">
+<input type="hidden" name="sortOrder" id="sortOrder" value="<?php echo $sortOrder; ?>">
+<input type="hidden" name="searchVisible" id="searchVisible" value="<?php echo $searchVisible; ?>">
+<div class="activity-logs apply-eiken">
+    <div class="box">
+        <div class="box-header" id="search-header" data-toggle="collapse" data-target="#search-box">
+            <div class="search-header  sorting-field">
+                <i class="search-chevron-down"></i>
+                <b><?php echo $this->translate('検索条件') ;?></b>
+            </div>
+        </div>
+        <div id="search-box" aria-expanded="true" class="collapse in">
+            <div class="box-body">
+                <div class="row first-row">
+                    <div class="col1">
+                        <label><?php echo $this->translate('団体番号') ;?></label>
+                    </div>
+                    <div class="col2">
+                        <?php echo $this->formrow($form->get('organizationNo')); ?>
+                    </div>
+                    <div class="col3">
+                        <label><?php echo $this->translate('団体名') ;?></label>
+                    </div>
+                    <div class="col4">
+                        <?php echo $this->formrow($form->get('organizationName')); ?>
+                    </div>
+                    <div class="col5">
+                        <label><?php echo $this->translate('操作') ;?></label>
+                    </div>
+                    <div class="col6 styled-select">
+                        <?php echo $this->formselect($form->get('action')); ?>
+                    </div>
+                </div>
+                <div class="row 2nd-row">
+                    <div class="col1">
+                        <label>実施日</label>
+                    </div>
+                    <div class="col7">
+                        <div class="form-group">
+                            <div class='input-group date' id="divStartDate">
+                                <?php echo $this->formRow($form->get('fromDate')); ?>
+                                <span class="input-group-addon">
+                                    <span class="icon-calendar" onclick="APPLYEIKEN_LOGS.showCalendar('fromDate')"></span>（から）
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col6">
+                        <div class="form-group">
+                            <div class='input-group date' id="divEndDate">
+                                <?php echo $this->formRow($form->get('toDate')); ?>
+                                <span class="input-group-addon">
+                                    <span class="icon-calendar" onclick="APPLYEIKEN_LOGS.showCalendar('toDate')"></span>（まで）
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="box-footer box-submit">
+			<div class="row fr">
+				<a href="javascript:void(0)" id="btnClear"
+					class="btn btn-small btn-clear"><?php echo $this->translate("クリア"); ?></a>
+				<a class="btn btn-small btn-search-list" href="javascript:void(1);"
+					id="btnSearch"><i class="fa-search"></i> <?php echo $this->translate("検索"); ?></a>
+			</div>
+		</div>
+		</div>
+    </div>
+    <div class="box list">
+        <div class="box-header" id="list-header">
+            <b><?php echo $this->translate('申込確定後の変更情報') ;?></b>
+        </div>
+        <div class="box-body scroll" id="list-table">
+            <div class="row">
+                <div class="col-sm-12 text-right">
+                    <?php  $numberExport = ($exportLimit == 0) ? 1 : 2;
+                    //GNCCNCJDM-278
+                    $apply=!empty($scheId)?'?scheId='.$scheId:'';?>
+                    <a href="/logs/apply-eiken/index<?php echo $param ? '/search/'.$param.'/isExportExcel/'.$numberExport : '/isExportExcel/'.$numberExport. $apply; ?>" <?php echo empty($roleLimit) && !\Dantai\PublicSession::isViewerRole() ? '' : 'disabled="disabled"'; ?> class="<?php echo empty($roleLimit) ? '' : 'disabled'; ?> btn btn-red pull-right mrgt25">EXCEL出力</a>
+                </div>
+            </div>
+            <?php
+            //change for ticket GNCCNCJDM-274
+                if($roleId == \Dantai\PublicSession::orgAdminRoleRole || $roleId == \Dantai\PublicSession::orgUserRole):
+            ?>
+                <p><?php echo $this->translate('現在実施回に属する候補日付を選択してください。'); ?></p>
+            <?php
+                endif;
+            ?>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th class="titleOrgNo"><?php echo $this->translate("団体番号/団体名/ユーザID"); ?></th>
+                        <th class="titleDate"><?php echo $this->translate("日時"); ?></th>
+                        <th class="titleAction"><?php echo $this->translate("操作"); ?></th>
+                        <th class="titleDecription"><?php echo $this->translate("詳細"); ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if (!empty($activitylist)): ?>
+                        <?php foreach ($activitylist as $key => $value): ?>
+                            <tr>
+                                <td class="">
+                                    <p><?php echo $this->escapehtml($value['organizationNo']); ?></p>
+                                    <p><?php echo $this->escapehtml($value['organizationName']); ?></p>
+                                    <p><?php echo $this->escapehtml($value['userId']); ?></p>
+                                </td>
+                                <td class="date-time">
+                                    <?php 
+                                        if($value['insertAt'] != ''){
+                                            echo date_format($value['insertAt'],"Y/m/d H:i");
+                                        }else{
+                                            echo '&nbsp';
+                                        }
+                                    ?>
+                                </td>
+                                <?php $action = ($value['action'] != '' && $value['action'] == 'create') ? '登録' : '更新'; ?>
+                                <td class="action"><?php echo $this->escapehtml($action); ?></td>
+                                <td class="decription">
+                                    <!--<div>-->
+                                    <?php 
+                                        if($this->escapehtml($value['mainDetail'])){
+                                            $mainDetail = json_decode($value['mainDetail']);
+                                            $stringMainDetai = '';
+                                            if($mainDetail){
+                                                foreach($mainDetail as $i => $v){
+                                                    if($v != ''){
+                                                        if(empty($stringMainDetai)){
+                                                            $stringMainDetai .= $i.':'.$v;
+                                                        }else{
+                                                            $stringMainDetai .= '、'.$i.':'.$v;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        } 
+                                        if($this->escapehtml($value['standardDetail'])){
+                                            $standardDetail = json_decode($value['standardDetail']);
+                                            $stringStandardDetail = '';
+                                            if($standardDetail){
+                                                foreach($standardDetail as $i => $v){
+                                                    if($v != ''){
+                                                        if(empty($stringStandardDetail)){
+                                                            $stringStandardDetail .= $i.':'.$v;
+                                                        }else{
+                                                            $stringStandardDetail .= '、'.$i.':'.$v;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        } 
+                                    ?>
+                                    <?php if(!empty($stringMainDetai)){ ?><p><span class="red-text">・本会場:</span><?php echo $stringMainDetai; ?></p><?php } ?>
+                                    <?php if(!empty($stringStandardDetail)){ ?><p><span class="red-text">・準会場:</span><?php echo $stringStandardDetail; ?></p><?php } ?>
+                                    <?php if(!empty($value['refundDetail'])){ ?><p><span class="red-text">・本会場運営費・準会場実施経費の取扱い:</span><?php echo $this->escapehtml($value['refundDetail']); ?></p><?php } ?>
+                                    <!--</div>-->
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr class="no-result">
+                        <td colspan="11" class="noresult">
+    								<p><?php echo $this->translate("MSG17");?></p></td>
+                        </tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+            <?php if (!empty($activitylist) && count($paginator) > $pageLimit) { ?>
+    			<div class="text-center paging">
+    				<nav>
+    					<ul class="pagination">
+                            <?php  echo $paging; ?>
+						</ul>
+    				</nav>
+    			</div>
+			<?php }?>
+        </div>
+    </div>
+</div>
+<?php echo $this->form()->closeTag(); ?>
+<script type="text/javascript">
+    var jsMessages_activity = <?php echo !empty($jsMessages) ? $jsMessages->jsonSerialize() : '{"data" : ""}'; ?>;
+    var jsMessages = jsMessages_activity.data;
+    
+    $(document).ready(function() {
+    	APPLYEIKEN_LOGS.init();
+        var noRecordExcel = "<?php echo $noRecordExcel; ?>";
+        if(noRecordExcel.length > 0){
+            ERROR_MESSAGE.show(noRecordExcel);
+        }
+    });
+</script>

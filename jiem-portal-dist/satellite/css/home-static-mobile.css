@@ -1,0 +1,159 @@
+.no-pad {
+    padding: 0;	
+}
+
+.padr5 {
+    padding-right: 5px !important;
+}
+
+.padl5 {
+    padding-left: 5px !important;
+}
+
+.padt5 {
+    padding-top: 5px !important;
+}
+
+.padbt5 {
+    padding-bottom: 5px !important;
+}
+
+.padr10 {
+    padding-right: 10px !important;
+}
+
+.padl10 {
+    padding-left: 10px !important;
+}
+
+.padt10 {
+    padding-top: 10px !important;
+}
+
+.padbt10 {
+    padding-bottom: 10px !important;
+}
+
+.padr20 {
+    padding-right: 20px !important;
+}
+
+.padl20 {
+    padding-left: 20px !important;
+}
+
+.padt20 {
+    padding-top: 20px !important;
+}
+
+.padbt20 {
+    padding-bottom: 20px !important;
+}
+
+.navigator a {
+    color: #696969;
+    text-decoration: underline;
+}
+
+.navigator ul a {
+    line-height: 35px;
+    font-size: 20px;
+}
+
+.navigator ul a:hover {
+    color: #e60012;
+}
+
+.navigator ul a:hover span {
+    border-bottom: 1px solid #e60012;
+}
+
+.navigator ul span {
+    display: inline-block;
+    border-bottom: 1px solid #696969;
+}
+
+.navigator ul li {
+    list-style-image: url("../img/navigator-top-icon.png");
+}
+
+.navigator ul ul li {
+	list-style-image: url("../img/navigator-plus-icon.png");
+}
+
+.navigator ul ul ul li {
+    list-style-image: url("../img/navigator-minus-icon.png");
+}
+
+.navigator-line-height {
+    line-height: 23px;	
+}
+
+.navigator-height {
+    height: 223px;	
+}
+
+.navigator-height-first {
+	height: 466px;
+}
+
+.border-none {
+    border: none;
+}
+
+/* begin: policy */
+.box-shadow-none {
+	box-shadow: none;
+}
+
+.title-policy {
+    font-size: 24px;	
+}
+
+.title-policy-content {
+    font-size: 18px;
+}
+
+.list-style-type-none {
+    list-style-type: none;
+}
+
+.link-style {
+	line-height: 20px;
+    font-size: 20px;
+	color: #696969;
+}
+
+.link-style span {
+    display: inline-block;
+    border-bottom: 1px solid #696969;	
+}
+
+/* end: policy */
+
+/* begin: privacy policy */
+
+.border-bottom-privacy-policy {
+	border-bottom: 2px solid #dadada;
+}
+
+.font-weight-bold {
+    font-weight: bold;
+}
+
+.panel {
+    border-radius: 0;
+    margin-top: 20px;
+    box-shadow: 2px 4px 2px #d2d2d2;
+    padding-bottom: 20px;
+}
+
+.panel-default{
+    border-color: transparent;
+}
+
+.panel .box-header {
+    font-size: 25px;
+}
+
+/* end: privacy policy */

@@ -1,0 +1,1582 @@
+@CHARSET "UTF-8";
+
+
+.width152 {
+    width: 152px;
+    margin-right: 7px;
+}
+/* from search apply eiken
+* ToanLK create: 18/06
+** page: eikenexam.phtml
+*
+*/
+
+/*
+refeikenid
+*
+*/
+.refEikenId {
+    padding-top: 1px;
+}
+
+.refEiken-w140 {
+}
+
+.shonen-refIekenId {
+    margin-bottom: 15px;
+}
+
+.padFix-refEikenId {
+    padding-bottom: 7px;
+
+}
+.refeiken-marleft{
+    margin-left: 28px;
+}
+
+.shimeiKanji-refEikenId {
+    padding-top: 3px;
+}
+
+.password-getEikenId {
+    margin-right: -50px;
+    margin-left: 24px;
+}
+
+.color-email-refEikenId {
+    color: #0645ad;
+}
+
+.eikenId-txt {
+    height: 25px;
+}
+
+.pasuwado-select {
+    height: 25px;
+}
+.refeiken-container{
+    float: left;
+}
+.btn-sanko-ref {
+    padding-right: 20px;
+    margin-top: -5px !important;
+    height: 25px;
+    font-size: 12px;
+    width: 180px;
+    margin-bottom: -8px;
+    margin-left: 3px;
+}
+
+.pupil-width {
+    width: 190px;
+}
+
+.colortext {
+    color:  #000;
+}
+
+.scholl-code-width {
+    width: 100px;
+}
+
+.shogakko1-width {
+    width: 190px;
+}
+
+.classkurasu-width {
+    width: 72px;
+}
+
+.class01-width {
+    width: 194px;
+}
+
+.eikenPasuwado-width {
+    width: 132px;
+}
+
+.inforjouhou-width {
+    width: 40px;
+    margin-top: 2px;
+}
+
+.gakko-code-width {
+    width: 100px !important;
+    margin-top: 2px;
+}
+
+.refEiken-common-width {
+    width: 136px;
+}
+
+.shimei-Mbottom {
+    margin-bottom: -21px;
+}
+
+.noriaki-refEikenId {
+    margin-top: 20px;
+}
+
+.ok-margin-20 {
+    margin-left: 5px;
+}
+
+.btn-eiken-height80{
+    height: 80px !important;
+    padding-top: 9px;
+}
+.font-row-refEikenId {
+    padding-bottom: 10px;
+}
+
+.eikenId-shutoku {
+    margin-top: -10px;
+    margin-bottom: -2px;
+}
+
+/* End ToanLK search refeikenid*/
+.btn-higher-right {
+    float: right;
+    padding-bottom: 10px;
+}
+
+.box-body-listPupil {
+    padding-top: 20px;
+    padding-bottom: 19px;
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+.tbl-PupilId-margin {
+    margin-bottom: -0px;
+}
+
+.box-footer-listPupil {
+    padding-right: 20px;
+    padding-left: 0px;
+    background-color: #ffffff;
+}
+
+.width68 {
+    margin-right: 7px;
+    width: 168px;
+}
+
+.frm-payment-status-search .box-footer .float-right {
+    float: right;
+}
+
+.frm-payment-status-details .row {
+    margin-top: 0px;
+    margin-bottom: -15px;
+}
+
+/**
+*   Create Eiken 
+**/
+.createekien {
+
+}
+
+.mt5-cd-createEiken {
+    margin-top: 5px;
+}
+
+.cdsuu-dantaimei {
+    margin-bottom: 15px;
+}
+
+.shuushuu-dantaimei {
+    margin-bottom: 28px;
+}
+
+.goudou-dantaimei {
+    margin-bottom: 15px;
+    margin-top: 21px;
+}
+
+.Numkyu-createEiken {
+    margin-top: 8px;
+    margin-bottom: 3px;
+}
+
+.yobi-createEiken {
+    margin-bottom: 11px;
+}
+
+.createekien .cl-jishiyoubi label {
+    width: 60px;
+}
+
+.box-footer a.buttons {
+    height: 40px;
+    padding-top: 10px;
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+.createekien  .cl-jishiyoubi .col2 input {
+    width: 250px;
+    margin-top: 11px;
+}
+
+.createekien .content-ekien {
+}
+
+.createekien .padding_radio {
+    position: relative;
+    top: 2px;
+    height: 12px;
+    width: 15px;
+}
+
+/**
+*  End Create Eiken
+*/
+.eiken-header {
+
+}
+
+.eikenname {
+    width: 55px;
+    font-size: 14px;
+    margin-right: 15px;
+}
+
+.eikenname-select {
+    width: 140px !important;
+    height: 25px;
+    margin-right: 50px;
+}
+
+.date-width{
+    width: 120px !important;
+}
+
+.jukenhi {
+    margin-right: -3px;
+}
+.eiken-icon{
+    margin-top: -2px;
+}
+.height-110 {
+    height: 110px !important;
+}
+
+.date-from {
+    padding-right: 30px !important;
+}
+
+.to-2 {
+    margin-left: -48px;
+}
+
+.eiken-row-1 {
+    padding-top: -10px !important;
+}
+.nendo-select {
+    width: 100px;
+    height: 25px;
+    margin-left: -10px;
+    margin-right: 50px;
+}
+
+.row-eiken-2 {
+    padding-top: 45px;
+    width: 100%;
+}
+
+.kai {
+    margin-left: 5px;
+    margin-right: -25px;
+}
+
+.txtkai {
+    width: 60px !important;
+}
+
+.payment-checkNumber{
+    text-align: right !important;
+}
+
+.from-1 {
+    margin-left: -50px;
+    margin-right: 20px;
+}
+
+.table>thead>tr>th.eiken-action {
+    width: 440px;
+}
+
+.eiken-numStuRegist {
+    width: 60px !important;
+    text-align: center;
+}
+
+.table>thead>tr>th.eiken-status {
+    width: 95px;
+}  
+.table>thead>tr>th.eiken-year {
+    width: 56px;
+}  
+.table>thead>tr>th.eiken-numStuRegist {
+    padding-left: 0;
+    padding-right: 0px;
+}  
+
+.txtRegisterStatus-PaymentStatus {
+    width: 250px;
+}
+
+.kurasu1-paymentStatus {
+    margin-left: 14px;
+    margin-right: -14px;
+}
+
+.table>thead>tr>th.eiken-excuteDate {
+    width: 104px;
+}
+.table>thead>tr>th.eiken-times {
+    width: 60px;
+}
+.table>thead>tr>th.kai {
+    width: 30px;
+}
+.table>thead>tr>th.eiken-year {
+    width: 66px;
+}
+.eiken-examName-text{padding-left: 15px !important;}
+
+.table>thead>tr>th.eiken-examname {
+    min-width: 81px;
+    text-align: center;
+}
+.btncalendar-eikenexam {
+    width: 120px !important;
+}
+.eiken-textright {
+    text-align: right !important;
+    padding-right: 15px !important;
+}
+#datetime2Eiken {
+    width: 120px !important;
+    height: 25px;
+}
+
+#datetime1Eiken {
+    width: 120px !important;
+    height: 25px;
+}
+.eiken-form {
+    padding-top: 3px;
+}
+.eiken-form .table-bordered{
+    margin-top: 9px;
+    margin-bottom: 20px;
+}
+.btn-clear-eikenExam1 {
+    width: 100px !important;
+    height: 25px !important;
+    margin-top: -5px;
+    margin-right: 14px;
+    font-size: 12px;
+}
+.eiken-kai-text{
+    text-align: left !important;
+}
+
+.eiken-kai-text-left{
+    text-align:right !important;
+}
+
+.btn-OrgRegistDetail {
+    width: 100px  !important;
+}
+.btn-RecommendlvList {
+    width: 115px;
+}
+
+.btn-PaymanList {
+    width: 105px;
+    font-size: 12px;
+}
+
+.btn-eiken-action-choice {
+    /*margin-right: 6px !important;*/
+    font-size: 12px;
+
+}
+
+/* from Eiken X-Level Register 
+* ToanLK create: 18/06
+** page: listpupil.phtml 
+*
+*/
+.eikenRegistXlevel .row-eikenRegisterLevel {
+    height: 45px !important;
+}
+
+.eikenRegistXlevel .text-checkbox-eikenRegisterLevel {
+    width: 34px;
+}
+
+.eikenRegistXlevel .text-classyear-gakunen {
+    width: 103px;
+}
+
+.eikenRegistXlevel .text-class-kurasu {
+    width: 70px;
+}
+.eikenRegistXlevel .text-order {
+    width: 51px;
+}
+
+.eikenRegistXlevel .text-name-shimei {
+    width: 105px;
+}
+
+.eikenRegistXlevel .text-eikenId {
+    width: 90px;
+}
+
+.eikenRegistXlevel .text-eikenPass {
+    width: 135px;
+}
+
+.eikenRegistXlevel .text-paymentStatus-shiharai {
+    width: 86px;
+}
+
+.eikenRegistXlevel .text-personalInforRegist-kojinjouhoutouroku {
+    min-width: 128px;
+}
+
+.font-weight-modoru {
+    font-weight: 500;
+    color: #000000;
+}
+
+.eikenRegistXlevel .text-action-sousa {
+    width: 120px;
+}
+
+.eikenRegistXlevel .fix-pad {
+    padding-left: -10px !important;
+}
+
+.tble-PupilId-margin {
+    margin-bottom: 0px;
+}
+
+.fontweight-btn-listpupil {
+    font-weight: 100;
+}
+
+/* End ToanLK Eiken X-Level Register */
+
+/* from Payment Detail
+* ToanLK create: 18/06
+** page: paymentdetails.phtml 
+*
+*/
+.box-body-pd {
+    padding-bottom: 5px;
+    padding-top: 8px;
+    padding-right: 20px !important;
+    padding-left: 20px !important;
+    height: 375px;
+}
+.level-edit-paymentDetail {
+    margin-top: -21px;
+}
+
+.suishojukenkyu-paymentD {
+    margin-top: -9px;
+}
+
+.mt-1kyuu-paymentDetail {
+    margin-top: 15px;
+}
+
+.moshikomijukenkyu-paymentD {
+    margin-top: -10px;
+}
+
+
+
+/* End ToanLK Payment Detail */
+
+/* css neweiken*/
+.neweikenid {
+    margin-top: 11px;
+}
+
+.neweikenid .neweiken-infor {
+    margin-bottom: 8px;
+    margin-top: -8px;
+}
+
+.neweikenid .padding-top5 {
+    padding-top: 5px;
+}
+
+.neweikenid>div>div>hr {
+    border-bottom: 1px solid #DADADA;
+    clear: both;
+    margin-top: 10px;
+}
+
+.neweikenid .padding-top17 {
+    padding-top: 17px;
+}
+
+.neweikenid .row {
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+
+.neweikenid>div>div>div>div:FIRST-CHILD {
+    margin-top: 0px;
+}
+
+.neweikenid .col-sm-1, .neweikenid .col-xs-1 {
+    line-height: 20px !important;
+}
+
+.neweikenid .margin-top-12 {
+    margin-top: -12px;
+}
+
+.neweikenid .margin-top7 {
+    margin-top: 7px;
+}
+
+.neweikenid .margin-left5 {
+    margin-left: 5px;
+}
+
+.neweikenid .padding-left10 {padding-left: 10px !important;}
+
+.neweikenid .margin-left30 {
+    margin-left: 30px;
+}
+
+.neweikenid>div>div>div>div.row:last-child {
+    margin-top: 10px;
+    padding-bottom: 18px;
+}
+
+.neweikenid .padding-top3 {
+    padding-top: 3px;
+    color: #bfbfbf;
+}
+
+.neweikenid .width240 {
+    width: 280px;
+}
+
+.neweikenid .width225 {
+    width: 225px;
+}
+.neweikenid .width220 {
+    width: 220px;
+}
+
+
+.neweikenid .width140 {
+    width: 135px;
+}
+
+.neweikenid .width125 {
+    width: 125px;
+}
+
+.neweikenid .width120 {
+    width: 120px;
+}
+
+.neweikenid .width105 {
+    width: 105px;
+}
+
+.neweikenid .width100 {
+    width: 100px;
+}
+
+.neweikenid .width95 {
+    width: 95px;
+    margin-top: 5px;
+}
+
+.neweikenid .width80 {
+    width: 80px;
+}
+
+.neweikenid .width75 {width: 78px;}
+
+.neweikenid .width70 {width: 70px;}
+
+.neweikenid .width58 {width: 58px;}
+
+.neweikenid .width52 {width: 52px;}
+
+.neweikenid .width15 {width: 15px;}
+
+.neweikenid .labelschool {color: #838383;padding-top: 5px;}
+
+.neweikenid .ddlSchoolCode {padding-left: 55px !important;}
+
+.neweikenid .ddlGakkokodo {padding-left: 11px !important; margin-right: 30px;}
+
+.neweikenid .col-sm-6 label {margin-right: 30px;font-weight: 200;}
+
+.neweiken-row-padding {padding-bottom: 0px;}
+
+.neweiken-row-padding1 {padding-bottom: 15px;}
+
+.neweikenid  .eiken-padding-line {padding-top: 20px;margin-top: 0px;}
+
+.neweikenid .container {float: left;width: 48%;padding-left: 0px;}
+.neweikenid .new-eik-container {
+    width: 52%
+}
+.container-refeiken{float: left;width: 50%;padding-left: 0px;margin-right: 25px;}
+.neweikenid .infor-detail {overflow: hidden;margin-top: -10px;}
+
+.neweikenid .infor-job {margin-bottom: 15px;margin-top: 5px;}
+
+.neweikenid .eikenpassword {margin-top: -12px;}
+.neweikenid .class-neweiken{margin-left: 129px;}
+
+.frm-payment {
+    padding-top: 1px;
+}
+.frm-payment .table-bordered{
+    margin-top: 9px;  
+}
+
+.frm-payment-status-search .box-body .firtrow {
+    margin-top: 0px;
+}
+
+.frm-payment-status-search .box-body .lastrow {
+    margin-bottom: 10px;
+}
+
+.frm-payment-status-search .box-body .lastrow input,
+.frm-payment-status-search .box-body .firtrow input {
+    width: 205px;
+}
+
+.frm-payment-status-search .box-body .width74 {
+    width: 74px;
+}
+
+.frm-payment-status-search .box-body .width170 {
+    width: 140px;
+}
+.frm-payment-status-search .box-body .firtrow .width100 select{
+    width: 100px;
+}
+.frm-payment-status-search .box-body .firtrow .width90{
+    width: 90px;
+}
+.frm-payment-status-search .box-body .firtrow .width48{
+    width: 48px;
+}
+.frm-payment-status-search .box-body .firtrow .width60 select{
+    width: 60px;
+}
+.frm-payment-status-search .box-body .firtrow .width140 select{
+    width: 140px;
+}
+.frm-payment-status-search .box-body .firtrow .width34{
+    width: 34px;
+}
+
+.frm-payment-status-search .box-body .lastrow select {
+    width: 140px;
+}
+.frm-payment-status-search .box-body .lastrow .width250 select {
+    width: 100px;
+}
+.frm-payment-status-search .box-body .lastrow .width250 select {
+    width: 150px;
+}
+.frm-payment-status-search .box-body .lastrow .width127  {
+    width: 127px;
+}
+.frm-payment-status-search .box-body .width280 {
+    width: 290px;
+}
+
+.frm-payment-status-search .box-body .width120 {
+    width: 120px;
+}
+
+.frm-payment-status-search label {
+    margin-top: 0px;
+}
+
+.frm-payment-status-details table.tblLv tr.cLevel1 th {
+    width: 12.5%;
+}
+
+.frm-payment-status-details tr.cLevel1 th {
+    background-color: #f2f2f2;
+}
+
+.frm-payment-status-details table.tblLv tr.cLevel th {
+    text-align: center;
+}
+
+.frm-payment-status-details table.tblLv td {
+    text-align: right;
+}
+
+.frm-payment-status-details .payment-row-45 {
+    height: 45px !important;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.modoru-font-weight {
+    font-weight: 100;
+}
+
+.frm-payment-status-details .schoolyear-payment {
+    width: 110px;
+}
+
+.frm-payment-status-details .class-payment {
+    width: 70px;
+    padding-right: 0;
+    padding-left: 0;
+}
+.frm-payment-status-details .pupil-number {
+    width: 50px;
+}
+.frm-payment-status-details .name-shimei-payment {
+    padding-left: 0;
+    padding-right: 0px;
+    width: 125px !important;
+}
+
+.frm-payment-status-details .pamentmethod-payment {
+    width: 95px;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.frm-payment-status-details .registerday-payment {
+    width: 95px;
+}
+
+.frm-payment-status-details .paymentstatus-payment {
+    width: 90px;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.frm-payment-status-details .paymentday-payment {
+    width: 88px;
+}
+
+.frm-payment-status-details .action-payment {
+    width: 120px;
+}
+
+.frm-payment-status-details .registerstatus-payment {
+    width: 82px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.frm-payment-status-details .btn-eikenId-list {
+    padding-left: 10px;
+    padding-right: 10px;
+    font-weight: normal !important;
+}
+
+.frm-payment-status-details .pagination_payment_color .pagination a{
+    color: black;
+}
+.frm-payment-status-details .pagging1 .pagination .active a {
+    background: #dddddd;
+    border: none;
+    border-bottom: 1px solid #dddddd;
+    border-top: 1px solid #dddddd;
+}
+
+.pagination_eikenListExam_color .pagination a{
+    color: black;
+}
+
+.box_padding .pagination .active a {
+    background: #dddddd;
+    border: none;
+    border-bottom: 1px solid #dddddd;
+    border-top: 1px solid #dddddd;
+}
+
+
+/*
+Form Eiken Apply pupil 
+*/
+.frm-eiken-apply-pupil input[type="text"], .frm-eiken-apply-pupil select
+{
+    width: 250px;
+}
+
+.cancel-eikenapplypupil {
+    margin-right: 5px;
+}
+
+.font-size-FormEikenRegistStudnt {
+    font-size: 14px;
+}
+
+.padding-formEikenStuRegist {
+    padding-bottom: 8px;
+    margin-top: 20px;
+}
+
+.mt-nendokai {
+    margin-top: 16px;
+    margin-bottom: 17px;
+}
+
+.margin-bot-kojinbango {
+    margin-bottom: -3px;
+    margin-top: 17px;
+}
+
+.pad-top-ichijishikensentaku {
+    margin-top: -1px;
+    margin-bottom: -2px;
+}
+
+.mt-ichijishikenchisentaku {
+    margin-top: 16px;
+    margin-bottom: 15px;
+}
+
+.shikenjukenchibango-eikenapplypupil {
+    margin-top: 4px;
+    margin-bottom: -3px;
+}
+
+.kojinbango-eikenapplypupil {
+    margin-top: -3px;
+}
+
+.frm-eiken-apply-pupil .col-sm-2 {
+    width: 120px;
+}
+
+.frm-eiken-apply-pupil .col-sm-5 {
+    width: 370px;
+}
+
+.frm-eiken-apply-pupil .col-sm-1 {
+    width: 60px;
+}
+
+.frm-eiken-apply-pupil .col-sm-6 label {
+    font-weight: normal;
+    margin-right: 30px;
+}
+
+.frm-eiken-apply-pupil label {
+    line-height: 19px;
+    margin-top: 0px;
+}
+
+.frm-eiken-apply-pupil .box {
+    border: none;
+    box-shadow: none;
+}
+
+.frm-eiken-apply-pupil .box .box-header {
+    border: 1px solid #DADADA;
+    background-color: #e6e6e6;
+    height: 44px;
+    line-height: 22px;
+}
+
+.frm-eiken-apply-pupil .box .box-body {
+    padding-bottom: 0px;
+}
+
+.frm-eiken-apply-pupil .lastrow {
+    margin-bottom: -4px;
+}
+
+.frm-eiken-apply-pupil .firtrow {
+    margin-top: 0px;
+    margin-bottom: 15px;
+}
+
+.frm-eiken-apply-pupil, .padFix-refEikenId, .neweikenid input[type="radio"] {
+    margin-right: 8px;
+}
+/*
+  End Eiken Apply pupil
+*/
+
+
+.createekien label {
+    margin-bottom: 0px;
+}
+.Numkyu-createEiken table label {
+    font-weight: normal;
+}
+.title-action {
+    padding-bottom: 25px;
+    padding-top:7px;
+}
+.neweikenid div label input .padding-radio {
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.createekien .title-action a {
+    
+    cursor: default;
+    font-size: 14px;
+    color: black;
+    font-weight: bold;
+    
+}
+
+.createekien .title-action a i {
+    color: #00aa00;
+    margin-left: 20px;
+    font-weight: normal;
+}
+
+.createekien .table>tbody>tr .classwhite p, .createekien .table>thead>tr .classwhite p
+{
+    padding: 0px;
+}
+
+.createekien .table>tbody>tr .classcenter p, .createekien .table>thead>tr .classcenter p
+{
+    padding: 0px;
+}
+
+.createekien .table>tbody>tr p, .createekien .table>thead>tr p {
+    padding: 0px 12px 0px 0px !important;
+    margin: 0px;
+}
+
+.createekien .table>tbody>tr .classright, .createekien .table>thead>tr .classright
+{
+    color: #4668b9;
+    text-align: right;
+}
+
+.createekien .table>tbody>tr>td>input {
+    text-align: right;
+    width: 60px;
+}
+.createekien .table>tbody>tr> .total-td {
+    background-color: #f2f2f2;
+    color: black;    
+}
+.createekien .table>tbody>tr> .total-td-first {
+    border-bottom-color: #f2f2f2;
+}
+.createekien .table tr .classwhite {
+    background: white;
+}
+
+.createekien .table>tbody>tr>td>a {
+    width: 60px;
+    display: inline-block;
+    height: 25px;
+    margin-top: 10px;
+    padding: 3px 0px 0px 0px;
+    text-align: center;
+    font-size: 12px;
+}
+
+.createekien  p.titledate {
+    color: #696969;
+    width: 100%;
+}
+
+.createekien .date-start {
+    padding: 10px 0px 12px 0px;
+}
+
+.createekien .date-start .col1 {
+    width: 92px;
+}
+
+.createekien .date-start .col2 input.classrd {
+    -moz-appearance: radio;
+    display: inline-block;
+    margin-left: 30px;
+    margin-right: 10px;
+}
+
+.createekien .date-start .col2 label {
+    font-weight: normal;
+    float: left;
+}
+
+.createekien .date-start .col2 .fix-w {
+    width: 190px;
+}
+
+.createekien .end-start {
+    width: 100%;
+}
+
+.createekien .end-start .col2 {
+    width: 100%
+}
+
+.createekien .end-start .col1 {
+    width: 100%;
+}
+
+.createekien .end-start .col2 .cl1 label, .createekien .end-start .col2 .cl2 label,
+.createekien .end-start .col2 .cl3 label, .createekien .end-start .col2 .cl4 label
+{
+    font-weight: normal;
+    width: 89.8px;
+}
+
+.createekien .end-start .col2 .cl5 {
+    float: right;
+}
+
+.createekien .end-start .col2 .cl5 label {
+    font-weight: normal;
+    width: 89px;
+}
+
+.createekien .end-start .col2 .cl5 label:Last-child {
+    width: 67px;
+    margin-left: 2px
+}
+
+.createekien .end-start .col2 input {
+    margin-left: 10px;
+}
+
+.createekien hr {
+    height: 1px;
+    clear: both;
+}
+
+.createekien .end-start .col2 .fl {
+    width: 20.5%;
+}
+
+.createekien .end-start .col2 .fr {
+    width: 160px;
+}
+
+.createekien .end-start .col2 .cl5 span {
+    margin-left: 15px;
+}
+
+.createekien .end-start .col2 span {
+    font-weight: bold;
+    float: left;
+    width: 100%;
+}
+
+.createekien .row .heighthr {
+    margin-bottom: 25px;
+    border-bottom: 1px solid #d7d4d4;
+    clear: both;
+    height: 25px;
+}
+
+.createekien  .r .col1 {
+    width: 104px;
+}
+
+.createekien  .totalcd .col2 input {
+    width: 60px;
+    text-align: center;
+}
+
+.createekien  .cl-jishikbn .col2 input {
+    margin: 0px;;
+    margin-right: 10px;
+}
+
+.createekien  .cl-jishikbn .col2 label {
+    font-weight: normal;
+    margin-right: 30px;
+}
+
+.createekien .cl-henkoflg select {
+    width: 250px;
+}
+
+.createekien .cl-jishiyoubi label {
+    width: 60px;
+}
+
+.box-footer a.buttons {
+    height: 40px;
+    padding-top: 10px;
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+.createekien  .cl-jishiyoubi .col2 input {
+    width: 250px;
+    margin-top: 11px;
+}
+
+.createekien .content-ekien {
+}
+
+.createekien .padding_radio {
+    position: relative;
+    top: 2px;
+}
+/** Registrant Information **/
+.eiken-registrant {
+    margin-top: 30px;
+}
+
+.reg-title {
+    font-weight: bold;
+}
+
+.reg-required {
+    color: red;
+}
+
+.width185 {
+    width: 185px;
+}
+
+.margin-right20 {
+    margin-right: 20px;
+}
+
+.width320 {
+    width: 320px;
+}
+/** Policy screen **/
+.reg-header {
+    border: solid 20px #f2f2f2;
+    padding: 30px;
+    height: 300px;
+    overflow: auto;
+}
+
+.reg-middle {
+    padding: 15px;
+    margin-top: 8px;
+}
+
+.reg-header ul li {
+    margin: 10px 0;
+}
+
+.reg-middle p {
+    margin: 0;
+}
+
+.reg-bottom {
+    padding: 0 10px;
+}
+
+.eiken-policy {
+    margin-top: 30px;
+}
+
+.eiken-policy .policy-agreement {
+    margin-top: 10px;
+}
+
+/** Application form org - create/edit **/
+.application-select-date {
+
+}
+
+.application-select-date td:nth-child(2n+2), th:nth-child(2n+2) {
+    background: #f2f2f2;
+}
+
+.application-standard-date td:nth-child(2n+2), th:nth-child(2n+2) {
+    background: #f2f2f2;
+}
+.application-standard-date td, th {
+    padding: 10px;
+    line-height: 20px;
+}
+#notTheMainHall {
+}
+
+#date1 {
+    display: none;
+}
+
+.locationType1, .EikenOrgNo1, .EikenOrgNo2 {
+    display: none;
+}
+
+.btnGetOrgName {
+    margin-left: 10px;
+    height: 25px;
+    margin-top: -5px;
+}
+
+#EikenOrgNo2 {
+    width: 250px;
+}
+.table-striped-grey>tbody>tr {
+    background-color: #f2f2f2;
+}
+/** Apply eiken pupil **/
+.eik-btn-small-80 {
+    width: 80px;
+}
+
+.eik-btn-small-90 {
+    width: 90px;
+}
+
+.tbl-PupilId-margin .text-action-sousa {
+    min-width: 324px
+}
+
+.tbl-PupilId-margin .table>thead>tr>th {
+    padding: 10px 9px 10px 9px;
+}
+.tbl-PupilId-margin .unregistered {
+    color: #e60012;
+}
+.tbl-PupilId-margin .table .center {
+    text-align: center;
+}
+.tbl-PupilId-margin .table .right {
+    text-align: right;
+}
+.btn .eik-view-img {
+    margin-bottom: 3px;
+    width: 20px
+}
+.frm-eiken-apply-pupil-view .btn-large-180 {
+    padding-top: 9px
+}
+
+/** Policy-confirm **/
+
+.private-policy-header {
+    border: solid 20px #f2f2f2;
+    padding: 19px;
+    height: 420px;
+    overflow: auto;
+}
+
+.navigator-header {
+    background-color: #e6e6e6; padding: 11px 10px; font-size: 14px; height: 40px; font-weight: bold;
+}
+.private-policy-width{
+    width: 940px;
+}
+.private-policy-padding {
+    margin-left: -23px !important;
+}
+.refEikenId select, .refEikenId input,
+.neweikenid select, .neweikenid input,
+.frm-eiken-apply-pupil select, .frm-eiken-apply-pupil input {
+    color: #000000;
+}
+.tbl-PupilId-margin .table.table-bordered.tbl-striped.tble-PupilId-margin a.btn {
+    font-weight: normal;
+    color: #000000;
+}
+.btn.btn-higher {
+    font-weight: bold;
+    color: #000000
+} 
+
+.required-eiken {
+    color: red;
+}
+.required {
+    color: red;
+}
+
+.navigator ul {
+    list-style-image: url('../img/navigator-top-icon.png');
+}
+.navigator a{
+    text-decoration: underline;
+    color: #696969;
+}
+.box-body-listPupil .trash-inline {
+    margin-top: 3px !important;
+}
+.eik-hightlight {
+    background-color: lightslategrey !important;
+}
+.reg-bottom .table.table-bordered.table-striped-grey .white {
+    background-color: white;
+}
+.reg-bottom .table.table-bordered.table-striped-grey .manager_name {
+    width: 100%
+}
+.reg-bottom .table.table-bordered.table-striped-grey .sc-label {
+    font-weight: normal;
+}
+.scrollup {
+    width: 27px;
+    height: 139px;
+    opacity: 1;
+    position: fixed;
+    bottom: 150px;
+    right: 0px;
+    text-indent: -9999px;
+    background: url('../img/back-to-top.png') no-repeat;
+}
+#clickToShow {
+    text-decoration: underline;
+}
+.eiken-private-policy .modal-dialog.modal-lg.common-dialog
+{
+    margin-top: 13%;
+    margin-left: 13%;
+}
+.box.eiken-registrant .row.reg-middle, .box-body {
+    padding-bottom: 10px;
+}
+.box.eiken-policy .row.reg-bottom.new-policy-box .row {
+    margin-top: 17px;
+    margin-bottom: 17px;
+}
+.box.eiken-policy .row.reg-bottom.new-policy-box .row.firtrow {
+    margin-top: 10px;
+}
+.box.eiken-policy .row.reg-bottom.new-policy-box .row.lastrow {
+    margin-bottom: 10px;
+}
+.confirm-email-text2 {
+    position: absolute;
+    top: 15px
+}
+.phone-no-describe {
+    float: left;
+    width: 100%;
+}
+.eik-std-confirm-long-text {
+    width: 104%
+}
+.neweiken-infor .neweiken-row-padding {
+    padding-bottom: 0px !important;
+}
+.eik-confirmation-table-description {
+    margin-left: 20px;
+    color: red;
+}
+#txtBuilding, #txtVillage, #txtCity, #txtArea, #txtAreaCode, #txtEikenPassword {
+    float: left;
+}
+#txtEikenId, #txtPass, #txtEikenPassword {
+    ime-mode: disabled;
+}
+#txtPass {
+    width: 140px;
+    float: left;
+}
+#txtEikenId {
+    width: 120px;
+    float: left;
+}
+.neweikenid .width140.japanese-year {
+    width: 145px
+}
+.table-striped td label{
+    font-weight: normal;
+}
+
+.term-mrgb0{
+    margin-bottom: 0px;
+}
+.term-clear-both{
+    clear:both;
+}
+.term-fl-right{
+    float: right;
+}
+.refer-pass-title{
+    margin-bottom: 0px;
+}
+.refer-pass-note{
+    float: left;
+}
+
+.font-mark ul.guide-list{
+    padding-left: 13px; 
+    margin: 0;
+}
+.font-mark .guide-text{
+    margin: 0;
+}
+.font-mark .guide-text-last{
+    margin: 0 0 0 13px;
+}
+
+.rcm-modal {
+    top: 250px;
+    width: 550px;
+}
+.rcm-modal-body{
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.rcm-table{
+    text-align: center;
+    width: 480px;
+    margin-bottom: 0;
+}
+.clred{
+    color: red;
+}
+a.clred, a.clred:hover, a.clred:active, a.clred:focus{
+    color: red;
+    text-decoration: underline;
+}
+a.export-excel-btn{
+    font-size: 12px;
+}
+.fix-width{
+    margin-left: 20px;
+}
+
+#refundStatus{
+    width:600px !important;
+}
+.content-ekien table {
+    margin-bottom: 0px;
+}
+#notTheMainHall .date-start {
+    margin-bottom: 10px;
+}
+.content-ekien .end-start .col2 div.row {
+    margin-bottom: 30px;
+}
+#funding-body{
+    width:522px;
+}
+#modal-description{
+    padding-left:25px;
+}
+.non-use{
+    width:160px;
+}
+.use{
+    width:160px;
+}
+.wo-bill{
+    width: 170px;
+}
+.w-bill{
+    width:170px;
+}
+.refund-label{
+    width:280px;
+}
+.refund{
+    width:100%;
+    margin-bottom:0;    
+}
+.refund-options{
+    margin-top:0;
+}
+.refund-options-detail{
+    width:625px;
+}
+.createekien .refundLabel{
+    width: 260px;
+}
+.createekien .refundStatus{
+    margin-left:30px;
+    width:565px;
+}
+.refundDescription{
+    width: 800px;
+}
+#paymentstatus #search-box .firtrow .col-sm-2{
+    margin-right: 10px;
+    width: 140px;
+}
+#paymentstatus #search-box .firtrow .examGradeTitle{
+    width: 65px;
+}
+.frm-payment-status-details .class-exam-grade {
+    width: 75px;
+    padding-left: 0;
+    padding-right: 0;
+}
+.frm-payment-status-details .class-test-site {
+    width: 90px;
+    padding-left: 0;
+    padding-right: 0;
+}
+.goukei{
+    padding-right: 0px !important;
+}
+
+.font-size-12{
+    font-size: 12px;
+}
+.back-to-policy{
+    width: 215px;
+}
+.bg-total-discount{
+    background: #FFD5D5;
+}
+.color-red{
+    color:red !important;
+}
+
+.href-black, .href-black:hover{
+    color: black;
+}
+
+.tooltip-inner {
+    font-family: "Meiryo";
+    font-size: 14px;
+    color: black;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5%;
+}
+
+.tooltip.in{
+    opacity:1!important;
+}
+
+.tr-backgroud-grey{
+    background-color: #f2f2f2;
+}
+
+.tr-backgroud-pink{
+    background-color: #ffd5d5;
+}
+#export-excel-payment-status{
+    float: right;
+    margin-top: 2px;
+    height: 25px;
+    width: 180px;
+    margin-bottom: 10px;
+}
+#export-excel-payment-status i{
+    width: 13px;
+    height: 13px;
+    margin-right: 8px;
+}

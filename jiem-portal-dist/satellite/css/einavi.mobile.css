@@ -1,0 +1,348 @@
+.note-password {
+    display: block;
+    font-weight: normal;
+    margin-bottom: 15px;
+    margin-top: 4px;
+    font-size: 18px;
+}
+
+label.lblbirthday {
+    font-weight: normal;
+    float: left;
+    padding-left: 7px;
+    padding-top: 20px;
+    margin: 0;
+}
+
+select#ddlMonth,select#ddlDay {
+    padding-left: 30%;
+}
+
+.lbl-policy-agree {
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: 40px;
+    margin-left: 25px;
+}
+
+input.checkbox-policy-agree {
+    width: 20px;
+    height: 20px;
+    margin-top: -9px;
+    position: absolute;
+}
+
+.policy {
+    height: 450px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding: 10px;
+    font-size: 20px;
+}
+
+.line-shadow {
+    height: 3px;
+    box-shadow: 0 2px 2px silver;
+    margin-bottom: 2px;
+}
+
+.line {
+    border-bottom: 1px solid #DADADA;
+}
+
+label.lblReceive {
+    font-size: 20px;
+    font-weight: normal;
+    margin-right: 40px;
+}
+
+input[type=radio].radio-receive {
+    width: 20px;
+    height: 20px;
+}
+
+.margin-left-10 {
+    margin-left: 10px;
+}
+
+.postcode {
+    /* width: 150px; */
+}
+
+.birthdate {
+    padding: 0;
+}
+
+.birthdate:last-child {
+    /* 	width: 182px; */
+
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+/* global */
+.form-control {
+    font-size: 18px;
+}
+
+input[type=text].form-control, input[type=password].form-control {
+    height: 60px;
+}
+
+input[type=radio].radio-box {
+    width: 20px;
+    height: 20px;
+    margin-left: 40px;
+    margin-right: 10px;
+}
+
+select.form-control {
+    height: 60px;
+    width: 75%;
+    float: left;
+}
+
+label {
+    margin-bottom: 8px;
+    font-size: 20px;
+    font-weight: bold;
+    position: relative;
+}
+
+.panel {
+    border-radius: 0;
+    margin-top: 15px;
+    box-shadow: 2px 4px 2px #d2d2d2;
+}
+
+.panel-heading {
+    padding: 6px 15px;
+}
+
+.panel-default>.panel-heading {
+    background-color: #ffffff;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+
+.row-no-padding [class^="col-"] {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    background-color: transparent !important;
+}
+
+hr {
+    border-color: #cccccc;
+    margin-top: 40px;
+    margin-bottom: 30px;
+}
+
+.color-red {
+    color: red;
+}
+
+legend {
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+}
+
+
+img.icon-key {
+    height: 22px;
+    margin-right: 10px;
+}
+
+a.for-got-pass {
+    font-size: 16px;
+    text-Decoration: underline;
+}
+
+.panel-default>.panel-heading {
+    height: 38px;
+}
+
+span.star {
+    color: red !important;
+}
+
+.no-margin-left {
+    margin-left: 0 !important;
+}
+
+input#txtPostalCode1, input#txtPostalCode2 {
+    width: 75%;
+}
+
+@media ( max-width : 480px) {
+    .birthdate {
+        margin-bottom: 40px;
+        /* width: 100%; */
+    }
+}
+
+.imgsave {
+    height: 25px;
+}
+
+.btn-register-red {
+    margin-bottom: 20px;
+}
+
+.btn-register-silver {
+    padding-top: 20px;
+
+}
+.btn-red {
+    padding-top: 10px;
+}
+
+.jiem-error {
+    font-size: 20px;
+    border: 1px solid red;
+    margin: 0 6.25%;
+    margin-top: 20px;
+}
+
+.jiem-error ul li {
+    color: red;
+}
+
+.jiem-error a {
+    color: red;
+}
+
+.alert > p, .alert > ul
+{
+    padding-left: 6.25%;
+}
+
+#loginEinavi input#txtMailAdd,#loginEinavi input#txtPassword {
+    text-align: center;
+    font-size: 20px;
+}
+#loginEinavi .text-login-einavi{
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+#loginEinavi .panel-body {
+    padding: 20px 6.25%;
+}   
+#loginEinavi .panel-default>.panel-heading
+{
+    height: 70px;
+    padding: 20px 6.25%;
+    font-size: 30px;
+    font-weight: bold;
+    background-color: #d9d9d9;
+    padding-top: 20px;
+}
+
+.for-got-pass-mobi {
+    text-align: center;
+    margin-bottom: -10px;
+}
+.for-got-pass-mobi .for-got-pass{
+    font-size: 24px;
+}
+
+#getEinaviId .panel-body {
+    padding: 8px 6.25%;
+}
+
+.modal-open .modal{
+    z-index: 999999999;
+    font-size: 24px;
+}
+
+input[type=radio].error,input[type=checkbox].error {
+    outline: 1px dashed red;
+}
+.text-normal{
+    font-weight: normal!important;
+}
+.remove-margin-bottom
+{	
+    margin-bottom: 0;
+}
+.panel-body-registerbox {
+    padding-top: 40px!important;
+    padding-bottom: 40px!important;
+}
+
+.minus:after {
+    content: '';
+    width: 10px;
+    border: 1px solid;
+    position: absolute;
+    right: 11%;
+    top: 50%;
+}
+.star{
+    font-size: 16px;
+}
+
+label.lbl-sex {
+    margin-right: 57px;
+}
+
+.form-group-gender {
+    margin-top: 21px;
+    margin-bottom: 11px;
+    position: relative;
+}
+
+label.rdSex1 {
+    width: 86px;
+}
+
+input#rdSex1,input#rdSex2 {
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    top: -2px;
+}
+
+.rdsex {
+    padding-left: 30px;
+}
+
+input#rdReceive1,input#rdReceive2 {
+    position: absolute;
+    height: 20px;
+    width: 20px;
+}
+.form-group-agree{
+    position: relative;
+}
+.form-group-agree{
+    position: relative;
+}
+.form-group-password
+{
+    margin-bottom: 18px;
+}
+
+.des-receive {
+    font-size: 18px;
+}
+
+.rdReceive1 {
+    margin-left: 30px;
+    margin-right: 37px;
+}
+
+.rdReceive2 {
+    margin-left: 30px;
+}
+input.error {
+    border: 2px solid red;
+}
+.parrent-description{
+    margin-bottom: -10px;
+    font-size: 18px;
+}

@@ -1,0 +1,259 @@
+<?php
+$showBeneficiaryHyperLink = "style='display:none;'";
+$showTablePree = $totalPree = "style='display:none;'";
+$feeDiscount = false;
+if ($semi['semi'] === 1) {
+    if ($semi['beneficiary'] === 0) {
+        $showTablePree = $totalPree = "";
+    }
+    if ($semi['beneficiary'] === 1) {
+        $showTablePree = $totalPree = "style='display:none;'";
+        $showBeneficiaryHyperLink = "";
+        $feeDiscount = true;
+    }
+    if ($semi['beneficiary'] === 2) {
+        $showTablePree = $totalPree = "style='display:none;'";
+    }
+}
+?>
+<div class="col-sm-6" <?php echo $showTablePree; ?>>
+    <table class="table table-bordered" id="table1">
+        <thead>
+            <tr>
+                <th></th>
+                <th><p class="text-right">受験級</p></th>
+                <th><p class="text-right">単価</p></th>
+                <th><p class="text-right">人数</p></th>
+                <th><p class="text-right">金額</p></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php if (!empty($detailPrice['mainHall'])): ?>
+                <?php $i = 1;
+                foreach ($detailPrice['mainHall'] as $detail): ?>
+                    <tr>
+                        <?php if ($i == 1): ?>
+                            <td rowspan="7"
+                                class="text-right classwhite"><p>本会場</p>
+                                </p></td>
+                        <?php endif; ?>
+                        <td class="text-right"><p
+                                class="text-right"><?php echo $detail['name']; ?></p></td>
+                        <td class="text-right"><p class="text-right"><?php echo $detail['price']; ?></p></td>
+                        <td class="text-right"><p class="text-right"><?php echo $detail['total']; ?></p></td>
+                        <!--<td class="text-right"><p class="text-right"><?php echo $detail['totalPrice']; ?></p></td>-->
+                    </tr>
+                    <?php $i++;
+                endforeach; ?>
+            <?php endif; ?>
+            <?php if (!empty($eikenOrgDetail['cd'])): ?>
+                <?php if (!empty($detailPrice['standardHall'])): ?>
+                    <?php $i = 1;
+                    foreach ($detailPrice['standardHall'] as $detail): ?>
+                            <?php if (in_array($i, array(1, 2))) {
+                                $i++;
+                                continue;
+                            } ?>
+                        <tr>
+            <?php if ($i == 3): ?>
+                                <td rowspan="5"
+                                    class="text-right classwhite"><p>準会場</p>
+                                    </p></td>
+            <?php endif; ?>
+                            <td class="text-right"><p
+                                    class="text-right"><?php echo $detail['name']; ?></p></td>
+                            <td class="text-right"><p class="text-right"><?php echo $detail['price']; ?></p></td>
+                            <td class="text-right"><p class="text-right"><?php echo $detail['total']; ?></p></td>
+                            <td class="text-right"><p class="text-right"><?php echo $detail['totalPrice']; ?></p></td>
+                        </tr>
+            <?php $i++;
+        endforeach; ?>
+    <?php endif; ?>
+<?php endif; ?>
+            <tr>
+                <td class="text-right" colspan="4"><p>合計</p></td>
+                <td class="text-right"><p class="text-right"><?php echo number_format($detailPrice['totalPrice'], 0, '', ','); ?>円</p></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="col-sm-5" style="width: 320px;">
+    <table class="table table-bordered table-striped-grey">
+        <tbody>
+        <tr <?php echo $showBeneficiaryHyperLink; ?> >
+            <td style="width: 210px;" class="classcenter "><p><a data-toggle="modal" data-target="#myModal"><?php echo $this->translate('TotalSemiMainVenueRefund'); ?> <i class="color-red">①</i></a></p></td>
+            <td class="classcenter"><p class="text-right"><p class="text-right"><?php echo number_format($detailPrice['totalDecreasePrice'] ? $detailPrice['totalDecreasePrice'] : 0, 0, '', ','); ?>円</p></p></td>
+        </tr>
+        </tbody>
+    </table>
+    <span <?php echo $showBeneficiaryHyperLink; ?>>&nbsp;</span>
+    <table class="table table-bordered" id="table2">
+        <tbody>
+            <?php
+            //Nếu trọn thi lưu trú thì toàn bộ fee = 0
+            if (!empty($eikenOrgDetail['locationType1']) && $eikenOrgDetail['locationType1'] == 2) {
+                $detailFee['TotlalFeeMa'] = 0;
+                $detailFee['ProcessFee'] = 0;
+                $detailFee['ClassFee'] = 0;
+                $detailFee['ManagementFee'] = 0;
+                $detailFee['OtherFee'] = 0;
+            }
+            ?>
+            <?php if ($semi['beneficiary'] === 1)  { ?>
+            <tr class="tr-backgroud-grey">
+                <td style="width: 210px;" class="classcenter "><p>経費合計 <i class="color-red">②</i></p></td>
+                <td class="classcenter"><p class="text-right"><?php echo number_format($detailFee['TotlalFeeSt'] + $detailFee['TotlalFeeMa'], 0, '', ','); ?>円</p></td>
+            </tr>
+            <?php } ?>
+            <tr>
+                <td style="width: 210px;" class="classcenter ">本会場運営費</td>
+                <td class="classcenter"><p class="text-right"><?php echo number_format($detailFee['TotlalFeeSt'], 0, '', ','); ?>円</p></td>
+            </tr>
+            <tr>
+                <td class="classcenter "><p>準会場実施経費合計</p></td>
+                <td class="classcenter"><p class="text-right"><?php echo number_format($detailFee['TotlalFeeMa'], 0, '', ','); ?>円</p></td>
+            </tr>
+            <tr>
+                <td class="classcenter "><p style="margin-left: 30px;">運営費</p></td>
+                <td class="classcenter"><p class="text-right"><?php echo number_format($detailFee['ProcessFee'], 0, '', ','); ?>円</p></td>
+            </tr>
+            <tr>
+                <td class="classcenter "><p style="margin-left: 30px;">教室使用料</p></td>
+                <td class="classcenter"><p class="text-right"><?php echo number_format($detailFee['ClassFee'], 0, '', ','); ?>円</p></td>
+            </tr>
+            <tr>
+                <td class="classcenter "><p style="margin-left: 30px;">監督費</p></td>
+                <td class="classcenter"><p class="text-right"><?php echo number_format($detailFee['ManagementFee'], 0, '', ','); ?>円</p></td>
+            </tr>
+            <tr>
+                <td class="classcenter "><p style="margin-left: 30px;">放送設備使用料</p></td>
+                <td class="classcenter"><p class="text-right"><?php echo number_format($detailFee['OtherFee'], 0, '', ','); ?>円</p></td>
+            </tr>
+        </tbody>
+    </table>
+    <?php if ($semi['beneficiary'] === 1){ ?><span>&nbsp;</span><?php } ?>
+    <table class="table table-bordered table-striped-grey">
+        <tbody>
+            <tr>
+                <td style="width: 210px;" class="classcenter "><p>払い戻し額合計<?php if ($semi['beneficiary'] === 1)  { ?>（<i class="color-red">①</i>＋<i class="color-red">②</i>）<?php } ?></p></td>
+                <td class="classcenter"><p class="text-right"><?php
+                        $totalLDD = !empty($eikenOrgDetail['cd']) ? $detailFee['TotlalFeeMa'] : 0;
+                        $totalLDD += $detailFee['TotlalFeeSt'];
+                        if ($feeDiscount && $detailPrice['totalDecreasePrice']) {
+                            echo number_format($totalLDD + (int) $detailPrice['totalDecreasePrice'], 0, '', ',');
+                        } else {
+                            echo number_format($totalLDD, 0, '', ',');
+                        }
+                        ?>円</p></td>
+            </tr>
+            <tr <?php echo $totalPree; ?> >
+                <td style="width: 185px;" class="classcenter "><p>払込額</p></td>
+                <td class="classcenter"><p class="text-right"><?php echo number_format($detailPrice['totalPrice'] - $totalLDD, 0, '', ','); ?>円</p></td>
+            </tr>
+        </tbody>
+    </table>
+
+<?php if ($grandTotal < 10 && $semi['semi'] !== 1) : ?>
+        <div class="eik-confirmation-table-description">申込人数（合同実施の場合は吸収校との合計申込人数）が10名に満たない場合は、準会場経費は発生しません。</div>
+<?php endif; ?>
+</div>
+<div id="myModal" class="modal fade" data-backdrop="static" role="dialog"  aria-labelledby="mySmallModalLabel" aria-hidden="true" style="top: -240px;">
+
+    <div class="modal-dialog modal-lg common-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="modal-title"><?php echo $this->translate('titlePopupFeeTable'); ?></p>
+            </div>
+
+            <div class="modal-body radio-body">
+                <div class="modal-body">
+                    <table class="table table-bordered" id="table1">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th><p class="text-center">受験級</p></th>
+                                <th><p class="text-center">標準単価</p></th>
+                                <th width="100px"><p class="text-center">特別価格</p></th>
+                                <th><p class="text-center">人数</p></th>
+                                <th width="180px"><p class="text-center">払込額</p></th>
+                                <th><p class="text-center">英検への支払額</p></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                <?php if (!empty($detailPrice['mainHall'])): ?>
+                                    <?php $i = 1;
+                                    foreach ($detailPrice['mainHall'] as $detail): ?>
+                                    <tr>
+        <?php if ($i == 1): ?>
+                                            <td rowspan="7"
+                                                class="text-right classwhite"><p>本会場</p>
+                                                </p></td>
+        <?php endif; ?>
+                                        <td class="text-right"><p
+                                                class="text-right"><?php echo $detail['name']; ?></p></td>
+                                        <td class="text-right"><p class="text-right"><?php echo $detail['price']; ?></p></td>
+                                        <td class="text-right"><p class="text-right"><?php echo $detail['discountPrice']; ?></p></td>
+                                        <td class="text-right"><p class="text-right"><?php echo $detail['total']; ?></p></td>
+                                        <td class="text-right"><p class="text-right"><?php echo $detail['totalPrice']; ?></p></td>
+                                        <td class="text-right"><p class="text-right"><?php echo $detail['totalDiscountPrice']; ?></p></td>
+                                    </tr>
+                                        <?php $i++;
+                                    endforeach; ?>
+<?php endif; ?>
+                                <?php if (!empty($eikenOrgDetail['cd'])): ?>
+                                    <?php if (!empty($detailPrice['standardHall'])): ?>
+        <?php $i = 1;
+        foreach ($detailPrice['standardHall'] as $detail): ?>
+            <?php if (in_array($i, array(1, 2))) {
+                $i++;
+                continue;
+            } ?>
+                                        <tr>
+                                        <?php if ($i == 3): ?>
+                                                <td rowspan="5"
+                                                    class="text-right classwhite"><p>準会場</p>
+                                                    </p></td>
+            <?php endif; ?>
+                                            <td class="text-right"><p
+                                                    class="text-right"><?php echo $detail['name']; ?></p></td>
+                                            <td class="text-right"><p class="text-right"><?php echo $detail['price']; ?></p></td>
+                                            <td class="text-right"><p class="text-right"></p></td>
+                                            <td class="text-right"><p class="text-right"><?php echo $detail['total']; ?></p></td>
+                                            <td class="text-right"><p class="text-right"><?php echo $detail['totalPrice']; ?></p></td>
+                                            <td class="text-right"><p class="text-right"><?php echo $detail['totalDiscountPrice']; ?></p></td>
+                                        </tr>
+            <?php $i++;
+        endforeach; ?>
+    <?php endif; ?>
+<?php endif; ?>
+                            <tr>
+                                <td class="text-left" colspan="5"><p>検定料合計</p></td>
+                                <td class="text-right"><p class="text-right"><?php echo number_format($detailPrice['totalPrice'], 0, '', ','); ?>円 <i class="color-red">①</i></p></td>
+                                <td class="text-right"><p class="text-right"><?php echo number_format($detailPrice['totalDiscountPrice'], 0, '', ','); ?>円 <i class="color-red">②</i></p></td>
+                            </tr>
+                            <tr class="bg-total-discount">
+                                <td class="text-left" colspan="6"><p><?php echo $this->translate('refundForSemiMainVenue'); ?> （<i class="color-red">①</i>ー<i class="color-red">②</i>）</p></td>
+                                <td class="text-right"><p class="text-right"><?php echo number_format($detailPrice['totalDecreasePrice'], 0, '', ','); ?>円</p></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="cancelExportTypeTemplate" class="btn btn-large-180 btn-cancel" data-dismiss="modal">
+                        <strong>キャンセル</strong>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<style>
+    #myModal p {
+        padding-right: 0px;
+    }
+    p{
+        padding-right: 0px !important;
+    }
+</style>

@@ -1,0 +1,235 @@
+<?php
+    $escaper = new Zend\Escaper\Escaper('utf-8');
+    // include css & js
+    $this->headLink()->prependStylesheet($this->basePath('css/study-progress-inquiry.css'));
+    $this->headScript()->prependFile($this->basePath('js/jiem.js'));
+    
+    // create paging
+    $paging = $this->paginationHelper($paginator, $page, $this->url('goal-setting/default' , array(
+        'controller' => 'studygear',
+        'action' => 'index'
+    )), $numPerPage, (empty($param)) ? '':'/search/'.$param );
+
+    $form = $this->form;
+    $form->setAttribute('action', $this->url(null, array(
+                            'controller' => 'studygear',
+                            'action' => 'index'
+                        )));
+    $form->prepare();
+    echo $this->form()->openTag($form);
+?>
+<div class="box frm-spi-search" id="studygearSearch">
+    <div class="box-header"  data-toggle="collapse" data-target="#search-box">
+        <div class="search-header  sorting-field">
+            <i class="search-chevron-down"></i>
+            <b><?php echo $this->translate('searchHeader'); ?></b>
+        </div>
+    </div>
+    <div id="search-box" aria-expanded="true" class="collapse in">
+	<div class="box-body body-h110">
+		<div class="row">
+			<div class="col-sm-1">
+				<label>年度</label>
+			</div>
+			<div class="col-sm-2 styled-select">
+						 <?php echo $this->formRow($form->get('ddlYear'));?>
+				</div>
+			<div class="col-sm-1 spi-lbl-school-year">
+				<label>学年</label>
+			</div>
+			<div class="col-sm-2 styled-select">
+						 <?php echo $this->formRow($form->get('ddlSchoolYear'));?>
+				</div>
+			<div class="col-sm-1 spi-lbl-class">
+				<label>クラス</label>
+			</div>
+			<div class="col-sm-2 styled-select">
+						 <?php echo $this->formRow($form->get('ddlClass'));?>
+				</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-1">
+				<label>氏名</label>
+			</div>
+			<div class="col-sm-4 styled-select width-250">
+						 <?php echo $this->formRow($form->get('txtFullName'));?>
+				</div>
+		</div>
+	</div>
+
+	<div class="box-footer">
+		<div class="row pull-right no-margin-top-and-bottom">
+			<a class="btn btn-small-100 margin-right-10" id="btnClear"
+				href="javascript:void(0)" onclick="clearForm()">クリア</a> <a
+				id="btnSearch" class="btn btn-small-180" href="#"> <i
+				class="fa-search"></i>検索
+			</a>
+		</div>
+	</div>
+    </div>
+</div>
+<?php echo $this->form()->closeTag(); ?>
+<div class="box frm-std-list-search">
+	<div class="box-header">スタギア学習進捗照会（個人）</div>
+	<div class="box-body">
+		<table class="table table-bordered table-striped">
+			<thead>
+                <tr>
+                    <th class="jyear">年度</th>
+                    <th class="jschool-year">学年</th>
+                    <th width="80">クラス</th>
+                    <th class="jnumber">番号</th>
+                    <th>氏名（漢字)</th> 
+                    <th width="80">学習級</th>
+                    <th width="90">学習時間</th>
+                    <th width="80">測定結果</th>
+                    <th width="110">最終使用日</th>
+                    <th width="80">操作</th>
+                </tr>			
+			</thead>
+			<tbody>
+<?php
+
+if (! empty($pupil)) {
+    foreach ($pupil as $k => $value) {
+        ?>
+    <tr>
+					<td><?php echo $value['year']?></td>
+					<td><?php echo  $escaper->escapeHtml($value['displayName'])?></td>
+					<td><?php echo  $escaper->escapeHtml($value['className'])?></td>
+					<td><?php echo $value['number']?></td>
+					<td><?php echo  $escaper->escapeHtml(str_replace(' ','',$value['FullName']))?></td>
+					<td><?php echo isset($value['plan_grade'])?$value['plan_grade']:''?></td>
+					<td><?php echo isset($value['learning_time'])?round($value['learning_time']/60,0):''?></td>
+					<td class="text-right"><?php echo isset($value['pass_fail'])?$value['pass_fail']:''?></td>
+					<td><?php echo isset($value['last_used_date'])?$value['last_used_date']:''?></td>
+					<td><a
+						href="<?php
+
+        echo $this->url(null, array(
+            'controller' => 'studygear',
+            'action' => 'show',
+            'id' => $value['id']
+        ),array(
+        'query' => array(
+            'perId' => $value['personalId'],
+        )
+    ));
+        ?>"
+						class="btn btn-small-60">表示</a></td>
+				</tr>
+<?php
+
+}
+} else {
+    ?>
+
+<tr class="payment-row-45">
+					<td colspan="10"><?php echo $noRecord;?></td>
+				</tr>
+	<?php }?>
+
+
+				</tbody>
+		</table>
+		<?php if ( count($paginator) > $numPerPage ) {?>
+			<div class="pagging1 text-center pagination_payment_color">
+			<nav>
+				<ul class="pagination">
+						<?php echo $paging;?>
+			</ul>
+			</nav>
+		</div>
+			<?php }?>
+	</div>
+</div>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+	$('#ddlYear').focus();
+	$('#btnSearch input').bind('keypress', function (e) {
+        if (e.keyCode == 13) {
+        	 $('#frmStudyGear').submit();
+        }
+    });
+    $('#btnSearch').click(function () {
+    	 $('#frmStudyGear').submit();
+   });
+
+});
+function clearForm()
+{
+	var year=getCurrentYear();
+	 $("#ddlYear").val(year);
+	    $("#ddlSchoolYear").val('');
+	     $("#ddlClass").empty();
+	   $("#txtFullName").val('');
+ 	 $('#frmStudyGear').submit();
+	}
+	function getCurrentYear()
+	{
+		 var dt=new Date();
+    var year =dt.getFullYear();
+    var maxDate =new Date(year+'-4-1');
+    if (dt < maxDate) {
+    	year--;
+    }
+return year;
+		}
+$("#ddlSchoolYear").change(function(){
+	var request_year = $("#ddlYear").val();
+	var request_schoolyear = $("#ddlSchoolYear").val();
+	$.ajax({
+          type: 'POST',
+          url : location.protocol + '//' + location.hostname + '/goalsetting/studygear/ajaxGetListClass',
+  data: {year:request_year,schoolyear:request_schoolyear},
+          dataType:"json",
+          success:function(data){
+        	 var html = "<option value='' selected='selected'></option>";
+     	     if(typeof data.classj != 'undefined')
+     	     {
+     	    	 $.each(data.classj,function(i,v){
+     	    	     html = html + "<option value='"+v['id']+"'>"+ htmlencode(v['className']) +"</option>";
+     	     });
+         	    }
+
+     	     $('#ddlClass').html(html);
+             },
+          error:function(){
+          }
+        });
+	});
+$("#ddlYear").change(function(){
+	var request_year = $("#ddlYear").val();
+	var request_schoolyear = $("#ddlSchoolYear").val();
+	if(request_schoolyear !="" || request_schoolyear!=null){
+		$.ajax({
+              type: 'POST',
+              url : location.protocol + '//' + location.hostname + '/goalsetting/studygear/ajaxGetListClass',
+              data: {year:request_year,schoolyear:request_schoolyear},
+              dataType:"json",
+              success:function(data){
+            	  $("#ddlClass").html("");
+            	  $("#ddlClass").prepend(loadclass(data.classj));
+            	  $("#ddlClass").prepend('<option value selected ></option>');
+              },
+              error:function(){
+              }
+            });
+		}
+	});
+function htmlencode(str){
+	 return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+}
+function loadclass(data){
+	var $html ='';
+	if(data){
+	$.each(data, function( index, value ) {
+	  $html+='<option value="'+value.id+'">'+value.className+'</option>';
+	});
+	}
+	return $html;
+	}
+
+</script>

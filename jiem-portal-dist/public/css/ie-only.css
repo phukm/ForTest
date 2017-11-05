@@ -1,0 +1,9 @@
+#setting input[type="radio"], #setting input[type="checkbox"] {
+    margin-top: 4px;
+}
+.box-body .box-tools {
+    min-width: 250px;
+}
+.student_manager a img { margin-left: 25px; width: 17px }
+/*R2.2-UC18-IE8*/
+.highcharts-grid shape { display: none !important; }

@@ -1,0 +1,83 @@
+<?php $this->headLink ()->prependStylesheet ( $this->basePath ( 'css/appeiken.css' ) )?>
+<?php $this->headScript()->appendFile( $this->basePath ( 'js/eiken/eiken-org.js' ) )?>
+<script>
+    var eikenOrgDetail = {};
+    var jsMessages  = {};
+</script>
+<div class="box eiken-policy">
+	<div class="box-header">
+		<strong><?php echo $this->translate('申込フロー') ;?></strong>
+	</div>
+	<div class="box-body navigator">
+	   <ul>
+	       <li><a href="#navigator-top">団体支払申込</a></li>
+	       <li><a href="#navigator-middle">個人支払申込（WEBコンビニ）</a></li>
+	       <li><a href="#navigator-bottom">個人別に目標級を設定した申込</a></li>
+	   </ul>
+	</div>
+	<div class="box-footer">
+		<div class="row">
+			<div class="col-sm-3">
+				<button id="btnDisagreePolicy" class="btn btn-large-180"
+					onclick="EIKEN_ORG.navigatorBack();">
+					<i class="arrow-circle-left"></i><?php echo $this->translate('戻る ') ;?>
+				</button>
+				&nbsp;
+			</div>
+			<div class="col-sm-6"></div>
+			<div class="col-sm-3 text-right">
+				<button id="btnAgreePolicy" class="btn btn-large-180 btn-red"
+					onclick="EIKEN_ORG.gotoPolicy();">
+<i class="arrow-circle-right-w"></i><?php echo $this->translate('次へ') ;?>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="box eiken-policy" id="navigator-top">
+	<div class="box-header">
+		<strong><?php echo $this->translate('団体支払申込') ;?></strong>
+	</div>
+	<div class="box-body navigator">
+        <img src="/img/navigator-top.png">
+	</div>
+</div>
+
+<div class="box eiken-policy" id="navigator-middle">
+	<div class="box-header">
+		<strong><?php echo $this->translate('個人支払申込（WEBコンビニ）') ;?></strong>
+	</div>
+	<div class="box-body navigator">
+        <img src="/img/navigator-middle.png">
+	</div>
+</div>
+
+<div class="box eiken-policy" id="navigator-bottom">
+	<div class="box-header">
+		<strong><?php echo $this->translate('個人別に目標級を設定した申込') ;?></strong>
+	</div>
+	<div class="box-body navigator">
+        <img src="/img/navigator-bottom.png">
+	</div>
+
+	<div class="box-footer">
+		<div class="row">
+			<div class="col-sm-3">
+				<button id="btnDisagreePolicy" class="btn btn-large-180"
+					onclick="EIKEN_ORG.navigatorBack();">
+					<i class="arrow-circle-left"></i><?php echo $this->translate('戻る ') ;?>
+				</button>
+				&nbsp;
+			</div>
+			<div class="col-sm-6"></div>
+			<div class="col-sm-3 text-right">
+				<button id="btnAgreePolicy" class="btn btn-large-180 btn-red"
+					onclick="EIKEN_ORG.gotoPolicy();">
+<i class="arrow-circle-right-w"></i><?php echo $this->translate('次へ') ;?>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="scrollup"></div>

@@ -1,0 +1,699 @@
+<?php $this->headLink ()->appendStylesheet ( $this->basePath ( 'css/history/eiken-mapping-result.css' ) );
+$this->headLink()->appendStylesheet($this->basePath ( 'css/history/hackIE9.css' ), 'screen, projection', 'IE 9');
+?>
+<?php //$this->headLink ()->appendStylesheet ( $this->basePath ( 'css/jquery-ui.css' ) )?>
+<?php $tabIndex = 1;
+
+?>
+ <script>
+ var listPupil = <?php echo $jsonListPupil;?>;
+ </script>
+
+
+<div class="confirm-result">
+	<!-- Nav tabs -->
+	<ul class="nav nav-tabs nav-confirm-result nav-custom-grey" role="tablist">
+		<li role="presentation" class="active">
+		  <a href="#mapping-error"
+			aria-controls="mapping-error" role="tab" data-toggle="tab">
+			 <?php echo $this->translate('生徒名簿突合せ結果：未突合') ;?>
+		  </a>
+		</li>
+		<li role="presentation"><a href="#mapping-success" aria-controls="mapping-success"
+			role="tab" data-toggle="tab"><?php echo $this->translate('生徒名簿突合せ結果：突合済') ;?></a>
+		</li>
+	</ul>
+
+	<!-- Tab panes -->
+	<div class="tab-content">
+		<!-- mapping-error -->
+		<div role="tabpanel" class="tab-pane active" id="mapping-error">
+			<!-- 2 div data-->
+			<div class="row">
+				<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-left">
+
+					<span class="title-result-exam"><?php echo $this->translate('試験結果') ;?></span>
+                                        <div class="data-result-exam" id="data-result-exam">
+						<table class="table-result-exam table table-bordered tbl-striped" id="table-left">
+							<thead>
+								<tr>
+									<th class="jname"><?php echo $this->translate('氏名(漢字)') ;?></th>
+									<th class="jnameKana"><?php echo $this->translate('氏名(カナ)') ;?></th>
+									<th class="jbirth-day"><?php echo $this->translate('生年月日') ;?></th>
+									<!-- <th class="jpupil-id"><?php echo $this->translate('生徒ID') ;?></th> -->
+									<th class="jschool-org"><?php echo $this->translate('学校区分') ;?></th>
+									<th class="jschool-year"><?php echo $this->translate('学年番号') ;?></th>
+									<th  class="jkumi"><?php echo $this->translate('クラス') ;?></th>
+									 <th class="jeiken-lv-id"><?php echo $this->translate('受験級') ;?></th>
+									<th class="jtotal"><?php echo $this->translate('一次得点合計') ;?></th>
+									<th class="jpass-fail"><?php echo $this->translate('一次合否結果') ;?></th>
+									<th class="jtotal"><?php echo $this->translate('ニ次得点合計') ;?></th>
+									<th class="jpass-fail"><?php echo $this->translate('二次合否結果') ;?></th>
+
+									<!--<th class="jeiken-id"><?php echo $this->translate('英検ID') ;?></th>-->
+								</tr>
+							</thead>
+							<!-- 20 row -->
+							<tbody>
+							     <tr><td class="td-first"></td></tr>
+							     <?php if(!empty($mappingData["mappingError"])){?>
+							     <?php foreach ($mappingData["mappingError"] as $key=>$items){
+							         foreach ($items as $keyChild=>$item){
+
+							         ?>
+							          <tr id="error-result-exam-<?php echo $key.$keyChild?>">
+							             <!-- Name Kanji -->
+						                 <td class="jname">
+						                 
+						                  <?php if(!empty($keepSession[$item['id']])):?>
+                                         <input name="nameKanji[<?php echo $key?>]" id="input-error-result-exam-<?php echo $key.$keyChild?>"
+					                       data-follow="error-pupil-manager-<?php echo $key.$keyChild?>"
+					                       data-focus="error-result-exam-<?php echo $key.$keyChild?>"
+                                           data-value="<?php echo $keepSession[$item['id']]['nameKanji']?>"
+                                           value="<?php echo $keepSession[$item['id']]['nameKanji']?>"
+                                           data-id="<?php echo $item['id']?>"
+                                           class="form-control mapping-error-autocomplete" type="text" tabindex="<?php echo $tabIndex++;?>">
+                                         <?php else :?>
+                                           <input name="nameKanji[<?php echo $key?>]" id="input-error-result-exam-<?php echo $key.$keyChild?>"
+						                      data-follow="error-pupil-manager-<?php echo $key.$keyChild?>"
+						                      data-focus="error-result-exam-<?php echo $key.$keyChild?>"
+						                      data-value="<?php echo $item['nameKanji']?>"
+						                      value="<?php echo $item['nameKanji']?>"
+						                      data-id="<?php echo $item['id']?>"
+						                      class="form-control mapping-error-autocomplete" type="text" tabindex="<?php echo $tabIndex++;?>">
+                                         <?php endif; ?>
+						                 </td>
+						                  <!-- Name Kantana -->
+						                  <td class="jnameKana"><?php echo (!empty($item['nameKana']))?$item['nameKana']:''; ?></td>
+						                  <!-- Birthday -->
+						                  <td class="jbirth-day">
+						                  <?php 
+						                  echo (!empty($item['birthday']))?$item['birthday']->format('Y/n/j'):''; 
+						                  ?>
+						                  </td>
+						                  <!-- Pupil ID -->
+					                      <!--<td class="text-right jpupil-id"><?php echo (!empty($item['pupilId']))?$item['pupilId']:''; ?></td>-->
+						                  <!-- OrgClassfication -->
+						                  <td class="jschool-org">
+						                      <?php 
+						                      if($item['schoolNumber']!== NULL){
+						                          if(!empty($listMappingOrgClass[$item['schoolNumber']])){
+						                              echo $listMappingOrgClass[$item['schoolNumber']];
+						                          }else {
+						                              echo $item['schoolNumber'];
+						                          }
+						                          
+						                      }
+						                      ?>
+					                      </td>
+						                  <!-- ShoolYear Code -->
+						                  <td class="jschool-year text-right"><?php echo (!empty($item['schoolYearCode']))?$item['schoolYearCode']:''; ?></td>
+						                  <!-- kumi Class -->
+						                  <td class="jkumi"><?php echo (!empty($item['classCode']))?$item['classCode']:''; ?></td>
+						                  <!-- EikenLevel -->
+						                  <td class="jeiken-lv-id">
+						                  <?php 
+						                  if($item['eikenLevelId']!== NULL){
+						                      if(!empty($listMappingLevel[$item['eikenLevelId']])){
+						                          echo $listMappingLevel[$item['eikenLevelId']];
+						                      }else{
+						                          echo $item['eikenLevelId'];
+						                      }
+						                  }
+						                  ?>
+						                  </td>
+						                  <!-- Eikentotal1 -->
+						                  <td class="jtotal  text-right">
+						                   <?php
+            								    if($item['eikenLevelId'] == 6 || $item['eikenLevelId'] == 7){
+            								        if($item['totalPrimaryScore']!== NULL || $item['firstExamResultsPerfectScore']!== NULL){
+            								            echo $item['totalPrimaryScore'] . "/" . $item['firstExamResultsPerfectScore'];
+            								        }
+            								        
+            								    }else{
+            								        if ($item['oneExemptionFlag'] == 1) {
+            								            echo '';
+            								        } elseif ($item['oneExemptionFlag'] == 0 || $item['oneExemptionFlag'] == null) {
+            								            if($item['totalPrimaryScore'] == null && $item['firstExamResultsPerfectScore'] == null){
+            								                echo '';
+            								            }else{
+            								                echo $item['totalPrimaryScore'] . "/" . $item['firstExamResultsPerfectScore'];
+            								            }
+            								        }
+            								    }
+                                            ?>
+						                  </td>
+						                  <!-- PassFail1 -->
+						                  <td class="jpass-fail">
+						                      <?php
+                                                    if ($item['oneExemptionFlag'] == 1) {
+                                                        echo '';
+                                                    } else{
+                                                        if ($item['primaryPassFailFlag'] == 1) {
+                                                            echo '合格';
+                                                        } elseif ($item['primaryPassFailFlag'] == 0) {
+                                                            echo '不合格' . $item['primaryFailureLevel'];
+                                                        } else {
+                                                            echo '';
+                                                        }
+                                                    }
+                                                ?>
+						                  </td>
+						                  <!-- Eikentotal2 -->
+						                  <td class="jtotal text-right">
+						                   <?php
+            								    if($item['eikenLevelId'] == 6 || $item['eikenLevelId'] == 7){
+            								        echo '';
+            								    }else{
+            								        if($item['totalSecondScore'] == null && $item['secondExamResultsPerfectScore'] == null){
+            								            echo '';
+            								        }else{
+            								            echo $item['totalSecondScore'] . "/" . $item['secondExamResultsPerfectScore'];
+            								        }
+            								    }
+                                            ?>
+						                  </td>
+						                  <!-- PassFail2 -->
+						                  <td class="jpass-fail">
+						                      <?php
+                								    if($item['eikenLevelId'] == 6 || $item['eikenLevelId'] == 7){
+                								        echo '';
+                								    }else{
+                								        if ($item['secondPassFailFlag'] == 1) {
+                								            echo '合格';
+                								        } else{
+                								            echo '不合格' . ($item['secondUnacceptableLevel']!== NULL)?$item['secondUnacceptableLevel']:'';
+                								        }
+                								    }
+                                                ?>
+						                  </td>
+
+						                  <!-- EikenID -->
+						             </tr>
+							         <?php }
+							         }
+							     }?>
+							     
+
+
+							</tbody>
+							<!--end 20 row -->
+						</table>
+					</div>
+
+				</div>
+				<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-right">
+					<span class="title-pupil-manager"><?php echo $this->translate('生徒名簿') ;?></span>
+					<div class="data-pupil-manager">
+						<table class="table-pupil-manager table table-bordered tbl-striped" id="table-right">
+							<thead>
+								<tr>
+									<th class="jname"><?php echo $this->translate('氏名(漢字)') ;?></th>
+									<th class="jnameKana"><?php echo $this->translate('氏名(カナ)') ;?></th>
+									<th class="jbirth-day"><?php echo $this->translate('生年月日') ;?></th>
+									<th class="jschool-year"><?php echo $this->translate('学年') ;?></th>
+									<th  class="jkumi"><?php echo $this->translate('クラス') ;?></th>
+									<th class="jnumber"><?php echo $this->translate('番号') ;?></th>
+
+								</tr>
+							</thead>
+							<!--20 row -->
+							<tbody>
+							     <tr><td class="td-first"></td></tr>
+
+							     <?php if(!empty($mappingData["mappingError"])){?>
+							     <?php foreach($mappingData["mappingError"] as $key=>$items){
+							         foreach ($items as $keyChild=>$item){
+							             if(!empty($keepSession[$item['id']])){
+							                 ?>
+                                             <tr id="error-pupil-manager-<?php echo $key.$keyChild?>">
+             									<td class="jname"><?php echo (!empty($keepSession[$item['id']]['nameKanji']))?$keepSession[$item['id']]['nameKanji']:''; ?></td>
+             									<!-- NameKana -->
+             									<td class="jnameKana"><?php echo (!empty($keepSession[$item['id']]['nameKana']))?$keepSession[$item['id']]['nameKana']:'';?></td>
+             									<!-- Birthday -->
+             									<td class="jbirth-day"><?php echo ($keepSession[$item['id']]['birthday']!== NULL)?$keepSession[$item['id']]['birthday']:'';?></td>
+             									<!-- SchoolYear -->
+             									<td class="jschool-year"><?php echo ($keepSession[$item['id']]['orgSchoolYearId']!== NULL)?$keepSession[$item['id']]['orgSchoolYearName']:'';?></td>
+             									<!-- Class-Kumi -->
+             									<td  class="jkumi"><?php echo ($keepSession[$item['id']]['classId']!== NULL)?$keepSession[$item['id']]['className']:''; ?></td>
+             									<!-- Number -->
+             									<td class="jnumber"><?php echo ($keepSession[$item['id']]['number']!== NULL)?$keepSession[$item['id']]['number']:''; ?></td>
+
+         								    </tr>
+							             <?php }elseif(!empty($mappingData['pupilError'][$item['tempPupilId']])){
+							                 //duplicate
+							                 ?>
+							                 <tr id="error-pupil-manager-<?php echo $key.$keyChild?>">
+            									<!-- NameKanji -->
+            									<td class="jname">
+            									<?php
+                                                                                    echo (!empty($mappingData['pupilError'][$item['tempPupilId']]['firstNameKanji']))?$mappingData['pupilError'][$item['tempPupilId']]['firstNameKanji']:'';
+                                                                                    echo (!empty($mappingData['pupilError'][$item['tempPupilId']]['lastNameKanji']))?$mappingData['pupilError'][$item['tempPupilId']]['lastNameKanji']:''; 
+
+                                                                                ?>
+            									</td>
+            									<!-- NameKana -->
+            									<td class="jnameKana">
+            									<?php
+                                                                                    echo (!empty($mappingData['pupilError'][$item['tempPupilId']]['firstNameKana']))?$mappingData['pupilError'][$item['tempPupilId']]['firstNameKana']:'';
+                                                                                    echo (!empty($mappingData['pupilError'][$item['tempPupilId']]['lastNameKana']))?$mappingData['pupilError'][$item['tempPupilId']]['lastNameKana']:'';
+
+                                        		 ?>
+            									</td>
+            									<!-- Birthday -->
+            									<td class="jbirth-day">
+            									<?php 
+                                                                                    echo !(empty($mappingData['pupilError'][$item['tempPupilId']]['birthday']))?$mappingData['pupilError'][$item['tempPupilId']]['birthday']->format('Y/n/j'):''; 
+                                                                                ?>
+            									</td>
+            									<!-- SchoolYear -->
+            									<td class="jschool-year">
+            									<?php echo (!empty($mappingData['pupilError'][$item['tempPupilId']]['orgSchoolYearId']))?$mappingData['pupilError'][$item['tempPupilId']]['orgSchoolYearName']:''; ?>
+            									</td>
+            									<!-- Class-Kumi -->
+            									<td  class="jkumi">
+            									<?php echo (!empty($mappingData['pupilError'][$item['tempPupilId']]['classId']))?$mappingData['pupilError'][$item['tempPupilId']]['className']:''; ?>
+            									</td>
+            									<!-- Number ID-->
+            									<td class="jnumber">
+            									<?php echo (!empty($mappingData['pupilError'][$item['tempPupilId']]['number']))?$mappingData['pupilError'][$item['tempPupilId']]['number']:''; ?>
+            									</td>
+        								    </tr>
+						                 <?php 
+							             }else{
+							                 //neu khong thi hien blank
+
+                                    ?>
+                                    <tr id="error-pupil-manager-<?php echo $key.$keyChild?>">
+    									<!-- NameKanji -->
+    									<td class="jname"></td>
+    									<!-- NameKana -->
+    									<td class="jnameKana"></td>
+    									<!-- Birthday -->
+    									<td class="jbirth-day"></td>
+    									<!-- SchoolYear -->
+    									<td class="jschool-year"></td>
+    									<!-- Class-Kumi -->
+    									<td  class="jkumi"></td>
+    									<!-- Number ID-->
+    									<td class="jnumber"></td>
+								    </tr>
+                                    <?php }
+							           }
+							         }
+							     }?>
+
+							     <?php if(!empty($mappingData["mappingCoincident"])): ?>
+                                    <?php foreach($mappingData["mappingCoincident"] as $key => $items): ?>
+                                        <?php foreach ($items as $keyChild => $item): ?>
+                                            	 <?php if(!empty($keepSession[$item['id']])): ?>
+                                            
+                                            		 <tr id="error-pupil-manager-<?php echo $key.$keyChild?>">
+                                            
+                                            			<td class="jname"><?php echo $keepSession[$item['id']]['nameKanji']?></td>
+                                            			<!-- NameKana -->
+                                            			<td class="jnameKana"><?php echo $keepSession[$item['id']]['nameKana']?></td>
+                                            			<!-- Birthday -->
+                                            			<td class="jbirth-day"><?php echo $keepSession[$item['id']]['birthday']?></td>
+                                            			<!-- SchoolYear -->
+                                            			<td class="jschool-year"><?php echo $keepSession[$item['id']]['orgSchoolYearName']?></td>
+                                            			<!-- Class-Kumi -->
+                                            			<td  class="jkumi"><?php echo $keepSession[$item['id']]['className']?></td>
+                                            			<!-- Number -->
+                                            			<td class="jnumber"><?php echo $keepSession[$item['id']]['number']?></td>
+                                            
+                                            		</tr>
+                                            	 <?php else: ?>
+                                            <tr id="error-pupil-manager-<?php echo $key.$keyChild; ?>">
+            									<!-- NameKanji -->
+            									<td class="jname"> 
+            									<?php 
+            									if($listPupil[$key][0]['firstNameKanji']!== NULL){
+            									    echo $listPupil[$key][0]['firstNameKanji'];
+            									}
+            									if($listPupil[$key][0]['lastNameKanji']!== NULL){
+            									    echo $listPupil[$key][0]['lastNameKanji'];
+            									}
+            									?> 
+            									</td>
+            									<!-- NameKana -->
+            									<td class="jnameKana">
+            									<?php 
+            									if($listPupil[$key][0]['firstNameKana']!== NULL){
+            									    echo $listPupil[$key][0]['firstNameKana'];
+            									}
+            									if($listPupil[$key][0]['lastNameKana']!== NULL){
+            									    echo $listPupil[$key][0]['lastNameKana'];
+            									}
+            									 
+            									?>
+            									</td>
+            									<!-- Birthday -->
+            									<td class="jbirth-day">
+            									<?php 
+            									if($listPupil[$key][0]['birthday']!== NULL){
+            									    echo $listPupil[$key][0]['birthday']->format('Y/m/d');
+            									}
+            									?>
+            									</td>
+            									<!-- SchoolYear -->
+            									<td class="jschool-year">
+            									<?php 
+            									echo ($listPupil[$key][0]['orgSchoolYearId']!== NULL)?$listPupil[$key][0]['orgSchoolYearName']:''; ?>
+            									</td>
+            									<!-- Class-Kumi -->
+            									<td  class="jkumi"><?php echo ($listPupil[$key][0]['classId']!== NULL)?$listPupil[$key][0]['className']:''; ?></td>
+            									<!-- Number -->
+            									<td class="jnumber"><?php echo ($listPupil[$key][0]['number']!== NULL)?$listPupil[$key][0]['number']:''; ?></td>
+    								        </tr>
+    								        <?php endif;?>
+								        <?php endforeach;?>
+                                    <?php endforeach;?>
+							     <?php endif; ?>
+							<tbody>
+								<!--end 20 row -->
+
+						</table>
+					</div>
+				</div>
+			</div>
+			<!-- 2 div data-->
+			<!-- Paging -->
+
+			<!--End Paging -->
+
+
+		</div>
+		<!-- End mapping-error -->
+		<!-- mapping-success -->
+		<div role="tabpanel" class="tab-pane" id="mapping-success">
+            <!-- 2 div data-->
+			<div class="row">
+				<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-left">
+
+					<span class="title-result-exam"><?php echo $this->translate('試験結果') ;?></span>
+					<div class="data-result-exam" id="data-result-exam">
+						<table class="table-result-exam table table-bordered tbl-striped" id="table-left-success">
+							<thead>
+								<tr>
+								     <!-- Name Kanji -->
+									<th class="jname"><?php echo $this->translate('氏名(漢字)') ;?></th>
+									 <!-- Name Kantana -->
+									<th class="jnameKana"><?php echo $this->translate('氏名(カナ)') ;?></th>
+									<!-- Birthday -->
+									<th class="jbirth-day"><?php echo $this->translate('生年月日') ;?></th>
+									<!-- Pupil ID -->
+									<!-- <th class="jpupil-id"><?php echo $this->translate('生徒ID') ;?></th> -->
+									<!-- OrgClassfication -->
+									<th class="jschool-org"><?php echo $this->translate('学校区分') ;?></th>
+									<!-- ShoolYear Code -->
+									<th class="jschool-year"><?php echo $this->translate('学年番号') ;?></th>
+									<!-- kumi Class -->
+									<th class="jkumi"><?php echo $this->translate('クラス') ;?></th>
+									<!-- EikenLevel -->
+									<th class="jeiken-lv-id"><?php echo $this->translate('受験級') ;?></th>
+									 <!-- Eikentotal1 -->
+									<th class="jtotal"><?php echo $this->translate('一次得点合計') ;?></th>
+									 <!-- PassFail1 -->
+									<th class="jpass-fail"><?php echo $this->translate('一次合否結果') ;?></th>
+									 <!-- Eikentotal2 -->
+									<th class="jtotal"><?php echo $this->translate('ニ次得点合計') ;?></th>
+									 <!-- PassFail2 -->
+									<th class="jpass-fail"><?php echo $this->translate('二次合否結果') ;?></th>
+
+									<!-- EikenID -->
+								</tr>
+							</thead>
+							<!-- 20 row -->
+							<tbody>
+							     <tr><td class="td-first"></td></tr>
+
+
+							     <?php
+							     if(!empty($mappingData["mappingSuccess"])){
+							     foreach ($mappingData["mappingSuccess"] as $key=>$items){
+							         foreach ($items as $keyChild=>$item){
+							         ?>
+							         <tr id="success-result-exam-<?php echo $key.$keyChild?>">
+							             <!-- Name Kanji -->
+						                 <td class="jname">
+						                 <?php if(!empty($keepSession[$item['id']])):?>
+						                  <input id="input-success-result-exam-<?php echo $key.$keyChild?>"
+						                   data-focus="success-result-exam-<?php echo $key.$keyChild?>"
+						                   data-follow="success-pupil-manager-<?php echo $key.$keyChild?>"
+						                   data-value="<?php echo $keepSession[$item['id']]['nameKanji']?>"
+						                   value="<?php echo $keepSession[$item['id']]['nameKanji']?>"
+						                   data-id="<?php echo $item['id']?>"
+						                   class="form-control mapping-error-autocomplete" type="text" tabindex="<?php echo $tabIndex++;?>">
+						                 <?php else :?>
+						                   <input id="input-success-result-exam-<?php echo $key.$keyChild?>"
+						                   data-focus="success-result-exam-<?php echo $key.$keyChild?>"
+						                   data-follow="success-pupil-manager-<?php echo $key.$keyChild?>"
+						                   data-value="<?php echo $item['tempNameKanji']?>"
+						                   value="<?php echo $item['tempNameKanji']?>"
+						                   data-id="<?php echo $item['id']?>"
+						                   class="form-control mapping-error-autocomplete" type="text" tabindex="<?php echo $tabIndex++;?>">
+						                 <?php endif; ?>
+						                 
+						                   
+						                  </td>
+						                  <!-- Name Kantana -->
+						                  <td class="jnameKana"><?php echo (!empty($item['nameKana']))?$item['nameKana']:''; ?></td>
+						                  <!-- Birthday -->
+						                  <td class="jbirth-day">
+						                  <?php 
+						                  echo (!empty($item['birthday']))?$item['birthday']->format('Y/n/j'):''; 
+						                  ?>
+						                  </td>
+						                  <!-- OrgClassfication -->
+						                  <td class="jschool-org">
+						                  <?php 
+						                  if($item['schoolNumber']!==NULL){
+						                      if(!empty($listMappingOrgClass[$item['schoolNumber']])){
+						                          echo $listMappingOrgClass[$item['schoolNumber']];
+						                      }else {
+						                          echo $item['schoolNumber'];
+						                      }
+						                  
+						                  }
+						                  ?>
+						                  </td>
+						                  <!-- ShoolYear Code -->
+						                  <td class="jschool-year text-right"><?php echo (!empty($item['schoolYearCode']))?$item['schoolYearCode']:''; ?></td>
+						                  <!-- kumi Class -->
+						                  <td class="jkumi"><?php echo (!empty($item['classCode']))?$item['classCode']:''; ?></td>
+						                  <!-- EikenLevel -->
+						                  <td class="jeiken-lv-id">
+						                  <?php 
+						                  if($item['eikenLevelId']!==NULL){
+						                      if(!empty($listMappingLevel[$item['eikenLevelId']])){
+						                          echo $listMappingLevel[$item['eikenLevelId']];
+						                      }else{
+						                          echo $item['eikenLevelId'];
+						                      }
+						                  }
+						                  ?>
+						                  </td>
+						                  <!-- Eikentotal1 -->
+						                  <td class="jtotal text-right">
+						                   <?php
+            								    if($item['eikenLevelId'] == 6 || $item['eikenLevelId'] == 7){
+            								        if($item['totalPrimaryScore']!==NUll && $item['firstExamResultsPerfectScore']!==NUll){
+            								            echo $item['totalPrimaryScore'] . "/" . $item['firstExamResultsPerfectScore'];
+            								        }
+            								        
+            								    }else{
+            								        if ($item['oneExemptionFlag'] == 1) {
+            								            echo '';
+            								        } elseif ($item['oneExemptionFlag'] == 0 || $item['oneExemptionFlag'] == null) {
+            								            if($item['totalPrimaryScore'] == null && $item['firstExamResultsPerfectScore'] == null){
+            								                echo '';
+            								            }else{
+            								                echo $item['totalPrimaryScore'] . "/" . $item['firstExamResultsPerfectScore'];
+            								            }
+            								        }
+            								    }
+                                            ?>
+						                  </td>
+						                  <!-- PassFail1 -->
+						                  <td class="jpass-fail">
+						                      <?php
+                                                    if ($item['oneExemptionFlag'] == 1) {
+                                                        echo '';
+                                                    } else{
+                                                        if ($item['primaryPassFailFlag'] == 1) {
+                                                            echo '合格';
+                                                        } elseif ($item['primaryPassFailFlag'] == 0) {
+                                                            echo '不合格' . ($item['primaryFailureLevel']!==NULL)?$item['primaryFailureLevel']:'';
+                                                        } else {
+                                                            echo '';
+                                                        }
+                                                    }
+                                                ?>
+						                  </td>
+						                  <!-- Eikentotal2 -->
+						                  <td class="jtotal text-right">
+						                   <?php
+            								    if($item['eikenLevelId'] == 6 || $item['eikenLevelId'] == 7){
+            								        echo '';
+            								    }else{
+            								        if($item['totalSecondScore'] == null && $item['secondExamResultsPerfectScore'] == null){
+            								            echo '';
+            								        }else{
+            								            echo $item['totalSecondScore'] . "/" . $item['secondExamResultsPerfectScore'];
+            								        }
+            								    }
+                                            ?>
+						                  </td>
+						                  <!-- PassFail2 -->
+						                  <td class="jpass-fail">
+						                      <?php
+                								    if($item['eikenLevelId'] == 6 || $item['eikenLevelId'] == 7){
+                								        echo '';
+                								    }else{
+                								        if ($item['secondPassFailFlag'] == 1) {
+                								            echo '合格';
+                								        } elseif ($item['secondPassFailFlag'] == 0) {
+                								            echo '不合格' . ($item['secondUnacceptableLevel']!==NULL)?$item['secondUnacceptableLevel']:'';
+                								        } else{
+                								            echo '';
+                								        }
+                								    }
+                                                ?>
+						                  </td>
+
+						             </tr>
+							         <?php }
+							         }
+							     }?>
+
+
+							</tbody>
+							<!--end 20 row -->
+
+						</table>
+					</div>
+
+				</div>
+				<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-right">
+					<span class="title-pupil-manager"><?php echo $this->translate('生徒名簿') ;?></span>
+					<div class="data-pupil-manager">
+						<table
+							class="table-pupil-manager table table-bordered tbl-striped" id="table-right-success">
+							<thead>
+								<tr>
+								    <!-- NameKanji -->
+									<th class="jname"><?php echo $this->translate('氏名(漢字)') ;?></th>
+									<!-- NameKana -->
+									<th class="jnameKana"><?php echo $this->translate('氏名(カナ)') ;?></th>
+									<!-- Birthday -->
+									<th class="jbirth-day"><?php echo $this->translate('生年月日') ;?></th>
+                                    <!-- Pupil ID -->
+									<!-- <th class="jpupil-id"><?php echo $this->translate('生徒ID') ;?></th> -->
+                                    <!-- SchoolYear -->
+									<th class="jschool-year"><?php echo $this->translate('学年') ;?></th>
+									<!-- Class-Kumi -->
+									<th class="jkumi"><?php echo $this->translate('クラス') ;?></th>
+									<!-- Number ID-->
+									<th class="jnumber"><?php echo $this->translate('番号') ;?></th>
+
+								</tr>
+							</thead>
+							<!--20 row -->
+							<tbody>
+							     <tr><td class="td-first"></td></tr>
+							     
+							     <?php if(!empty($mappingData["mappingSuccess"])):?>
+							         <?php foreach($mappingData["mappingSuccess"] as $key=>$items):?>
+							             <?php foreach ($items as $keyChild=>$item):?>
+							                 <?php if(!empty($keepSession[$item['id']])):?>
+							                     <tr id="success-pupil-manager-<?php echo $key.$keyChild?>">
+                                        			<td class="jname"><?php echo (!empty($keepSession[$item['id']]['nameKanji']))?$keepSession[$item['id']]['nameKanji']:''; ?></td>
+                                        			<!-- NameKana -->
+                                        			<td class="jnameKana"><?php echo (!empty($keepSession[$item['id']]['nameKana']))?$keepSession[$item['id']]['nameKana']:''; ?></td>
+                                        			<!-- Birthday -->
+                                        			<td class="jbirth-day"><?php echo (!empty($keepSession[$item['id']]['birthday']))?$keepSession[$item['id']]['birthday']:'';?></td>
+                                        			<!-- SchoolYear -->
+                                        			<td class="jschool-year"><?php echo ($keepSession[$item['id']]['orgSchoolYearId']!==NULL)?$keepSession[$item['id']]['orgSchoolYearId']:''; ?></td>
+                                        			<!-- Class-Kumi -->
+                                        			<td  class="jkumi"><?php echo ($keepSession[$item['id']]['classId']!==NULL)?$keepSession[$item['id']]['classId']:''; ?></td>
+                                        			<!-- Number -->
+                                        			<td class="jnumber"><?php echo (!empty($keepSession[$item['id']]['number']))?$keepSession[$item['id']]['number']:''; ?></td>
+                                        		</tr>
+							                  <?php else :?>
+							                  <tr id="success-pupil-manager-<?php echo $key.$keyChild?>">
+            									<td class="jname">
+            									<?php
+												echo (!empty($mappingData['pupilSuccess'][$item['pupilId']]['firstNameKanji']))?$mappingData['pupilSuccess'][$item['pupilId']]['firstNameKanji']:'';
+												echo (!empty($mappingData['pupilSuccess'][$item['pupilId']]['lastNameKanji']))?$mappingData['pupilSuccess'][$item['pupilId']]['lastNameKanji']:'';
+
+							                     ?>
+            									</td>
+            									<!-- NameKana -->
+            									<td class="jnameKana">
+            									   <?php
+                                                                                        echo (!empty($mappingData['pupilSuccess'][$item['pupilId']]['firstNameKana']))?$mappingData['pupilSuccess'][$item['pupilId']]['firstNameKana']:'';
+                                                                                        echo (!empty($mappingData['pupilSuccess'][$item['pupilId']]['lastNameKana']))?$mappingData['pupilSuccess'][$item['pupilId']]['lastNameKana']:'';
+
+							                         ?>
+            									</td>
+            									<!-- Birthday -->
+            									<td class="jbirth-day">
+            									   <?php 
+            									   echo !(empty($mappingData['pupilSuccess'][$item['pupilId']]['birthday']))?$mappingData['pupilSuccess'][$item['pupilId']]['birthday']->format('Y/n/j'):''; 
+            									   ?>
+            									</td>
+            									<!-- SchoolYear -->
+            									<td class="jschool-year"><?php echo (!empty($mappingData['pupilSuccess'][$item['pupilId']]['orgSchoolYearId']))?$mappingData['pupilSuccess'][$item['pupilId']]['orgSchoolYearName']:''; ?></td>
+            									<!-- Class-Kumi -->
+            									<td  class="jkumi"><?php echo (!empty($mappingData['pupilSuccess'][$item['pupilId']]['classId']))?$mappingData['pupilSuccess'][$item['pupilId']]['className']:''; ?></td>
+            									<!-- Number -->
+            									<td class="jnumber"><?php echo (!empty($mappingData['pupilSuccess'][$item['pupilId']]['number']))?$mappingData['pupilSuccess'][$item['pupilId']]['number']:''; ?></td>
+        
+        								    </tr>
+							                 <?php endif;?>
+							             <?php endforeach;?>
+							         <?php endforeach;?>
+							     <?php endif;?>
+							</tbody>
+								<!--end 20 row -->
+
+
+						</table>
+					</div>
+				</div>
+			</div>
+			<!-- 2 div data-->
+			<!-- Paging -->
+
+			<!--End Paging -->
+
+		</div>
+		<!-- End mapping-success -->
+	</div>
+	<!-- Group Button -->
+	<div class="box-footer">
+
+		<div style="text-align: right;">
+			<button type="button" id="btnCancel" class="btn btn-large-180"
+				onclick="EIKEN_MAPPING_RESULT.mappingCancel()" tabindex="<?php echo $tabIndex++;?>"><?php echo $this->translate('キャンセル') ;?> </button>
+			<button type="button" id="btnSubmitToMapping"
+				class="btn btn-large-180 btn-red" onclick="EIKEN_MAPPING_RESULT.mappingSave()" tabindex="<?php echo $tabIndex++;?>">
+				<i class="fa-download-w"></i><?php echo $this->translate('保存') ;?></button>
+		</div>
+	</div>
+	<!--End Group Button -->
+
+
+</div>
+
+<?php
+    $this->headScript()->appendFile($this->basePath('js/jquery-ui.js'));
+    $this->inlineScript()->appendFile($this->basePath('js/history/eiken-mapping-result.js'));
+    echo $this->inlineScript();
+?>
+<script type="text/javascript">
+$("document").ready(function(){
+	EIKEN_MAPPING_RESULT.init();
+});
+</script>

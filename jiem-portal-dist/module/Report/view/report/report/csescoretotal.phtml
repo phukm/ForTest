@@ -1,0 +1,299 @@
+<?php $this->headLink()->appendStylesheet($this->basePath('css/report/csescoretotal.css')) ?>
+<!-- Scripts -->
+<?php
+$this->headScript()->appendFile($this->basePath('js/highcharts.js'));
+$this->headScript()->appendFile($this->basePath('js/report/cse-score-total.js?v=0.1'));
+?>
+<script>
+    var cseAvgScore = <?php echo!empty($cseScore['avg']) ? json_encode($cseScore['avg']) : '[]'; ?>;
+    var cseResultTitle = <?php echo!empty($cseResultTitle) ? json_encode($cseResultTitle) : '[]'; ?>;
+    var cseMinScore = <?php echo!empty($cseScore['min']) ? json_encode($cseScore['min']) : '[]'; ?>;
+    var cseMaxScore = <?php echo!empty($cseScore['max']) ? json_encode($cseScore['max']) : '[]'; ?>;
+
+    var cseReadingScore = <?php echo!empty($cseScore['reading']) ? json_encode($cseScore['reading']) : '[]'; ?>;
+    var cseListeningScore = <?php echo!empty($cseScore['listening']) ? json_encode($cseScore['listening']) : '[]'; ?>;
+    var cseSpeakingScore = <?php echo!empty($cseScore['speaking']) ? json_encode($cseScore['speaking']) : '[]'; ?>;
+    var cseWritingScore = <?php echo!empty($cseScore['writing']) ? json_encode($cseScore['writing']) : '[]'; ?>;
+    var jMessages = <?php echo json_encode($jMessages) ?>;
+    
+    $(document).ready(function () {
+        $('form:first *:input[type!=hidden][disabled!=disabled]:first').focus();
+        CSE_SCORE_TOTAL.init();
+    });
+</script>
+<div class="csescore">
+    <div class="box">
+        <div class="box-header collapsed" data-toggle="collapse" data-target="#search-box">
+            <div class="search-header  sorting-field">
+                <i class="search-chevron-down"></i>
+                <?php echo $this->translate('CseSearchBox'); ?>
+            </div>
+
+        </div>
+        <div id="search-box" aria-expanded="true" class="collapse in">
+            <form method="POST" id="searchCseScore">
+                <input type="hidden" name="searchVisible" id="searchVisible" value="1">
+                <input type="hidden" name="classIdSelected" id="classIdSelected" value="<?php echo $search['classId'] ?>">
+                <div class="boxtop box-body">
+                    <div class="row">
+                        <div class="col-sm-6 borderright">
+                            <div class="col-sm-1 title">
+                                <label><?php echo $this->translate('検索条件'); ?></label>
+                            </div>
+
+                            <div class="col-sm-10">
+                                <label><input type="radio" <?php echo $search['objectType'] == 'Organization' ? 'checked' : ''; ?> value="Organization" id="typeOrganization" name="objectType">団体</label>
+                                <label><input type="radio" <?php echo $search['objectType'] == 'OrgSchoolYear' ? 'checked' : ''; ?> value="OrgSchoolYear" name="objectType">学年</label>
+                                <label><input type="radio" <?php echo $search['objectType'] == 'Class' ? 'checked' : ''; ?> value="Class" name="objectType">クラス</label>
+                            </div>
+                            <div class="hiderows1">
+                                <div class="col-sm-1 shoolyear">
+                                    <label><?php echo $this->translate('学年'); ?></label>
+                                </div>
+                                <div class="col-sm-4 styled-select orgshoollYear">
+                                    <select id="orgSchoolYearId" name="orgSchoolYearId" class="form-control" autocomplete="off">
+                                        <?php 
+                                        if($listSchoolYear){
+                                        foreach ($listSchoolYear as $key => $schoolYear) { ?>
+                                            <option value="<?php echo $key ?>" <?php echo $search['orgSchoolYearId'] == $key ? 'selected' : ''; ?>><?php echo $schoolYear ?></option>
+                                        <?php }
+                                        }else{
+                                        ?>
+                                            <option value=""></option>
+                                        <?php }?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="hiderows2">
+                                <div class="col-sm-2 widthclass">
+                                    <label><b><?php echo $this->translate('クラス'); ?></b></label>
+                                </div>
+                                <div class="col-sm-4 styled-select">
+                                    <select id="classId" name="classId" class="form-control" autocomplete="off">
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">各検定におけるCSEスコアの推移は、下記の年度から参照可能です。</div>
+                            <div class="col-sm-12">英検：2016年度第1回以降</div>
+                            <div class="col-sm-12">英検IBA：2015年度以降</div>
+                        </div>
+                        <div class="col-sm-6 borderleft">
+                            <div class="col-sm-1 namelabel">
+                                <label><b><?php echo $this->translate('年度'); ?></b></label>
+                            </div>
+                            <div class="col-sm-1 styled-select ddyear">
+                                <select id="yearFrom" name="yearFrom" class="form-control">
+                                    <?php
+                                    foreach ($listYear as $year) {
+                                        if ($year > 2015 || ($year == 2015 && $search['type'] == 'IBA')) {
+                                            ?>
+                                            <option
+                                                value="<?php echo $year ?>" <?php echo $search['yearFrom'] == $year ? 'selected' : ''; ?>><?php echo $year ?></option>
+                                            <?php
+                                        }
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="col-sm-1 labelwidth">
+                                <p ><?php echo $this->translate('から'); ?></p>
+                            </div>
+                            <div class="col-sm-1 styled-select ddyear">
+                                <select id="yearTo" name="yearTo" class="form-control">
+                                    <?php
+                                    foreach ($listYear as $year) {
+                                        if ($year > 2015 || ($year == 2015 && $search['type'] == 'IBA')) {
+                                            ?>
+                                            <option
+                                                value="<?php echo $year ?>" <?php echo $search['yearTo'] == $year ? 'selected' : ''; ?>><?php echo $year ?></option>
+                                            <?php
+                                        }
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="col-sm-2">
+                                <p><?php echo $this->translate('まで'); ?></p>
+                            </div>
+                            <div class="col-sm-1 widthclassstestName">
+                                <label><?php echo $this->translate('検定名'); ?></label>
+                            </div>
+                            <div class="col-sm-2 styled-select ddyear">
+                                <select class="form-control" autocomplete="off" id="type" name="type">
+                                    <option value=""></option>
+                                    <option value="EIKEN" <?php echo $search['type'] == 'EIKEN' ? 'selected' : ''; ?>>英検</option>
+                                    <option value="IBA" <?php echo $search['type'] == 'IBA' ? 'selected' : ''; ?>>英検IBA</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <div class="text-right">
+                            <a class="btn btn-small-100 margin-right-10" id="btnClear" href="javascript:void(0)"><?php echo $this->translate('クリア'); ?></a>
+                            <a href="#" class="btn btn-small-180" id="btnSearch"> <i class="fa-search"></i>検索</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="box boxcontent">
+        <div class="box-header">
+            <label id="title">
+                <?php
+                if ($search['objectType'] == 'OrgSchoolYear') {
+                    $labelSchoolYear = !empty($listSchoolYear[$search['orgSchoolYearId']]) ? $listSchoolYear[$search['orgSchoolYearId']] : '';
+                    echo $this->translate('CSEスコア推移表：' . $labelSchoolYear);
+                } else if ($search['objectType'] == 'Class') {
+                    $labelSchoolYear = !empty($listSchoolYear[$search['orgSchoolYearId']]) ? $listSchoolYear[$search['orgSchoolYearId']] : '';
+                    $labelClass = $classj != Null ? $classj->getClassName() : '';
+                    echo $this->translate('CSEスコア推移表：' . $labelSchoolYear . ' ' . $labelClass);
+                } else {
+                    echo $this->translate('CSEスコア推移表：' . $currentUser['organizationName']);
+                }
+                ?>
+            </label>
+        </div>
+        <div class="box-body">
+            
+                <div class="row">
+                <div class="col-sm-12">
+            <label class="font-mark"> CSEスコアの推移表となります。<br />
+トータルと技能別に平均・最低・最高を表示しています。
+            </label>
+            </div>
+                    <div class="col-sm-6 contentLeft">
+                        <div class="row rowtop">
+                            <span class="col-sm-1"><i class="crice orange"></i><?php echo $this->translate('平均'); ?></span>
+                            <span class="col-sm-1"><i class="crice red"></i><?php echo $this->translate('最低'); ?></span>
+                            <span class="col-sm-1"><i class="crice green"></i><?php echo $this->translate('最高'); ?></span>
+                        </div>
+                        <div class="row rowcontent">
+                            <div id="chart1" class="cse-hightchart1"></div>
+                        </div>
+                        <div class="row rowbottom">
+                            <span class="col-sm-6 widhtyear"><?php echo $search['yearFrom'] ?></span>
+                            <span class="col-sm-6 widhtyear2"><?php echo $search['yearTo'] ?></span>
+                        </div>
+                        <div class="distop"><span>トータル</span><span>3400</span></div>
+                    </div>
+                    <div class="col-sm-6 contentLeft margincontent chartr">
+                        <div class="row rowtop">
+                            <span class="col-sm-1 spanpink"><i class="crice pink"></i><?php echo $this->translate('Reading'); ?></span>
+                            <span class="col-sm-1 spangreen1"><i class="crice green1"></i><?php echo $this->translate('Listening'); ?></span>
+                            <?php if ($search['type'] == 'EIKEN' || $search['type'] == '') { ?>
+                                <span class="col-sm-1 spangreen2"><i class="crice green2"></i><?php echo $this->translate('Speaking'); ?></span>
+                                <span class="col-sm-1 spangreen3"><i class="crice green3"></i><?php echo $this->translate('Writing'); ?></span>
+                            <?php } ?>
+                        </div>
+                        <div class="row rowcontent">
+                            <div id="chart2" class="cse-hightchart2"></div>
+                        </div>
+                        <div class="row rowbottom">
+                            <span class="col-sm-6 widhtyear"><?php echo $search['yearFrom'] ?></span>
+                            <span class="col-sm-6 widhtyear2"><?php echo $search['yearTo'] ?></span>
+                        </div>
+                        <div class="distop"><span>技能</span><span>850</span></div>
+                    </div>
+                </div>
+                <hr class="hr"/>
+                <div class="row">
+                    <table class="table table-bordered table-striped">
+                        <tr class="bgtitle">
+                            <th rowspan="2" class="kennaming txtcenter">
+                                <?php echo $this->translate('検定名'); ?>
+                            </th>
+                            <th rowspan="2" class="year txtcenter">
+                                <?php echo $this->translate('年度'); ?>
+                            </th>
+                            <th rowspan="2" class="time txtcenter">
+                                <?php echo $this->translate('回'); ?>
+                            </th>
+                            <th rowspan="2" class="dayomen txtcenter">
+                                <?php echo $this->translate('受験日'); ?>
+                            </th>
+                            <th rowspan="2" class="rateomen txtcenter">
+                                <?php echo $this->translate('受験率'); ?>
+                                <span tabindex="0" class="icon-description glyphicon glyphicon-question-sign"
+                                      data-toggle="popover" data-trigger="hover"
+                                      data-content="全校生徒中の英検/IBAを受験した生徒の割合を表しています。
+"></span>
+                            </th>
+                            <th colspan="3" class="total txtcenter">
+                                <?php echo $this->translate('トータル'); ?>
+                            </th>
+                            <th colspan="4" class="skill txtcenter">
+                                <?php echo $this->translate('技能'); ?>
+                            </th>
+                        </tr>
+                        <tr class="bgtitle">
+                            <th class="average txtcenter">
+                                <?php echo $this->translate('平均'); ?>
+                            </th>
+                            <th class="lowest txtcenter">
+                                <?php echo $this->translate('最低'); ?>
+                            </th>
+                            <th class="highest txtcenter">
+                                <?php echo $this->translate('最高'); ?>
+                            </th>
+                            <th class="reading txtcenter">
+                                <?php echo $this->translate('Reading'); ?>
+                            </th>
+                            <th class="listening txtcenter">
+                                <?php echo $this->translate('Listening'); ?>
+                            </th>
+                            <th class="speaking txtcenter">
+                                <?php echo $this->translate('Speaking'); ?>
+                            </th>
+                            <th class="lighting txtcenter">
+                                <?php echo $this->translate('Writing'); ?>
+                            </th>
+                            
+
+                        </tr>
+                        <tbody>
+                            <?php 
+                             if ($cseResult) { 
+                            foreach ($cseResult as $value) { ?>
+                                <tr>
+                                    <td>
+                                        <?php
+                                            if($value['type'] == 'EIKEN'){
+                                                echo '英検';
+                                            }else if ($value['type'] == 'IBA') {
+                                                echo '英検IBA';
+                                            }else{
+                                                echo '';
+                                            }
+                                        ?>
+                                    </td>
+                                    <td><?php echo!empty($value['year']) ? $value['year'] : '-'; ?></td>
+                                    <td class="text-right"><?php echo!empty($value['kai']) ? $value['kai'] : '-'; ?></td>
+                                    <td><?php echo!empty($value['testDate']) ? $value['testDate']->format('Y/m/d') : '-'; ?></td>
+                                    <td class="text-center"><?php echo $value['attendRate'] . '%'; ?></td>
+                                    <td class="text-right"><?php echo $value['averageScore']; ?></td>
+                                    <td class="text-right"><?php echo $value['lowestScore']; ?></td>
+                                    <td class="text-right"><?php echo $value['highestScore']; ?></td>
+                                    <td class="text-right"><?php echo $value['averageReadingScore']; ?></td>
+                                    <td class="text-right"><?php echo $value['averageListeningScore']; ?></td>
+                                    <td class="text-right"><?php echo $value['type'] == 'EIKEN' ? $value['averageSpeakingScore'] : '-'; ?></td>
+                                    <td class="text-right"><?php echo $value['type'] == 'EIKEN' ? $value['averageWritingScore'] : '-'; ?></td>
+                                </tr>
+                            <?php } 
+                            } else { ?>
+                                <tr>
+                                    <td colspan="12"><?php echo $this->translate('MSG17_No_Result_Found'); ?></td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $('[data-toggle="popover"]').popover();
+    })
+</script>

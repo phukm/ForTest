@@ -1,0 +1,138 @@
+<?php
+echo $this->headLink()->prependStylesheet($this->basePath('css/Invitation.css'));
+$isViewer = \Dantai\PublicSession::isViewerRole();
+?>
+<?php $escaper = new Zend\Escaper\Escaper('utf-8');?>
+<?php
+if ($paginator != false) {
+    $paging = $this->paginationHelper($paginator, $page, $this->url('invitation-mnt/default', array(
+        'controller' => 'generate',
+        'action' => 'show',
+        'id' => $id,
+        'year' => $year,
+        'kai' => $kai
+    )), $numPerPage);
+}
+?>
+<?php $form->setAttribute('action', $this->url('invitation-mnt/default', array('controller' => 'generate','action' => 'show','id'=>$id,'year'=>$year,'kai'=>$kai)));?>
+<?php  echo $this->form()->openTag($form); ?>
+<div class="invitation">
+    <div class="box">
+        <div class="box-header"  data-toggle="collapse" data-target="#search-box">
+            <div class="search-header  sorting-field">
+                <i class="search-chevron-down"></i>
+                <b><?php echo $this->translate('検索条件'); ?></b>
+            </div>
+        </div>
+        <div id="search-box" aria-expanded="true" class="collapse in">
+            <div class="box-body box-search-list">
+                <div class="">
+                    <div class=" col1 col-sm-1 col-xs-1">
+                        <b><?php echo $this->translate('氏名'); ?></b>
+                    </div>
+                    <div class="col2 col-sm-3 col-xs-3">
+                        <?php echo $this->formrow($form->get('txtNameKanji')); ?>
+                    </div>
+                    <div class="col3 col-sm-1 col-xs-1" style="float: right;margin-right: 90px;">
+                        <a class="btn btn-small" id="searchInvPupil"
+                           href="javascript:void(0);"> <i class="fa-search"></i> <b><?php echo $this->translate("検索"); ?></b></a>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php echo $this->form()->closeTag(); ?>
+<div class="list-invitation">
+	<div class="box">
+		<div class="box-header">
+			<strong><?php echo $this->translate('生徒別編集'); ?></strong>
+		</div>
+		<div class="box-body">
+
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr class="checkbox_list">
+						<th width="165"><?php echo $this->translate('学年'); ?></th>
+						<th width="65"><?php echo $this->translate('クラス'); ?></th>
+						<th width="50"><?php echo $this->translate('番号 '); ?></th>
+						<th class="jname"><?php echo $this->translate('氏名'); ?></th>
+						<th></th>
+						<th width="218"><?php echo $this->translate('操作'); ?></th>
+					</tr>
+				</thead>
+
+				<tbody id="load_dt_std">
+					<?php
+    if (! empty($pupil)) {
+        foreach ($pupil as $key => $value) {
+            $urlDownload = $this->url('invitation-mnt/default', array(
+                'controller' => 'generate',
+                'action' => 'downloadPupil',
+                'id' => '' . $value->getId(),
+                'year' => $value->getYear(),
+                'kai' => $kai
+            ));
+            ?>
+                      <tr>
+						<td><?php echo $escaper->escapeHtml($value->getOrgSchoolYear()->getDisplayName()); ?></td>
+						<td><?php echo  $escaper->escapeHtml($value->getClass()->getClassName());?></td>
+						<td style="text-align: right; padding-right: 13px"><?php echo $escaper->escapeHtml($value->getNumber());?></td>
+						<td><?php echo $escaper->escapeHtml($value->getFirstNameKanji().$value->getLastNameKanji()); ?></td>
+						<td></td>
+						<td><a <?php echo $isViewer ? 'disabled' : '' ; ?>
+							href="<?php echo $this->url('invitation-mnt/default', array('controller' => 'generate', 'action' => 'edit', 'id' => '' .$value->getId(),'year'=>$year,'kai'=>$kai)); ?>"
+							class="btn btn-small btn-editmessage"><?php echo $this->translate('メッセージ編集'); ?></a>
+							<a <?php echo $isViewer ? 'disabled' : '' ; ?> href="<?php echo $urlDownload;?>" class="btn btn-small btn-print"><?php echo $this->translate('印刷'); ?></a>
+						</td>
+					</tr>
+                    <?php } }?>
+        			</tbody>
+			</table>
+			<?php if(!empty($messNotFound)){?>
+			<div class="row"></div>
+			<div class="row">
+				    <?php echo $messNotFound;?>
+			</div>
+        <?php }?>
+			<?php if(!empty($paging)){ ?>
+				<div class="col-sm-12 text-center">
+					<nav>
+						<ul class="pagination">
+							<?php  echo $paging; ?>
+						</ul>
+					</nav>
+				</div>
+			<?php } ?>
+		</div>
+		<div class="box-footer">
+			<div class="text-left col-sm-12">
+				<a class="btn btn-large-180" id=btnCancel
+					href="<?php echo $this->url('invitation-mnt/default',array('controller' => 'generate','action' => 'index'));?>">
+					<i class="arrow-circle-left"></i>
+				<?php echo $this->translate('戻る') ;?></a>
+			</div>
+		</div>
+	</div>
+</div>
+<?php if(!empty($mess)){?>
+<script type="text/javascript">
+ERROR_MESSAGE.show([{id: 'txtName', message: '<?php echo $mess; ?>'}],function(){},'inline')
+</script>
+<?php }?>
+<script type="text/javascript">
+var noInvitationLetters = '<?php echo !empty($mess['noInvitationLetters']) ? $mess['noInvitationLetters'] : ''?>';
+$(document).ready(function() {
+	if(noInvitationLetters != ''){
+		ERROR_MESSAGE.show(noInvitationLetters, function(){},'inline');
+	}
+    $('form:first *:input[type!=hidden]:first').focus();
+});
+$("#searchInvPupil").click(function()
+{
+	$("#generateForm").submit();
+});
+
+</script>

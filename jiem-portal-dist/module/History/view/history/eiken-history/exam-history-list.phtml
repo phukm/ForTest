@@ -1,0 +1,196 @@
+<?php
+$paging = $this->eikenPaginationHelper($paginator, $page, '/history/eiken/exam-history-list', $this->pageLimit, (empty($param)) ? '' : '/search/' . $param);
+$this->headLink()->appendStylesheet($this->basePath('css/history/eiken-exam-history-list.css'));
+$this->headScript()->appendFile($this->basePath('js/history/eiken-exam-history-list.js'));
+$form->setAttribute('action', $this->url('history/default', array('controller' => 'eiken', 'action' => 'exam-history-list')));
+$form->prepare();
+echo $this->form()->openTag($form);
+?>
+<input type="hidden" name="sortKey" id="sortKey">
+<input type="hidden" name="sortOrder" id="sortOrder" value="<?php echo $sortOrder; ?>">
+<input type="hidden" name="searchVisible" id="searchVisible" value="<?php echo $searchVisible; ?>">
+<div class="padding-top-3px">
+    <div class="box formHistoryEiken">
+            <div class="box-header" data-toggle="collapse" data-target="#search-box">
+                <div class="search-header  sorting-field">
+                    <i class="search-chevron-down"></i>
+                    <span><b><?php echo $this->translate('検索条件');?></b></span>
+                </div>
+            </div>
+            <div id="search-box" aria-expanded="true" class="collapse in">
+                <div class="box-body">
+                
+                    <div class="row">
+                        <div class="col-sm-2 width48">
+                            <label><b><?php echo $this->translate('年度');?></b></label>
+                        </div>
+                        <div class="col-sm-2 styled-select width98">
+                            <?php echo $this->formselect($form->get('year')); ?>
+                        </div>
+                        <div class="col-sm-2 width48">
+                            <label><?php echo $this->translate('学年');?></label>
+                        </div>
+                        <div class="col-sm-2 styled-select width140">
+                            <?php echo $this->formselect($form->get('orgSchoolYear')); ?>
+                        </div>
+                        <div class="col-sm-2 width62">
+                            <label><b><?php echo $this->translate('クラス');?></b></label>
+                        </div>
+                        <div class="col-sm-3 styled-select width140">
+                            <?php echo $this->formselect($form->get('classj')); ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2 width48">
+                            <label><b><?php echo $this->translate('氏名'); ?></b></label>
+                        </div>
+                        <div class="col-sm-4 width250">
+                            <?php echo $this->formrow($form->get('name')); ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <div class="text-right">
+                        <a class="btn btn-small-100" href="/history/eiken/exam-history-list">
+                            <?php echo $this->translate('クリア'); ?>
+                        </a>
+                        <a class="btn btn-small-180" id="btnSearch" type="button" href="javascript:void(0);"><i class="fa fa-search"></i><?php echo $this->translate('検索'); ?>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="box">
+        <div class="box-header"><?php echo $this->translate('個人試験結果'); ?></div>
+        <div class="box-body" id="list-container">
+            <div>
+    		    <label class="font-mark"> 過去に受験した個人の試験結果の一覧となります。<br>
+                </label>
+                <?php
+                $arrUrl = array(
+                    'controller'    => 'eiken',
+                    'action'        => 'exam-history-list',
+                    'isExportExcel' => 1
+                );
+                if ($param) {
+                    $arrUrl['search'] = $param;
+                }
+                ?>
+                <a href="<?php echo $this->url('history/default', $arrUrl); ?>" <?php echo empty($roleLimit) && !\Dantai\PublicSession::isViewerRole() ? '' : 'disabled="disabled"'; ?> class="<?php echo empty($roleLimit) ? '' : 'disabled'; ?> btn btn-red pull-right mrgt25">
+                    <?php echo $this->translate('EXCEL出力'); ?>
+                </a>
+            </div>
+            <div class="clearfix"></div>
+            <table class="table table-bordered tbl-striped border-collapse-separate">
+                <thead>
+                <tr class="eiken-title">
+                    <th class="history-year no-border-exam-result"><?php echo $this->translate('年度 '); ?></th>
+                    <th class="history-school-year no-border-exam-result"><?php echo $this->translate('学年'); ?></th>
+                    <th class="history-class no-border-exam-result text-center"><?php echo $this->translate('クラス'); ?></th>
+                    <th class="history-number no-border-exam-result"><?php echo $this->translate('番号'); ?></th>
+                    <th class="history-name no-border-exam-result text-center"><?php echo $this->translate('氏名'); ?></th>
+                    <th class="history-level no-border-exam-result"><?php echo $this->translate('取得済級'); ?></th>
+                    <th class="iba-level no-border-exam-result"><?php echo $this->translate('IBAレベル判定'); ?></th>
+                    <th class="history-action no-border-exam-result-last"><?php echo $this->translate('操作'); ?></th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php if (isset($listHistory) && count($listHistory) > 0) { ?>
+                    <?php
+                    foreach ($listHistory as $history) {
+                        $pupilNumber = (isset($history['pupilNo']) && $history['pupilNo'] != '') ? $history['pupilNo'] : '';
+                        $schoolYear = (isset($history['schoolYearName']) && $history['schoolYearName'] != '') ? $history['schoolYearName'] : '';
+                        $class = (isset($history['className']) && $history['className'] != '') ? $history['className'] : '';
+                        $name = (isset($history['pupilName']) && $history['pupilName'] != '') ? $history['pupilName'] : '';
+                        $eikenLevel = '';
+                        $ibaLevel = '';
+                        if (count($eikenLevelList) > 0 && $history['pupilId'] != '' && array_key_exists($history['pupilId'], $eikenLevelList)) {
+                            if ($eikenLevelList[$history['pupilId']]['eikenLevel'] != '') {
+                                $eikenLevel = $listMapppingEikenLevel[$eikenLevelList[$history['pupilId']]['eikenLevel']];
+                            }
+                        }
+                        else {
+                            $eikenLevel = (isset($history['eikenLevelId']) && $history['eikenLevelId'] != '') ? $listMapppingEikenLevel[$history['eikenLevelId']] : '';
+                        }
+                        if (count($ibaLevelList) > 0 && $history['pupilId'] != '' && array_key_exists($history['pupilId'], $ibaLevelList)) {
+                            if ($ibaLevelList[$history['pupilId']]['ibaLevel'] != '') {
+                                $ibaLevel = $listMapppingIBALevel[$ibaLevelList[$history['pupilId']]['ibaLevel']];
+                            }
+                        }
+                        else {
+                            $ibaLevel = (isset($history['ibaLevelId']) && $history['ibaLevelId'] != '') ? isset($listMapppingIBALevel[$history['ibaLevelId']]) ? $listMapppingIBALevel[$history['ibaLevelId']] : ''  : '';
+                        }
+                        $params = $history['id'] . (($history['pupilId'] != '') ? 
+                                "," . $history['pupilId'] : ",''") . (($schoolYear != '') ? ",'" . $schoolYear . "'" : ",''") . (($class != '') ? 
+                                ",'" . rawurlencode($class) . "'" : ",''") . (($pupilNumber != '') ? 
+                                ",'" . rawurlencode($pupilNumber) . "'" : ",''") . (($name != '') ?
+                                ",'" . rawurlencode($name) . "'" : ",''");
+                        ?>
+                        <tr>
+                            <td class="no-border-exam-result text-align-left"><?php echo $history['historyYear']; ?></td>
+                            <td class="no-border-exam-result text-align-left"><?php echo htmlentities($schoolYear, ENT_QUOTES, "UTF-8"); ?></td>
+                            <td class="no-border-exam-result text-align-left"><?php echo htmlentities($class, ENT_QUOTES, "UTF-8"); ?></td>
+                            <td class="no-border-exam-result text-align-right pupil-number-padding">
+                                <div class="pupil-number-div"><?php echo $pupilNumber; ?></div>
+                            </td>
+                            <td class="no-border-exam-result text-align-left"><?php echo htmlentities($name, ENT_QUOTES, "UTF-8"); ?></td>
+                            <td class="no-border-exam-result text-align-right"><?php echo htmlentities($eikenLevel, ENT_QUOTES, "UTF-8") ?></td>
+                            <td class="no-border-exam-result text-align-right"><?php echo htmlentities($ibaLevel, ENT_QUOTES, "UTF-8"); ?></td>
+                            <td class="no-border-exam-result">
+                                <!--        update function for : GNCCNCJDM-235-->
+                                <a class="btn btn-view-detail" <?php if (!empty($history['ibaId']) && !empty($history['type']) && strcmp($history['type'], 'iba') == 0) echo 'disabled'; ?>
+                                   href="javascript:;"
+                                   onclick="EIKEN_EXAM_HISTORY_LIST.viewEikenHistory(<?php echo $params; ?>)"><?php echo $this->translate('英検履歴閲覧'); ?></a>
+
+                                <?php
+                                if (!empty($history['ibaId'])) {
+                                    $history['id'] = $history['ibaId'];
+                                }
+                                $params = $history['ibaId'] . (($history['pupilId'] != '') ?
+                                        "," . $history['pupilId'] : ",''") . (($schoolYear != '') ? ",'" . $schoolYear . "'" : ",''") . (($class != '') ?
+                                        ",'" . rawurlencode($class) . "'" : ",''") . (($pupilNumber != '') ?
+                                        ",'" . rawurlencode($pupilNumber) . "'" : ",''") . (($name != '') ?
+                                        ",'" . rawurlencode($name) . "'" : ",''");
+                                ?>
+
+                                <a class="btn iba-btn" <?php if (empty($history['ibaId']) && !empty($history['type']) && strcmp($history['type'], 'eiken') == 0) echo 'disabled'; ?>
+                                   href="javascript:;"
+                                   onclick="EIKEN_EXAM_HISTORY_LIST.viewIBAHistory(<?php echo $params; ?>)"><?php echo $this->translate('英検IBA履歴閲覧'); ?></a>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                <?php }
+                else { ?>
+                    <tr class="payment-row-45">
+                        <td colspan="8" class="no-border-exam-result-last"><?php echo $this->translate($noRecord); ?></td>
+                    </tr>
+                <?php } ?>
+                </tbody>
+            </table>
+            <?php if (count($listHistory) > 0) { ?>
+                <div class="box_padding text-center pagination_student_color">
+                    <nav>
+                        <ul class="pagination"><?php echo $paging; ?></ul>
+                    </nav>
+                </div>
+            <?php } ?>
+        </div>
+    </div>
+    <div id="currentYear" class="hidden"><?php echo $currentYear ?></div>
+</div>
+<?php echo $this->form()->closeTag(); ?>
+<script type="text/javascript">
+    var valueClassj = '<?php echo !Empty($data['classj']) ? $data['classj'] : "";  ?>';
+    var valueOrgSchoolYear = '<?php echo !Empty($data['orgSchoolYear']) ? $data['orgSchoolYear'] : "";  ?>';
+    $(document).ready(function () {
+        var noRecordExcel = "<?php echo $noRecordExcel; ?>";
+        if (noRecordExcel.length > 0) {
+            ERROR_MESSAGE.show(noRecordExcel);
+        }
+        EIKEN_EXAM_HISTORY_LIST.init();
+        
+ 
+    });
+    
+</script>

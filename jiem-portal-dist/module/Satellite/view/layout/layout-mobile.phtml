@@ -1,0 +1,211 @@
+<?php echo $this->doctype(); ?>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=2.0">
+    <?php echo $this->headTitle('英検受験者サポートシステム ')->setSeparator(' - ')->setAutoEscape(false) ?>
+    <?php
+    echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/eiken-logo.jpg'))
+        ->prependStylesheet($this->basePath('css/satellite-mobile.css'))
+        ->prependStylesheet($this->basePath('css/bootstrap.css'))
+        ->prependStylesheet($this->basePath('css/icon-awesome-sa.css'))
+        ->prependStylesheet($this->basePath('css/jquery-ui.css'))
+        ->prependStylesheet($this->basePath('css/ie-only.css'), 'screen', 'IE');
+    ?>
+    <?php
+    echo $this->headScript()
+        ->prependFile($this->basePath('js/messages/common-message.js'))
+        ->prependFile($this->basePath('js/localization/jiem.messages_ja.js'))
+        ->prependFile($this->basePath('js/localization/messages_ja.js'))
+        ->prependFile($this->basePath('js/bootstrap.min.js'))
+        ->prependFile($this->basePath('js/jiemmobile.js'))
+        ->prependFile($this->basePath('js/common.js'))
+        ->prependFile($this->basePath('js/jquery.validate.js'))
+        ->prependFile($this->basePath('js/validate.min.js'))
+        ->prependFile($this->basePath('js/jquery-1.11.3.min.js'))
+        ->prependFile($this->basePath('js/html5shiv.js'), 'text/javascript', array('conditional' => 'lt IE 9'))
+        ->prependFile($this->basePath('js/respond.min.js'), 'text/javascript', array('conditional' => 'lt IE 9'))
+        ->prependFile($this->basePath('js/jquery.min.js'));
+    ?>
+</head>
+<body>
+<!-- /// BEGIN header section /// -->
+<div class="wrapper">
+    <div class="top-navbar">
+        <div class="logo col-xs-12">
+            <a href="#"><img class="logo-size" src="/img/eiken-logo.jpg"></a>
+        </div>
+        <div class="slogan col-xs-9">
+            <p>英検受験者</p>
+            </br>
+            <p>サポートシステム</p>
+        </div>
+    </div>
+    <!-- /// END header section /// -->
+    <nav id="menubar" class="navbar-main navbar navbar-default cl-pri">
+        <div class="container nav-wrapper responsive-menu">
+            <div class="row">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar top-bar"></span>
+                        <span class="icon-bar middle-bar"></span>
+                        <span class="icon-bar middle-bar"></span>
+                        <span class="icon-bar bottom-bar"></span>
+                    </button>
+                    <a class="col-xs-1" id="stltp-showmenu" style="visibility: hidden;" href="<?php echo $this->url('satellite/default', array('controller' => 'satellite', 'action' => 'index')) ?> "> <img class="awesome-menu" src="/img/white/svg/home.svg"> </a>
+                    <a class="navbar-brand" href="/">ホーム</a>
+                </div>
+                <div class="navbar-collapse collapse" id="navbar">
+                    <ul class="nav navbar-nav clearfix sm">
+                        <li id="stltp-add" style="display: none;"><a href="../">ホーム</a></li>
+                        <?php if ($this->paymentByCreditFlag) { ?>
+                            <li class="dropdown menu-large n4"><a href="/eiken/apply-eiken"><?php echo $this->translate('applyEikenMenuLabel');?></a> </li>
+                        <?php } ?>
+                        <li><a href="/einavi/loginon">英ナビ！ログイン</a></li>
+                        <li><a href="/satellite/user-manual"><i class="icon-question-sign-white"></i> 使い方</a></li>
+                        <li><a target="_blank" href="http://www.eiken.or.jp/eiken/contact/"><i class="icon-comment-white"></i>お問い合わせ</a></li>
+                        <li><a id="btnlogout" data-toggle="modal" data-target="#logoutModal"><i class="icon-signout-white"></i>ログアウト </a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    <div class="content-wrapper">
+        <div class="box-header">
+                <div class="user-name-infor">
+                    <?php
+                        $privateSession = new Dantai\PrivateSession();
+                        $user = $privateSession->getData(\Satellite\Constants::SESSION_SATELLITE); 
+                        if($user){
+                            echo '<b>ようこそ</b> : '.trim($user['firstNameKanji']).trim($user['lastNameKanji']);
+                        }
+                    ?>
+                </div>
+            </div>
+        <div class="row jiem-error" style="display: none;"></div>
+        <?php echo $this->content; ?>
+        <!-- Logout Modal -->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p class="modal-title"><b>ログアウト</b></p>
+                    </div>
+                    <div class="modal-body">
+                        <p>ログアウトします。よろしいですか？</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a tabindex="123" class="btn btn-large-180" id="btnCancelModel">キャンセル</a>
+                        <a tabindex="124" href="<?php echo $this->url('logout'); ?>" class="btn btn-large-180 btn-red"> <img src="/img/white/svg/sign-out.svg"/>ログアウト</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="stltp-footer">
+        <div class="footer-header-1"><a style="color:#666666;" href="/satellite/commercial_law">特定商取引法に基づく表記</a></div>
+        <div class="footer-header-1">お問い合わせ先</div>
+        <div id="footer-content-1">英検サービスセンター（個人受付） </div>
+        <div id="footer-content-2">
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <img class="awesome-footer" src="/img/other/phone.svg">
+                </div>
+                <div class="form-control label-spacing">03-3266-8311</div>
+            </div>
+        </div>
+        <div class="footer-header-1">受付時間</div>
+        <div id="footer-content-3">
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <img class="awesome-footer" src="/img/other/clock-512px.svg">
+                </div>
+                <div class="form-control label-spacing">9:30〜17:00 (土・日・祝日を除く)</div>
+            </div>
+        </div>
+    </div>
+    <div class="lower-footer">Copyright © Eiken Foundation of Japan All rights reserved.</div>
+</div>
+<script>
+    $('#btnlogout').click(function(){
+        $('#logoutModal').click();
+    });
+    $('#btnCancelModel').click(function(){
+        $('#logoutModal').click();
+    });
+    $(function () {
+        var path = window.location.pathname;
+        if (path == "/einavi/register") {
+            $("#stltp-showmenu").css("visibility", "visible");
+            $("#stltp-add").css("display", "block");
+            $(".navbar-brand").text('英ナビ！ID登録');
+        }
+        if (path == "/einavi/loginon") {
+            $("#stltp-showmenu").css("visibility", "visible");
+            $("#stltp-add").css("display", "block");
+            $(".navbar-brand").text('英ナビ！利用開始');
+        }
+        if (path == "/eiken/apply-eiken") {
+            $("#stltp-showmenu").css("visibility", "visible");
+            $("#stltp-add").css("display", "block");
+            $(".navbar-brand").text('英検申し込み');
+        }
+        if (path == "/payment-eiken-exam/payment-infomation") {
+            $("#stltp-showmenu").css("visibility", "visible");
+            $("#stltp-add").css("display", "block");
+            $(".navbar-brand").text('申し込み情報');
+        }
+        if (path == "/einavi/forgot-password") {
+            $("#stltp-showmenu").css("visibility", "visible");
+            $("#stltp-add").css("display", "block");
+            $(".navbar-brand").text('パスワードをお忘れの方');
+        }
+        if (path == "/eiken/test-site-exemption") {
+            $("#stltp-showmenu").css("visibility", "visible");
+            $("#stltp-add").css("display", "block");
+            $(".navbar-brand").text('<?php echo $this->translate('applyEiken') ?>');
+        }
+        if (path.indexOf("/eiken/show") != -1) {
+            $("#stltp-showmenu").css("visibility", "visible");
+            $("#stltp-add").css("display", "block");
+            $(".navbar-brand").text('<?php echo $this->translate('applyEiken') ?>');
+        }
+        if (path == "/eiken/confirmation") {
+            $("#stltp-showmenu").css("visibility", "visible");
+            $("#stltp-add").css("display", "block");
+            $(".navbar-brand").text('<?php echo $this->translate('applyEikenConfirm') ?>');
+        }
+        if (path.indexOf("/payment-eiken-exam/pay-by-credit") != -1) {
+            $("#stltp-showmenu").css("visibility", "visible");
+            $("#stltp-add").css("display", "block");
+            $(".navbar-brand").text('<?php echo $this->translate('PAY_NOW') ?>');
+        }
+        if (path.indexOf("/payment-eiken-exam/payment-confirm") != -1) {
+            $("#stltp-showmenu").css("visibility", "visible");
+            $("#stltp-add").css("display", "block");
+            $(".navbar-brand").text('<?php echo $this->translate('PAY_NOW') ?>');
+        }
+        if (path.indexOf("/satellite/user-manual") != -1) {
+            $("#stltp-showmenu").css("visibility", "visible");
+            $("#stltp-add").css("display", "block");
+            $(".navbar-brand").text('<?php echo $this->translate('userManualLabel') ?>');
+        }
+
+        if(window.location.hostname == 'jukensha-support.eiken.or.jp'){
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+            ga('create', 'UA-70841181-1', 'auto');
+            ga('send', 'pageview');
+        }
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<?php $this->headLink ()->prependStylesheet ( $this->basePath ( 'css/OrgInforManagement.css' ) )?>
+<div class="box frm-detail bd-detail-org ">
+	<div class="box-header"><?php echo $this->translate('団体情報詳細'); ?></div>
+	<div class="box-body">
+	<?php if(!empty($result)){ ?>
+		<div class="row">
+			<label class="col-sm-2"><b><?php echo $this->translate('団体番号'); ?></b></label>
+			<div class="col-sm-4 colortext"><?php echo $this->escapeHtml($item->getorganizationNo()); ?></div>
+
+			<label class="col-sm-3"><b><?php echo $this->translate('分類名'); ?></b></label>
+			<div class="col-sm-3 colortext"><?php if(isset($result->bunruino)){ echo $this->escapeHtml($result->bunruino); }?></div>
+		</div>
+		<div class="row">
+			<label class="col-sm-2"><b><?php echo $this->translate('団体名（漢字）'); ?></b></label>
+			<div class="col-sm-4 colortext"><?php echo $this->escapeHtml($item->getorgNameKanji()); ?></div>
+
+			<label class="col-sm-3"><b><?php echo $this->translate('資格登録'); ?></b></label>
+			<div class="col-sm-3 colortext"><?php if(isset($result->sikaku)){ echo $this->escapeHtml($result->sikaku); }?></div>
+
+		</div>
+		<div class="row">
+			<label class="col-sm-2"><b><?php echo $this->translate('団体名（カナ)'); ?></b></label>
+			<div class="col-sm-4 colortext"><?php echo $this->escapeHtml($item->getorgNameKana()); ?></div>
+
+			<label class="col-sm-3"><b><?php echo $this->translate('受験地番号'); ?></b></label>
+			<div class="col-sm-3 colortext"><?php if(isset($result->jukenchino)){ echo $this->escapeHtml($result->jukenchino); }?></div>
+		</div>
+		<div class="row">
+			<label class="col-sm-2"><b><?php echo $this->translate('所属部署'); ?></b></label>
+			<div class="col-sm-4 colortext"><?php if(isset($result->busho)){ echo $this->escapeHtml($result->busho); }?></div>
+
+
+			<label class="col-sm-3"><b><?php echo $this->translate('受験地直送'); ?></b></label>
+			<div class="col-sm-3 colortext"><?php if(isset($result->chokusou)){ echo $this->escapeHtml($result->chokusou); }?></div>
+		</div>
+		<div class="row">
+			<label class="col-sm-2"><b><?php echo $this->translate('拠点校・協力校区分'); ?></b></label>
+			<div class="col-sm-4 colortext"><?php if(isset($result->kyotenkoukbn)){ echo $this->escapeHtml($result->kyotenkoukbn); }?></div>
+		</div>
+		<div class="line"></div>
+		<div class="row">
+			<label class="col-sm-2 "><b><?php echo $this->translate('申込み責任者名'); ?></b></label>
+			<div class="col-sm-4 colortext "><?php if(isset($result->sekininsha_mei)  && isset($result->sekininsha_sei)){ echo $this->escapeHTML($result->sekininsha_sei).$this->escapeHtml($result->sekininsha_mei); }?></div>
+
+			<!-- <label class="col-sm-2 "><b>申込み責任者名（名)</b></label>
+				<div class="col-sm-4 colortext ">裕亮</div> -->
+		</div>
+
+		<div class="line"></div>
+		<div class="row">
+			<label class="col-sm-2 "><b><?php echo $this->translate('郵便番号'); ?></b></label>
+			<div class="col-sm-4  colortext"><?php if(isset($result->zipcode)){ echo $this->escapeHtml($result->zipcode); }?></div>
+			<label class="col-sm-3 "><b><?php echo $this->translate('都道府県コード'); ?></b></label>
+			<div class="col-sm-3  colortext"><?php if(isset($result->kencd)){ echo $this->escapeHtml($result->kencd); }?></div>
+		</div>
+		<div class="row">
+			<label class="col-sm-2"><b><?php echo $this->translate('都道府県'); ?></b></label>
+			<div class="col-sm-4 colortext"><?php if(isset($result->todofuken)){ echo $this->escapeHtml($result->todofuken); }?></div>
+			<label class="col-sm-3"><b><?php echo $this->translate('市区町村コード'); ?></b></label>
+			<div class="col-sm-3 colortext"><?php if(isset($result->shikucd)){ echo $this->escapeHtml($result->shikucd); }?></div>
+		</div>
+		<div class="row">
+			<label class="col-sm-2"><b><?php echo $this->translate('住所１'); ?></b></label>
+			<div class="col-sm-4 colortext"><?php if(isset($result->addr1)){ echo $this->escapeHtml($result->addr1); }?></div>
+			<label class="col-sm-3"><b><?php echo $this->translate('住所２'); ?></b></label>
+			<div class="col-sm-3 colortext"><?php if(isset($result->addr2)){ echo $this->escapeHtml($result->addr2); }?></div>
+		</div>
+
+
+		<div class="line"></div>
+
+		<div class="row">
+			<label class="col-sm-2 "><b><?php echo $this->translate('メールアドレス'); ?></b></label>
+			<div class="col-sm-4 colortext"><?php if(isset($result->email)){ echo $this->escapeHtml($result->email); }?></div>
+		</div>
+		<div class="row">
+			<label class="col-sm-2"><b><?php echo $this->translate('電話番号'); ?></b></label>
+			<div class="col-sm-4 colortext"><?php if(isset($result->tel)){ echo $this->escapeHtml($result->tel); }?></div>
+			<label class="col-sm-3"><b><?php echo $this->translate('FAX番号'); ?></b></label>
+			<div class="col-sm-3 colortext"><?php if(isset($result->fax)){ echo $this->escapeHtml($result->fax); }?></div>
+		</div>
+
+		<div class="line"></div>
+
+		<div class="row">
+			<label class="col-sm-2"><b><?php echo $this->translate('パスコード'); ?></b></label>
+			<div class="col-sm-4 colortext"><?php if(isset($result->passcode)){ echo $this->escapeHtml($result->passcode); }?> </div>
+		</div>
+
+		<!-- <div class="line"></div> -->
+		<!-- <div class="row">
+				<label class="col-sm-2 "><b>登録日時</b></label>
+				<div class="col-sm-4 colortext ">11/28/2014 11:13</div>
+				<label class="col-sm-3 "><b>パスコード</b></label>
+				<div class="col-sm-3 colortext ">362056</div>
+			</div>
+			<div class="row last-row">
+				<label class="col-sm-2"><b>更新日時</b></label>
+				<div class="col-sm-4 colortext">11/28/2014 11:13</div>
+			</div> -->
+    <?php } ?>
+	</div>
+	<div class="box-footer">
+		<div class="text-left col-sm-4">
+		<?php
+
+if (isset($roleid)) {
+    if (\Dantai\PublicSession::isRole1236()) {
+
+        ?>
+			<a class="btn btn-large-180"
+				href="<?php echo $this->url ( 'org-mnt/default', array ("controller"=>"org", "action" => "index")); ?>">
+				<i class="arrow-circle-left"></i> 戻る
+			</a>
+			<?php
+    }
+}
+?>
+		</div>
+		<div class="text-right col-sm-8">
+			<a class="btn btn-large-180" <?php echo (!\Dantai\PublicSession::isSysAdminOrServiceManagerOrOrgSupervisor() ? 'disabled' : '') ?>
+				href="<?php
+						if (isset($id) && ! empty($id) && \Dantai\PublicSession::isSysAdminOrServiceManagerOrOrgSupervisor()) {
+							echo $this->url('org-mnt/default', array(
+								'controller' => 'org',
+								'action' => 'transform',
+								'id' => $id
+							));
+						}
+				?>"><i class="arrow-circle-right"></i>ホーム</a>
+		</div>
+	</div>
+
+</div>
+<?php
+if (empty($result)) {
+    ?>
+<script>
+$(document).ready(function() {
+//check API
+    var jsMessages_cl = <?php echo $jsMessages->jsonSerialize(); ?>;
+    var id = jsMessages_cl.data.id;
+    var orgno = jsMessages_cl.data.orgno;
+	$.ajax({
+        type: 'POST',
+        url: "<?php echo $this->url('org-mnt/default',array('controller' => 'org', 'action' => 'getAPI'));  ?>",
+        data: {id:id,orgno:orgno},
+        success:function(data){
+            if(data.length !=0){
+            	ERROR_MESSAGE.show(data,
+                        function()
+                        {
+                    		//alert("Callback");
+                    	});
+                }else{
+                window.location.href="<?php echo $this->url('org-mnt/default',array('controller' => 'org', 'action' => 'show',));  ?>/"+id;
+                }
+           },
+        error:function(){
+        }
+      });
+});
+// end check API
+</script>
+<?php  } ?>
+<script>
+$(document).ready(function() {
+$(".text-left .btn").focus();
+});
+</script>

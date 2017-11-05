@@ -1,0 +1,31 @@
+<ul class="breadcrumb jiem-breadcrumbs">
+    <?php
+    // iterate through the pages
+    foreach ($this->pages as $key => $page) :
+        ?>
+        <li>
+            <?php
+        // if this isn't the last page, add a link and the separator
+        if ($key < count($this->pages) - 1) :
+            if (0 == $key) :
+                ?>
+                    <span class="breadcrumbs-part"><?php echo $page->getLabel(); ?></span>
+
+             
+             <?php
+else :
+                ?>
+                <a class="breadcrumbs-part"
+		href="<?php echo $page->getHref(); ?>"><?php echo $page->getLabel(); ?></a>
+
+            
+            <?php
+endif;
+                 // otherwise, just output the name
+        else :
+            ?>
+                <a class="breadcrumbs-current"><?php echo $page->getLabel(); ?></a>
+            <?php endif; ?>
+        </li>
+    <?php endforeach; ?>
+</ul>

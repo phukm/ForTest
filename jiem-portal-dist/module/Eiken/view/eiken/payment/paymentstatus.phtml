@@ -1,0 +1,343 @@
+
+<?php $paging = $this->eikenPaginationHelper($paginator, $page, $this->url(null, array (
+    'controller' => 'payment', 
+    'action' => 'paymentstatus',
+    'id'=>$eikenSchedule 
+)), $numPerPage,  ((empty($param)) ? '' : '/search/'.$param).(($query)?'?'.$query:''));?>
+
+<?php $escaper = new Zend\Escaper\Escaper('utf-8');//$paging = $this->paginationHelper($pagedUsers, $page, '/users/view/', 10); ?>
+
+<?php $this->headLink()->prependStylesheet($this->basePath('css/appeiken.css'));?>
+<?php $this->headScript()->prependFile($this->basePath('js/jiem.js'));?>
+<?php
+
+$form = $this->form;
+$form->setAttribute('action', $this->url('payment', // your route name ...
+array(
+    'controller' => 'payment',
+    'action' => 'paymentstatus',
+    'id' => $eikenSchedule
+), array(
+    'query' => $arrQuery
+)));
+$form->prepare();
+echo $this->form()->openTag($form);
+?>
+<input type="hidden" name="isReset" id="isReset" value="false" />
+<input type="hidden" name="year" id="year" value="<?php echo $year; ?>" />
+<input type="hidden" name="kai" id="kai" value="<?php echo $kai; ?>" />
+<input type="hidden" name="eikenScheduleId" id="eikenScheduleId" value="<?php echo $eikenScheduleId; ?>" />
+<div class="frm-payment" id="divSeachForm">
+	<div class="box frm-payment-status-search">
+            <div class="box-header"  data-toggle="collapse" data-target="#search-box">
+                <div class="search-header  sorting-field">
+                    <i class="search-chevron-down"></i> 
+                    <b><?php echo $this->translate('検索条件'); ?></b>
+                </div>
+            </div>
+            <div id="search-box" aria-expanded="true" class="collapse in">
+		<div class="box-body">
+			<div class="row firtrow">   
+                                <div class="col-sm-1">
+					<label>実施会場</label>
+				</div>
+				<div class="col-sm-2 styled-select"><?php echo $this->formRow($form->get('testSite')); ?></div>
+                                <div class="col-sm-1 examGradeTitle">
+					<label>受験級</label>
+				</div>
+				<div class="col-sm-2 styled-select"><?php echo $this->formRow($form->get('examGrade')); ?></div>
+                                
+                                <div class="col-sm-1">
+					<label>登録状況</label>
+				</div>
+				<div class="col-sm-2 styled-select"><?php echo $this->formRow($form->get('ddlApplyStatus')); ?></div>
+                                <div class="col-sm-1">
+					<label>支払状況</label>
+				</div>
+				<div class="col-sm-2 styled-select"><?php echo $this->formRow($form->get('ddlPaymentStatus')); ?></div>
+			</div>
+			<div class="row lastrow">
+                                <div class="col-sm-1 width48">
+					<label>学年</label>
+				</div>
+				<div class="col-sm-2 styled-select width170 font-eiken-exam width140">
+				<?php echo $this->formRow($form->get('ddlSchoolYear')->setAttribute('onChange','loadClass();' )); ?></div>
+				<div class="col-sm-1 kurasu1-paymentStatus">
+					<label>クラス</label>
+				</div>
+				<div class="col-sm-2 styled-select"><?php echo $this->formRow($form->get('ddlClass')); ?></div>
+				<div class="col-sm-1 width50">
+					<label>氏名</label>
+				</div>
+				<div class="col-sm-4 width280"><?php echo $this->formRow($form->get('txtFullName')); ?></div>
+			</div>
+		</div>
+		<div class="box-footer">
+			<div class="float-right">
+				<a href="#" class="btn btn-small-100 margin-right-10" id="btnClear">クリア</a>
+				<a href="#" class="btn btn-small-180" id="btnSearch"><i
+					class="fa-search"></i>検索 </a>
+			</div>
+		</div>
+            </div>    
+	</div>
+	<div class="box frm-payment-status-details">
+		<div class="box-header"><?php echo $titlePageList; ?></div>
+		<div class="box-body">
+			<div class="top-mark">
+				<label class="font-mark"> 現在の申込・支払状況および本会場受験者の個人データ登録状況です。 </label>
+
+			</div>
+                        <div data-toggle="collapse" data-target="#summary">
+                            <div class="summary-header sorting-field">
+                                <i class="search-chevron-down"></i> 
+                                <b><?php echo $this->translate('級別支払・登録者数'); ?></b>
+                            </div>
+                        </div>
+                        <div id="summary" aria-expanded="true" class="collapse in">
+                            <table class="table table-bordered tbl-striped tblLv">
+                                <thead>
+                                    <tr class="cLeve1">
+                                       <th></th>
+                                       <th><?php echo  $escaper->escapeHtml($data['eikenLevelData'][6]['levelName'])?></th>
+                                       <th><?php echo  $escaper->escapeHtml($data['eikenLevelData'][5]['levelName'])?></th>
+                                           <th><?php echo  $escaper->escapeHtml($data['eikenLevelData'][4]['levelName'])?></th>
+                                           <th><?php echo  $escaper->escapeHtml($data['eikenLevelData'][3]['levelName'])?></th>
+                                           <th><?php echo  $escaper->escapeHtml($data['eikenLevelData'][2]['levelName'])?></th>
+                                           <th><?php echo  $escaper->escapeHtml($data['eikenLevelData'][1]['levelName'])?></th>
+                                           <th><?php echo  $escaper->escapeHtml($data['eikenLevelData'][0]['levelName'])?></th>
+                                           <th>合計</th>
+                                   </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                            <td class="text-left">登録者数</td>
+                                            <td><?php echo $data['eikenLevelData'][6]['quantity']?></td>
+                                            <td><?php echo $data['eikenLevelData'][5]['quantity']?></td>
+                                            <td><?php echo $data['eikenLevelData'][4]['quantity']?></td>
+                                            <td><?php echo $data['eikenLevelData'][3]['quantity']?></td>
+                                            <td><?php echo $data['eikenLevelData'][2]['quantity']?></td>
+                                            <td><?php echo $data['eikenLevelData'][1]['quantity']?></td>
+                                            <td><?php echo $data['eikenLevelData'][0]['quantity']?></td>
+                                            <td><?php echo array_sum(array_column($data['eikenLevelData'], 'quantity'));?></td>
+                                    </tr>
+                                    <tr>
+                                            <td class="text-left">支払者数</td>
+                                            <td><?php echo $data['eikenLevelDataPayment'][6]['quantity']?></td>
+                                            <td><?php echo $data['eikenLevelDataPayment'][5]['quantity']?></td>
+                                            <td><?php echo $data['eikenLevelDataPayment'][4]['quantity']?></td>
+                                            <td><?php echo $data['eikenLevelDataPayment'][3]['quantity']?></td>
+                                            <td><?php echo $data['eikenLevelDataPayment'][2]['quantity']?></td>
+                                            <td><?php echo $data['eikenLevelDataPayment'][1]['quantity']?></td>
+                                            <td><?php echo $data['eikenLevelDataPayment'][0]['quantity']?></td>
+                                            <td><?php echo array_sum(array_column($data['eikenLevelDataPayment'], 'quantity'));?></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+			<div class="row line"></div>
+                    <div class="box-body">
+                        <div class="export">
+                            <a id="export-excel-payment-status" class="btn btn-red btn-small-140" href="<?php
+                                if($this->serverUrl() != 'http://'){
+                                    if(stripos($this->serverUrl(true),'?') !== false){
+                                        echo  $this->serverUrl(true).'&isExportExcel=1'; 
+                                    }else{
+                                        echo  $this->serverUrl(true).'?isExportExcel=1'; 
+                                    }
+                                }
+                            ?>">
+					<i class="fa-download-w"></i>
+                            <?php echo $this->translate('exportExcel'); ?>
+                            </a>
+                        </div> 
+			<table class="table table-bordered tbl-striped">
+				<thead>
+					<tr>
+						<th class="name-shimei-payment"><?php echo $this->translate('氏名（漢字）'); ?></th>
+						<th class="schoolyear-payment"><?php echo $this->translate('学年'); ?></th>
+						<th class="class-payment"><?php echo $this->translate('クラス'); ?></th>
+						<th class="class-exam-grade"><?php echo $this->translate('受験級'); ?></th>
+						<th class="class-test-site"><?php echo $this->translate('実施会場'); ?></th>
+						<!--<th class="jnumber"><?php // echo $this->translate('番号'); ?></th>-->
+						<th class="paymentstatus-payment"><?php echo $this->translate('支払状況'); ?></th>
+						<th class="paymentday-payment"><?php echo $this->translate('支払日'); ?></th>
+						<th class="pamentmethod-payment"><?php echo $this->translate('支払方法'); ?></th>
+						<th class="registerstatus-payment"><?php echo $this->translate('登録状況'); ?></th>
+						<th class="registerday-payment"><?php echo $this->translate('登録日'); ?></th>
+						<th class="action-payment"><?php echo $this->translate('操作'); ?></th>
+					</tr>
+				</thead>
+				<tbody>	<?php
+    if (! empty($listpupil)) {
+        foreach ($listpupil as $k => $value) {
+            ?>
+            <tr class="payment-row-45">
+            <td><?php echo $escaper->escapeHtml(str_replace(' ', '', $value['fullName'])); ?></td>
+            <td><?php echo $escaper->escapeHtml($value['displayName']); ?></td>
+            <td><?php echo $escaper->escapeHtml($value['className']); ?></td>
+            <td><?php echo $escaper->escapeHtml($value['levelName']); ?></td>
+            <td><?php if($value['hallType'] == '1') echo '本会場'; else if($value['hallType'] == '0') echo '準会場'; ?></td>
+            <td><?php if($value['paymentStatus'] == '1') echo '支払済'; else if ($value['paymentStatus'] === '0') {echo '未支払';} ?></td>
+            <td><?php echo $this->dateHelper($value['paymentDate']); ?></td>
+            <td><?php if ($value['paymentStatus'] == '1') {
+                echo $value['paymentBy'] == 1 ? 'クレジット' : 'コンビ二';
+            } ?></td>
+            <td><?php if($value['registerStatus'] == '1') echo '登録済'; else if ($value['registerStatus'] == '0') echo '未登録'; ?></td>
+            <td><?php echo $this->dateHelper($value['regDateOnSatellite']); ?></td>
+            <td>
+                <a href="<?php echo $this->url('payment', array('action' => 'paymentdetails', 'id' => $value['id'])) . "?applyId=" . $value['applyId'] . "&scheduleId=" . ($value['eikenScheduleId'] ?  $value['eikenScheduleId'] : $eikenSchedule). "&page=" . $page . "&param=" . base64_encode($param); ?>" class="btn btn-small-100 btn-eikenId-list">詳細表示</a>
+            </td>
+        </tr>
+<?php
+        }
+    } else {
+        ?>
+
+<tr class="payment-row-45">
+						<td colspan="11"><?php echo $noRecord;?></td>
+					</tr>
+	<?php }?>
+
+
+				</tbody>
+			</table>
+		<?php if ( count($paginator) > $numPerPage ) {?>
+			<div class="pagging1 text-center pagination_payment_color">
+				<nav>
+					<ul class="pagination">
+						<?php echo $paging;?>
+			</ul>
+				</nav>
+			</div>
+			<?php }?>
+		</div>
+		<div class="box-footer">
+			<a
+				href="<?php
+    switch ($backUrl) {
+        case 1:
+            echo $this->url('eikenorg', array(
+                'action' => 'create'
+            ));
+            break;
+        case 2:
+            echo $this->url('eikenorg', array(
+                'action' => 'confirmation'
+            ));
+            break;
+        case 3:
+            echo $this->url('eikenorg', array(
+                'action' => 'applyeikendetails',
+                'id' => $eikenSchedule
+            ));
+            break;
+        case 4:
+            echo $this->url('eikenorg', array(
+                'action' => 'index'
+            ));
+            break;
+        default:
+            echo "/homepage/homepage/index";
+            break;
+    }
+    ?>"
+				class="btn btn-large-180 modoru-font-weight" id="btnBack"><i
+				class="arrow-circle-left"></i>戻る </a>
+		</div>
+	</div>
+
+</div>
+<?php echo $this->form()->closeTag(); ?>
+<script>
+//urlLists = "listpaymentstatus";
+$(document).ready(function () {
+    var noRecordExcel = "<?php echo $noRecordExcel; ?>";
+    if(noRecordExcel.length > 0){
+        ERROR_MESSAGE.show(noRecordExcel);
+    }
+	$('#testSite').focus();
+	$('#divSeachForm input').bind('keypress', function (e) {
+        if (e.keyCode == 13) {
+        	$('#paymentstatus').submit();
+        }
+    });
+    $('#btnClear').click(function () {        
+        $("#isReset").val('true');
+    	$('#paymentstatus').get(0).reset();
+        $("#ddlClass").val('');
+        $("#ddlSchoolYear").val('');
+        $("#ddlPaymentStatus").val('');
+        $("#ddlApplyStatus").val('');
+        $("#txtFullName").val('');
+        $("#ddlClass").empty();
+    	// $("#ddlYear").val(0);
+        $("#testSite").val('');
+        $("#examGrade").val('');
+        $('#paymentstatus').submit();
+//    	 $("#ddlKai").empty();
+    });
+
+    $('#btnSearch').click(function () {
+        $('#paymentstatus').submit();
+   });
+
+    var validator =$("#paymentstatus").validate({
+        rules: {
+            ddlYear: {
+                required: true
+            }
+            },
+        messages: {
+        	ddlYear: {
+                required: "必須入力項目です。"
+                 }
+        },
+        errorPlacement: function(error, element){},
+		showErrors: function(errorMap, errorList) {
+			this.defaultShowErrors();
+			ERROR_MESSAGE.show(errorList, function(){}, 'inline');
+        }
+    });
+    $('.summary').click(function(){
+        $(".tblLv").toggle(500);
+    });
+    if($('#summary').length) {
+        $('#summary').on('hidden.bs.collapse', function (e) { //event when #summary is collapsed
+                $('.summary-header').find('i').removeClass('search-chevron-down');
+                $('.summary-header').find('i').addClass('search-chevron-right');
+        })
+        $('#summary').on('shown.bs.collapse', function (e) {
+                $('.summary-header').find('i').removeClass('search-chevron-right');
+                $('.summary-header').find('i').addClass('search-chevron-down');
+        })
+    }
+});
+function loadClass()
+{
+	var id=$('#ddlSchoolYear').val();
+	var yearId=$('#year').val();
+	var jsonurl = "<?php echo $this->url('payment', array('action' => 'getclass'));?>"+"?schoolyear="+id + "&yearId=" + yearId;
+if(id!=""&&id>0){
+    $.ajax({
+          type: 'GET',
+          url: jsonurl,
+          data: {},
+          success:function(data){
+        	    $("#ddlClass").empty();
+        	    $("#ddlClass").prepend("<option value='' selected='selected'></option>");
+        	  var options = $("#ddlClass");
+        	     $.each(data, function () {
+        	         options.append($("<option />").val(this.id).text(this.className));
+        	     });
+             },
+          error:function(){
+        	  $("#ddlClass").empty();
+          }
+        });
+
+}else{ $("#ddlClass").empty();}
+    }
+
+</script>

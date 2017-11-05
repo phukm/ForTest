@@ -1,0 +1,489 @@
+<?php $this->headLink()->prependStylesheet($this->basePath('css/IBA-policy.css')) ?>
+<?php
+if ($id > 0) {
+    if($back > 0){
+        $form->setAttribute('action', $this->url('i-b-a/default', array(
+            'controller' => 'iba',
+            'action' => 'add',
+            'id' => $id,
+//            'back' => 1,
+            'token' => $token
+        )));
+    }else{
+        $form->setAttribute('action', $this->url('i-b-a/default', array(
+            'controller' => 'iba',
+            'action' => 'add',
+            'id' => $id,
+            'token' => $token
+        )));
+    }
+} else {
+    $form->setAttribute('action', $this->url('i-b-a/default', array(
+                'controller' => 'iba',
+                'action' => 'add',
+                'token' => $token
+    )));
+}
+?>
+<?php echo $this->form()->openTag($form); ?>
+<input type="hidden" id="totalPeople" name="totalPeople" value="<?php echo (NULL != $IBAObject && $IBAObject->getTotalPeople() != null) ? $IBAObject->getTotalPeople() : 0;?>" />
+<input type="hidden" id="idDraft" name="idDraft" value="<?php echo (!empty($id)) ? $id : 0;?>" />
+<input type="hidden" id="totalCD" name="totalCD" value="<?php echo (NULL != $IBAObject && $IBAObject->getTotalCD() != null) ? $IBAObject->getTotalCD() : 0;?>" />
+<input type="hidden" name="status" id="status" class="form-control" value="<?php echo $status; ?>" />
+<input type="hidden" name="token" id="token" class="form-control" value="<?php echo $token; ?>" />
+<div class="box IBA-add">
+    <div class="box-header">
+        <h4><?php if(!empty($id) && $id > 0){ echo $this->translate('申込情報編集'); }else{ echo $this->translate('申込情報登録'); }?></h4>
+    </div>
+    <div class="box-body">
+        <div class="top-mark">
+            <?php if(!empty($id) && $id > 0){?>
+               <label class="font-mark"> 
+                    修正が必要な箇所をご修正ください。<br>
+                    編集を終えたら、「入力内容確認」ボタンを押して、内容をご確認ください。<br>
+                </label>
+            <?php } else { ?>
+                 <label class="font-mark"> 
+                    テストの種類ごとに「受験者数」と「使用教室数」を入力してください。<br>
+                    オプション「有り」の場合は、オプションメニューから選んでください。<br>
+                    全ての入力を終えたら、「入力内容確認」ボタンを押して、内容をご確認ください。<br>
+                    一旦保存する場合は、「ドラフト保存」ボタンを押してください。<br>
+                </label>                 
+            <?php }?>
+	</div>
+        <div class="row r1 margin-top-0">
+            <div class="col-sm-2 col-label">
+                <label class="title-label"><?php echo $this->translate('ステータス'); ?></label>
+            </div>
+            <div class="col-sm-10">
+                <span class="green-color"><?php echo $this->translate($status); ?> </span>
+            </div>
+        </div>
+
+        <div class="row r2">
+            <div class="col-sm-2 col-label">
+                <label class="title-label"><?php echo $this->translate('申込ID'); ?></label>
+            </div>
+            <div class="col-sm-10">
+            <span id="ibaId"><?php if($id){ echo $IBAObject->getMoshikomiId(); } ?></span>
+            </div>
+        </div>
+        <div class="hr"></div>
+
+        <div class="row r6">
+            <div class="col-sm-2 col-label">
+                <label class="title-label">
+                    <?php echo $this->translate('郵便番号'); ?><i
+                        class="require">*</i>
+                </label>
+            </div>
+            <div class="col-sm-10">
+                <?php echo $this->formRow($form->get('zipCode1')->setAttributes(array('type'=>'tel','style'=>'ime-mode:disabled'))); ?>
+                <span>－</span>
+                <?php echo $this->formRow($form->get('zipCode2')->setAttributes(array('type'=>'tel','style'=>'ime-mode:disabled'))); ?>
+                <a class="btn btn-small-140" href="javascript:void(0);" onclick="APPLY_IBA.loadAddressByZipcode()">
+                    住所検索</a>
+            </div>
+        </div>
+
+        <div class="row r7">
+            <div class="col-sm-2 col-label">
+                <label class="title-label">
+                    <?php echo $this->translate('都道府県'); ?><i
+                        class="require">*</i>
+                </label>
+            </div>
+            <div class="col-sm-10 styled-select">
+                <?php echo $this->formRow($form->get('prefectureCode')); ?>
+            </div>
+        </div>
+
+        <div class="row r8">
+            <div class="col-sm-2 col-label">
+                <label class="title-label">
+                    <?php echo $this->translate('住所1'); ?><i
+                        class="require">*</i>
+                </label>
+            </div>
+            <div class="col-sm-10">
+                <?php echo $this->formRow($form->get('address1')); ?>
+                <span><?php echo $this->translate('（全角）'); ?></span>
+            </div>
+        </div>
+
+        <div class="row r9">
+            <div class="col-sm-2 col-label">
+                <label class="title-label">
+                    <?php echo $this->translate('住所2'); ?>
+                </label>
+            </div>
+            <div class="col-sm-10">
+                <?php echo $this->formRow($form->get('address2')); ?>
+                <span><?php echo $this->translate('（全角）'); ?></span>
+            </div>
+        </div>
+
+        <div class="hr"></div>
+
+        <div class="row r10">
+            <div class="col-sm-6">
+                <div class="col-sm-2 col-label">
+                    <label class="title-label">
+                        <?php echo $this->translate('TEL'); ?><i
+                            class="require">*</i>
+                    </label>
+                </div>
+                <div class="col-sm-8">
+                    <?php echo $this->formRow($form->get('telNo')->setAttributes(array('type'=>'tel','style'=>'ime-mode:disabled'))); ?>
+                </div>
+            </div>
+            <div class="col-sm-6  cl2">
+                <div class="col-sm-2 col-label">
+                    <label class="title-label">
+                        <?php echo $this->translate('FAX'); ?>
+<!--                         <i class="require">*</i> -->
+                    </label>
+                </div>
+                <div class="col-sm-6">
+                    <?php echo $this->formRow($form->get('fax')->setAttributes(array('type'=>'tel','style'=>'ime-mode:disabled'))); ?>
+                </div>
+            </div>
+        </div>
+
+        <div class="row r11">
+            <div class="col-sm-6">
+                <div class="col-sm-2 col-label">
+                    <label class="title-label">
+                        <?php echo $this->translate('担当者名'); ?><i
+                            class="require">*</i>
+                    </label>
+                </div>
+                <div class="col-sm-8">
+                    <?php echo $this->formRow($form->get('mailName1')); ?>
+                </div>
+            </div>
+            <div class="col-sm-6  cl2">
+                <div class="col-sm-2 col-label">
+                    <label class="title-label">
+                        <?php echo $this->translate('メールアドレス'); ?><i
+                            class="require">*</i>
+                    </label>
+                </div>
+                <div class="col-sm-6">
+                    <?php echo $this->formRow($form->get('mailAddress1')); ?>
+                </div>
+            </div>
+        </div>
+        <div class="hr"></div>
+
+        <div class="row r14">
+            <div class="col-sm-2 col-label">
+                <label class="title-label">
+                    <?php echo $this->translate('実施予定日'); ?><i
+                        class="require">*</i>
+                </label>
+            </div>
+            <div class="col-sm-10">
+                <div class='input-group date' id="divDate">
+                    <?php echo $this->formRow($form->get('testDate')); ?>
+                    <input id="old-test-date" name="old-test-date" type="hidden" value="<?php echo $oldTestDate; ?>" >
+                    <span class="icon-calendar" id="calendar"
+                          onclick="APPLY_IBA.showCalendar(0);"></span>
+                    <p>原則、申込日より14日目以降を設定してください</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row r15">
+            <div class="col-sm-2 col-label">
+                <label class="title-label">
+                    <?php echo $this->translate('実施目的'); ?><i
+                        class="require">*</i>
+                </label>
+            </div>
+            <div class="col-sm-10 styled-select">
+                <?php echo $this->formRow($form->get('purpose')); ?>
+            </div>
+        </div>
+
+        <div class="row r16">
+            <div class="col-sm-2 col-label">
+                <label class="title-label">
+                    <?php echo $this->translate('その他内容'); ?>
+                    <i class="require">*</i>
+                </label>
+            </div>
+            <div class="col-sm-10">
+                <?php echo $this->formRow($form->get('purposeOther')); ?>
+            </div>
+        </div>
+
+        <div class="row r17">
+            <div class="col-sm-2 col-label">
+                <label class="title-label">
+                    <?php echo $this->translate('実施内容');?>
+                    <i class="require">*</i> 
+                </label>
+                <p class="padding-right-30 line-height-20">
+                    <?php echo $this->translate('※同じテスト種類は同時に実施してください'); ?>
+                </p>
+            </div>
+            <div class="col-sm-10">
+                <table class="table table-bordered" id="tblImplement">
+                    <thead>
+                        <tr>
+                            <th class="Type"><?php echo $this->translate('種類'); ?></th>
+                            <th class="RequiredNumberCD">
+                                <?php echo $this->translate('使用教室数'); ?>
+                            </th>
+                            <th class="NumberOfCandidates"><span><?php echo $this->translate('受験者数'); ?></span></th>
+                        </tr>
+                    </thead>
+                    <tr>
+                        <td>
+                            <span class="title-A"><?php echo $this->translate('テストＡ'); ?></span>
+                            <p>
+                                <?php echo $this->translate('（準1級～2級レベル）'); ?>
+                            </p>
+                        </td>
+                        <td><?php echo $this->formRow($form->get('numberCDA')->setAttributes(array('type'=>'tel','style'=>'ime-mode:disabled'))); ?></td>
+                        <td><?php echo $this->formRow($form->get('numberPeopleA')->setAttributes(array('type'=>'tel','style'=>'ime-mode:disabled'))); ?></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="title-B">
+                                <?php echo $this->translate('テストＢ'); ?>
+                            </span>
+                            <p>
+                                <?php echo $this->translate('（2級～3級レベル）'); ?>
+                            </p>
+                        </td>
+                        <td><?php echo $this->formRow($form->get('numberCDB')->setAttributes(array('type'=>'tel','style'=>'ime-mode:disabled'))); ?></td>
+                        <td><?php echo $this->formRow($form->get('numberPeopleB')->setAttributes(array('type'=>'tel','style'=>'ime-mode:disabled'))); ?></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="title-C">
+                                <?php echo $this->translate('テストＣ'); ?>
+                            </span>
+                            <p><?php echo $this->translate('（準2級～4級レベル）'); ?></p>
+                        </td>
+                        <td><?php echo $this->formRow($form->get('numberCDC')->setAttributes(array('type'=>'tel','style'=>'ime-mode:disabled'))); ?></td>
+                        <td><?php echo $this->formRow($form->get('numberPeopleC')->setAttributes(array('type'=>'tel','style'=>'ime-mode:disabled'))); ?></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="title-D"><?php echo $this->translate('テストＤ'); ?>
+                            </span>
+                            <p><?php echo $this->translate('（3級～5級レベル）'); ?></p>
+                        </td>
+                        <td><?php echo $this->formRow($form->get('numberCDD')->setAttributes(array('type'=>'tel','style'=>'ime-mode:disabled'))); ?></td>
+                        <td><?php echo $this->formRow($form->get('numberPeopleD')->setAttributes(array('type'=>'tel','style'=>'ime-mode:disabled'))); ?></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="title-E"><?php echo $this->translate('テストＥ'); ?>
+                            </span>
+                            <p><?php echo $this->translate('（4級～5級レベル）'); ?></p>
+                        </td>
+                        <td><?php echo $this->formRow($form->get('numberCDE')->setAttributes(array('type'=>'tel','style'=>'ime-mode:disabled'))); ?></td>
+                        <td><?php echo $this->formRow($form->get('numberPeopleE')->setAttributes(array('type'=>'tel','style'=>'ime-mode:disabled'))); ?></td>
+                    </tr>
+                    <tr class="bg-table">
+                        <td><b><span><?php echo $this->translate('試験料合計'); ?></span></b></td>
+                        <td class="total totalCD"><b><span><?php echo (NULL != $IBAObject && $IBAObject->getTotalCD() != NULL) ? $IBAObject->getTotalCD() : 0;?></span></b></td>
+                        <td class="total totalPeople"><b><span><?php echo (NULL != $IBAObject && $IBAObject->getTotalPeople() != NULL) ? $IBAObject->getTotalPeople() : 0;?></span></b></td>
+                    </tr>
+                </table>
+                <div rowspan="6" class="padding-right-5">
+                   <div id="remarks">
+                       <div class="remarksOne">1.</div>
+                       <div class="remarksTwo">受験料は実受験者1名につき500円（税込）にてご請求いたします。各種オプションをご利用の場合は、別途料金をいただきます。</div>
+                   </div>
+                   <div id="remarks">
+                       <div class="remarksOne">2.</div>
+                       <div class="remarksTwo">実受験者数が、第1案1項で定める最低受験者数である30名に満たない場合には、最低保証価格として30名分の受験料（30名ｘ500円＝15,000円）をご請求いたします。加えて、各種オプションをご利用の場合は、30名分のオプション料金を別途いただきます。</div>
+                   </div>
+                   <div id="remarks">
+                       <div class="remarksOne">3.</div>
+                       <div class="remarksTwo">実受験者数が1,001名以上の場合、オプションによってはボリュームディスカウントをさせていただくものがございます。ただし、お申し込み時の人数から実受験者数が減り、1,000名以下になった場合は原則適応されませんのでご注意ください。</div>
+                   </div>
+                   <div id="remarks">
+                       <div class="remarksOne">4.</div>
+                       <div class="remarksTwo">お支払い先は、試験終了後にお送りする請求書に従って指定の銀行口座にお支払いください。</div>
+                   </div>
+                   <div id="remarks">
+                       <div class="remarksOne">5.</div>
+                       <div class="remarksTwo">お支払いは、請求書に記載されたお支払い期限までにお手続きください。受験料未納の場合、次回以降お申込をお受けできかねますので予めご了承ください。</div>
+                   </div>
+                   <div id="remarks">
+                       <div class="remarksOne">6.</div>
+                       <div class="remarksTwo">答案返送費用、受験料の振込手数料は申込団体の負担とします。</div>
+                   </div>
+               </div>
+            </div>
+        </div>
+
+        <div class="row r18">
+            <div class="col-sm-2 col-label">
+                <label class="title-label">
+                    <?php echo $this->translate('ご質問・ご要望'); ?>
+                </label>
+            </div>
+            <div class="col-sm-10">
+                <?php echo $this->formRow($form->get('question1')); ?>
+            </div>
+        </div>
+
+        <div class="row r19">
+            <div class="col-sm-2 col-label">
+                <label class="title-label">
+                    <?php echo $this->translate('オプション申込'); ?>
+                    <i class="require">*</i>
+                </label>
+            </div>
+            <div class="col-sm-10">
+                <?php echo $this->formRow($form->get('optionApply')); ?>
+            </div>
+        </div>
+
+        <div class="hr"></div>
+
+        <div class="row r20">
+            <div class="col-sm-2 col-label">
+                <label class="title-label">
+                    <?php echo $this->translate('オプション'); ?>
+                </label>
+            </div>
+            <div class="col-sm-10">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr class="bg-table">
+                            <th class="checkbox_list" rowspan="2"><input id="select_all" type="checkbox" <?php echo (in_array(1,$aryOptionMenu) && in_array(2,$aryOptionMenu) && in_array(3,$aryOptionMenu) && in_array(4,$aryOptionMenu) && in_array(5,$aryOptionMenu) && in_array(6,$aryOptionMenu) && in_array(7,$aryOptionMenu)) ? 'checked="true"' : '';?>></th>
+                            <th class="optionsMenu" rowspan="2"><?php echo $this->translate('オプション'); ?></th>
+                            <th class="ranking" rowspan="2">
+                                <?php echo $this->translate('数量'); ?>
+                            </th>
+                            <th class="unitPrice" colspan="2">
+                                <?php echo $this->translate('単価（税込）'); ?>
+                            </th>
+                            <th class="detail" rowspan="2"><?php echo $this->translate('詳細'); ?></th>
+                        </tr>
+                        <tr>
+                            <th class="volumeDisk"><span>1000人以下</span></th>
+                            <th class="volumeDisk"><span>1001人以上</span></th>
+                        </tr>
+                    </thead>
+                    <tr>
+                        <td class="text-center"><input name="optionMenu[1]" class="checkbox1" onchange="APPLY_IBA.checkValidOptionApplyToSubmit();" type="checkbox" <?php echo (in_array(1,$aryOptionMenu)) ? 'checked="true"' : '';?>></td>
+                        <td><span><?php echo $this->translate('成績資料印刷・送付'); ?></span></td>
+                        <td></td>
+                        <td class="padding-right-7 text-right" colspan="2">
+                            <p><?php echo $this->translate('80円／人＋送料1,000円'); ?></p>
+                            <span class="red-color"><?php echo $this->translate(' ※送料は発送先ごと'); ?></span></td>
+                        <td>
+                            <p><?php echo $this->translate('PDFファイルで返却される成績データを、成績表として紙で、カラー印刷いたします。'); ?></p>
+                            <p class="red-color"><?php echo $this->translate('※発送先が複数個所になる場合（例：学部により発送先が異なる）は、発送先ごとに送料1,000円を頂戴いたします。
+成績データアップロード後、5営業日以内に発送予定です。
+                                '); ?></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center"><input name="optionMenu[2]" class="checkbox1" onchange="APPLY_IBA.checkValidOptionApplyToSubmit();" type="checkbox" <?php echo (in_array(2,$aryOptionMenu)) ? 'checked="true"' : '';?> id="cbQuestionNo"></td>
+                        <td><?php echo $this->translate('<p>問題冊子仕分け</p> (ご指定の数量をご記入ください）'); ?></td>
+                        <td><?php echo $this->formRow($form->get('questionNo')->setAttributes(array('type'=>'tel','style'=>'ime-mode:disabled; width: 80px; display: initial; margin-right: 5px'))); ?><label>部</label></td>
+                        <td class="padding-right-7 text-right"><span>50<?php echo $this->translate('円/人'); ?></span></td>
+                        <td class="padding-right-7 text-right"><span>40<?php echo $this->translate('円/人'); ?></span></td>
+                        <td>
+                            <p><?php echo $this->translate('問題冊子・解答用紙をご指定の数量に仕分けしてお送りします。'); ?></p>
+                            <p><?php echo $this->translate('受け取った資材を、クラス分けする手間なく実施することができます。'); ?></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center"><input name="optionMenu[3]" class="checkbox1" onchange="APPLY_IBA.checkValidOptionApplyToSubmit();" type="checkbox" <?php echo (in_array(3,$aryOptionMenu)) ? 'checked="true"' : '';?>></td>
+                        <td><span><?php echo $this->translate('名簿マッチング <br /> (エラー修正を含む）'); ?></span></td>
+                        <td></td>
+                        <td class="padding-right-7 text-right"><span>50<?php echo $this->translate('円/人'); ?></span></td>
+                        <td class="padding-right-7 text-right"><span>40<?php echo $this->translate('円/人'); ?></span></td>
+                        <td>
+                            <p><?php echo $this->translate('実施前に受領した受験予定者名簿を基に、解答用紙に記入されたデータとマッチングした上で成績データを作成し、返却いたします。'); ?></p>
+                            <p><?php echo $this->translate('※通常、成績は受験者本人が解答用紙に記入したデータで返却されます。'); ?></p>
+                            <p class="red-color"><?php echo $this->translate('※ご利用いただくにあたり、全受験者分の【①ID番号（最大英字2桁＋数字12桁の番号です。団体様にて自由に設定いただけます）、あるいは、学年・クラス・出席番号】、【②氏名（カナ）】、【③氏名（漢字）】、【④生年月日】、【⑤性別】の情報を弊会書式に合わせて実施日までにご提出いただく必要がございます。予めご了承の上お申込ください。'); ?></p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="hr"></div>
+
+        <div class="row r21">
+            <div class="col-sm-2 col-label">
+                <label class="title-label">
+                    <?php echo $this->translate('オプションのご質問 ・ご要望'); ?>
+                </label>
+            </div>
+            <div class="col-sm-10">
+                <?php echo $this->formRow($form->get('question2')); ?>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="box-footer">
+    <div class="text-right">
+        <?php if (isset($status) && $status < 4) { ?>
+            <a class="btn btn-large-180"
+               href="<?php if($back > 0){ 
+                                echo $this->url('eikenorg', array(
+                                   'controller' => 'eikenorg',
+                                   'action' => 'index'
+                               ));
+                            }else{
+                                echo $this->url('home-page/default', array('controller' => 'homepage'));
+                            } ?>">
+               <?php echo $this->translate("Cancel"); ?>
+               </a>
+               <?php if (isset($status) && ( $status == IBA\Controller\IBAController::IBA_STATUS_DRAFT || empty($status) )) { ?>
+                <a class="btn btn-large-180" id="savedap"
+                   href="javascript:void(0)"><?php echo $this->translate("save-draft"); ?></a>
+               <?php } ?>
+            <button type="button" id="submitform"
+                    class="btn btn-red btn-large-180">
+                <i class="arrow-circle-right-w"></i>
+                <?php echo $this->translate("registration-confirmation"); ?></button>
+            <?php } ?>
+    </div>
+</div>
+<?php echo $this->form()->closeTag(); ?>
+<?php $this->headScript()->prependFile($this->basePath('js/jquery-ui.js')) ?>
+<?php $this->headScript()->appendFile($this->basePath('js/apply-iba/add.js')) ?>
+<?php if($status === IBA\Controller\IBAController::IBA_STATUS_PENDING ){ ?>
+<script type="text/javascript">
+        $( document ).ready(function() {
+            var oldDate = $("#old-test-date").val();
+            $("#datetimepicker").removeAttr('data-rule-comparetestdate');
+           $("#datetimepicker").change(
+           function(){
+               <?php if($status != IBA\Controller\IBAController::IBA_STATUS_DRAFT){ ?>
+               var dataDate = $(this).val();
+               if(dataDate != oldDate)
+               {
+                   $(this).attr('data-rule-comparetestdate','true');
+               }else{
+            	   $(this).removeAttr('data-rule-comparetestdate');
+               }
+               <?php } ?>
+           }
+           );
+        });
+</script>
+<?php } ?>
+<script type="text/javascript">
+    $(function () {
+        APPLY_IBA.init();
+        APPLY_IBA.checkInput();
+    })
+</script>

@@ -1,0 +1,72 @@
+<?php
+if(isset($isCss) && $isCss == 1){
+    $this->headLink()->appendStylesheet($this->basePath('css/ImportStudent.css'))
+                    ->appendStylesheet($this->basePath('css/studentandclass.css'))
+                    ->appendStylesheet($this->basePath('css/OrgInforManagement.css'))
+                    ->appendStylesheet($this->basePath('css/pupil/import-pupil.css'));
+$this->headScript()->appendFile($this->basePath('js/uploadform.js?v=20161119'));
+$this->headScript()->appendFile($this->basePath('js/pupil/import-pupil-csv.js?v=20161119'));
+}
+?>
+<div class="importstd">
+    <div class="box pupilshowhide">
+        <div class="box-header">
+            <p><?php echo $this->translate('アップロードファイル内容'); ?></p>
+        </div>
+        <div class="box-body border-bot">
+            <div class="student_manager">
+                <div class="std_list">
+                    <ul class="error import-error" <?php if($errors){ echo 'style="display: block;"'; } ?>>
+                        <li><p><?php echo $this->translate('descriptionMSGUpLoadFile'); ?></p></li>
+                        <?php if($errors){
+                                foreach ($errors as $key => $row){ ?>
+                                <li class="line-error">
+                                    <div class="col-sm-1">
+                                        <strong><?php echo $key.'行目'; ?></strong>
+                                    </div>
+                                    <div class="col-sm-11">
+                                        <ul>
+                                            <?php if($row){ 
+                                                    foreach ($row as $field => $value){ ?>
+                                                    <li><strong><?php echo str_replace('（*）', '', $field) ?></strong><?php echo ' : '.$value; ?></li>
+                                            <?php }
+                                                } ?>
+                                        </ul>
+                                    </div>
+                                </li>
+                        <?php }
+                            } ?>
+                    </ul>
+                    <div id="showData">
+                        <?php
+                        echo $this->partial('partial_show_data.phtml', array(
+                            'maxPage' => $maxPage
+                            , 'dataShow' => $dataShow
+                            , 'errors' => $errors ? 1: 0
+                            , 'currentPage' => isset($currentPage) ? intval($currentPage) : 1)
+                        );
+                        ?>
+                    </div>
+                    <?php if(!empty($isEmptyNameKanna)){ ?><p id="wanningEmptyKanna"> <?php echo $isEmptyNameKanna; ?></p> <?php } ?>
+                </div>
+            </div>
+        </div>
+        <div class="box-body">
+            <input type="hidden" id="dataImportPupil" value="<?php if($dataImport){ echo htmlentities(json_encode($dataImport)); } ?>"/>
+            <div class="importstd-btngroup">
+                <a class="btn btn-large-180 showbt" onclick="importPupilConfig.cancelEven();" href="javascript:void(0)">
+                    <strong class="text-center">キャンセル</strong>
+                </a>
+                <?php if(!$errors): ?>
+                    <a class="btn btn-large-180 btn-red"  href="javascript:void(0)" onclick="importPupilConfig.saveDataPupil(0);">
+                        <strong class="text-center">生徒情報を更新</strong>
+                    </a>
+                <?php endif; ?>
+        </div>
+    </div>
+</div>
+<script>
+    var MSG54CancelImport = '<?php echo $this->translate("MSG54CancelImport"); ?>';
+    var errorsImportData = '<?php if($errors){ echo 1; }else{ echo 0;} ?>'
+    importPupilConfig.ready();
+</script>

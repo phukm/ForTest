@@ -1,0 +1,227 @@
+<?php echo $this->headLink()->prependStylesheet($this->basePath('css/standard-level-recommended.css')); ?>
+
+<div class="box frm-std-add">
+	<div class="box-header">基準級登録</div>
+	<form action="update" method="post" id="createStandardLevel">
+		<div class="box-body">
+			<div class="top-mark">
+				<label class="font-mark"> 各学年における取得すべき（基準となる）英検級を設定してください。 </label>
+
+			</div>
+
+			<div class="row ">
+
+				<div class="col-sm-1">
+					<div class="rcm-bold">
+						年度<span class="star">*</span>
+					</div>
+				</div>
+				<div class="col-sm-3 styled-select">
+				<?php
+    
+    if (! empty($mess) && (! empty($data))) {
+        $form->get('ddbYear')->setAttribute('class', 'form-control recmlvl-select-year inset-shadow error');
+    }
+    ?>
+                <?php echo $this->formrow($form->get('ddbYear')->setAttribute('tabindex', 1)); ?>
+         </div>
+			</div>
+			<hr class="border-bot">
+<?php $count = count($schoolyear); $tabIndex = 0;?>
+<?php if($count > 0){?>
+			<div class="col-sm-6 ">
+				<div class="row row-1">
+					<div class="col-sm-4 rcm-bold">学年</div>
+					<div class="col-sm-7 rcm-bold">基準級</div>
+				</div>
+       <?php
+    $i = 1;
+    $tabIndex = 2;
+    foreach ($schoolyear as $key => $value) {
+        if ($i <= ceil(($count) / 2)) {
+            ?>
+               <div class="row row-2 styled-select">
+					<div class="col-sm-4 rcm-bold">
+				<?php echo $this->formlabel($form->get('hidden')->setOptions(array('label' => $schoolyear[$key])));?><span
+							class="star">*</span>
+                <?php
+            
+            echo $this->formrow($form->get('hidden')
+                ->setAttributes(array(
+                'id' => 'hd' . $i,
+                'name' => 'hdname' . $i,
+                'value' => $key
+            )));
+            ?>
+            </div>
+					<div class="col-sm-7 "><?php
+            
+            echo $this->formrow($form->get('ddbRecommenLevel1')
+                ->setAttributes(array(
+                'id' => 'ddb' . $i,
+                'name' => 'name' . $i,
+                'tabindex' => $tabIndex,
+                'class' => 'form-control sslv-select schoolYearKey'.$key,
+                'value' => (! empty ( $standardLevel [$key] )) ? $standardLevel [$key] : $data['name' . $i]
+            ))
+                ->setValueOptions($eikenlevel));
+            ?>
+            </div>
+				</div>
+           <?php
+        }
+        $tabIndex += 2;
+        $i ++;
+    }
+    ?>
+
+       </div>
+       <?php
+}
+if ($count > 1) {
+    ?>
+			<div class="col-sm-6 ">
+				<div class="row row-1">
+					<div class="col-sm-4 rcm-bold">学年</div>
+					<div class="col-sm-7 rcm-bold">基準級</div>
+				</div>
+       <?php
+    $i = 1;
+    $tabIndex = 3;
+    foreach ($schoolyear as $key => $value) {
+        if ($i > ceil(($count) / 2) and $i <= $count) {
+            ?>
+               <div class="row row-2 styled-select">
+					<div class="col-sm-4 rcm-bold"><?php
+            
+            echo $this->formlabel($form->get('hidden')
+                ->setOptions(array(
+                'label' => $schoolyear[$key]
+            )));
+            ?><span class="star">*</span>
+               <?php
+            
+            echo $this->formrow($form->get('hidden')
+                ->setAttributes(array(
+                'id' => 'hd' . $i,
+                'name' => 'hdname' . $i,
+                'value' => $key
+            )));
+            ?>
+            </div>
+					<div class="col-sm-7 "><?php
+            
+            echo $this->formrow($form->get('ddbRecommenLevel1')
+                ->setAttributes(array(
+                'id' => 'ddb' . $i,
+                'name' => 'name' . $i,
+                'class' => 'form-control sslv-select schoolYearKey'.$key,
+                'value' => (! empty ( $standardLevel [$key] )) ? $standardLevel [$key] : $data['name' . $i]
+            ))
+                ->setValueOptions($eikenlevel));
+            ?>
+              </div>
+				</div>
+           <?php
+            $tabIndex += 2;
+        }
+        $i ++;
+    }
+    ?>
+     </div>
+     <?php }?>
+		</div>
+
+		<div class="box-footer">
+			<div class="row">
+				<a class="btn btn-large-180 margin-right-10" id="btnCancel"
+					tabindex="<?php echo $tabIndex + 1;?>"
+					href="<?php echo $this->url('invitation-mnt/default', array('controller' => 'standard', 'action'=>'index'));?>">
+			  <?php echo $this->translate('Cancel')?>
+	  </a> <a id="submitform" class="btn btn-red btn-large-180"
+					tabindex="<?php echo $tabIndex + 2;?>"
+					<?php if($count==0){echo "disabled = disabled";}?>
+					href="javascript:void(0);"> <i class="fa-download-w"></i>
+              <?php echo $this->translate('Save')?>
+			</a>
+			</div>
+		</div>
+	</form>
+</div>
+<?php if(!empty($mess)){?>
+<script type="text/javascript">
+ERROR_MESSAGE.show([{id: 'ddbYear', message: '<?php echo $mess; ?>'}],function(){},'inline')
+  </script>
+<?php
+} else {
+    ?>
+<script type="text/javascript">
+    $(document) . ready(function () {
+        $('form:first *:input[type!=hidden]:first') . focus();
+    });
+    </script>
+<?php
+}
+?>
+
+<script type="text/javascript">
+	$(document).ready(function () {
+        jQuery.validator.addMethod("checkYear", function(value, element) {
+        	var yearInfrom = parseInt(value);
+        	var d = new Date();
+        	var curentyear = d.getFullYear();
+        	curentyear = parseInt(curentyear);
+        	if(yearInfrom < curentyear){
+            	return false;
+            	}
+        	return true;
+         	}, "過年度の基準級は設定できません");
+
+		var validator = $("#createStandardLevel").validate({
+			onfocusout: false,
+			focusInvalid: false,
+            onkeyup: false,
+            onclick: false,
+            rules: {
+            	ddbYear : {
+            		checkYear: true
+        		}
+        	},
+        	messages: {
+
+        	},
+            errorPlacement: function(error, element){},
+			showErrors: function(errorMap, errorList) {
+				this.defaultShowErrors();
+				ERROR_MESSAGE.show(errorList, function(){}, 'inline');
+            }
+     });
+    });
+
+	$("#submitform").click(function () {
+		$("#createStandardLevel").submit();
+    });
+
+    $("#ddbYear").change(function(){
+
+        var schoolYear = <?php echo json_encode($schoolyear); ?>;
+        $('.jiem-error').hide();
+        $('.error').removeClass('error');
+        $.ajax({
+            type: 'POST',
+            url: '/invitation/standard/get-standard-level',
+            dataType: 'json',
+            data: {year: $('#ddbYear').val()},
+            success: function (result) {
+                var arrayKey = Object.keys(schoolYear);
+                for (var i=0;i<arrayKey.length;i++){
+                    $("#createStandardLevel").find('.schoolYearKey'+arrayKey[i]).val((typeof result[arrayKey[i]] === 'undefined') ? '' : result[arrayKey[i]]);
+                }
+            },
+            error: function () {
+            }
+        });
+    })
+</script>
+
+

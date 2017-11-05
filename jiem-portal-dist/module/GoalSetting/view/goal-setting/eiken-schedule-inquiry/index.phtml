@@ -1,0 +1,79 @@
+<?php
+$this->headLink()
+        ->appendStylesheet($this->basePath('js/goal-setting/fullcalendar/fullcalendar.css'))
+        ->appendStylesheet($this->basePath('css/goalsetting/eikenscheduleinquiry.css'))
+?>
+<div class="box">
+    <div class="box-header"><?php echo $this->translate('学習計画'); ?></div>
+    <div class="box-body">
+        <div class="col-sm-9" style="line-height: 16px;">
+            <table class="tbl-calendar-control">
+                <tr>
+                    <td style="width: 92px"><label class="remove-margin-bottom"><input id="chk-eiken" type="checkbox" value=""><span class="text-eiken">英検</span></label></td>
+                    <td>
+                        <div class="icon-calendar-full"><div class="icon-line-radius-orange"></div><span>申込期間</span></div>
+                    </td>
+                    <td>
+                        <div class="icon-calendar-full"><div class="icon-c icon-star-orange-o"></div><span>一次試験実施日</span></div>
+                    </td>
+                    <td>
+                        <div class="icon-calendar-full"><div class="icon-c icon-circle-orange-o"></div><span>一次試験結果発表日</span></div>
+                    </td>
+                    <td>
+                        <div class="icon-calendar-full"><div class="icon-c icon-star-orange"></div><span>二次試験実施日</span></div>
+                    </td>
+                    <td>
+                        <div class="icon-calendar-full"><div class="icon-c icon-circle-orange"></div><span>二次試験結果発表日</span></div>
+                    </td>                        
+                </tr>
+                <tr>
+                    <td><label class="remove-margin-bottom"><input disabled="disabled" id="chk-eiken-iba" type="checkbox" value=""><span class="text-eiken-iba">英検IBA</span></label></td>
+                    <td>
+                        <div class="icon-calendar-full"><div class="icon-c icon-star-blue-o"></div><span>実施日</span></div>
+                    </td>
+                    <td></td>                                                
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-sm-3"></div>
+        <div class="row">
+            <div class="col-sm-12">
+                <hr />
+            </div>
+            <div class="col-sm-12">
+                <div class="btn-group">
+                    <button id="prev-cl" type="button" class="btn btn-default">
+                        <i class="chevron-circle-left"></i>
+                    </button>
+                    <button id="title-calendar" type="button" class="btn btn-default title-calendar"></button>
+                    <button id="next-cl" type="button" class="btn btn-default">
+                        <i class="chevron-circle-right"></i>
+                    </button>
+                </div>
+            </div>
+            <div id='calendar'></div>
+        </div>
+        <hr />
+        <div class="pull-left">
+            <a style="display: none" class="btn btn-large-180 btn-back" href="javascript:void(0)" onclick="SCHEDULEINQUIRY.handlerButtonBack();">
+                <i class="arrow-circle-left"></i> <span id="btn-back">年度表示</span>
+            </a>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="temp-year" value=""/>
+<!--jQuery curCss Error – Quick Fix-->
+<!--After jQuery was updated to version 1.8.x some scripts started to trigger some errors. One of those is about the deprecated function named curCss.-->
+<script type="text/javascript">
+    $(document).ready(function () {
+        jQuery.curCSS = jQuery.css;
+        SCHEDULEINQUIRY.init();
+    });
+</script>
+<?php
+$this->headScript()
+        ->appendFile($this->basePath('js/goal-setting/fullcalendar/fullcalendar.custom.js'))
+        ->appendFile($this->basePath('js/goal-setting/eikenscheduleinquiry.js'));
+?>

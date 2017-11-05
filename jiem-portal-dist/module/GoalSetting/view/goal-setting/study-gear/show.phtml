@@ -1,0 +1,167 @@
+<?php 
+$this->headLink()
+    ->prependStylesheet ($this->basePath ('css/Inquiry.css'))
+    ->prependStylesheet ($this->basePath ('css/study-progress-inquiry.css'));
+$this->headScript()
+    ->prependFile($this->basePath('js/jquery/dataTables.bootstrap.js'))
+    ->prependFile($this->basePath('js/jquery/jquery.dataTables.js'));
+?>
+
+<div class="box spi-std-table">
+	<div class="box-header">学習履歴</div>
+	<div class="box-body">
+		<table id="tblStudy" class="table table-bordered">
+			<thead>
+				<tr>
+					<th class="text-center" width="80">英検級</th>
+					<th class="text-center" width="120">学習分野</th>
+					<th class="text-center" width="120">予定学習時間</th>
+						<th class=text-center width="85">学習時間</th>
+					<th class="text-center" width="85">問題数</th>
+					<th class="text-center" width="85">正答数</th>
+					<th class="text-center" width="">最終使用日</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php
+
+    if (! empty($lstStudyHis)) {
+        foreach ($lstStudyHis as $k => $value) {
+            ?><tr>
+					<td class="text-right"><?php echo isset($value->eiken_grade)?$value->eiken_grade:''?></td>
+					<td class="text-left"><?php echo isset($value->learning_field)?$value->learning_field:''?></td>
+					<td class="text-right"><?php echo isset($value->plan_learning_time)?$value->plan_learning_time:''?></td>
+                                        <td class="text-right"><?php echo isset($value->learning_time)?round($value->learning_time/60,0):''?></td>
+					<td class="text-right"><?php echo isset($value->question_count)?$value->question_count:''?></td>
+					<td class="text-right"><?php echo isset($value->correct_answer_count)?$value->correct_answer_count:''?></td>
+					<td class="text-left"><?php echo isset($value->last_used_date)?$value->last_used_date:''?></td>
+				</tr>
+			<?php
+        }
+    } else {
+        ?>
+
+<tr class="payment-row-45">
+
+					<td colspan="10"><input type="hidden" id="hasRow1" name="Language"
+						value="false"><?php echo $noRecord;?></td>
+				</tr>
+	<?php }?>
+
+
+				</tbody>
+		</table>
+	</div>
+</div>
+<div class="box spi-examination-table">
+	<div class="box-header">測定履歴</div>
+	<div class="box-body">
+		<table id="tblTest" class="table table-bordered">
+			<thead>
+				<tr>
+					<th class="text-center" width="80">英検級</th>
+					<th class="text-center" width="95">測定種別</th>
+					<th class="text-center" width="130">測定回</th>
+					<th class="text-center" width="80">問題数</th>
+					<th class="text-center" width="80">正答数</th>
+					<th class="text-center" width="70">合否</th>
+					<th class="text-center" width="">最終使用日</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php
+
+    if (! empty($lstTestHis)) {
+        foreach ($lstTestHis as $k => $value) {
+            ?><tr>
+					<td class="text-right"><?php echo isset($value->eiken_grade)?$value->eiken_grade:''?></td>
+					<td class="text-left"><?php echo isset($value->measure_kind)?$value->measure_kind:''?></td>
+					<td class="text-right"><?php echo isset($value->measure_time)?$value->measure_time:''?></td>
+					<td class="text-right"><?php echo isset($value->question_count)?$value->question_count:''?></td>
+					<td class="text-right"><?php echo isset($value->correct_answer_count)?$value->correct_answer_count:''?></td>
+					<td class="text-center"><?php echo isset($value->pass_fail)?$value->pass_fail:''?></td>
+					<td class="text-left"><?php echo isset($value->last_used_date)?$value->last_used_date:''?></td>
+				</tr>
+<?php
+        }
+    } else {
+        ?>
+
+<tr class="payment-row-45">
+					<td colspan="10"><input type="hidden" id="hasRow2" name="Language"
+						value="false"><?php echo $noRecord;?></td>
+				</tr>
+	<?php }?>
+
+
+				</tbody>
+		</table>
+	</div>
+	<div class="box-footer">
+		<a id="back" class="btn btn-large-180"
+			href="<?php
+
+echo $this->url(null, array(
+    'controller' => 'studygear',
+    'action' => 'index'
+));
+?>"><i class="arrow-circle-left"></i><?php echo $this->translate('Back') ?></a>
+	</div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+	var a=$('#hasRow1');
+	var b=$('#hasRow2')
+	if(a.size()<0)
+		{$('#tblStudy').DataTable({
+        "pagingType": "full_numbers",
+        "pageLength": 20,
+        "bFilter" : false,
+        "bLengthChange": false,
+        "bInfo":false,
+        "oLanguage": {
+        	"oPaginate": {
+                "sFirst": "<<",
+                "sPrevious": "<",
+                "sNext": ">",
+                "sLast": ">>"
+            }
+        },
+        "fnDrawCallback":function(){
+            var element=document.getElementById('tblStudy_paginate');
+        	 if ( $('#tblStudy_paginate .paginate_button').size()>5) {
+        		 element.parentElement.style.display = "block";
+        	     } else {
+        	    	 element.parentElement.style.display = "none";
+        	     }
+        }
+    });
+		}
+	if(b.size()<0){
+	$('#tblTest').DataTable({
+        "pagingType": "full_numbers",
+        "pageLength": 20,
+        "bFilter" : false,
+        "bLengthChange": false,
+        "bInfo":false,
+        "oLanguage": {
+        	"oPaginate": {
+                "sFirst": "<<",
+                "sPrevious": "<",
+                "sNext": ">",
+                "sLast": ">>"
+            }
+        },
+        "fnDrawCallback":function(){
+        	 var element=document.getElementById('tblTest_paginate');
+        	 if ( $('#tblTest_paginate .paginate_button').size()>5) {
+        		 element.parentElement.style.display = "block";
+        	     } else {
+        	    	 element.parentElement.style.display = "none";
+        	     }
+        }
+    });
+}
+});
+</script>
+<?php $this->headScript()->prependFile($this->basePath('js/jquery-ui.js')) ?>

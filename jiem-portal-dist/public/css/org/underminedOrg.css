@@ -1,0 +1,38 @@
+@CHARSET "ISO-8859-1";
+.ml10{
+    margin-left: 10px;
+}
+
+.undetermined .txtYear{
+    width: 165px;
+}
+.undetermined .txtYear select{
+    width: 100px;
+}
+.undetermined .lblKai{
+    width: 60px;
+}
+.undetermined .txtKai select{
+    width: 60px;
+}
+.undetermined .txtKai{
+    width: 160px;
+}
+.undetermined .txtOrgNo{
+    width: 165px;
+}
+.undetermined .txtOrgNo input{
+    width: 140px;
+}
+.undetermined .lblOrgName{
+    width: 60px;
+}
+.undetermined .txtOrgName{
+    width: 140px;
+}
+.undetermined .lblStatus{
+    width: 100px;
+}
+.undetermined .txtStatus{
+    width: 225px;
+}

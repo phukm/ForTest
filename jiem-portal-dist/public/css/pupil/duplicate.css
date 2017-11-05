@@ -1,0 +1,297 @@
+.duplicate-title {
+    font-weight: 700;
+    font-size: 18px;
+}
+    
+.duplicate-list, .duplicate-header { display: block; }
+.duplicate-description {
+}
+.duplicate-list {
+    /*width: 590px;*/
+    max-height: 370px;
+}
+
+.duplicate-header {
+    width: 590px;
+}
+.duplicate-body{
+    width: 100%;
+    border-top: 0px !important;
+}
+.duplicate-header .thyear{
+    text-align: center;
+    width: 70px;
+}
+.duplicate-header .thnamekanji{
+    text-align: center;
+    width: 140px;
+}
+.duplicate-header .thnamekanna{
+    text-align: center;
+    width: 140px;
+}
+
+.duplicate-header .thbirthday{
+    text-align: center;
+    width: 140px;
+} 
+.duplicate-header .thstatus{
+    text-align: center;
+    width: 300px;
+}
+.duplicate-header .thaction{
+    text-align: center;
+    width: 107px;
+} 
+.tdyear{
+    width: 70px;
+} 
+.tdnamekanji{
+    width: 140px;
+} 
+.tdnamekana{
+    width: 140px;
+}
+.tdbirthday{
+    width: 140px;
+} 
+.tdstatus{
+    width: 299px; 
+}
+.duplicate .tdaction{
+    width: 107px; 
+    text-align:center !important;
+}
+.scroll{
+    overflow-y: scroll;
+}
+.scroll .tdyear{
+    width: 70px;
+}
+.scroll .tdnamekanji{
+    width: 147px;
+}
+.scroll .tdnamekana{
+    width: 145px;
+}
+.scroll .tdbirthday{
+    width: 142px;
+}
+.scroll .tdstatus{
+    width: 310px;
+}
+.scroll .tdaction{
+    width: 92px;
+}
+.duplicate .btn-small{
+    width:60px;
+}
+
+#detailModal {
+    padding-right: 0px !important; 
+    width: 1005px; 
+    right: 0px; 
+    left: 130px; 
+    top: 100px;
+}
+
+.duplicate-header{
+    width: 100%;
+}
+
+.duplicate-btn{
+    float:right;
+}
+.duplicatemodalcancel{
+    float:left;
+}
+
+.local-tdnumber{
+    text_align:right;
+}
+.local{
+}
+.local-scroll{
+    overflow-y: scroll;
+}
+.local-list {
+    max-height: 165px;
+    margin-bottom: 30px;
+}
+
+.infile{
+    margin-bottom:20px;
+}
+
+.infile-scroll{
+    overflow-y: scroll;
+}
+.infile-list {
+    max-height: 165px;
+}
+.infile .table{
+    margin-bottom:0px !important;
+}
+.local .table{
+    margin-bottom:0px !important;
+}
+
+/* infile header */
+.infile .infile-thyear{
+    width: 75px;
+}
+.infile .infile-thgrade{
+    width: 120px;
+}
+.infile .infile-thclass{
+    width: 115px;
+}
+.infile .infile-thnumber{
+    width: 115px;
+}
+.infile .infile-thnamekanji{
+    width: 150px;
+}
+.infile .infile-thnamekana{
+    width: 150px;
+}
+.infile .infile-thbirthday{
+    width: 104px;
+}
+.infile .infile-thgender{
+    width: 90px;
+}
+
+/* infile no-scroll */
+.infile .infile-tdyear{
+    width: 75px;
+}
+.infile .infile-tdgrade{
+    width: 120px;
+}
+.infile .infile-tdclass{
+    width: 115px;
+}
+.infile .infile-tdnumber{
+    width: 115px;
+}
+.infile .infile-tdnamekanji{
+    width: 150px;
+}
+.infile .infile-tdnamekana{
+    width: 150px;
+}
+.infile .infile-tdbirthday{
+    width: 100px;
+}
+.infile .infile-tdgender{
+    width: 91px;
+}
+
+/* infile scroll */
+.infile-scroll .infile-tdyear{
+    width: 75px;
+}
+.infile-scroll .infile-tdgrade{
+    width: 120px;
+}
+.infile-scroll .infile-tdclass{
+    width: 115px;
+}
+.infile-scroll .infile-tdnumber{
+    width: 115px;
+}
+.infile-scroll .infile-tdnamekanji{
+    width: 150px;
+}
+.infile-scroll .infile-tdnamekana{
+    width: 150px;
+}
+.infile-scroll .infile-tdbirthday{
+    width: 100px;
+}
+.infile-scroll .infile-tdgender{
+    width: 75px;
+}
+
+/* local header */
+.local .local-thyear{
+    width: 75px;
+}
+.local .local-thgrade{
+    width: 120px;
+}
+.local .local-thclass{
+    width: 115px;
+}
+.local .local-thnumber{
+    width: 115px;
+}
+.local .local-thnamekanji{
+    width: 150px;
+}
+.local .local-thnamekana{
+    width: 150px;
+}
+.local .local-thbirthday{
+    width: 104px;
+}
+.local .local-thgender{
+    width: 90px;
+}
+
+/* local no-scroll */
+.local .local-tdyear{
+    width: 75px;
+}
+.local .local-tdgrade{
+    width: 120px;
+}
+.local .local-tdclass{
+    width: 115px;
+}
+.local .local-tdnumber{
+    width: 115px;
+}
+.local .local-tdnamekanji{
+    width: 150px;
+}
+.local .local-tdnamekana{
+    width: 150px;
+}
+.local .local-tdbirthday{
+    width: 100px;
+}
+.local .local-tdgender{
+    width: 91px;
+}
+
+/* local scroll */
+.local-scroll .local-tdyear{
+    width: 75px;
+}
+.local-scroll .local-tdgrade{
+    width: 120px;
+}
+.local-scroll .local-tdclass{
+    width: 115px;
+}
+.local-scroll .local-tdnumber{
+    width: 115px;
+}
+.local-scroll .local-tdnamekanji{
+    width: 150px;
+}
+.local-scroll .local-tdnamekana{
+    width: 150px;
+}
+.local-scroll .local-tdbirthday{
+    width: 100px;
+}
+.local-scroll .local-tdgender{
+    width: 75px;
+}
+
+.f-description{
+    margin-bottom: 0px;
+}

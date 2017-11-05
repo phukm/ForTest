@@ -1,0 +1,202 @@
+<?php
+	$this->headLink()->prependStylesheet($this->basePath('css/Invitation.css'));
+	$isViewer = \Dantai\PublicSession::isViewerRole();
+?>
+
+<script> var translate = <?php echo empty($Translate) ? '0' : $Translate; ?>; </script>
+<form id="formSetting" action="../update" method="post">
+	<div class="box" id="setting">
+		<div class="box-header">
+			<div class="rcm-text-header">受験案内状詳細</div>
+		</div>
+		<div class="box-body border-bot">
+
+			<div class="form-group form-inline styled-select">
+				<label for="year" class="setting_label">年度</label> <span> <?php echo empty($invSetting->getEikenSchedule()) ? '' : $invSetting->getEikenSchedule()->getYear(); ?></span>
+				<label class="setting_p25 setting_pr5 font-bold">回 </label> <span class=" pl15i"><?php echo empty($invSetting->getEikenSchedule()) ? '' : $invSetting->getEikenSchedule()->getKai(); ?></span>
+			</div>
+
+			<div class="form-group form-inline mrg20">
+				<label class="setting_label">受験案内状の選択</label>
+                <?php if (isset($InvitationType[$invSetting->getInvitationType()])) echo $InvitationType[$invSetting->getInvitationType()]; ?>
+            </div>
+                    <?php if (isset($InvitationType[$invSetting->getInvitationType()])){ ?>
+            <div class="form-group form-inline mgb20">
+                        <label class="setting_label">団体名</span></label>
+                        <?php echo empty($invSetting->getOrganizationName()) ? '' : $this->escapehtml($invSetting->getOrganizationName()); ?>
+                    </div>
+                    <div class="form-group form-inline mgb20">
+                        <label class="setting_label">肩書き</label>
+                        <?php echo empty($invSetting->getPersonalTitle()) ? '' : $this->escapehtml($invSetting->getPersonalTitle()); ?>
+                    </div>
+                    <div class="form-group form-inline mgb20">
+                        <label class="setting_label">氏名</label>
+                        <?php echo empty($invSetting->getPrincipalName()) ? '' : $this->escapehtml($invSetting->getPrincipalName()); ?>
+                    </div>
+                    <div class="form-group form-inline mgb20">
+                        <label class="setting_label">発行日</label>
+                        <?php echo empty($invSetting->getIssueDate()) ? '' : $invSetting->getIssueDate()->format('Y/m/d'); ?>
+                    </div>            
+                    <?php }?>
+			<div class="form-group form-inline mrg20">
+				<label class="setting_label middle">実施会場の選択</label>
+                <?php if (isset($HallType[$invSetting->getHallType()])) echo $HallType[$invSetting->getHallType()]; ?>
+            </div>
+			<div class="form-group form-inline m0">
+				<label class="setting_label top">申込可能級の選択</label>
+				<div class="form-group form-inline">
+					<table id="eikenLevel" class="table table-bordered">
+						<thead>
+							<tr>
+								<th width="150">級</th>
+								<th class="text-center" width="60"><input data-status="disable" class="m0" type="checkbox" id="CheckAll"></th>
+							</tr>
+						</thead>
+                        <?php foreach ($EikenLevel as $val) { $level = false; if (($val->getId() == 1 || $val->getId() == 2) && $invSetting->getHallType() == 0) { $level = true; } ?> <tr <?php if ($level) { echo 'class="HallType_main"'; } ?>> <td><?php echo $val->getLevelName(); if ($level) { echo '<span class="red"> (本会場のみ)</span>'; } ?></td> <td><input  data-status="disable" <?php if (in_array($val->getId(), json_decode($invSetting->getListEikenLevel()))) { echo 'checked'; } ?> type="checkbox" name="ListEikenLevel[]" value="<?php echo $val->getId(); ?>"></td> </tr> <?php } ?>
+                        </table>
+				</div>
+			</div>
+
+			<div class="hr"></div>
+                        
+			<div class="form-group form-inline mt25 mgb20">
+				<label class="setting_label"> <span>一次試験実施曜日</span>
+				</label> <span><?php if (!empty($invSetting->getExamDay())) echo $ExamDay[$invSetting->getExamDay()]; ?></span>
+			</div>
+
+			<div class="form-group form-inline">
+				<label for="ExamPlace" class="setting_label">一次試験会場</label> <span><?php echo empty($invSetting->getExamPlace()) ? '' : htmlentities($invSetting->getExamPlace(), ENT_QUOTES, "UTF-8"); ?></span>
+			</div>
+
+			<div class="form-group form-inline">
+				<label class="setting_label" for="datetimepicker">申込期限</label> <span><?php echo empty($invSetting->getDeadline()) ? '' : $invSetting->getDeadline()->format('Y/m/d'); ?></span>
+			</div>
+
+			<div class="hr mt20"></div>
+
+<!--                        <div class="form-group form-inline mt25 mgb20">
+				<label class="setting_label"> <span><?php// echo $this->translate('PublicFunding') ?></span>
+                                </label> <span><?php //echo (isset($paymentMethod) && $paymentMethod->getPublicFunding() !== null) ? (($paymentMethod->getPublicFunding() == 1) ? $this->translate('PublicFundingUse') : $this->translate('PublicFundingNotUse')) : '' ; ?></span>
+			</div>
+                        
+                        <div class="form-group form-inline">
+				<label class="setting_label">
+                                    <span><?php //echo $this->translate('PaymentMethod') ?></span>
+                                </label> 
+                                <span class="super"><?php //echo (isset($paymentMethod) && $paymentMethod->getPaymentBill() !== null) ? (($paymentMethod->getPaymentBill() == 1) ? $this->translate('PaymentWithBill') : $this->translate('PaymentWithoutBill')) : ''; ?></span>
+			</div>-->
+                        
+			<div class="form-group form-inline mt25">
+				<label class="setting_label">支払形式</label> <span><?php echo isset($PaymentType[$invSetting->getPaymentType()]) ? $PaymentType[$invSetting->getPaymentType()] : ''; ?></span>
+			</div>
+
+			<div class="form-group form-inline">
+				<label class="setting_label">申込級確認</label> <span><?php echo isset($OrganizationPayment[$invSetting->getOrganizationPayment()]) ? $OrganizationPayment[$invSetting->getOrganizationPayment()] : ''; ?></span>
+			</div>
+
+			<div class="form-group form-inline">
+				<label class="setting_label">支払方法</label>
+                <?php foreach ($PersonalPayment as $key => $val) { ?>
+					<label class=" <?php if ($key != 0) echo 'setting_p15'; ?>" for="PersonalPayment_<?php echo $key; ?>">
+						<input data-status="disable" <?php if (!empty($invSetting->getPersonalPayment()) && in_array($key, json_decode($invSetting->getPersonalPayment()))) echo 'checked'; ?> id="PersonalPayment_<?php echo $key; ?>" name="PersonalPayment[]" type="checkbox" value="<?php echo $key; ?>">
+						<?php echo $val; ?>
+					</label>
+				<?php } ?>
+            </div>
+
+			<div class="form-group form-inline" id="Combini">
+				<label class="setting_label">支払対象コンビニ</label>
+                <?php foreach ($combini as $key => $val) { ?>
+					<label for="<?php echo $val['id']; ?>">
+						<input <?php if (!empty($invSetting->getCombini()) && in_array($val['id'], json_decode($invSetting->getCombini()))) echo 'checked'; ?> data-status="disable" name="Combini[]" type="checkbox" id="<?php echo $val['id']; ?>" value="<?php echo $val['id']; ?>"> <?php echo htmlentities($val['name'], ENT_QUOTES, "UTF-8"); ?>
+					</label>
+				<?php } ?>
+            </div>
+
+			<div class="hr m20"></div>
+                        
+            <div class="form-group form-inline" id="Beneficiary" <?php if(!$showBeneficiary || $invSetting->getBeneficiary() === null){ echo "style='display:none;'"; } ?>>
+                <label class="setting_label"><?php echo $this->translate('Beneficiary'); ?></label>
+                <span>
+                    <?php 
+                        if($invSetting->getBeneficiary() === \InvitationMnt\InvitationConst::BENEFICIARY_IS_DANTAI){ 
+                            echo $this->translate('Beneficiary_Dantai'); 
+                        }
+                        if($invSetting->getBeneficiary() === \InvitationMnt\InvitationConst::BENEFICIARY_IS_STUDENT){ 
+                            echo $this->translate('Beneficiary_Student'); 
+                        }
+                    ?>
+                </span>
+                
+            </div>
+            <div class="hr m20" <?php if(!$showBeneficiary || $invSetting->getBeneficiary()  === NULL){ echo "style='display:none;'"; } ?>></div>
+
+			<div class="form-group form-inline">
+				<label for="PrintMessage" class="sub setting_label middle"> <span class="lh1-4">先生からのメッセ<br>ージの掲載 </span> </label>
+                <input data-status="disable" <?php if ($invSetting->isPrintMessage()) echo 'checked'; ?> class="super" id="PrintMessage" type="checkbox" value="1" name="PrintMessage" />
+			</div>
+
+			<div class="form-group col-sm-12 form-inline">
+				<div class="form-group col-sm-6">
+					<div class="line-h17">
+						<span class="setting_label">生徒向けメッセージ</span>
+					</div>
+					<div class="form-group ptb10"><?php echo empty($invSetting->getTemplateMsg1()) ? '' : htmlentities($invSetting->getTemplateMsg1()->getName(), ENT_QUOTES, "UTF-8"); ?></div>
+					<div class="pr25 lh1-5 pt15"><?php echo htmlentities($invSetting->getMessage1(), ENT_QUOTES, "UTF-8"); ?></div>
+				</div>
+				<div class="form-group col-sm-6">
+					<div class="line-h17">
+						<span class="setting_label">保護者向けメッセージ</span>
+					</div>
+					<div class="form-group ptb10"><?php echo empty($invSetting->getTemplateMsg2()) ? '' : htmlentities($invSetting->getTemplateMsg2()->getName(), ENT_QUOTES, "UTF-8"); ?></div>
+					<div class="pr25 lh1-5"><?php echo htmlentities($invSetting->getMessage2(), ENT_QUOTES, "UTF-8"); ?></div>
+				</div>
+			</div>
+
+			<div class="hr m20"></div>
+
+			<div class="styled-select form-group">
+				<label class="setting_label mb15 setting_w250">ダブル受験希望時の対応</label>
+				<div class="form-group">
+                     <?php echo empty($invSetting->getDoubleEiken()) ? '' : htmlentities($invSetting->getDoubleEiken()->getTitle(), ENT_QUOTES, "UTF-8"); ?>
+                 </div>
+			</div>
+
+			<div class="form-group form-inline">
+				<div class="col-sm-6 lh1-5">
+					<div class="pr30"> <?php echo empty($invSetting->getDoubleEikenMessage()) ? '' : htmlentities($invSetting->getDoubleEikenMessage(), ENT_QUOTES, "UTF-8"); ?></div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="hr"></div>
+
+		<div class="box-header p20">
+			<div class="form-group form-inline">
+				<div class="pull-left">
+					<a id="btnCancel" href="<?php echo $this->url('invitation-mnt/default', array('controller' => 'setting')); ?>" class="btn btn-large-180" href="#"><i class="arrow-circle-left"></i>戻る</a>
+				</div>
+				<div class="pull-right">
+					<a id="btnedit" <?php if (!$status) { ?> href="<?php echo $this->url('invitation-mnt/default', array('controller' => 'setting', 'action' => 'edit', 'id' => $invSetting->getId())); ?>" <?php } ?> class="<?php if ($status) { echo 'disabled'; } ?> btn btn-large-180"
+                        <?php echo $isViewer ? 'disabled' : ''?>>
+                        <i class="pencil-square"></i>編集
+                    </a>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<input type="hidden" value="<?php if (!empty($error)) echo $error; ?>" id="error"> <input type="hidden" name="id" value="<?php echo $invSetting->getId(); ?>"> <input type="hidden" name="EikenSchedule" value="<?php echo $invSetting->getEikenSchedule()->getId(); ?>">
+</form>
+<?php $this->headScript()->prependFile($this->basePath('js/setting.invitation.js')) ?>
+<script type="text/javascript">
+	$(document).ready(function () {
+		INVITATION_SETTING.checkAll();
+		$('input[name="ListEikenLevel[]"],input[name="Combini[]"],input[name="PrintMessage"],#CheckAll,input[name="PersonalPayment[]"]').click(function () {
+			if ($(this).attr('data-status') == 'disable') {
+				return false;
+			}
+		});
+	});
+</script>

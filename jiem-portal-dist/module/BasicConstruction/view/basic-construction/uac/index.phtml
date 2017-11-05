@@ -1,0 +1,111 @@
+<?php echo $this->headScript()->appendFile($this->basePath('js/messages/common-message.js')); ?>
+<?php echo $this->headLink()->appendStylesheet($this->basePath('css/icon-awesome.css')); ?>
+<div class="login-description" style="color: red; font-size: 18px; margin-top: 10px;">
+</div>
+    <?php
+if ($errors && empty($errors['cookie'])) {
+    $form->get('orgNo')->removeAttribute('autofocus');
+    ?>
+    <div class="text-left error-form-login ver-center" id="show_error">
+        <ul>
+            <?php foreach ($errors as $key => $error): ?>
+                <li class="msg" style="cursor: pointer;" onclick="$('<?php echo $key == "all" ? '#orgNo' : '#' . $key; ?>').focus()"><?php echo $this->translate($error); ?></li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+    <style>
+        .fa-sign-in:before {
+            content: "\f090";
+        }
+    </style>
+<?php } ?>
+<script>
+    $(document).ready(function () {
+        var errors = <?php echo json_encode($errors); ?>;
+        if (errors == false) {
+            $('form:first *:input[type!=hidden]:first').focus();
+        }
+        var disableCookie = typeof (errors.cookie) != 'undefined' ? 1 : 0;
+        if (disableCookie == 1) {
+            ALERT_MESSAGE.show('お使いのブラウザーで、Cookieが無効になっています。又は、Cookieへの到達を妨げているインターネットセキュリティソフトウェアを持っています。英検団体サポートシステムを使用頂く前に、Cookieを有効にしてください。');
+        }
+    });
+</script>
+<?php
+$form->setAttribute('action', $this->url('login', array('controller' => 'Uac', 'action' => 'index')));
+$form->setAttribute('class', 'form-horizontal fix-width-620 ver-center');
+$form->setAttribute('id', 'frmLogin');
+$form->prepare();
+?>
+<?php echo $this->form()->openTag($form); ?>
+<div class="box">
+    <div class="box-header ver-center">
+        <div class="login-description">団体番号・ユーザID・パスワードを入力して、【ログイン】ボタンを押してください。</div>        
+    </div>
+    <div class="box-body">
+        <p style="color:red;margin-bottom: 30px;" class="text-center">団体サポートの英検申込受付を5月13日（土）22時まで延長します。<br>※書店での受付は終了しました。</p>
+        <div class="col-sm-1 col-xs-1 login-label-body ver-center">
+            <div class="row">
+                <div class="col-sm-1 col-xs-1 label-field-login">
+                    <strong><?php echo $this->translate('OrganizationNo'); ?><span class="required">*</span></strong>
+                </div>
+                <div class="col-sm-1 col-xs-1 width140">
+                    <?php
+                    if (isset($errors["orgNo"]) || isset($errors["all"])) {
+                        $form->get('orgNo')->setAttributes(array("class" => "form-control error"));
+                    }
+
+                    echo $this->formElement($form->get('orgNo'));
+                    ?>
+                </div>
+                <div class="comment-note">（半角数字8桁）</div>
+            </div>
+            <div class="row">
+                <div class="col-sm-1 col-xs-1 label-field-login">
+                    <strong><?php echo $this->translate('UserId'); ?><span class="required">*</span></strong>
+                </div>
+                <div class="col-sm-1 col-xs-1 width280">
+                    <?php
+                    if (isset($errors["userId"]) || isset($errors["all"])) {
+                        $form->get('userId')->setAttributes(array("class" => "form-control error"));
+                    }
+                    echo $this->formElement($form->get('userId'));
+                    ?>
+                </div> 
+                <div class="comment-note">（半角英数字）</div>
+            </div>
+            <div class="row">
+                <div class="col-sm-1 col-xs-1 label-field-login">
+                    <strong><?php echo $this->translate('Password'); ?><span class="required">*</span></strong>
+                </div>
+                <div class="col-sm-1 col-xs-1 width280">
+                    <?php
+                    if (isset($errors["password"]) || isset($errors["all"])) {
+                        $form->get('password')->setAttributes(array("class" => "form-control error"));
+                    }
+                    echo $this->formElement($form->get('password'));
+                    ?>
+                </div>
+                <div class="comment-note">（半角英数字）</div>
+            </div>
+        </div>
+    </div>
+    <div class="box-footer text-center">
+        <div>
+            <button class="btn btn-red btn-login login-control fix-font-16"
+                    role="button" type="submit">
+                <i class="sign-in"></i>
+                <strong><?php echo $this->translate('Login'); ?></strong>
+            </button>
+        </div>
+        <div class="forgot-password">
+            <?php $url = $this->serverUrl().$this->url('forgot', array('action' => 'forgot')); ?>
+            <a href="<?php echo $url; ?>"><?php echo $this->translate('login-form-forgot-link'); ?></a>
+        </div>
+        <div class="forgot-password">
+            <p class="description">団体サポートに関するよくあるご質問は、英検ウェブサイトでも公開しています。</p>
+            <a target="_blank" href="http://faq.eiken.or.jp/category/show/75">詳しくはこちら</a>。
+        </div>
+    </div>
+</div>
+<?php echo $this->form()->closeTag(); ?>

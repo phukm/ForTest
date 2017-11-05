@@ -1,0 +1,69 @@
+<?php $isRoleViewer = \Dantai\PublicSession::isViewerRole(); ?>
+<div class="box-body" id="list-container">
+    <div class="text-right">
+        <form method="post" name="frm-export-exemption" action="/eiken/exemption/export" id="frm-export-exemption">
+            <input type="hidden" name="eikenId" id="txtEikenId" value="<?php echo $eikenId ?>">
+            <input type="hidden" name="name" id="txtName" value="<?php echo $name ?>">
+            <button <?php echo $isRoleViewer ? 'disabled' : '' ?> class="btn btn-red mrgt25 " id="btnExport" type="button" tabindex="8">
+                EXCEL出力
+            </button>
+        </form>
+    </div>
+    <div class="row"></div>
+    <div style="overflow-x:scroll; overflow-y:hidden; white-space:nowrap;">
+        <table class="table table-bordered table-striped">
+            <thead>                    
+                <tr>    
+                    <th>氏名（漢字）</th> 
+                    <th>受験級</th>
+                    <th>英検実施年度</th>
+                    <th>英検実施回</th> 
+                    <th>氏名（カナ）</th>
+                    <th>生年月日</th>
+                    <th>英検ID</th>
+                    <th>個人番号</th>
+                    <th>受験地番号</th>
+                    <th>職業</th>
+                    <th>学校区分</th>
+                    <th>学年</th>
+                    <th>性別</th> 
+                    <th>パスワード</th>                   
+                </tr> 
+            </thead>
+            <tbody>
+                <?php if(count($dataShow)>0): ?>
+                    <?php foreach ($dataShow as $key => $value): ?>
+                        <tr>
+                            <td class="left"><?php echo str_replace('　', '', $value->shimei); ?></td>
+                            <td><?php echo $value->kyucd; ?></td>
+                            <td class="left"><?php echo $value->nendo; ?></td>
+                            <td><?php echo $value->kai; ?></td>  
+                            <td class="left"><?php echo str_replace('　', '', $value->shimei_kana); ?></td>                             
+                            <td class="left"><?php echo $value->birthdt; ?></td> 
+                            <td><?php echo $value->eikenid; ?></td> 
+                            <td><?php echo $value->kojinno; ?></td>    
+                            <td><?php echo $value->jukenchino; ?></td>
+                            <td><?php echo $value->shokugyono; ?></td>
+                            <td><?php echo $value->gakkouno; ?></td>
+                            <td><?php echo $value->gakunenno; ?></td>
+                            <td><?php echo $value->seibetsu; ?></td>   
+                            <td><?php echo $value->password; ?></td>  
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>            
+                        <?php echo "<tr><td class='left' colspan='14'>検索条件に一致するデータがありません。</td></tr>" ?>
+                <?php endif ?>    
+            </tbody>
+        </table>  
+    </div>
+
+    <?php
+    if ($maxPage > 1) {
+        echo $this->partial('partial_paging.phtml', array(
+            'maxPage' => $maxPage, 'currentPage' => $currentPage
+            )
+        );
+    }
+    ?>
+    <!--End Paging -->
+</div>

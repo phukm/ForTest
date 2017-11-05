@@ -1,0 +1,81 @@
+<?php
+if ($isMobile) {
+    $this->headLink()->prependStylesheet($this->basePath('css/payment-eiken-exam-mobile.css'));
+}
+else {
+    $this->headLink()->prependStylesheet($this->basePath('css/payment-eiken-exam.css'));
+}
+?>
+<div class="box payment-info" id="credit">
+    <div class="box-header">
+        <div class="text-header">申し込み情報</div>
+    </div>
+    <div class="box-body">
+        <div class="row">
+            <span>以下は申し込み済み級の一覧です。</span>
+        </div>
+        <?php if(count($kyuIdAppliedNonDS) > 0) : sort($kyuIdAppliedNonDS); ?>
+        <p style="padding: 15px; background-color: rgb(0, 194, 244); color: #fff; border-radius: 5px ">
+            <?php foreach($kyuIdAppliedNonDS as $v): ?>
+            <?php echo sprintf($this->translate('geKyuPaymentMSG57'),$mappingLevel[$v]). '<br />' ?>
+            <?php endforeach; ?>
+        </p>
+        <?php endif; ?>
+        
+        <div class="row">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th class="nameTitle" <?php if(count($kyuIdAppliedNonDS) > 0) echo 'style="width:75px"'?>>級</th>
+                    <th class="priceNameTitle">受験料</th>
+                    <th class="examDateTitle">試験日</th>
+                    <th class="paymentStatusTitle">支払状況</th>
+                    <th class="actionTitle">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($mappingLevel as $kId=>$kName):  ?>
+                <?php if (!empty($data)): ?>
+                    <?php foreach ($data as $kyu): ?>
+                        <?php if($kyu['eikenLevelId'] == $kId): ?>
+                        <tr>
+                            <td><?php echo $kyu['name']; ?></td>
+                            <td><?php echo $kyu['priceName']; ?></td>
+                            <td class="round2-date"><?php echo $kyu['examDate2Round'] ?></td>
+                            <td><?php echo $kyu['paymentStatus'] ?></td>
+                            <td>
+                                <a href="<?php if ($kyu['applyEikenLevelId']) { echo '/eiken/show/' . $kyu['applyEikenLevelId']; } else { echo '/eiken/show/' . $kyu['applyEikenLevelId']; } ?>" class="btn">表示</a>
+                                <a id="btnPayment" <?php if($kyu['paymentStatus'] == '支払済' || (!$isSupportCredit && !$isSupportCombini)){ echo 'disabled="disabled"'; } ?> class="btn <?php if($kyu['paymentStatus'] == '支払済' || (!$isSupportCredit && !$isSupportCombini)){ echo 'disabled'; } ?>" onclick="PAYMENT_INFO.payment(<?php echo $kyu['applyEikenLevelId']; ?>, <?php echo $kyu['eikenLevelId']; ?>)">支払う</a>
+                            </td>
+                        </tr>
+                        <?php endif;?>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+                        
+                <?php if(in_array($kId, $kyuIdAppliedNonDS)): ?>
+                <tr>
+                    <td><?php echo $kName . '<br><span class="star">(申込中)<span>'; ?></td>
+                    <td></td><td></td><td></td><td></td>
+                </tr>
+                <?php endif; ?>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="box-footer">
+        <div class="row text-right">
+            <a id="btnBack" class="btn btn-large-180 wnext pull-left" href="/"><i class="arrow-circle-left"></i>戻る</a>
+        </div>
+    </div>
+</div>
+<script>
+    var isSupportCredit = <?php echo $isSupportCredit; ?>;
+    var isSupportCombini = <?php echo $isSupportCombini; ?>;
+    var translate = <?php echo empty($translate) ? 0 : $translate; ?>;
+    var messageDeadLine = "<?php echo empty($messageDeadLine) ? '' : $messageDeadLine; ?>";
+    var messagePaymentKyu = "<?php echo empty($messagePaymentKyu) ? '' : $messagePaymentKyu; ?>";
+    var msgCombiniDeadline = "<?php echo empty($msgCombiniDeadline) ? '' : $msgCombiniDeadline; ?>";
+    var msgCreditDeadline = "<?php echo empty($msgCreditDeadline) ? '' : $msgCreditDeadline; ?>";
+</script>
+<?php $this->headScript()->appendFile($this->basePath('js/payment-information.js')) ?>

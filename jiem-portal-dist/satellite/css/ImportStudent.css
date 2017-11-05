@@ -1,0 +1,270 @@
+@CHARSET "ISO-8859-1";
+/* Import Student */
+.fr{
+	float: right;
+}
+.importstd .box{
+	font-family: Meiryo;
+}
+.importstd .pupilshowhide{display: none;}
+.importstd .box-header p{
+	line-height: 18px;
+	margin: auto; 
+	color: #000;
+	font-weight: bold;
+}
+
+.importstd .box-body p{
+	line-height: 14px;
+	margin: auto; 
+	color: #000;
+}
+
+.importstd .box-body th{
+	line-height: 14px;
+	margin: auto; 
+	color: #000;
+	font-weight: bold;
+}
+
+.importstd-label{
+	font-weight: bold;
+	line-height: 14px;
+	color: #000;
+}
+
+.importstd-textbox{
+	width: 360px;
+	height: 25px;
+	margin-left: 10px;
+}
+
+.importstd-form{
+	padding-top: 16px;
+}
+
+.importstd-btngroup{
+	float: right;
+	margin-top: 4px;
+}
+
+.importstd-button-space{
+	margin-left: 7px;
+}
+
+.importstd-list{
+    width: 898px; 
+    overflow:scroll;
+    max-height: 925px;
+}
+
+.importstd-list-table{
+	width:3000px;
+	max-width:3000px;
+	margin-bottom: 0;
+}
+
+/* List Student */
+.form-search-2{
+	width: 680px;
+}
+
+.select_seach{
+	margin-left: 5px;
+}
+
+.liststd-button{
+	margin-right: 10px;
+	font-weight: bold;
+}
+.svg-search{
+	width: 18px;
+	height: 18px;
+	margin-bottom: 2px;
+}
+.svg-footer{
+	width: 25px;
+	height: 25px;
+	margin-top: -5px;
+}
+.btn-file {
+	position: relative;
+	overflow: hidden;
+	width: 100px;
+	margin-left: 10px;
+}
+.btn-file input[type=file] {
+	position: absolute;
+	top: 0;
+	right: 0;
+	min-width: 100%;
+	min-height: 100%;
+	font-size: 100px;
+	text-align: right;
+	filter: alpha(opacity=0);
+	opacity: 0;
+	outline: none;
+	background: white;
+	cursor: inherit;
+	display: block;
+}
+
+.liststd-button-group{
+	margin-bottom: 10px;
+}
+
+.label-1{
+	margin-right: 28px;
+}
+
+.input-1{
+}
+
+.label-select{
+	margin-right: 10px;
+}
+
+.select-1{
+}
+
+.liststd-button-search{
+	margin-top: 4px;
+	font-weight: bold;
+}
+
+.liststd-boxheader{
+	font-size: 18px;
+	vertical-align: middle;
+	padding-top: 5px; 
+	padding-bottom: 5px;
+}
+
+.liststd-boxbody{
+	padding-top: 15px;
+}
+
+.liststd-search-button{
+	margin-top: 7px;
+}
+
+.active{
+	background-color: grey;
+}
+
+.liststd-form-search-2{
+	margin-top: -4px;
+}
+.importstd-list-table .th-year{
+	width: 60px;
+}
+.importstd-list-table .th-year-school{
+	width: 132px;
+}
+.importstd-list-table .th-class{
+	width: 124px;
+}
+.importstd-list-table .th-number{
+	width: 48px;
+	padding-right: 0px;
+}
+.importstd-list-table .th-name1{
+	width: 109px;
+}
+.importstd-list-table .th-name2{
+	width: 137px;
+}
+.importstd-list-table .th-date-br{
+	width: 117px;
+}
+.importstd-list-table .th-sex{
+	width: 58px;
+}
+.importstd-list-table .th-nameid{
+	width: 102px;
+}
+.student_manager thead th{
+	height: 45px;
+}
+.student_manager .checkbox_list .th-checkbox-list{
+	width: 34px;
+	text-align:center;
+}
+.student_manager thead th.year{
+	width: 62px;
+	
+}
+.student_manager thead th.year_school{
+	width: 132px !important;
+	padding-left: 20px !important;
+}
+.student_manager thead th.class_name{
+	width: 124px;
+	padding-left: 20px !important;
+}
+.student_manager thead th.number{
+	width: 48px;
+}
+.student_manager thead th.name1{
+	width: 109px;
+	padding-left: 16px !important;
+}
+.student_manager thead th.name2{
+	width: 137px;
+	padding-left: 16px !important;
+}
+.student_manager thead th.br{
+	width: 117px;
+	padding-left: 16px !important;
+}
+.student_manager thead th.sex{
+	width: 51px;
+	padding-left: 10px !important;
+}
+.student_manager thead th.status{
+	width: 86px;
+	padding-left: 10px !important;
+}
+.student_manager tbody tr td{
+	height: 43px;
+	padding: 8px 10px;
+}
+
+.student_manager .checkbox-class{
+	text-align:center;
+}
+
+.student_manager tbody td.year{
+	text-align:center;
+}
+
+.student_manager tbody td.year_school{
+    text-align:center;
+}
+
+.student_manager tbody td.class_name{
+    text-align:center;
+}
+
+.student_manager tbody td.student-number{
+    text-align:center;
+}
+
+.student_manager tbody td.name1{
+    padding-left: 16px !important;
+}
+
+.student_manager tbody td.name2{
+    padding-left: 16px !important;
+}
+
+.student_manager tbody td.br{
+    padding-left: 16px !important;
+}
+
+.student_manager tbody td.sex{
+    text-align:center;
+}
+
+.student_manager tbody td.status{
+    text-align:center;
+}

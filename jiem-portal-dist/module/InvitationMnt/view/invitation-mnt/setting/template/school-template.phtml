@@ -1,0 +1,178 @@
+<style type="text/css">
+    * {
+        color: #333;
+    }
+
+    .main {
+        width: 2365px;
+        height: auto;
+        //margin: 0 auto;
+        margin-left: 50px;
+    }
+
+    div.contents {
+        width: 100%;
+        height: auto;
+        /*margin-left: 50px;*/
+    }
+
+    ul li {
+        list-style: none;
+    }
+
+    div.content1 {
+        position: relative;
+        left: 20px;
+        top: -15px;
+    }
+
+    div.content2 {
+        position: relative;
+        left: 20px;
+    }
+
+    div.row {
+        float: left;
+        width: 100%;
+    }
+
+    .row_left {
+        float: left;
+        margin-left: 300px;
+        width: 380px;
+    }
+
+    .row_right {
+        float: left;
+        //margin-left: 30px;
+    }
+</style>
+<!-- </head> -->
+<!-- <body> -->
+<div class="main">
+    <h1>Page 1</h1>
+    <?php if($issueYear && $issueMonth && $issueDate): ?>
+    <div style="text-align: right; font-size: 35px;"><?php echo '平成' .$issueYear. '年' .(int)$issueMonth. '月' .(int)$issueDate. '日'; ?></div>
+    <?php endif; ?>
+    <?php if($orgName): ?>
+    <div style="text-align: right; font-size: 35px;"><?php echo $this->escapehtml($orgName); ?></div>
+    <?php endif; ?>
+    <?php if($personalTitle): ?>
+    <div style="text-align: right; font-size: 35px;"><?php echo $this->escapehtml($personalTitle); ?></div>
+    <?php endif; ?>
+    <?php if($principalName): ?>
+    <div style="text-align: right; font-size: 35px;"><?php echo $this->escapehtml($principalName); ?></div>
+    <?php endif; ?>
+    <?php 
+        if($issueDate || $orgName || $principalName){
+            echo '<br>';
+        }
+    ?>
+    <div style="text-align: center; font-size: 43px;">実用英語技能検定のお知らせ</div>
+    <div class="contents">
+        <ul>
+            <li>
+                <p style='font-size: 35px; margin-bottom: 0;'>■
+                    &emsp;年&emsp;組&emsp;番&emsp;さんへ</p>
+
+            </li>
+        </ul>
+        <?php if (isset($data["PrintMessage"]) && $data["PrintMessage"] == 1) { ?>
+            <div class="content1"
+                 style='font-size: 35px; text-align: justify; width: 2335px; margin-left: 25px;'>
+                     <?php echo '&emsp;' . nl2br($this->escapeHtml($data['Message1'])); ?>
+            </div>
+        <?php } ?>
+        <div class="content2">
+            <!--<div class="row" style="height: 50px;"></div>-->
+            <div class="row">
+                <div class="row_left" style="font-size: 35px;">前回受験結果:</div>
+                <div class="row_right" style='font-size: 35px;'>
+
+                    <!-- 				3級（合格） -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="row_left" style="font-size: 35px;">今回受験目標級:</div>
+                <div class="row_right" style="font-size: 35px;">
+
+                    <!-- 				準2級 -->
+                </div>
+            </div>
+            <div class="row" style="height: 20px;"></div>
+            <div class="row">
+                <div class="row_left" style="font-size: 35px;">試験日程（一次）:</div>
+                <div class="row_right" style="font-size: 35px;">
+                    <?php
+                    for ($i = 0; $i < count($examDay); $i ++) {
+                        $showDate = explode("-", $examDay[$i][0]);
+                        echo $showDate[0] . "年" . (int) $showDate[1] . "月" . (int) $showDate[2] . "日" . "（" . $examDay[$i][1] . "）" . "<br />";
+                    }
+                    ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="row_left" style="font-size: 35px;">試験会場（一次）:</div>
+                <div class="row_right" style="font-size: 35px;"><?php echo ($data['ExamPlace'] != '') ? $this->escapeHtml($data['ExamPlace']) : ''; ?></div>
+            </div>
+            <div class="row" style="height: 20px;"></div>
+            <div class="row">
+                <div class="row_left" style="font-size: 35px;">試験日程（二次）:</div>
+                <div class="row_right" style="font-size: 35px;">
+                    <p style="font-size: 35px;margin: 0;">
+                    （A日程）<?php
+                    echo $eikenScheduleDay->getRound2Day1ExamDate() != Null ?
+                            ($eikenScheduleDay->getRound2Day1ExamDate()->format('Y') . '年' .
+                            (int) $eikenScheduleDay->getRound2Day1ExamDate()->format('m') . '月' .
+                            (int) $eikenScheduleDay->getRound2Day1ExamDate()->format('d') . '日') : ''
+                    ?>（<?php echo $dayRound2A; ?>）
+                    </p>
+                    <p style="font-size: 35px;margin: 0;">
+                    （B日程）<?php
+                    echo $eikenScheduleDay->getRound2Day2ExamDate() != Null ?
+                            ($eikenScheduleDay->getRound2Day2ExamDate()->format('Y') . '年' .
+                            (int) $eikenScheduleDay->getRound2Day2ExamDate()->format('m') . '月' .
+                            (int) $eikenScheduleDay->getRound2Day2ExamDate()->format('d') . '日') : ''
+                    ?>（<?php echo $dayRound2B; ?>）
+                    </p>
+                    <!-- 				2015年2月22日（日） -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="row_left" style="font-size: 35px;">試験会場（二次）:</div>
+                <div class="row_right" style="font-size: 35px;">英検本会場</div>
+            </div>
+            <div class="row">
+                <div class="row_left">&nbsp;</div>
+                <div class="row_right" style="font-size: 35px;">※二次試験前に配布される二次受験票にて確認</div>
+            </div>
+            <!--<div class="row" style="height: 20px;"></div>-->
+            <div class="row">
+                <div class="row_left" style="font-size: 35px;">申し込み締切り:</div>
+                <div class="row_right" style="font-size: 35px;">
+                    <?php echo ($monthDeadLine != '') ? (int) $monthDeadLine : ' '; ?>月<?php echo ($dayDeadLine != '') ? (int) $dayDeadLine : ' '; ?>日（<?php echo ($deadDay != '') ? $deadDay : ' '; ?>） 厳守
+                </div>
+            </div>
+        </div>
+        <div style="float: left; width: 100%; height: auto;">
+            <ul>
+                <li>
+                    <p style='font-size: 35px; margin-bottom: 0;'>■ &nbsp;保護者の方へ</p>
+                </li>
+            </ul>
+            <?php if (isset($data["PrintMessage"]) && $data["PrintMessage"] == 1) { ?>
+                <div class="content1"
+                     style='font-size: 35px; text-align: justify; width: 2335px; margin-left: 25px;'>
+                    <?php echo '&emsp;' . nl2br($this->escapeHtml($data['Message2'])); ?>
+                </div>
+            <?php } ?>
+        </div>
+    </div>
+</div>
+<?php
+if ($data['PaymentType'] == 0) {
+    include 'payment-personal-template1.phtml';
+} else {
+    include 'payment-organization-template.phtml';
+}
+?>

@@ -1,0 +1,62 @@
+<?php
+$this->headLink()->appendStylesheet($this->basePath('css/eiken/exemption.css'));
+$this->headScript()->appendFile($this->basePath('js/eiken/exemption.js'));
+?>
+<div class="exemption">
+    <div class="box frm-eiken-form-search" id="divSeachForm">
+        <div class="box-header"  data-toggle="collapse" data-target="#search-box">
+            <div class="search-header  sorting-field">
+                <i class="search-chevron-down"></i>
+                <b><?php echo $this->translate('検索条件'); ?></b>
+            </div>
+        </div>
+        <form action="" method="get">
+            <div id="search-box" aria-expanded="true" class="collapse in">
+                <div class="box-body height-110">
+                    <div class="styled-select">
+                        <div class="col-sm-1 mr15 w50">
+                            <b><?php echo $this->translate('英検ID'); ?></b>
+                        </div>                        
+                        <div class="col-sm-1 dropdown w-150">
+                            <input type="text" name="eikenid" tabindex="4" class="form-control" id="eikenId" value="<?php echo $eikenid ?>" />
+                        </div>   
+                        <div class="col-sm-1 text-right mr15">
+                            <b><?php echo $this->translate('氏名'); ?></b>
+                        </div>   
+                        <div class="col-sm-1 dropdown w-150">
+                            <input name="name" type="text" tabindex="4" class="form-control" id="name" value="<?php echo $name ?>" />
+                        </div>     
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <div class="col-sm-12 text-right">
+                        <a id="btnClear" class="btn btn-clear" tabindex="6" href="/eiken/exemption/list"><?php echo $this->translate('クリア'); ?></a>
+                        <button id="btnSearch" type="submit" class="btn btn-small" tabindex="7" href="#"><i class="fa fa-search"></i><?php echo $this->translate('検索'); ?></button>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+    <div class="box">
+        <div class="box-header">一免者情報</div>
+        <div id="showData">
+            <?php
+            echo $this->partial('data_table.phtml', array(
+                'maxPage' => $maxPage
+                , 'dataShow' => $dataShow
+                , 'currentPage' => isset($currentPage) ? intval($currentPage) : 1
+                , 'schoolCode' => $schoolCode
+                , 'jobCode' => $jobCode
+                , 'eikenId' => $eikenid
+                , 'name' => $name
+            ));
+            ?>
+        </div>
+    </div>
+</div> 
+<script>
+    var dataAPI = '<?php echo json_encode($dataApi); ?>';
+    var dataShow = '<?php echo json_encode($dataShow); ?>';
+    EXEMPTION.init();
+</script>

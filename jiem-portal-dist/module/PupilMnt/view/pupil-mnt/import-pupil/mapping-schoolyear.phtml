@@ -1,0 +1,73 @@
+<?php if (!empty($errors)) { ?>
+    <div class="row jiem-error show-error-mapping-schoolyear">
+        <div class="alert import-upload-error">
+            <ul>
+                    <?php foreach ($errors as $keyError => $error) { ?>
+                        <li>
+                            <a href="#mapping_<?php echo $keyError ?>" onclick="forcusField(this)"><?php echo $error; ?></a>
+                        </li>
+                    <?php } ?>
+            </ul>
+        </div>
+    </div>
+<?php } ?>
+<div class="box create-grade">
+    <div class="box-header">
+        <?php echo $this->translate('学年選択画面'); ?>
+    </div>
+    <div class="box-body">
+        <div class="row">
+            <div class="col-sm-12 top-mark">
+                <label class="font-mark"> 
+                    <?php echo $this->translate('アップロードされたファイルには、システムに存在しない学年も含まれています。'); ?><br />
+                    <?php echo $this->translate('「学年一般名称」を選択して登録してください。'); ?>
+                    <br>
+                    <?php echo $this->translate('DescCreateOrgMasterDataImport'); ?>
+                </label>
+            </div>
+            <div class="col-sm-12 content">
+                <table class="table table-bordered header-mapping">
+                    <thead>
+                        <tr>
+                            <th class="universal-grade"><?php echo $this->translate('学年一般名称'); ?></th>
+                            <th class="grade"><?php echo $this->translate('学年'); ?></th>
+                        </tr>
+                    </thead>
+                </table>
+                <form id="form_mapping_schoolyear">
+                    <input type="hidden" name="dataImport" value="<?php if($dataImport){ echo htmlentities(json_encode($dataImport)); } ?>"/>
+                    <div class="content-data-mapping">
+                        <table class="table table-bordered list-mapping">    
+                            <tbody>
+                                <?php foreach ($orgSchoolYearsNew as $orgSchoolYear) { ?>
+                                    <tr>
+                                        <td class="universal-grade styled-select">
+                                            <select id="mapping_<?php echo $this->escapeHtml($orgSchoolYear)?>" name="schoolYearName[]" class="form-control select-grade-map <?php echo isset($errors[$orgSchoolYear]) ? 'error' : '';?>">
+                                                <option value=""></option>
+                                                <?php foreach ($listSchoolYearNotUse as $value) { ?>
+                                                    <option value="<?php echo $this->escapeHtml($value['name']); ?>" <?php echo isset($mappingData[$orgSchoolYear]) && $mappingData[$orgSchoolYear] == $value['name'] ? 'selected' : ''; ?>><?php echo $this->escapeHtml($value['name']); ?></option>
+                                                <?php } ?>
+                                            </select>
+                                        </td>
+                                        <td class="grade center">
+                                            <input type="hidden" name="orgSchoolYearName[]" value="<?php echo $this->escapeHtml($orgSchoolYear); ?>"/>
+                                            <?php echo $this->escapeHtml($orgSchoolYear); ?>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="box-footer text-right">
+        <a class="btn btn-large-180" onclick="importPupilConfig.cancelEven();" href="javascript:void(0);"><?php echo $this->translate('キャンセル') ?></a>
+        <a class="btn btn-red btn-large-180" onclick="importPupilConfig.mappingSchoolYear();" href="javascript:void(0)"><?php echo $this->translate('続ける') ?></a>
+    </div>
+</div>
+<script>
+    var MSG54CancelImport = '<?php echo $this->translate("MSG54CancelImport"); ?>';
+    importPupilConfig.ready();
+</script>

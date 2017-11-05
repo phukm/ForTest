@@ -1,0 +1,254 @@
+<?php
+if ($isMobile) {
+    $this->headLink()->prependStylesheet($this->basePath('css/detail-apply-eiken-mobile.css'));
+} else {
+    $this->headLink()->prependStylesheet($this->basePath('css/detail-apply-eiken.css'));
+};
+?>
+
+<style> #apply-eiken-detail a:hover{ color: red !important; text-decoration: underline; } </style>
+
+<div id="apply-eiken-detail" class="box <?php echo ($isMobile) ? 'mobile' : 'pc' ?>">
+    <?php if (!$isMobile) { ?>
+        <div class="box-header">
+            <span><b><?php echo $this->translate('applyEiken'); ?></b></span>
+        </div>
+    <?php } ?>
+    <div class="box-body">
+        <!--eiken grade fee table-->
+        <div class="row">
+            <div class="col-xs-12 col-md-12"><label class="text-bold"><?php echo $this->translate('eikenGradeFeeTable') ?></label></div>
+            <div class="col-xs-12 col-md-12">
+                <table class="table detail-apply table-bordered table-striped col-xs-12 col-md-12 text-center" style="margin-bottom:5px;">
+                    <thead>
+                        <td class="wp20 kyu"><?php echo $this->translate('eikenGradeFeeTableColumn1') ?></td>
+                        <td class="price"><?php echo $this->translate('eikenGradeFeeTableColumn2') ?></td>
+                        <td class="date"><?php echo $this->translate('eikenGradeFeeTableColumn3') ?></td>
+                        <td class="acction">実施会場の選択</td>
+                    </thead>
+                    <tbody>
+                        <?php   $eikenInfo = $applyEiken->getId() !== null ? $kyu[$applyEiken->getId()] : null;?>
+                                <td><?php echo isset($eikenInfo) ? $eikenInfo['name'] : '' ?></td>
+                                <td><?php echo isset($eikenInfo) ? $eikenInfo['priceName'] : '' ?></td>
+                                <td class="round2date"><?php echo isset($eikenInfo) ? $eikenInfo['examDate2Round'] : ''?></td>
+                                <td><?php echo isset($eikenInfo) && $applyEiken->getHallType() !== null ? $listHallType[$applyEiken->getHallType()] : ''?></td>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!--telno and receipt no-->
+        <?php if($isSupportCombini && isset($applyEiken) &&  ($applyEiken->getPaymentStatus() != 1 || $applyEiken->getPaymentBy() != 1)){ ?>
+        <div class="row mt20">
+            <div class="col-md-4 col-xs-5"><label class="text-bold"><?php echo $this->translate('receiptNoLabel') ?></label></div>
+            <?php if(empty($applyEiken->getBlockCombini())){ ?>
+                <div class="col-md-8 col-xs-7"><?php echo (!empty($receiptNoTelNo) && !empty($receiptNoTelNo['receiptNo']) && !empty($receiptNoTelNo['telNo'])) ? $receiptNoTelNo['receiptNo'] : '' ?></div>
+            <?php }else{ ?>
+                <div class="col-md-8 col-xs-7"><?php echo $this->translate('msgWaitReceiptNo2'); ?></div>
+            <?php } ?>
+        </div>  
+        <div class="row mt20">
+            <div class="col-md-4 col-xs-5"><label class="text-bold"><?php echo $this->translate('telNoLabel') ?></label></div>
+            <?php if(empty($applyEiken->getBlockCombini())){ ?>
+                <div class="col-md-8 col-xs-7"><?php echo (!empty($receiptNoTelNo) && !empty($receiptNoTelNo['receiptNo']) && !empty($receiptNoTelNo['telNo'])) ? $receiptNoTelNo['telNo'] : '' ?></div>
+            <?php }else{ ?>
+                <div class="col-md-8 col-xs-7"><?php echo $this->translate('msgWaitReceiptNo2'); ?></div>
+            <?php } ?>
+        </div>
+        <?php } ?>
+        <?php if(isset($applyEiken) && $applyEiken->getFeeFirstTime() !== null){ ?>
+        <!--apply eiken infor-->
+        
+        <div class="row">
+            <div class="col-md-4 col-xs-5"><label class="text-bold"><?php echo $this->translate('eikenIdLabel') ?></label></div>
+            <div class="col-md-8 col-xs-7"><?php echo isset($applyEikenPersonalInfo) ? $applyEikenPersonalInfo->getEikenId() : '' ?></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-xs-5"><label class="text-bold"><?php echo $this->translate('passwordLabel') ?></label></div>
+            <div class="col-md-8 col-xs-7"><?php echo isset($applyEikenPersonalInfo) ? $applyEikenPersonalInfo->getEikenPassword() : '' ?></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-xs-5"><label class="text-bold"><?php echo $this->translate('nameKanjiLabel') ?></label></div>
+            <div class="col-md-8 col-xs-7"><?php echo isset($applyEikenPersonalInfo) ? $applyEikenPersonalInfo->getFirstNameKanji().$applyEikenPersonalInfo->getLastNameKanji() : '' ?></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-xs-5"><label class="text-bold"><?php echo $this->translate('nameKanaLabel') ?></label></div>
+            <div class="col-md-8 col-xs-7"><?php echo isset($applyEikenPersonalInfo) ? $applyEikenPersonalInfo->getFirstNameKana().$applyEikenPersonalInfo->getLastNameKana() : '' ?></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-xs-5"><label class="text-bold"><?php echo $this->translate('genderLabel') ?></label></div>
+            <div class="col-md-8 col-xs-7"><?php echo isset($applyEikenPersonalInfo) ? $this->translate($applyEikenPersonalInfo->getGender() == 1 ? 'maleLabel' : 'femaleLabel' ) : '' ?></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-xs-5"><label class="text-bold"><?php echo $this->translate('birthDayLabel') ?></label></div>
+            <div class="col-md-8 col-xs-7"><?php echo isset($applyEikenPersonalInfo) && !empty($applyEikenPersonalInfo->getBirthDay()) ? $applyEikenPersonalInfo->getBirthDay()->format($this->translate('dateFormat')) : '' ?></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-xs-5"><label class="text-bold"><?php echo $this->translate('postalCodeLabel') ?></label></div>
+            <div class="col-md-8 col-xs-7"><?php echo isset($applyEikenPersonalInfo) ? $applyEikenPersonalInfo->getPostalCode() : '' ?></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-xs-5"><label class="text-bold"><?php echo $this->translate('cityLabel') ?></label></div>
+            <div class="col-md-8 col-xs-7"><?php echo isset($applyEikenPersonalInfo) && $applyEikenPersonalInfo->getCity() != null ? $applyEikenPersonalInfo->getCity()->getCityName() : '' ?></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-xs-5"><label class="text-bold"><?php echo $this->translate('districtLabel') ?></label></div>
+            <div class="col-md-8 col-xs-7"><?php echo isset($applyEikenPersonalInfo) ? $applyEikenPersonalInfo->getDistrict() : '' ?></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-xs-5"><label class="text-bold"><?php echo $this->translate('townLabel') ?></label></div>
+            <div class="col-md-8 col-xs-7"><?php echo isset($applyEikenPersonalInfo) ? $applyEikenPersonalInfo->getTown() : '' ?></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-xs-5"><label class="text-bold"><?php echo $this->translate('phoneNoLabel') ?></label></div>
+            <div class="col-md-8 col-xs-7"><?php echo isset($applyEikenPersonalInfo) && !empty($applyEikenPersonalInfo->getPhoneNo()) ? preg_replace('/-/',') ','('.$applyEikenPersonalInfo->getPhoneNo(), 1) : '' ?></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-xs-5"><label class="text-bold"><?php echo $this->translate('emailLabel') ?></label></div>
+            <div class="col-md-8 col-xs-7"><?php echo isset($applyEikenPersonalInfo) ? $applyEikenPersonalInfo->getEmail() : '' ?></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-xs-5"><label class="text-bold"><?php echo $this->translate('jobNameLabel') ?></label></div>
+            <div class="col-md-8 col-xs-7"><?php echo $applyEikenPersonalInfo->getJobCode() ? $listJob[$applyEikenPersonalInfo->getJobCode()] : '' ?></div>
+        </div>
+        <?php
+            if( $applyEikenPersonalInfo->getJobCode() == '1'){ 
+                /*@var $applyEikenPersonalInfo \Application\Entity\ApplyEikenPersonalInfo*/
+        ?>
+                <div class="row">
+                    <div class="col-md-4 col-xs-5">
+                        <label class="text-bold"><?php echo $this->translate('SchoolCode') ?></label></div>
+                    <div class="col-md-8 col-xs-7"><?php echo $applyEikenPersonalInfo->getSchoolType() ? $listSchoolCode[$applyEikenPersonalInfo->getSchoolType()] : ''; ?></div>
+                </div>
+            <?php } ?>
+        <!--end information-->
+        
+        <!--test side and exemption table-->
+        <div class="row mt20">
+            <div class="col-xs-12 col-md-12">
+                <table class="table table-bordered table-striped col-xs-12 col-md-12">
+                <thead>
+                    <td class="label-column"></td>
+                    <?php  $eikenInfo = $applyEiken->getId() !== null ? $kyu[$applyEiken->getId()] : null;?>
+                    <td><?php echo isset($eikenInfo) ? $eikenInfo['name'] : '' ?></td>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-bold"><?php echo $this->translate('exemptionLabel1'); ?></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><?php echo $this->translate('exemptionLabel2'); ?></td>
+                        <td>
+                            <div>
+                                <?php echo  $this->translate($applyEiken->getFeeFirstTime() == 1 ? 'yesLabel' : 'noLabel') ?>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><?php echo $this->translate('passedKaiLabel'); ?></td>
+                        <td>
+                            <div>
+                                <?php echo !empty($applyEiken->getFirstPassedTime())? $passKai : '' ?>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><?php echo $this->translate('passedExamCityLabel'); ?></td>
+                        <td>
+                            <div>
+                                <?php echo !empty($applyEiken->getAreaNumber1()) ? $listCity[$listDistrictByCode[$applyEiken->getAreaNumber1()]['cityId']]['cityName'] : '' ?>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><?php echo $this->translate('passedExamPlaceLabel'); ?></td>
+                        <td>
+                            <div>
+                                <?php echo !empty($applyEiken->getAreaNumber1())? $listDistrictByCode[$applyEiken->getAreaNumber1()]['name'] : '' ?>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><?php echo $this->translate('personalIdLabel'); ?></td>
+                        <td>
+                            <div>
+                                <?php echo !empty($applyEiken->getAreaPersonal1())? $applyEiken->getAreaPersonal1() : '' ?>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-bold"><?php echo $this->translate('testSiteLabel'); ?></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><?php echo $this->translate('firstTestCityLabel'); ?></td>
+                        <td>
+                            <div ><?php echo $applyEiken->getAreaNumber2() !== null ? $applyEiken->getAreaNumber2()->getCityName() : '' ?></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><?php echo $this->translate('firstExamPlaceLabel'); ?></td>
+                        <td>
+                            <div ><?php echo $applyEiken->getAreaPersonal2() !== null ? $applyEiken->getAreaPersonal2()->getName() : '' ?></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><?php echo $this->translate('secondTestCityLabel'); ?></td>
+                        <td>
+                            <div ><?php echo $applyEiken->getAreaNumber3() !== null ? $applyEiken->getAreaNumber3()->getCityName() : '' ?></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><?php echo $this->translate('secondExamPlaceLabel'); ?></td>
+                        <td>
+                            <div ><?php echo $applyEiken->getAreaPersonal3() !== null ? $applyEiken->getAreaPersonal3()->getName() : '' ?></div>
+                        </td>
+                    </tr>
+                </tbody>
+                </table>
+            </div>
+        </div>
+        <?php } ?>
+    </div>
+    <div class="box-footer">
+        <div id="buttonBar" class="row">
+            <button type="button" id="btnBack" onclick="window.location.href = '/payment-eiken-exam/payment-infomation'" class="btn pull-left btn-large-180 mw120" tabindex="19"><i class="arrow-circle-left"></i> <?php echo $this->translate('Back') ?></button>
+            <button type="button" id="btnDelete" <?php echo $applyEiken->getPaymentStatus() ? 'disabled' : ''; ?> class="btn pull-right btn-large-180 fixwidth" tabindex="19"><i class="trash"></i> <?php echo $this->translate('DeleteApplyEiken') ?></button>
+        </div>
+    </div>
+</div>
+<script>
+    $('#btnDelete').click(function () {
+        var messageDeadline = '<?php echo $messageDeadline;?>';
+        if(messageDeadline != ''){
+            ERROR_MESSAGE.show(messageDeadline);
+        }else{
+            CONFIRM_MESSAGE.show('<?php echo $this->translate('msgConfirmDeleteApply'); ?>', function () {
+                deleteApply();
+            },function () {
+
+            });
+        }
+    });
+
+    function deleteApply() {
+        var baseUrl = window.location.protocol + "//" + window.location.host + "/";
+        $.ajax({
+            type: 'POST',
+            url: baseUrl + 'eiken/cancel-apply-eiken',
+            contentType: "application/json",
+            dataType: 'json',
+            data: JSON.stringify({applyEikenLevelId: <?php echo $applyEiken->getId(); ?>}),
+            success: function (response) {
+                if(response.success == true){
+                    ALERT_MESSAGE.show(response.data.message,function () {
+                            window.location = baseUrl;
+                    });
+                } else {
+                    ERROR_MESSAGE.show(response.data.message);
+                }
+            }
+        });
+    }
+</script>

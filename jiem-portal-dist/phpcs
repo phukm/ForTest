@@ -1,0 +1,14 @@
+#!/bin/bash
+
+thisScript=$0
+thisDir=$(realpath $(dirname $thisScript))
+reportDir="$thisDir/public/report"
+
+if [ ! -d "$reportDir" ]; then
+    mkdir -p "$reportDir"
+fi
+
+phpcs -n $thisDir/module/$1 --standard="$thisDir/data/phpcs.xml" --report-file="$reportDir/$1phpcs-all.txt" --report-full="$reportDir/$1phpcs-full.txt" --report-summary="$reportDir/$1phpcs-summary.txt"
+exitCode=$?
+
+exit $exitCode

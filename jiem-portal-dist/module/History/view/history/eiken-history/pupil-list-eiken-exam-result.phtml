@@ -1,0 +1,26 @@
+<?php
+$totalItem = count($items);
+if(!empty($items)) { foreach ($items as $item) {  ?>
+    <tr>
+        <td class="w130"><?php echo empty($item['nameKanji']) ? '' : $this->escapeHtml($item['nameKanji']); ?></td>
+        <td class="w130"><?php echo empty($item['nameKana']) ? '' :  $this->escapeHtml($item['nameKana']); ?></td>
+        <td class="w105"><?php echo empty($item['birthday']) ? '' : $item['birthday']->format('Y/m/d'); ?></td>
+        <td class="w56"><?php echo empty($item['year']) ? '' :  $item['year']; ?></td>
+        <td class="w140"><?php echo empty($item['displayName']) ? '' :  $this->escapeHtml($item['displayName']); ?></td>
+        <td class="w140"><?php echo empty($item['className']) ? '' :  $this->escapeHtml($item['className']); ?></td>
+        <td class="w100 text-right"><?php echo empty($item['number']) ? '' :  $item['number']; ?></td>
+        <td class="w80">
+            <button type="button" onclick="MAPPING_EXAM_RESULT.changePupil(<?php echo $item['id']; ?>)" id="changePupil" class="btn" tabindex="6">選択</button>
+        </td>
+    </tr>
+<?php } ?>
+<?php } else { echo '<tr><td colspan="8" class="w881">検索条件に一致するデータがありません。</td></tr>';} ?>
+<script>
+var dataPupil = <?php echo isset($items) ? json_encode($items) : 0; ?>;
+</script>
+<style>
+    #leadingPupilListByParams{
+        height: <?php echo ($totalItem >= 5) ? 300 : ($totalItem == 2  ? 155 : ($totalItem == 3 ? 200 : ($totalItem == 4 ? 245 : 95))); ?>px;
+    }
+    <?php if($totalItem > 5){ echo '#leadingPupilListByParams tbody{ height: 250px; }';} ?>
+</style>

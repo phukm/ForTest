@@ -1,0 +1,118 @@
+<div class="modal-content">
+    <div class="modal-header duplicate-title">詳細情報</div>
+    <div class="modal-body">
+        <p>
+        <?php 
+            switch($status){
+                case 1:
+                    echo 'アップロードする生徒情報に重複の可能性があります。';
+                    break;
+                case 2:
+                    echo 'システム上に、同一の可能性がある生徒情報があります。';
+                    break;
+                case 3:
+                    echo 'システム上と、アップロードする生徒情報の両方に、重複の可能性のある生徒情報があります。';
+                    break;
+                default:
+                    echo '';
+                    break;
+            }
+            ?>
+        
+        </p>
+        <?php if ($detailFile) { ?>
+        <div class="infile">
+            <div class="infile-descript">
+                <i class="arrow-down"></i>
+                <strong><?php echo $this->translate('アップロードファイル内の生徒情報'); ?></strong>
+            </div>
+                <table class="table table-bordered table-striped infile-table">
+                    <thead>
+                        <tr>
+                            <th class="infile-thyear"><strong><?php echo $this->translate('年度'); ?></strong></th>
+                            <th class="infile-thgrade"><strong><?php echo $this->translate('学年'); ?></strong></th>
+                            <th class="infile-thclass"><strong><?php echo $this->translate('クラス'); ?></strong></th>
+                            <th class="infile-thnumber"><strong><?php echo $this->translate('番号'); ?></strong></th>
+                            <th class="infile-thnamekanji"><strong><?php echo $this->translate('氏名（漢字）'); ?></strong></th>
+                            <th class="infile-thnamekana"><strong><?php echo $this->translate('氏名（カナ）'); ?></strong></th>
+                            <th class="infile-thbirthday"><strong><?php echo $this->translate('生年月日'); ?></strong></th>
+                            <th class="infile-thgender"><strong><?php echo $this->translate('性別'); ?></strong></th>
+                        </tr>
+                    </thead>
+                </table>
+                <div class="infile-list <?php if(!empty($detailFile) && count($detailFile) > 3){echo 'infile-scroll';} ?>">
+                    <table class="table table-bordered table-striped infile-table">
+                        <tbody>
+                            <?php foreach($detailFile as $value){?>
+                            <tr>
+                                <td class="infile-tdyear"><?php echo $this->escapeHtml($value['year']); ?></td>
+                                <td class="infile-tdgrade"><?php echo $this->escapeHtml($value['orgSchoolYearName']); ?></td>
+                                <td class="infile-tdclass"><?php echo $this->escapeHtml($value['className']); ?></td>
+                                <td class="infile-tdnumber text-right"><?php echo $this->escapeHtml($value['pupilNumber']); ?></td>
+                                <td class="infile-tdnamekanji"><?php echo $this->escapeHtml($value['nameKanji']); ?></td>
+                                <td class="infile-tdnamekana"><?php echo $this->escapeHtml($value['nameKana']); ?></td>
+                                <td class="infile-tdbirthday"><?php echo $this->escapeHtml($value['birthday']); ?></td>
+                                <td class="infile-tdgender"><?php echo $this->escapeHtml($value['gender']); ?></td>
+                            </tr>
+                            <?php }?>
+                        </tbody>
+                    </table>
+                </div>
+        </div>
+        <?php }?>
+        <?php if ($detailDb) { ?>
+        <div class="local">
+            <div class="local-descript">
+                <i class="arrow-down"></i>
+                <strong><?php echo $this->translate('システム上に存在する、重複の可能性がある生徒情報'); ?></strong>
+            </div>
+            <table class="table table-bordered table-striped local-table">
+                <thead>
+                    <tr>
+                        <th class="local-thyear"><strong><?php echo $this->translate('年度'); ?></strong></th>
+                        <th class="local-thgrade"><strong><?php echo $this->translate('学年'); ?></strong></th>
+                        <th class="local-thclass"><strong><?php echo $this->translate('クラス'); ?></strong></th>
+                        <th class="local-thnumber"><strong><?php echo $this->translate('番号'); ?></strong></th>
+                        <th class="local-thnamekanji"><strong><?php echo $this->translate('氏名（漢字）'); ?></strong></th>
+                        <th class="local-thnamekana"><strong><?php echo $this->translate('氏名（カナ）'); ?></strong></th>
+                        <th class="local-thbirthday"><strong><?php echo $this->translate('生年月日'); ?></strong></th>
+                        <th class="local-thgender"><strong><?php echo $this->translate('性別'); ?></strong></th>
+                    </tr>
+                </thead>
+            </table>
+            <div class="local-list <?php if(!empty($detailDb) && count($detailDb)> 3){ echo 'local-scroll'; } ?>">
+                <table class="table table-bordered table-striped local-table">
+                    <tbody>
+                        <?php foreach($detailDb as $value){?>
+                        <tr>
+                            <td class="local-tdyear"><?php echo $this->escapeHtml($value['year']); ?></td>
+                            <td class="local-tdgrade"><?php echo $this->escapeHtml($value['orgSchoolYearName']); ?></td>
+                            <td class="local-tdclass"><?php echo $this->escapeHtml($value['className']); ?></td>
+                            <td class="local-tdnumber text-right"><?php echo $this->escapeHtml($value['pupilNumber']); ?></td>
+                            <td class="local-tdnamekanji"><?php echo $this->escapeHtml($value['nameKanji']); ?></td>
+                            <td class="local-tdnamekana"><?php echo $this->escapeHtml($value['nameKana']); ?></td>
+                            <td class="local-tdbirthday"><?php echo $this->escapeHtml($value['birthday']); ?></td>
+                            <td class="local-tdgender"><?php echo $this->escapeHtml($value['gender']); ?></td>
+                        </tr>
+                        <?php }?>
+                    </tbody>
+                </table>
+            </div>
+        <?php }?>
+    </div>
+    <div class="modal-footer">
+        <div class="duplicatemodalcancel">
+            <a id="closemodal" class="btn btn-large-180 showbt" href="javascript:void(0)">
+                <i class="arrow-circle-left"></i>
+                <strong class="text-center">戻る</strong>
+            </a> 
+        </div>
+    </div>
+</div>
+</div>
+<script>
+$("#closemodal").click(function () {
+    $("#detailModal").modal('hide');
+});
+</script>
+            

@@ -1,0 +1,772 @@
+<?php $this->headLink()->prependStylesheet($this->basePath('css/IBA-policy.css')) ?>
+<?php 
+/* @var $ibaInfo \Application\Entity\ApplyIBAOrg */
+$status = IBA\Controller\IBAController::IBA_STATUS_DRAFT;
+$isValid = 0;
+if($ibaInfo){
+    $status = $ibaInfo->getStatus();
+    $isValid = $ibaInfo->getIsValid();
+}
+?>
+<div class="box IBA-show">
+	<div class="box-header">
+		<h4>
+		  <?php
+		      if($status == IBA\Controller\IBAController::IBA_STATUS_CONFIRMED || ( $status == IBA\Controller\IBAController::IBA_STATUS_PENDING && ( $roleId == 1 || ( $roleId == 2 && ($serviceType == IBA\Controller\IBAController:: USER_SERVICETYPE_IBA  || $serviceType == 'All'))) )){
+		          $pageTitle = $this->translate('申込情報確認');
+		      }else{
+		          $pageTitle =  $this->translate('申込情報詳細');
+		      } 
+		      echo $pageTitle;
+		  ?>
+	   </h4>
+	</div>
+	<div class="box-body">
+                <div class="top-mark">
+                    <?php
+		      if($status == IBA\Controller\IBAController::IBA_STATUS_CONFIRMED || ( $status == IBA\Controller\IBAController::IBA_STATUS_PENDING && ( $roleId == 1 || ( $roleId == 2 && $serviceType == IBA\Controller\IBAController:: USER_SERVICETYPE_IBA ) )) ){?>		      
+                        <label class="font-mark"> 
+                        団体側と確認し、申込内容を確認してください。<br />
+                        申込内容を変更する場合は、「編集」ボタンを押してください。<br />
+                        申込を確定させる場合は、「英検IBA申込確定」ボタンを押してください。<br />
+                       
+                        </label>
+                    <?php }else{ ?>
+		        <label class="font-mark"> 
+                        内容がよろしければ「申込登録」ボタンを押してください。<br>
+                        英検協会担当者から内容確認のご連絡をさせていただきます。<br>
+                        内容を変更する場合は、「編集」ボタンを押してください。<br>                        
+                        </label>
+		    <?php }?>
+                </div>
+		<div class="row r1 margin-top-0">
+			<div class="col-sm-2 col-label">
+				<label class="title-label"><?php echo $this->translate('ステータス'); ?></label>
+			</div>
+			<div class="col-sm-10">
+			 <?php if(isset($status) && $status == IBA\Controller\IBAController::IBA_STATUS_DRAFT){?>
+			     <span class="green-color"><?php echo $this->translate('iba-status-draft'); ?> </span>
+			 <?php }else if(isset($status) && $status == IBA\Controller\IBAController::IBA_STATUS_PENDING){ ?>
+			     <span class="green-color"><?php echo $this->translate('iba-status-pending'); ?> </span>
+			 <?php }else if(isset($status) && $status == IBA\Controller\IBAController::IBA_STATUS_CONFIRMED){ ?>
+			     <span class="green-color"><?php echo $this->translate('iba-status-confirmed'); ?> </span>
+			 <?php } ?>
+            </div>
+        </div>
+
+        <div class="row r2">
+            <div class="col-sm-2 col-label">
+                <label class="title-label"><?php echo $this->translate('申込ID'); ?></label>
+            </div>
+            <div class="col-sm-10">
+                    <span id="ibaId"><?php echo $ibaInfo->getMoshikomiId(); ?></span>
+            </div>
+        </div>
+
+        <div class="row r6">
+            <div class="col-sm-2 col-label">
+                <label class="title-label">
+                    <?php echo $this->translate('郵便番号'); ?>
+                </label>
+            </div>
+            <div class="col-sm-10">
+                <span> <?php echo ($this->escapeHtml($ibaInfo->getZipCode1()) || $this->escapeHtml($ibaInfo->getZipCode2())) ? $this->escapeHtml($ibaInfo->getZipCode1()) . '-' . $this->escapeHtml($ibaInfo->getZipCode2()) : ''; ?></span>
+            </div>
+        </div>
+        <div class="row r8">
+            <div class="col-sm-2 col-label">
+                <label class="title-label">
+                    <?php echo $this->translate('住所1'); ?>
+                </label>
+            </div>
+            <div class="col-sm-10">
+                <?php echo ($ibaInfo->getAddress1()) ? $cityName . $this->escapeHtml($ibaInfo->getAddress1()) : '' ; ?>
+            </div>
+        </div>
+            
+        <?php if($ibaInfo->getAddress2()){ ?>
+        <div class="row r9">
+            <div class="col-sm-2 col-label">
+                <label class="title-label">
+                    <?php echo $this->translate('住所2'); ?>
+                </label>
+            </div>
+            <div class="col-sm-10">
+                <?php echo $cityName . $this->escapeHtml($ibaInfo->getAddress2());?>
+            </div>
+        </div>
+        <?php } ?>
+        <div class="hr"></div>
+
+        <div class="row r10">
+            <div class="col-sm-4">
+                <div class="col-sm-2 col-label">
+                    <label class="title-label">
+                        <?php echo $this->translate('TEL'); ?>
+                    </label>
+                </div>
+                <div class="col-sm-6">
+                    <span class='tel-no'><?php echo $this->escapeHtml($ibaInfo->getTelNo()); ?></span>
+                </div>
+            </div>
+            <div class="col-sm-6  cl2">
+                <div class="col-sm-2 col-label">
+                    <label class="title-label">
+                        <?php echo $this->translate('FAX'); ?>
+                    </label>
+                </div>
+                <div class="col-sm-6">
+                    <span class='fax'><?php echo $this->escapeHtml($ibaInfo->getFax()); ?></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row r11">
+            <div class="col-sm-4">
+                <div class="col-sm-2 col-label">
+                    <label class="title-label">
+                        <?php echo $this->translate('担当者名'); ?>
+                    </label>
+                </div>
+                <div class="col-sm-6">
+                    <span class="mail-name-1"><?php echo $this->escapeHtml($ibaInfo->getMailName1()); ?></span>
+                </div>
+            </div>
+            <div class="col-sm-6  cl2">
+                <div class="col-sm-2 col-label">
+                    <label class="title-label">
+                        <?php echo $this->translate('メールアドレス'); ?>
+                    </label>
+                </div>
+                <div class="col-sm-6">
+                    <span class="mail-address-1"><?php echo $this->escapeHtml($ibaInfo->getMailAddress1()); ?></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="hr"></div>
+
+        <div class="row r14">
+            <div class="col-sm-2 col-label">
+                <label class="title-label">
+                    <?php echo $this->translate('実施予定日'); ?>
+                </label>
+            </div>
+            <div class="col-sm-10">
+                <span class="test-date"><?php echo ($ibaInfo->getTestDate()) ? $ibaInfo->getTestDate()->format('Y/m/d') : ''; ?></span>
+            </div>
+        </div>
+
+        <div class="row r15">
+            <div class="col-sm-2 col-label">
+                <label class="title-label">
+                    <?php echo $this->translate('実施目的'); ?>
+                </label>
+            </div>
+            <div class="col-sm-10">
+                <span class="purpose"><?php echo empty($ibaInfo->getPurpose()) ? '' : $this->escapeHtml($this->translate('purpose-' . $ibaInfo->getPurpose())); ?></span>
+            </div>
+        </div>
+        
+        <?php if($ibaInfo->getPurpose() == 'other') {?>
+        <div class="row r15">
+            <div class="col-sm-2 col-label">
+                <label class="title-label">
+                    <?php echo $this->translate('その他内容'); ?>
+                </label>
+            </div>
+            <div class="col-sm-10">
+                <span><?php echo nl2br($this->escapeHtml($ibaInfo->getPurposeOther())); ?></span>
+            </div>
+        </div>
+        <?php } ?>
+
+        <div class="hr"></div>
+
+
+        <div class="row r18">
+            <div class="col-sm-2 col-label">
+                <label class="title-label">
+                    <?php echo $this->translate('ご質問・ご要望'); ?>
+                </label>
+            </div>
+            <div class="col-sm-10">
+                <span><?php echo nl2br($this->escapeHtml($ibaInfo->getQuestion1())); ?></span>
+            </div>
+        </div>
+
+        <div class="row r19">
+            <div class="col-sm-2 col-label">
+                <label class="title-label">
+                    <?php echo $this->translate('オプション申込'); ?>
+                </label>
+            </div>
+            <div class="col-sm-10">
+                <span><?php echo empty($ibaInfo->getOptionApply()) ? '' : $this->translate('option-apply-' . $ibaInfo->getOptionApply()); ?></span>
+            </div>
+        </div>
+		<div class="row r17">
+			<div class="col-sm-2 col-label">
+				<label class="title-label">
+				<?php echo $this->translate('実施内容・料金'); ?>
+				</label>
+			</div>
+			<div class="col-sm-8">
+				<table id="tblPrice" class="table table-bordered">
+					<thead>
+                                            <tr>
+                                                <th class="Type"><?php echo $this->translate('種類'); ?></th>
+                                                <th class="RequiredNumberCD"><?php echo $this->translate('使用教室数'); ?></th>
+                                                <th class="NumberOfCandidates"><span><?php echo $this->translate('受験者数'); ?></span></th>
+                                                <th class="Price"><?php echo $this->translate('単価（税込）'); ?></th>
+                                                <th class="Remarks"><?php echo $this->translate('料金'); ?></th>
+                                            </tr>
+					</thead>
+                                        <?php if($totalPrice['priceA'] != 0){ ?>
+					<tr>  
+						<td><span class="title-A"><?php echo $this->translate('<p>テストＡ</p> （準1級～2級）'); ?></span></td>
+						<td class="text-right"><?php echo $ibaInfo->getNumberCDA(); ?></td>
+						<td class="text-right"><?php echo $ibaInfo->getNumberPeopleA(); ?></td>
+                                                <td class="text-right"><?php echo IBA\IBAConst::IBA_UNIT_PRICE.$this->translate('円/人'); ?></td>
+						<td class="text-right"><?php echo number_format($totalPrice['priceA']); ?></td>
+					</tr>
+                                        <?php } ?>
+                                        <?php if($totalPrice['priceB'] != 0){ ?>
+					<tr>
+						<td><span class="title-B"><?php echo $this->translate('<p>テストＢ</p> （2級～3級）'); ?></span></td>
+						<td class="text-right"><?php echo $ibaInfo->getNumberCDB(); ?></td>
+						<td class="text-right"><?php echo $ibaInfo->getNumberPeopleB(); ?></td>
+                                                <td class="text-right"><?php echo IBA\IBAConst::IBA_UNIT_PRICE.$this->translate('円/人'); ?></td>
+						<td class="text-right"><?php echo number_format($totalPrice['priceB']); ?></td>
+					</tr>
+                                        <?php } ?>
+                                        <?php if($totalPrice['priceC'] != 0){ ?>
+					<tr>
+						<td><span class="title-C"><?php echo $this->translate('<p>テストＣ</p> （準2級～４級）'); ?></span></td>
+						<td class="text-right"><?php echo $ibaInfo->getNumberCDC(); ?></td>
+						<td class="text-right"><?php echo $ibaInfo->getNumberPeopleC(); ?></td>
+                                                <td class="text-right"><?php echo IBA\IBAConst::IBA_UNIT_PRICE.$this->translate('円/人'); ?></td>
+						<td class="text-right"><?php echo number_format($totalPrice['priceC']); ?></td>
+					</tr>
+                                        <?php } ?>
+                                        <?php if($totalPrice['priceD'] != 0){ ?>
+					<tr>
+						<td><span class="title-D"><?php echo $this->translate('<p>テストＤ</p> （3級～5級）'); ?></span></td>
+						<td class="text-right"><?php echo $ibaInfo->getNumberCDD(); ?></td>
+						<td class="text-right"><?php echo $ibaInfo->getNumberPeopleD(); ?></td>
+                                                <td class="text-right"><?php echo IBA\IBAConst::IBA_UNIT_PRICE.$this->translate('円/人'); ?></td>
+						<td class="text-right"><?php echo number_format($totalPrice['priceD']); ?></td>
+					</tr>
+                                        <?php } ?>
+                                        <?php if($totalPrice['priceE'] != 0){ ?>
+					<tr>
+						<td><span class="title-E"><?php echo $this->translate('<p>テストＥ</p> （4級～5級）'); ?></span></td>
+						<td class="text-right"><?php echo $ibaInfo->getNumberCDE(); ?></td>
+						<td class="text-right"><?php echo $ibaInfo->getNumberPeopleE(); ?></td>
+                                                <td class="text-right"><?php echo IBA\IBAConst::IBA_UNIT_PRICE.$this->translate('円/人'); ?></td>
+						<td class="text-right"><?php echo number_format($totalPrice['priceE']); ?></td>
+					</tr>
+                                        <?php } ?>
+					<tr class="bg-table">
+						<td><b><span><?php echo $this->translate('試験料合計'); ?></span></b></td>
+                                                <td class="text-right"><b><?php echo $ibaInfo->getTotalCD(); ?></b></td>
+                                                <td class="text-right"><b><?php echo $ibaInfo->getTotalPeople(); ?></b></td>
+                                                <td class="text-right"></td>
+                                                <td class="text-right"><b><?php echo number_format($totalPrice['realTotal1']); ?></b></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+        <?php if($totalPrice['total2'] > 0) { ?>
+        <div class="row r20">
+            <div class="col-sm-2 col-label">
+                <label class="title-label"> </label>
+            </div>
+            <div class="col-sm-8">
+                <table id="tblOption" class="table table-bordered">
+                    <thead>
+                        <tr class="bg-table">
+                            <th class="optionsMenu"><?php echo $this->translate('オプション'); ?></th>
+                            <th class="NumberOfPeople"><?php echo $this->translate('人数'); ?></th>
+                            <th class="Price"><?php echo $this->translate('単価（税込）'); ?></th>
+                            <th class="Rates"><?php echo $this->translate('料金'); ?></th>
+                        </tr>
+                    </thead>
+                     <?php
+                    $rp1 = count($totalPrice['grp2CheckArr']);
+                    $grp2CheckArr = array();
+                    foreach ($totalPrice['grp2CheckArr'] as $value){
+                        switch ($value){
+                            case '4' : $grp2CheckArr[$value] = $this->translate('iba-option-menu-4');
+                                break;
+                            case '5' : 
+                                $rp1 --;
+                                $grp2CheckArr[$value] = $this->translate('iba-option-menu-5');
+                                break;
+                            case '6' : 
+                                $rp1--;
+                                $grp2CheckArr[$value] = $this->translate('iba-option-menu-6');
+                                break;
+                            case '7' : 
+                                $rp1--;
+                                $grp2CheckArr[$value] = $this->translate('iba-option-menu-7-1') . $ibaInfo->getRankNo() .  $this->translate('iba-option-menu-7-2');
+                                break;
+                        }
+                    }
+                    
+                    $allKeys = array_keys($grp2CheckArr);
+                    ?>
+                    <?php
+                    $grp1CheckKeys = array_keys($totalPrice['grp1CheckArr']);
+                    
+                    if(in_array('1', $optionMenu)) {
+                    ?>
+                   
+                    <tr>
+                        <td><p><?php echo $this->translate('成績資料印刷・送付'); ?></p>
+                        <p class="red-color"><?php echo $this->translate('※送料（1,000円）が発送先毎にかかります'); ?></p>
+                        </td>
+                        <?php if($grp1CheckKeys[0] == 0){ ?>
+                        <td rowspan="<?php if(count($optionMenu) == 2 && (count($optionMenu) > $rp1)){ echo $rp1;}else{ echo count($optionMenu);} ?>" class="text-right">
+                            <?php echo $ibaInfo->getTotalPeople(); ?>
+                        </td>
+                        <?php } ?>
+                        <td class="text-right">
+                            <p><?php echo $this->translate('80円/人'); ?></p>                            
+                        </td>
+                        <td class="text-right"><?php echo number_format($totalPrice['price1']); ?></td>
+                    </tr>
+                    <?php } ?>
+                    <?php if(in_array('2', $optionMenu)) { ?>
+                    <tr>
+                        <td>
+                            <p><?php echo $this->translate('問題冊子仕分け '); ?></p>
+                            <p><?php echo $this->translate($ibaInfo->getQuestionNo() . ' 部ごとに仕分けする'); ?></p>
+                        </td>
+                         <?php if($grp1CheckKeys[0] == 1){ ?>
+                        <td rowspan="<?php if(count($optionMenu) == 2 && (count($optionMenu) > $rp1)){ echo $rp1;}else{ echo count($optionMenu);} ?>" class="text-right">
+                            <?php echo $ibaInfo->getTotalPeople(); ?>
+                        </td>
+                        <?php } ?>
+                        <td class="text-right">
+                            <?php echo ($ibaInfo->getTotalPeople() <= IBA\IBAConst::IBA_PRICE_COUNT_CONDITION) ? IBA\IBAConst::IBA_PRICE_MULTIPLE_MAX : IBA\IBAConst::IBA_PRICE_MULTIPLE_MIN; echo $this->translate('円/人');?>
+                        </td>
+                        <td class="text-right"><?php echo number_format($totalPrice['price2']); ?></td>
+                    </tr>
+                    <?php } ?>
+                    <?php if(in_array('3', $optionMenu)) { ?>
+                    <tr>
+                        <td>
+                            <p><?php echo $this->translate('名簿マッチング '); ?></p>
+                            <p><?php echo $this->translate('（エラー修正を含む）'); ?></p>
+                        </td>
+                        <?php if($grp1CheckKeys[0] == 2){ ?>
+                        <td rowspan="<?php if(count($optionMenu) == 2 && (count($optionMenu) > $rp1)){ echo $rp1;}else{ echo count($optionMenu);} ?>>" class="text-right">
+                            <?php echo $ibaInfo->getTotalPeople(); ?>
+                        </td>
+                        <?php } ?>
+                        <td class="text-right"><?php echo ($ibaInfo->getTotalPeople() <= IBA\IBAConst::IBA_PRICE_COUNT_CONDITION) ? IBA\IBAConst::IBA_PRICE_MULTIPLE_MAX : IBA\IBAConst::IBA_PRICE_MULTIPLE_MIN; echo $this->translate('円/人'); ?></td>
+                        <td class="text-right"><?php echo number_format($totalPrice['price3']); ?></td>
+                    </tr>
+                    <?php } ?>
+                    
+                    <?php if(!empty($totalPrice['price4']) || is_numeric($totalPrice['price4'])) { 
+                        if($allKeys[0] < 5){
+                    ?>
+                    <tr>
+                        <td>
+                            <p><?php echo $grp2CheckArr[$allKeys[0]];?></p>
+                        </td>
+                         <?php if(empty($totalPrice['grp1CheckArr'])){ ?>
+                        <td rowspan="<?php if(count($optionMenu) == 2 && (count($optionMenu) > $rp1)){ echo $rp1;}else{ echo count($optionMenu);} ?>" class="text-right">
+                            <?php echo $ibaInfo->getTotalPeople(); ?>
+                        </td>
+                        <?php } ?>
+                        <td rowspan="<?php echo $rp1; ?>" class="text-right">
+                            <?php echo ($ibaInfo->getTotalPeople() <= IBA\IBAConst::IBA_PRICE_COUNT_CONDITION) ? IBA\IBAConst::IBA_PRICE_MULTIPLE_MAX.$this->translate('円/人') : '無料'; ?>
+                        </td>
+                        <td rowspan="<?php echo $rp1; ?>" class="text-right"><?php echo ($totalPrice['price4'] != 0) ? number_format($totalPrice['price4']) : '0'; ?></td>
+                    </tr>
+                    
+                    <?php
+                        for ($i = 1; $i < $rp1; $i++) { 
+                            if($allKeys[$i] != 6 && $allKeys[$i] !=7 && $allKeys[$i] !=5){
+                    ?>
+                    <tr>
+                        <td>
+                            <p><?php echo $grp2CheckArr[$allKeys[$i]]; ?></p>
+                       </td>
+                    </tr>
+                    <?php } ?>
+                    <?php } ?>
+                    <?php } ?>
+                    <?php } ?>
+                    <tr class="bg-table">
+                        <td colspan="3">
+                            <p>
+                                <b><?php echo $this->translate('オプション合計'); ?></b>
+                            </p>
+                        </td>
+                        <td class="text-right"><b><?php echo number_format($totalPrice['total2']); ?></b></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <?php } ?>
+        <?php if($totalPrice['subTotal1']){ ?>
+        <div class="row r20 fee">
+            <div class="col-sm-2 col-label">
+                <label class="title-label"> </label>
+            </div>
+            <div class="col-sm-8">
+                <table id="tblMenuOption" class="table table-bordered">
+                    <thead>
+                        <tr class="bg-table">
+                            <th class="optionsMenu"><?php echo $this->translate('最低価格保証適用分'); ?></th>
+                            <th class="NumberOfPeople"><?php echo $this->translate('人数'); ?></th>
+                            <th class="Price"><?php echo $this->translate('単価（税込）'); ?></th>
+                            <th class="Rates"><?php echo $this->translate('料金'); ?></th>
+                        </tr>
+                    </thead>
+                    <tr>
+                        <td>
+                            <?php echo $this->translate('試験料'); ?>
+                        </td>
+                        <td class="text-right" >
+                            <?php echo IBA\IBAConst::IBA_STUDENT_COUNT_DISCOUNT - $ibaInfo->getTotalPeople(); ?>
+                        </td>
+                        <td class="text-right">
+                            <?php echo IBA\IBAConst::IBA_UNIT_PRICE.$this->translate('円/人'); ?>
+                        </td>
+                        <td class="text-right">
+                            <?php echo number_format($totalPrice['subTotal1']); ?>
+                        </td>
+                    </tr>
+                    <?php
+                        if($totalPrice['optionFeeTotal']){
+                            $space = '&nbsp;&nbsp;&nbsp;';
+                    ?>
+                    <tr>
+                        <td colspan="3">
+                            <p><?php echo $this->translate('オプション'); ?></p>
+                        </td>
+                        <td class="text-right">
+                            <?php echo number_format($totalPrice['optionFeeTotal']); ?>
+                        </td>
+                    </tr>
+                    <?php
+                    $rp1 = count($totalPrice['grp2CheckArr']);
+
+                    $grp2CheckArr = array();
+                    foreach ($totalPrice['grp2CheckArr'] as $value){
+                        switch ($value){
+                            case '4' : $grp2CheckArr[$value] = $this->translate('iba-option-menu-4');
+                                break;
+                            case '5' : 
+                                $rp1 --;
+                                $grp2CheckArr[$value] = $this->translate('iba-option-menu-5');
+                                break;
+                            case '6' : 
+                                $rp1 --;
+                                $grp2CheckArr[$value] = $this->translate('iba-option-menu-6');
+                                break;
+                            case '7' : 
+                                $rp1--;
+                                $grp2CheckArr[$value] = $this->translate('iba-option-menu-7-1') .$space. $ibaInfo->getRankNo().  $this->translate('iba-option-menu-7-2');
+                                break;
+                        }
+                    }
+                    $allKeys = array_keys($grp2CheckArr);
+                    ?>
+                    <?php
+                    $grp1CheckKeys = array_keys($totalPrice['grp1CheckArr']);
+                    
+                    if(in_array('1', $optionMenu)) {
+                    ?>
+                    <tr>
+                        <td>
+                            <p><?php echo $space. $this->translate('成績資料印刷・送付'); ?></p>
+                        </td>
+                         <?php if($grp1CheckKeys[0] == 0){ ?>
+                        <td rowspan="<?php if(count($optionMenu) == 2 && (count($optionMenu) > $rp1)){ echo $rp1;}else{ echo count($optionMenu);} ?>" class="text-right">
+                            <?php echo IBA\IBAConst::IBA_STUDENT_COUNT_DISCOUNT - $ibaInfo->getTotalPeople(); ?>
+                        </td>
+                        <?php } ?>
+                        <td class="text-right">
+                            <p><?php echo $this->translate('80円/人'); ?></p>
+                        </td>
+                        <td class="text-right">
+                            <?php echo number_format($totalPrice['optionFeeprice1']); ?>
+                        </td>
+                    </tr>
+                    <?php } ?>
+                    <?php if(in_array('2', $optionMenu)) {
+                        ?>
+                    <tr>
+                        <td>
+                            <p><?php echo $space . $this->translate('問題冊子仕分け '); ?></p>
+                            <p><?php echo $space.$this->translate($ibaInfo->getQuestionNo() . ' 部ごとに仕分けする'); ?></p>
+                        </td>
+                         <?php if($grp1CheckKeys[0] == 1){ ?>
+                        <td rowspan="<?php if(count($optionMenu) == 2 && (count($optionMenu) > $rp1)){ echo $rp1;}else{ echo count($optionMenu);} ?>" class="text-right">
+                            <?php echo IBA\IBAConst::IBA_STUDENT_COUNT_DISCOUNT - $ibaInfo->getTotalPeople(); ?>
+                        </td>
+                        <?php } ?>
+                        <td class="text-right">
+                            <?php echo IBA\IBAConst::IBA_PRICE_MULTIPLE_MAX. $this->translate('円/人');?>
+                        </td>
+                        <td class="text-right">
+                            <?php echo number_format($totalPrice['optionFeeprice2']); ?>
+                        </td>
+                    </tr>
+                    <?php } ?>
+                    <?php if(in_array('3', $optionMenu)) {
+                        ?>
+                    <tr>
+                        <td>
+                            <p><?php echo $space.$this->translate('名簿マッチング '); ?></p>
+                            <p><?php echo $space.$this->translate('（エラー修正を含む）'); ?></p>
+                        </td>
+                         <?php if($grp1CheckKeys[0] == 2){ ?>
+                        <td rowspan="<?php if(count($optionMenu) == 2 && (count($optionMenu) > $rp1)){ echo $rp1;}else{ echo count($optionMenu);} ?>" class="text-right">
+                            <?php echo IBA\IBAConst::IBA_STUDENT_COUNT_DISCOUNT - $ibaInfo->getTotalPeople(); ?>
+                        </td>
+                        <?php } ?>
+                        <td class="text-right">
+                            <?php echo IBA\IBAConst::IBA_PRICE_MULTIPLE_MAX.$this->translate('円/人'); ?>
+                        </td>
+                        <td class="text-right"><?php echo number_format($totalPrice['optionFeeprice3']); ?></td>
+                    </tr>
+                    <?php } ?>
+                    
+                    <?php if($totalPrice['optionFeeprice4']) {
+                        if($allKeys[0] < 5){
+                        ?>
+                    <tr>
+                        <td>
+                            <p><?php echo $space.$grp2CheckArr[$allKeys[0]];?></p>
+                        </td>
+                        <?php if(empty($totalPrice['grp1CheckArr'])){ ?>
+                        <td rowspan="<?php if(count($optionMenu) == 2 && (count($optionMenu) > $rp1)){ echo $rp1;}else{ echo count($optionMenu);} ?>" class="text-right">
+                            <?php echo IBA\IBAConst::IBA_STUDENT_COUNT_DISCOUNT - $ibaInfo->getTotalPeople(); ?>
+                        </td>
+                        <?php } ?>
+                        <td rowspan="<?php echo $rp1; ?>" class="text-right">
+                            <?php echo IBA\IBAConst::IBA_PRICE_MULTIPLE_MAX.$this->translate('円/人'); ?>
+                        </td>
+                        <td rowspan="<?php echo $rp1; ?>" class="text-right">
+                            <?php echo number_format($totalPrice['optionFeeprice4']); ?>
+                        </td>
+                    </tr>
+                    <?php 
+                        for ($i = 1; $i < $rp1; $i++) {                             
+                            if($allKeys[$i] != 6 && $allKeys[$i] !=7 && $allKeys[$i] !=5){
+                    ?>
+                    <tr>
+                        <td>
+                            <p><?php echo $space . $grp2CheckArr[$allKeys[$i]]; ?></p>
+                       </td>
+                    </tr>
+                    <?php } ?>
+                    <?php } ?>
+                    <?php } ?>
+                    <?php } ?>
+                    <?php } ?>
+                    <tr class="bg-table">
+                        <td colspan="3">
+                            <p>
+                                <b><?php echo $this->translate('最低価格保証適用分合計'); ?></b>
+                            </p>
+                        </td>
+                        <td class="text-right"><b><?php echo number_format($totalPrice['subTotal2']); ?></b></td>
+                    </tr>                    
+                </table>               
+            </div>
+        </div>
+        <?php } ?>
+        <?php if($totalPrice['total4']){ ?>
+        <div class="row r20 row-m-t-0">
+            <div class="col-sm-2 col-label">
+            </div>
+            <div class="col-sm-8">
+                <table id="tblSumPrice" class="table table-bordered">
+                    <tr class="bg-table">
+                        <td colspan="3" class="w-508">
+                            <p>
+                                <b><?php echo $this->translate('総合計金額'); ?></b>
+                            </p>
+                            <p>                                                          
+                                <b>
+                                    <?php if(!$optionMenu[0])
+                                            {   
+                                                if($ibaInfo->getTotalPeople() >= IBA\IBAConst::IBA_STUDENT_COUNT_DISCOUNT) 
+                                                    echo $this->translate('（試験料合計）');
+                                            }
+                                           else 
+                                           {                                             
+                                               if($ibaInfo->getTotalPeople() >= IBA\IBAConst::IBA_STUDENT_COUNT_DISCOUNT) 
+                                                   echo $this->translate('（試験料合計+オプション合計）');
+                                               if($ibaInfo->getTotalPeople() < IBA\IBAConst::IBA_STUDENT_COUNT_DISCOUNT) 
+                                                   echo $this->translate('（試験料合計+オプション合計+最低価格保証適用分合計）');
+                                           } 
+                                      ?>
+                                </b>
+                            </p>
+                        </td>
+                        <td class="text-right"><b><?php echo number_format($totalPrice['total4']); ?></b></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <?php if($totalPrice['subTotal1']){ ?>
+        <div class="row r20">
+            <div class="col-sm-2 col-label">
+            </div>
+            <div class="col-sm-10">
+                 <div  class="red-color">
+                    <p>
+                        <?php
+                            $route = ["controller" => "iba", "action" => "onlyPolicy"];
+                            $policeLink = $this->url('i-b-a/default', $route); 
+                            $remarkLink = '<a href="'.$policeLink.'" target="_blank" class="show-only-policy">'.$this->translate('英検IBA申込規約').'</a>';
+                        ?><?php echo sprintf($this->translate('iba-remark'),$remarkLink);?>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <?php } ?>
+        <?php } ?>
+        <div class="row r21">
+            <div class="col-sm-2 col-label">
+                <label class="title-label">
+                    <p><?php echo $this->translate('オプションの'); ?></p>
+                    <p><?php echo $this->translate('ご質問・ご要望'); ?></p>
+                </label>
+
+            </div>
+            <div class="col-sm-10">
+                <span><?php echo ($ibaInfo->getQuestion2()) ? nl2br($this->translate($ibaInfo->getQuestion2())) : ''; ?></span>
+            </div>
+        </div>
+    </div>
+    <div class="box-footer">
+
+        <div class="col-sm-3 text-left">
+            <?php if(!empty($backList) && $backList == 1){ ?>
+            <a class="btn btn-large-180" id="btnEdit"
+               href="<?php
+               echo $this->url('eikenorg', array(
+                   'controller' => 'eikenorg',
+                   'action' => 'index'
+               ));
+               ?>"><i class="arrow-circle-left"></i><?php echo $this->translate("Back"); ?></a>
+            <?php } ?>
+        </div>
+        <div class="col-sm-9 text-right">
+            <form id="frmConfirm" method="post">
+                <input type="hidden" value="<?php echo $pageTitle;?>" name="iba-confirm-page-title" id="iba-confirm-page-title">
+                <input type="hidden" value="<?php echo $id;?>" name="idIBA"/>      
+                <input type="hidden" value="<?php echo $token;?>" name="token"/>      
+                <?php if($status !== IBA\Controller\IBAController::IBA_STATUS_CONFIRMED){ ?>
+                    <a class="btn btn-large-180" id="btnEdit" <?php echo \Dantai\PublicSession::isViewerRole() ? 'disabled' : '' ?>
+                       href="<?php 
+                            $route = ["controller" => "iba", "action" => "add"];
+                            $id ? $route['id'] = $id : '';
+                            $token ? $route['token'] = $token : '';
+                            if(!empty($backList) && $backList == 1){ 
+                                 $route['back'] = 1;
+                            }
+                            echo $this->url('i-b-a/default', $route); 
+                            ?>">
+                                   <i class="pencil-square"></i><?php echo $this->translate("Edit"); ?></a>
+                    <?php } ?>
+                <?php 
+                $isServiceManger = ($roleId == 1 
+                                    || ( $roleId == 2 &&($serviceType == IBA\Controller\IBAController::USER_SERVICETYPE_ALL 
+                                        || $serviceType == IBA\Controller\IBAController::USER_SERVICETYPE_IBA)));
+                $isShowComfirm = $isShowApply =($status !== IBA\Controller\IBAController::IBA_STATUS_CONFIRMED && $isValid == 1);
+                
+                if(!$isServiceManger){
+                    $isShowApply = false;
+                }
+                if($status != IBA\Controller\IBAController::IBA_STATUS_PENDING){
+                    $isShowApply = false;
+                }
+                if($status == IBA\Controller\IBAController::IBA_STATUS_PENDING && $isServiceManger){
+                    $isShowComfirm = false;
+                }
+                if(\Dantai\PublicSession::isEmpty(\IBA\Controller\IBAController::IBA_REGISTER_DATA_KEY.$token)){
+                    $isShowComfirm = FALSE;
+                }
+                ?>
+                <?php if ($status !== IBA\Controller\IBAController::IBA_STATUS_CONFIRMED && $isValid == 1) { ?>
+                <?php if ($isShowApply ) { ?>
+                <input type="hidden" value="<?php echo IBA\Controller\IBAController::IBA_STATUS_CONFIRMED;?>" name="status"/>
+                    <a id="confim" class="btn btn-red btn-large-180"
+                                href="javascript:void(0)"> 
+                        <?php echo $this->translate("IBA-application-confirmed"); ?></a>
+                    <?php } else if($isShowComfirm ){ ?>
+                    <input type="hidden" value="<?php echo IBA\Controller\IBAController::IBA_STATUS_PENDING;?>" name="status"/>
+                    <a id="submitform" class="btn btn-red btn-large-180"
+                       href="javascript:void(0)"> <i class="arrow-circle-right-w"></i>
+                        <?php echo $this->translate("Eiken-IBA-application-confirmed"); ?></a>
+                    <?php } }?>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var jsMessages = <?php echo $jsMessages ?>;
+    var isNoNameKana = <?php echo ($isNoNameKana ? 1 : 0) ?>;
+    var confirmStatus = '<?php echo IBA\Controller\IBAController::IBA_STATUS_CONFIRMED ?>';
+    
+    $("#confim").click(function () {        
+            $('#frmConfirm').submit();        
+    });
+
+    $("#submitform").click(function () {        
+            $('#frmConfirm').submit();        
+    });
+    
+    <?php if($jsMessages->isSuccess()): ?>
+	var content = '<div class="contentConfim"><p>英検IBAの申し込みを登録しました。</p><p>団体名：<?php echo $nameKanjiOrg ?> </p><p>申込ID：'+$('#ibaId').text()+' </p><p>英検の担当者が内容を確認してご連絡を差し上げます。</p><p> 今しばらくお待ちください。</p></div>';
+	if(jsMessages.data[0] == confirmStatus){
+		   content = '<div class="contentConfim"><p>英検ＩＢＡの申し込みを確定しました。ＩＢＡシステムにデータが連携され、申し込みを登録したユーザにメールで通知がされます</p><p>団体名：<?php echo $nameKanjiOrg ?> </p><p>申込ID：	'+$('#ibaId').text()+' </p></div>';
+	}
+        
+	ALERT_MESSAGE.show(content,function()
+	        {    	
+                    if (isNoNameKana == 0) 
+                            window.location.href=COMMON.baseUrl+"eiken/eikenorg/index";
+                    else    
+                    setTimeout(function (){  
+                             ALERT_MESSAGE.show('<?php echo $warningMsg ?>',function()
+                                 {
+                                     window.location.href=COMMON.baseUrl+"eiken/eikenorg/index";
+                                 },
+                                 function()
+                                 {
+                                 });                                                
+                    },500);
+                },
+	    	function()
+	        {
+	    	});
+        
+	<?php elseif($jsMessages->getMessages()): ?>
+	ALERT_MESSAGE.show(jsMessages.messages,function()
+	        {
+		    
+	    	},
+	    	function()
+	        {
+	    	});
+    <?php endif; ?>
+
+//check box
+//     $(document).ready(function () {
+//         $('#btnEdit').focus();
+//     });
+
+</script>

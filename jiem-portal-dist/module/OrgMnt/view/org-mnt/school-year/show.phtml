@@ -1,0 +1,34 @@
+<div class="box show-schoolyear">
+	<div class="box-header">
+		<strong><?php echo $this->translate('学年情報') ;?></strong>
+	</div>
+	<div class="box-body">
+		<div data-example-id="bordered-table">
+			<div class="row">
+				<div class="col1">
+					<b><?php echo $this->translate('学年') ;?></b>
+				</div>
+				<div class="fl col2"><?php echo $schoolyear->getName(); ?></div>
+			</div>
+		</div>
+	</div>
+	<div class="box-footer">
+		<div class="text-left col-sm-4">
+			<a class="btn btn-large-180"
+				href="<?php echo $this->url('org-mnt/default', array('controller' => 'schoolyear', 'action' => 'index')) ?>">
+				<i class="arrow-circle-left"></i>
+				<?php echo $this->translate('戻る') ;?></a>
+		</div>
+		<div class="text-right col-sm-8">
+			<a class="btn btn-large-180 first"
+				href="<?php echo $this->url('org-mnt/default', array('controller' => 'schoolyear', 'action' => 'edit', 'id' => $schoolyear->getId())) ?>">
+				<i class="pencil-square"></i>
+	            <?php echo $this->translate('編集') ;?>
+	           </a> <a class="btn btn-large-180 margin_edit"
+				href="<?php echo $this->url('org-mnt/default', array('controller' => 'schoolyear', 'action' => 'delete', 'id' => $schoolyear->getId())) ?>">
+				<i class="trash-inline"></i>
+	                     			<?php echo $this->translate('削除') ;?>
+	                     	</a>
+		</div>
+	</div>
+</div>

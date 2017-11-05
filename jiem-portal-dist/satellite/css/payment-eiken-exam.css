@@ -1,0 +1,127 @@
+#credit {
+    margin-bottom: 60px;
+}
+#credit .row span {
+    vertical-align: middle;
+}
+#credit .red {
+    color: red;
+}
+#credit .col-month, #credit .col-year {
+    width: 80px;
+    margin-right: 10px;
+}
+#credit .wname {
+    max-width: 150px;
+}
+#credit .wname:first-child {
+    margin-right: 20px;
+}
+#credit .col-year {
+    margin-left: 15px;
+}
+#credit .wcard {
+    max-width: 320px;
+}
+#credit .wcvv {
+    max-width: 90px;
+}
+#credit td, #credit th {
+    text-align: center;
+}
+#credit table {
+    margin-bottom: 0;
+}
+#credit table th {
+    background-color: #ffd5d5;
+}
+.credit-add .row {
+    margin-bottom: 15px;
+}
+#credit .mt-reset {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+#credit .mb-reset {
+    margin-bottom: 0;
+}
+#credit .mt15 {
+    margin-top: 15px;
+}
+#credit .col-md-4, .grade-title {
+    font-weight: bold;
+}
+#credit .grade-title {
+    margin-bottom: 10px;
+}
+#credit .wnext {
+    width: 130px;
+}
+#credit .wcancel {
+    width: 130px;
+}
+#credit .col-footer {
+    border: 1px solid #CCCCCC;
+}
+#credit .grade-description {
+    padding-bottom: 10px;
+    line-height: 1.3;
+}
+.credit-preview .box-body div {
+    margin: 5px 0;
+}
+.credit-preview .title {
+    font-weight: bold;
+}
+#credit .form-group input {
+    max-width: 160px;
+}
+#credit .mr-offset {
+    margin-right: 25px;
+}
+.error input[type="radio"], .error input[type="checkbox"], input[type="checkbox"].error, input[type="radio"].error {
+    outline: 2px dashed #ff0000;
+}
+.errorChecked {
+    outline: none !important;
+}
+.jiem-error .alert {
+    margin-bottom: 0;
+}
+.payment-info .row {
+    padding-bottom: 15px;
+}
+@media only screen and (max-device-width: 480px) {
+    .payment-info{
+        font-size: 16px;
+        margin: 60px;
+    }
+    .payment-info .box-header{
+        display: none;
+    }
+}
+#credit tbody tr td a{
+    width: 65px;
+    height: 25px;
+}
+.payment-info .nameTitle{
+    width: 40px;
+}
+.payment-info .priceNameTitle{
+    width: 60px;
+}
+.payment-info .examDateTitle{
+    width: 135px;
+}
+.payment-info .paymentStatusTitle{
+    width: 65px;
+}
+.payment-info .actionTitle{
+    width: 125px;
+}
+#credit td.round2-date{
+    text-align: left;
+}
+.paybey-creadit .date{
+    text-align: left !important;
+}

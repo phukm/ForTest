@@ -1,0 +1,5 @@
+#!/usr/bin/env php
+<?php
+
+chdir(__DIR__);
+include('console/doctrine-module.php');

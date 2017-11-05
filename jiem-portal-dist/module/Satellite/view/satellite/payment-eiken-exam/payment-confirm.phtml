@@ -1,0 +1,84 @@
+<?php if ($isMobile) {
+        $this->headLink()->prependStylesheet($this->basePath('css/payment-eiken-exam-mobile.css')); 
+    } else{
+        $this->headLink()->prependStylesheet($this->basePath('css/payment-eiken-exam.css'));
+    }
+?>
+<?php if ($isMobile) { echo '<style>  #credit input .error{ border: 1px solid red !important; } #credit { padding: 20px; font-size: 20px; } #credit .text-header{ padding-bottom: 5px; border-bottom: 1px solid red; font-weight: bold; } #credit .box-footer{ margin: 10px 15px; } #errorPopupModal{ z-index: 999999; } </style>'; } ?>
+<div class="box credit-preview" id="credit">
+    <div class="box-header">
+        <div class="text-header">クレジット支払確認</div>
+    </div>
+    <div class="box-body">
+        <div class="row">
+            <div class="col-sm-4 pull-left"><strong>カード名義（カナ）</strong></div>
+            <div class="col-sm-8"><?php echo $data['cardFirstName'] . $data['cardLastName']; ?></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 pull-left"><strong>カード番号</strong></div>
+            <div class="col-sm-8"><?php echo $data['cardNumber']; ?></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 pull-left"><strong>有効期限</strong></div>
+            <div class="col-sm-8"><?php echo $data['cardMonth']; ?>
+                月 <?php echo $data['cardYearShow']; ?>
+                年</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 pull-left"><strong>セキュリティコード</strong></div>
+            <div class="col-sm-8"><?php echo (strlen($data['cardCvv']) == 3) ? '***' : '****'; ?></div>
+        </div>
+        <div class="row grade-title">
+            <div>受験級（金額)</div>
+        </div>
+        <div class="row">
+            <table class="table table-bordered paybey-creadit">
+                <thead>
+                <tr>
+                    <th>級</th>
+                    <th>受験料</th>
+                    <th>試験日</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php if (!empty($data['kyu'])) {
+                    foreach ($data['kyu'] as $kyu) { ?>
+                        <tr>
+                            <td><?php echo $kyu['name']; ?></td>
+                            <td><?php echo $kyu['priceName']; ?></td>
+                            <td class="date"><?php echo $kyu['examDateRound2'] ?></td>
+                        </tr>
+                    <?php }
+                } ?>
+                        <tr>
+                            <td>合計</td>
+                            <td><?php echo $data['total']['priceName']; ?></td>
+                            <td></td>
+                        </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="box-footer">
+        <div class="row text-right">
+            <a id="btnBack" class="btn btn-large-180 wnext pull-left" href="<?php echo empty($_SERVER['HTTP_REFERER']) ? '/' : $_SERVER['HTTP_REFERER']; ?>"><i class="arrow-circle-left"></i>戻る</a>
+            <a id="btnCancel" class="btn btn-large-180 wcancel" href="../">キャンセル</a>
+            <a id="btnConfirm" class="btn btn-red btn-large-180 wnext" href="/payment-eiken-exam/econ-pay-by-credit?token=<?php echo $data['csrfToken'] ;?>"><i class="check-square"></i>確定</a>
+        </div>
+    </div>
+</div>
+<script>
+    $('#btnConfirm').click(function(){ 
+        $('#loadingModal').modal('show');
+        $('#btnConfirm').addClass('disabled').attr('disabled','disabled'); 
+    });
+    <?php if (!empty($data['errorMsg'])) { ?>
+    var errorMsg = '<?php echo $data['errorMsg']; ?>';
+    var redirect = "<?php echo isset($data['redirect']) ? $data['redirect'] : ''; ?>";
+    ERROR_MESSAGE.show(errorMsg, function () {
+        window.location = COMMON.baseUrl + redirect;
+    });
+    <?php } ?>
+</script>
+
+

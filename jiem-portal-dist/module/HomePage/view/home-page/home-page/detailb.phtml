@@ -1,0 +1,477 @@
+<!-- Styles -->
+<?php $this->headLink ()->prependStylesheet ( $this->basePath ( 'css/home-page.css' ) )?>
+<!-- Scripts -->
+<?php
+
+$this->headScript()->prependFile($this->basePath('js/highcharts.js'));
+
+?>
+<script>
+var dataGraphJ = <?php echo $dataGraphJ;?>;
+var dataJsonB = <?php echo $dataJsonB;?>;
+
+</script>
+
+<p class="prototype-breadcrumbs">
+	<span class="breadcrumbs-part">ホーム</span><i class="fa fa-chevron-right"></i><span
+		class="breadcrumbs-part">成績分析</span> <i class="fa fa-chevron-right"></i><span
+		class="breadcrumbs-current">英検合格者数&級別取得率</span>
+<div class="top-page-detail">
+	<div class="box">
+		<div class="box-header">
+			<span><b>英検合格実績</b></span>
+		</div>
+		<div class="box-body">
+			<div class="row">
+				<div class="box-tools pull-left">
+					<table class="table-b">
+						<tr>
+							<td rowspan="2"><label> 年度 &nbsp;</label></td>
+							<td><label class="checkbox-inline"><input type="checkbox" class="detail-b-type-check"
+									checked="checked" id="_crYear0"><?php echo $year; ?> &nbsp;</label></td>
+							<td><label class="checkbox-inline"><input type="checkbox" class="detail-b-type-check"
+									checked="checked" id="_crYear1"><?php echo $year-1; ?></label>
+								<label class="checkbox-inline"><input type="checkbox" class="detail-b-type-check"
+									checked="checked" id="_crYear2"><?php echo $year-2; ?></label></td>
+						</tr>
+						<tr>
+							<td><label class="checkbox-inline"><input type="checkbox" class="detail-b-type-check"
+									 id="_city"><?php echo $cityName;?> &nbsp;</label></td>
+							<td><label class="checkbox-inline"><input type="checkbox" class="detail-b-type-check"
+									 id="_nation">全国</label></td>
+						</tr>
+						<tr>
+							<td colspan="3">
+								<ul class="nav nav-pills chk-type">
+									<li id="chk1" class="detail-b-type-check detail-b-type-table"><a data-toggle="pill" href="#home">合格者数</a></li>
+									<li id="chk2" class="detail-b-type-check detail-b-type-table"><a data-toggle="pill" href="#menu1">級別取得率</a></li>
+									<li id="chk3" class="detail-b-type-check detail-b-type-table active"><a data-toggle="pill"
+										href="#menu2">両方</a></li>
+								</ul>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div class="box-tools pull-right">
+					<table class="table-b p-l-10">
+						<tr id="_crNotiY0">
+							<td class="lb-rate-org-0"><span style="color: #f600ff;"> •</span> 本年度の自校の取得率</td>
+							<td class="lb-rate-city-0"><span style="color: #002aff;"> •</span> 本年度の<?php echo $cityName;?>の取得率</td>
+							<td class="lb-rate-nation-0"><span style="color: #b8f4ff;"> •</span> 本年度の全国の取得率</td>
+							<td class="lb-total-0"><span style="color: #9dcff2;"> •</span> 本年度の自校の合格者数</td>
+						</tr>
+						<tr id="_crNotiY1">
+							<td class="lb-rate-org-1"><span style="color: #02b9ca;"> •</span> 前年度の自校の取得率</td>
+							<td class="lb-rate-city-1"><span style="color: #ff7e01;"> •</span> 前年度の<?php echo $cityName;?>の取得率</td>
+							<td class="lb-rate-nation-1"><span style="color: #d9b8ff;"> •</span> 前年度の全国の取得率</td>
+							<td  class="lb-total-1"><span style="color: #0077cb;"> •</span> 前年度の自校の合格者数</td>
+						</tr>
+						<tr id="_crNotiY2">
+							<td class="lb-rate-org-2"><span style="color: #2f8d00;"> •</span> 前々年度の自校の取得率</td>
+							<td class="lb-rate-city-2"><span style="color: #e60012;"> •</span> 前々年度の<?php echo $cityName;?>の取得率</td>
+							<td class="lb-rate-nation-2"><span style="color: #ffb8b8;"> •</span> 前々年度の全国の取得率</td>
+							<td class="lb-total-2"><span style="color: #005897;"> •</span> 前々年度の自校の合格者数</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="row">
+				<div id="detailb-graph" class="tab-content">
+				    <div class="detail-b-max-people">
+				        <div>人</div>
+				        <div><?php echo $arrayMax['maxTotal'];?>人</div>
+				    </div>
+				    <div class="detail-b-max-rate">
+				        <div>率</div>
+				        <div><?php echo $arrayMax['maxRate'];?>%</div>
+				    </div>
+					<div id="chartB3" style="height: 165px; margin: 0 auto"></div>
+					<div id="home" class="tab-pane fade">
+						<div class="detailb-1">
+							<table class="table1 table-bordered tbl-striped tb-d-3">
+								<thead>
+									<tr>
+										<th class="th-detail-b-total"><?php echo $this->translate(''); ?></th>
+										<th><?php echo $this->translate('5級'); ?></th>
+										<th><?php echo $this->translate('4級'); ?></th>
+										<th><?php echo $this->translate('3級'); ?></th>
+										<th><?php echo $this->translate('準2級'); ?></th>
+										<th><?php echo $this->translate('2級'); ?></th>
+										<th><?php echo $this->translate('準1級'); ?></th>
+										<th><?php echo $this->translate('1級'); ?></th>
+									</tr>
+								</thead>
+								<tbody>
+                                    <?php
+                                    foreach ($dataGraph as $key=>$item){
+                                        echo '<tr class="row'.$key.'">';
+                                    ?>
+                                    <th><?php echo $item[7]['year'];?></th>
+                                    <?php for($i=7;$i>0;$i--)
+                                    {
+                                        echo '<td>';
+                                        echo (empty($item[$i]['totalPassed']))?0:($item[$i]['totalPassed']);
+                                        echo '人</td>';
+                                    }
+                                        echo '</tr>';
+                                    }
+                                    ?>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div id="menu1" class="tab-pane fade">
+
+						<div class="detailb-2">
+							<table class="table1 table-bordered tbl-striped tb-d-3">
+								<thead>
+									<tr>
+										<th class="th-detail-b-rate"><?php echo $this->translate(''); ?></th>
+										<th><?php echo $this->translate(''); ?></th>
+										<th><?php echo $this->translate('5級'); ?></th>
+										<th><?php echo $this->translate('4級'); ?></th>
+										<th><?php echo $this->translate('3級'); ?></th>
+										<th><?php echo $this->translate('準2級'); ?></th>
+										<th><?php echo $this->translate('2級'); ?></th>
+										<th><?php echo $this->translate('準1級'); ?></th>
+										<th><?php echo $this->translate('1級'); ?></th>
+									</tr>
+								</thead>
+
+								    <?php
+                                    foreach ($dataGraph as $key=>$item){
+                                    ?>
+                                    <tbody class="row<?php echo $key; ?>">
+                                        <tr >
+                                            <th rowspan="3" class="rspYcr"><?php echo $item[7]['year'];?></th>
+                                            <td>本校</td>
+                                        <?php for($i=7;$i>0;$i--)
+                                        {
+                                            echo '<td>'.$item[$i]['orgRate'].'%</td>';
+                                        }
+                                            ?>
+                                        </tr>
+                                        <tr class="city ">
+                                            <td><?php echo $cityName;?></td>
+                                            <?php for($i=7;$i>0;$i--)
+                                            {
+                                                echo '<td>'.$item[$i]['cityRate'].'%</td>';
+                                            }
+                                                ?>
+                                        </tr>
+                                        <tr class="nation ">
+                                            <td>全国</td>
+                                             <?php for($i=7;$i>0;$i--)
+                                            {
+                                                echo '<td>'.$item[$i]['nationRate'].'%</td>';
+                                            }
+                                                ?>
+                                        </tr>
+                                    </tbody>
+                                    <?php
+
+                                    }
+                                    ?>
+
+
+							</table>
+						</div>
+					</div>
+					<div id="menu2" class="tab-pane fade in active">
+						<div class="detailb-3">
+							<script type="text/javascript">
+
+							</script>
+							<table class="table1 table-bordered tbl-striped tb-d-3"
+								id="_dataAll">
+								<thead>
+									<tr>
+										<th><?php echo $this->translate(''); ?></th>
+										<th><?php echo $this->translate(''); ?></th>
+										<th><?php echo $this->translate('5級'); ?></th>
+										<th><?php echo $this->translate('4級'); ?></th>
+										<th><?php echo $this->translate('3級'); ?></th>
+										<th><?php echo $this->translate('準2級'); ?></th>
+										<th><?php echo $this->translate('2級'); ?></th>
+										<th><?php echo $this->translate('準1級'); ?></th>
+										<th><?php echo $this->translate('1級'); ?></th>
+									</tr>
+								</thead>
+
+								    <?php
+                                    foreach ($dataGraph as $key=>$item){
+                                    ?>
+                                    <tbody class="row<?php echo $key; ?>" id="_crTable<?php echo $key; ?>">
+                                    <tr >
+                                        <th rowspan="3" class="rspYcr"><?php echo $item[7]['year'];?></th>
+                                        <td>本校</td>
+                                    <?php for($i=7;$i>0;$i--)
+                                    {
+                                        echo '<th>';
+                                        echo (empty($item[$i]['totalPassed']))?0:($item[$i]['totalPassed']);
+                                        echo '人 /'.$item[$i]['orgRate'].'%</th>';
+                                    }
+                                        ?>
+                                    </tr>
+                                    <tr class="city">
+                                        <td><?php echo $cityName;?></td>
+                                        <?php for($i=7;$i>0;$i--)
+                                        {
+                                            echo '<td>'.$item[$i]['cityRate'].'%</td>';
+                                        }
+                                            ?>
+                                    </tr>
+                                    <tr class="nation">
+                                        <td>全国</td>
+                                         <?php for($i=7;$i>0;$i--)
+                                        {
+                                            echo '<td>'.$item[$i]['nationRate'].'%</td>';
+                                        }
+                                            ?>
+                                    </tr>
+                                    </tbody>
+                                    <?php
+
+                                    }
+                                    ?>
+
+							</table>
+						</div>
+					</div>
+				</div>
+				<script type="text/javascript">//Control for Hightchart and Table
+
+				</script>
+			</div>
+		</div>
+	</div>
+	<div class="box box-detail-b">
+		<div class="box-header">
+			<span><b>英検合格実績（生徒別）</b></span>
+		</div>
+		<div class="box-body">
+			<div class="row row1">
+				<div class="col-sm-1 w-35">
+					<b>年度</b>
+				</div>
+				<div class="col-sm-1 styled-select w-100">
+					<select id="_selectY" class="select-detail-b">
+				        <?php
+            foreach ($ddlYear as $key => $year) {
+                echo '<option value="' . $year . '">' . $year . '</option>';
+            }
+            ?>
+				    </select>
+				</div>
+				<div class="col-sm-1 w-22">
+					<b>回</b>
+				</div>
+				<div class="col-sm-1 styled-select w-60">
+					<select id="_selectT" class="select-detail-b">
+					   <option value="all" selected></option>
+				        <?php
+            for($i=1; $i<4; $i++) {
+                $selected = ($i == $time) ? 'selected' : '';
+                echo '<option value="' . $i . '" ' . $selected . '>' . $i. '</option>';
+            }
+            ?>
+				    </select>
+				</div>
+
+				<a class="btn btn-red btn-small-140 btn-detail"
+					onclick="DETAIL_B.exportListExam();"> <img
+					src="<?php echo $this->basePath('img/white/svg/download.svg') ?>" />
+                    <?php echo $this->translate('Excel出力'); ?>
+                </a>
+			</div>
+
+		</div>
+		<!-- listClassYear -->
+		<div id="listClassYear">
+			<!-- Detail Class -->
+			<div id="detailClass">
+				<ul class="nav nav-tabs">
+                    <?php
+                    $countOther = 0;
+                    $sumRatio = 0;
+                    if(empty($dataClass)){
+
+                    }else {
+                        foreach ($dataClass as $key => $item) {
+                            if (($item['schoolYearCode'] !== NULL) and ($item['schoolClassification'] !== NULL)) {
+                                $sumRatio += $item['ratio'];
+                                ?>
+                                <li
+        						class=" detail-table-b <?php if($key == $activeKey) echo 'active'; ?>"
+        						data-detail="<?php echo $this->escapehtml($item['schoolClassification']).'-'.$this->escapehtml($item['schoolYearCode']); ?>"
+        						data-count="<?php echo $item['1']; ?>"><a data-toggle="tab"
+        						href="#detail-box<?php echo $this->escapehtml($item['schoolClassification']).'-'.$this->escapehtml($item['schoolYearCode']); ?>">
+        							<div class="col-sm-3 border-box h-124 detailb-box">
+        								<div class="box-header h-25 title-head clear-bgr detailb-title">
+        									<p><?php echo $this->escapehtml($item['schoolClassification']).'-'.$this->escapehtml($item['schoolYearCode']); ?>年生</p>
+        								</div>
+        								<div class="detail-margin">
+        									<span class="box-l"><?php echo $item['ratio']; ?><span>%</span></span>
+        								</div>
+        								<div class="line"></div>
+        								<div class="detail-margin">
+        									<span class="box-l"><?php echo $item['1']; ?><span>名</span></span>
+        								</div>
+        							</div>
+        					</a></li>
+                                <?php
+                                } else {
+                                    $countOther += $item['1'];
+                                }
+                            }
+                            if ($countOther) {
+                                ?>
+                                <li class=" detail-table-b"
+        						data-detail="data-other" data-count="<?php echo $countOther;?>"><a
+        						data-toggle="tab" href="#detail-box-all">
+        							<div class="col-sm-3 border-box h-124 detailb-box">
+        								<div class="box-header h-25 title-head clear-bgr detailb-title">
+        									<p>その他</p>
+        								</div>
+        								<div class="detail-margin">
+        									<span class="box-l"><?php echo round(100-$sumRatio); ?><span>%</span></span>
+        								</div>
+        								<div class="line"></div>
+        								<div class="detail-margin">
+        									<span class="box-l"><?php echo $countOther; ?><span>名</span></span>
+        								</div>
+        							</div>
+        					</a></li>
+                                <?php }
+                              }
+                                ?>
+
+                        <li class=" detail-table-b"
+						data-detail="data-all" data-count="<?php echo (empty($sumTotal))?0:$sumTotal;?>"><a
+						data-toggle="tab" href="#detail-box-all">
+							<div class="col-sm-3 border-box h-124 detailb-box">
+								<div class="box-header h-25 title-head clear-bgr detailb-title">
+									<p>合計</p>
+								</div>
+								<div class="detail-margin">
+									<span class="box-l"><?php echo (empty($sumTotal) or empty($sumTotal))?0:round($sumTotal*100/$sumTotal); ?><span>%</span></span>
+								</div>
+								<div class="line"></div>
+								<div class="detail-margin">
+									<span class="box-l"><?php echo (empty($sumTotal))?0:$sumTotal; ?><span>名</span></span>
+								</div>
+							</div>
+					</a></li>
+
+				</ul>
+			</div>
+			<!--End Detail Class -->
+
+			<!-- Detail Table -->
+			<div id="detailTable" class="tab-content">
+				<div class="tab-pane fade in active">
+					<div class="detail-page-margin">
+						<table class="table table-bordered tbl-striped">
+							<thead>
+								<tr>
+									<th><ul class="nav">
+											<li class="dropdown">
+												<div class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $this->translate('学年'); ?>
+                                    <span class="caret"></span>
+												</div>
+											</li>
+										</ul></th>
+									<th>
+										<ul class="nav">
+											<li class="dropdown">
+												<div class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $this->translate('組'); ?>
+                                    <span class="caret"></span>
+												</div>
+											</li>
+										</ul>
+									</th>
+									<th><ul class="nav">
+											<li class="dropdown">
+												<div class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $this->translate('番号'); ?>
+                                    <span class="caret"></span>
+												</div>
+											</li>
+										</ul></th>
+									<th><ul class="nav">
+											<li class="dropdown">
+												<div class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $this->translate('氏名'); ?>
+                                    <span class="caret"></span>
+												</div>
+											</li>
+										</ul></th>
+									<th><ul class="nav">
+											<li class="dropdown">
+												<div class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $this->translate('検定回'); ?>
+                                    <span class="caret"></span>
+												</div>
+											</li>
+										</ul></th>
+									<th><ul class="nav">
+											<li class="dropdown">
+												<div class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $this->translate('合格級'); ?>
+                                    <span class="caret"></span>
+												</div>
+											</li>
+										</ul></th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+                            <?php
+                            if(!empty($dataTableB)) {
+                                foreach ($dataTableB as $item) {
+                                    ?>
+
+								<tr>
+									<td><?php echo $this->escapehtml($item['schoolYearName']); ?></td>
+									<td><?php echo $this->escapehtml($item['className']); ?></td>
+									<td><?php echo $this->escapehtml($item['pupilNo']); ?></td>
+									<td><?php echo $this->escapehtml($item['tempNameKanji']); ?></td>
+									
+									<td><?php echo $item['year'].'&nbsp;&nbsp;&nbsp;第'.$item['kai'].'回'; ?></td>
+									<td>
+									<?php 
+									if($item['eikenLevelId'] && isset($listMappingLevel[$item['eikenLevelId']])){
+									    echo $this->escapehtml($listMappingLevel[$item['eikenLevelId']]);
+									}
+									?>
+									</td>
+									<td></td>
+								</tr>
+                            			    <?php
+                                }
+                            }
+
+                            ?>
+
+							</tbody>
+						</table>
+					</div>
+            <?php
+                if(!empty($dataTableB)):
+                    $paging = $this->paginationHelper($paginator, $page, '', $numPerPage);
+                    if ( count($paginator) > $numPerPage):?>
+                    <div class="box_padding text-center pagination_student_color rcm-padding-top-5">
+        				<ul class="pagination ">
+        				    <?php echo $paging; ?>
+                        </ul>
+        			</div>
+                    <?php endif ?>
+            <?php endif ?>
+				</div>
+
+			</div>
+			<!--End Detail Table -->
+		</div>
+		<!-- End listClassYear -->
+	</div>
+</div>
+<?php
+    $this->inlineScript()->prependFile($this->basePath('js/homepage/detailb.js'));
+    echo $this->inlineScript();
+?>

@@ -1,0 +1,288 @@
+<!-- Styles -->
+<?php $this->headLink ()->prependStylesheet ( $this->basePath ( 'css/home-page.css' ) )?>
+<!-- Scripts -->
+<?php
+    $paging = $this->paginationHelper($paginator, $page, '/homepage/homepage/achieve-goal/year/'.$year.'/kai/'.$kai.'/kyu/'.$kyu.'/orgscy/'.$orgscy.'/key/'.$key.'/ord/'.$ord, $numPerPage);    
+    $this->headScript()->appendFile($this->basePath('js/highcharts.js'));
+    $this->headScript()->appendFile($this->basePath('js/homepage/achieve-goal.js'));
+?>
+<script>
+	dataA1 = <?php echo $jsonDataA1;?>;
+	dataA2 = <?php echo $jsonDataA2;?>;
+	currentYear = <?php echo $currentYear;?>
+</script>
+<div class="top-page-detail achieve-goal">
+	<div class="box">
+		<div class="box-header">
+			<span><b>目標達成状況</b></span>
+		</div>
+		<div class="box-body">
+                    <div class="description">
+                        <p>
+                            試験結果情報には受験生による入力ミスなども含まれるため、以下の統計情報には不正確なデータも含まれることがあります。<br>
+                            より正確な統計情報を算出するためには各試験結果データと名簿データの間の突合を行ってください。
+                        </p>
+                    </div>
+			<div class="row row2">
+				<div class="row-d-1">
+					<div class="d-1">
+						<div class="d-11">
+							<div class="detail-margin-public">
+								<b>本年度達成率</b>
+							</div>
+							<div class="d-11-p-1">
+								<?php echo $passRate;?>
+							</div>
+							<div class="d-11-p-2">
+								前回比 <?php echo $compRate;?>
+							</div>
+						</div>
+						<div class="d-12">
+							<div class="detail-margin-public">前回達成率</div>
+							<div class="d-12-p-1">
+								<?php echo $passRate1;?>
+							</div>
+						</div>
+						<div class="d-13">
+							<div class="detail-margin-public">前年度達成率</div>
+							<div class="d-13-p-1">
+								<?php echo $passRateY1;?>
+							</div>
+						</div>
+					</div>
+					<div class="d-2">
+						<div class="d-21">
+							<div class="detail-margin-public">
+								<b>本年度取得者数</b>
+								<div class="d-21-1">
+									<?php echo $numPass;?>
+								</div>
+							</div>
+							<div class="d-21-2">
+								前回比
+								<div class="d-21-3">
+									<?php echo $numPassComp;?>
+								</div>
+							</div>
+						</div>
+						<div class="d-22">
+							<div class="detail-margin-public">前回取得者数</div>
+							<div class="box-l-1"><?php echo $numPass1;?>
+							</div>
+						</div>
+						<div class="d-23">
+							<div class="detail-margin-public">前年度取得者数</div>
+							<div class="box-l-1"><?php echo $numPassY1;?>
+							</div>
+						</div>
+					</div>
+					<div class="d-3">
+						<div class="row">
+							<div class="d-31">
+								<div class="d-31-1">
+									<b>本年度目標</b>
+									<div class="d-31-12">目標達成</div>
+								</div>
+								<div class="d-31-2">
+									<b><?php echo $lblTarget;?>
+									</b>
+								</div>
+								<div class="d-31-3">
+									<?php echo $targetOrg;?>
+								</div>
+							</div>
+							<div class="d-32 styled-select">
+							<b>学年</b>   
+							    <select class="form-control" id="_selectSchoolYear" name="_selectSchoolYear" tabindex="1">
+                                <?php if(isset($listOrgSchoolYear)): ?>
+				                    <?php foreach ($listOrgSchoolYear as $key=>$lstOrgSchY):?>
+				                    <?php echo "<option value=\"".$lstOrgSchY['id']."\" ".($lstOrgSchY['id']==$orgscy? 'selected = \'selected\'':'').">".$this->escapeHtml($lstOrgSchY['displayName'])."</option>";?>
+				                    <?php endforeach;?>
+				                <?php endif;?>
+                                </select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row-d-2">
+					<div class="tab-content hight-chart">
+						<div id="home" class="tab-pane fade in active">
+							<div class="d2-4">														
+								<div id="chart1" ></div>
+								<div class="chart-dis">
+									<span class="c1">•</span> 第1回 <br> <span class="c2">•</span>
+									第2回 <br> <span class="c3">•</span> 第3回 <br>
+								</div>	
+								<table class="table table-bordered tbl-striped">
+									<thead>
+										<tr>
+											<th class="width80"><?php echo $this->translate(''); ?></th>
+											<th><?php echo $currentYear-2; ?></th>
+											<th><?php echo $currentYear-1; ?></th>
+											<th><?php echo $currentYear; ?></th>
+										</tr>
+									</thead>
+									<tbody>
+										<?php echo $tblA1; ?>
+								    </tbody>
+								</table>
+							</div>
+						</div>
+						<div id="menu1" class="tab-pane fade">
+							<div class="d2-4">
+								<div id="chart2"></div>
+								<div class="chart-dis">
+									<span class="c4">•</span> 第1回 <br> <span class="c5">•</span>
+									第2回 <br> <span class="c6">•</span> 第3回 <br>
+								</div>								
+								<table class="table table-bordered tbl-striped">
+									<thead>
+										<tr>
+											<th class="width80"><?php echo $this->translate(''); ?></th>
+											<th><?php echo $currentYear-2; ?></th>
+											<th><?php echo $currentYear-1; ?></th>
+											<th><?php echo $currentYear; ?></th>
+										</tr>
+									</thead>
+									<tbody>
+										<?php echo $tblA2; ?>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div class="d2-1">
+						<div class="detail-margin-public1">年度別達成度推移</div>
+						<ul class="nav nav-pills detail2-1-ul">
+							<li><a data-toggle="pill" href="#menu1" tabindex="2">率</a></li>
+							<li class="active"><a data-toggle="pill" href="#home" tabindex="3">人数</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    <div class="box box-detail-b">
+		<div class="box-header">
+			<span><b>英検取得目標達成状況（生徒別）
+			</b></span>
+		</div>
+		<div class="box-body">		
+			<div class="row">					
+				<div class="box-tools pull-left styled-select">
+                    <b class="w-35">年度</b>
+                    <select class="select-detail-b w-100" id="_selectY" tabindex="4">
+                        <?php for($currYear = $currentYear+2; $currYear >= 2010 ; $currYear--): ?>					   
+                        <?php  echo "<option value=\"".$currYear."\" ".($currYear == $year ? 'selected = \'selected\'':'').">".$currYear."</option>"; ?>   
+                		<?php endfor; ?>					   
+                    </select>                  
+  					<b class="w-22">回</b>
+   					<select class="select-detail-b w-60" id="_selectKai" tabindex="5">
+                        <option selected="selected" value="4"></option>					
+                        <?php for($sKai = 1; $sKai < 4 ; $sKai++): ?>					     					   
+                	    <?php  echo "<option value=\"".$sKai."\" ".($sKai == $kai ? 'selected = \'selected\'':'').">".$sKai."</option>"; ?>   
+                		<?php endfor; ?>					   
+                    </select>
+                    <b class="w-22">取得級</b>
+                    <select class="select-detail-b w-100" id="_selectKyu" tabindex="6">
+                        <option selected="selected" value="0"></option>
+                        <?php if(isset($listEikenLevel)):?>
+                        <?php foreach ($listEikenLevel as $key=>$lstEikenLevel):?>
+                		<?php echo "<option value=\"".$lstEikenLevel['id']."\" ".($lstEikenLevel['id']==$kyu? 'selected = \'selected\'':'').">".$this->escapeHtml($lstEikenLevel['levelName'])."</option>";?>
+                		<?php endforeach;?>
+                		<?php endif;?>
+                    </select>                		
+				</div>
+				<div class="box-tools pull-right">
+					<button
+						<?php echo \Dantai\PublicSession::isViewerRole() ? 'disabled' : '' ?>
+						tabindex="7" <?php if (empty($listPupilPass)) { ?> onclick="ACHIEVE_GOAL.showMSGNoData()" <?php } else { ?> href="<?php echo '/homepage/homepage/export-pupils-to-csv' . '/year/' . $year . '/kai/' . $kai . '/kyu/' . $kyu; ?>" <?php } ?>
+						class="btn btn-red btn-small-140"><i class="fa-download-w"></i>
+						Excel出力
+					</button>
+				</div>
+			</div>				
+			<div class="row">	
+			<input type="hidden" id="ord" value="<?php echo $ord?>">	
+			<table class="table table-bordered tbl-striped list-pupil-pass">
+				<thead>
+					<tr class="header-sort">
+						<th class = "col1 sorting-field1" data-sort = "col1">
+    						  <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $this->translate('学年'); ?>
+                                        <span ></span>
+    						  </a>
+						</th> 
+						<th class = "col2 sorting-field1" data-sort = "col2">
+    						  <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $this->translate('組'); ?>
+                                        <span ></span>
+    						  </a>							
+						</th>
+						<th class = "col3 sorting-field1" data-sort = "col3">
+    						  <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $this->translate('番号'); ?>
+                                        <span ></span>
+    						  </a>
+    						  
+					  <th class = "col4 sorting-field1" data-sort = "col4">
+						      <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $this->translate('氏名'); ?>
+                                        <span ></span>
+    						  </a>
+						</th>
+						  <th class = "col5 sorting-field1" data-sort = "col5">
+						      <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $this->translate('取得級'); ?>
+                                        <span ></span>
+    						  </a>
+						</th>
+						  <th class = "col6 sorting-field1" data-sort = "col6">
+						      <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $this->translate('年度'); ?>
+                                        <span ></span>                                        
+                              </a>
+						</th>
+						  <th class = "col7 sorting-field1" data-sort = "col7">
+						      <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $this->translate('検定回'); ?>
+                                        <span ></span>                                        
+                              </a>
+						</th>	
+                                                <th class = "col7 sorting-field1 confirm" data-sort = "col7">
+						      <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $this->translate('突合状況'); ?>
+                                        <span ></span>                                        
+                              </a>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+				  <?php if(!empty($listPupilPass)):?>
+				      <?php foreach($listPupilPass as $key => $pupil):?>
+        				 <tr>
+                            <td class="left"><?php echo $this->escapeHtml($pupil["orgSchoolYear"]); ?></td>
+                            <td class="left"><?php echo $this->escapeHtml($pupil["className"]); ?></td>
+                            <td class="right"><?php echo $this->escapeHtml($pupil["pupilNo"]); ?></td>
+                            <td class="left"><?php echo $this->escapeHtml($pupil["pupilName"]); ?></td>
+                            <td class="right"><?php echo $this->escapeHtml($pupil["levelName"]); ?></td>
+                            <td class="left"><?php echo $this->escapeHtml($pupil["year"]); ?></td>
+                            <td class="right"><?php echo $this->escapeHtml($pupil["kai"]); ?></td>     
+                            <td class="left"><?php echo $pupil['mappingStatus']; ?></td> 
+                    <?php endforeach;?>
+                <?php else: ?>
+                    <?php echo  "<tr><td class='left' colspan='8'>".$this->escapeHtml($msg17)."</td></tr>";?>
+                <?php endif; ?>
+				</tbody>
+			</table>           
+            <?php if ( count($paginator) > $numPerPage ) { ?>
+            <div class="box_padding text-center pagination_student_color" >
+                <nav>
+                    <ul class="pagination" tabindex="8">
+                    <?php  echo $paging; ?>
+                    </ul>
+                </nav>
+            </div>
+            <?php } ?>
+            </div>		   
+		</div>	
+	</div>	
+</div>
+<?php //echo $this->inlineScript();?>
+<script>
+$(document).ready(function(){
+	ACHIEVE_GOAL.init();
+});
+</script>

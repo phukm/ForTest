@@ -1,0 +1,406 @@
+/* historyeiken */
+.formHistoryEiken input[type="radio"] {
+    margin-right: 8px;
+}
+
+.formHistoryEiken .col-sm-3 label {
+    margin-right: 18px;
+    font-weight: 200;
+}
+
+.formHistoryEiken .box-header {
+    color: #000000;
+    display: block;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-bottom: 1px solid #DADADA;
+    position: relative;
+    font-weight: bold;
+    line-height: 17px;
+}
+
+.headcol {
+    position: absolute;
+    width: 5em;
+    right: 0;
+    top: auto;
+    border-right: 0px none black;
+    border-top-width: 3px; /*only relevant for first row*/
+    /*             margin-top:-3px; compensate for top border */
+}
+/*         .headcol:after{content: 'Row ';} */
+.long {
+    letter-spacing: 5em;
+}
+
+.resultacg-table-scroll {
+    width: auto;
+    overflow-x: scroll;
+    margin-right: 5em;
+    overflow-y: visible;
+    padding-bottom: 1px;
+}
+
+.formHistoryEiken .table-bordered {
+    margin-bottom: 0px !important;
+}
+
+.formHistoryEiken .box-body {
+    border-radius: 0px;
+    padding: 9px 0px 0px 20px;
+}
+
+.formHistoryEiken .width48 {
+    width: 48px;
+}
+
+.formHistoryEiken .width98 {
+    width: 98px;
+    margin-right: 40px;
+}
+
+.formHistoryEiken .width140 {
+    width: 140px;
+}
+
+.formHistoryEiken .width62 {
+    width: 62px;
+}
+
+.formHistoryEiken .width250 {
+    width: 250px;
+}
+
+.formHistoryEiken .hidden-row {
+    visibility: hidden;
+    border: none !important;
+}
+
+.formHistoryEiken #btnClear {
+    margin-right: 15px;
+}
+
+.formHistoryEiken1 .width70 {
+    min-width: 70px;
+}
+
+.formHistoryEiken1 .width125 {
+    min-width: 125px;
+}
+
+.formHistoryEiken1 .width55 {
+    min-width: 55px;
+}
+
+.formHistoryEiken1 .width90 {
+    min-width: 88px;
+}
+
+.formHistoryEiken1 .width82 {
+    min-width: 82px;
+}
+
+.formHistoryEiken1 .width165 {
+    min-width: 165px;
+}
+
+.formHistoryEiken1 .width245 {
+    min-width: 243px;
+}
+
+.formHistoryEiken1 .btn-small-107 {
+    width: 107px;
+    font-size: 12px;
+    min-height: 25px;
+    padding: 0px 10px;
+}
+
+.formHistoryEiken1 .btn-small-105 {
+    width: 105px;
+    margin-left: 5px;
+    font-size: 12px;
+    min-height: 25px;
+    padding: 0px 10px;
+}
+
+/* frm-historypupil */
+.frm-historypupil .width65 {
+    min-width: 65px;
+    text-align:center;
+}
+
+.frm-historypupil .width45 {
+    min-width: 45px;
+    text-align:center;
+}
+
+.frm-historypupil .width75 {
+    min-width: 75px;
+    text-align:center;
+}
+
+.frm-historypupil .width85 {
+    min-width: 85px;
+    text-align:center;
+}
+
+.frm-historypupil .width125 {
+    min-width: 125px;
+    text-align:center;
+}
+
+.frm-historypupil .width100 {
+    min-width: 100px;
+    text-align:center;
+}
+.frm-historypupil .width108 {
+    min-width: 108px;
+    text-align:center;
+}
+.frm-historypupil .width120 {
+    min-width: 120px;
+    text-align:center;
+}
+.frm-historypupil .width121 {
+    min-width: 121px;
+    text-align:center;
+}
+
+.frm-historypupil .width115 {
+    min-width: 115px;
+    text-align:center;
+}
+
+.frm-historypupil .width150 {
+    min-width: 150px;
+    text-align:center;
+}
+
+.frm-historypupil .width70 {
+    min-width: 70px;
+    text-align:center;
+}
+
+.frm-historypupil .btn-small-89 {
+    width: 89px;
+    font-size: 12px;
+    min-height: 25px;
+    padding: 3px 10px 0 10px;
+}
+
+.frm-historypupil .scrolltable {
+    /* overflow-x: scroll;*/
+    height: 100%;
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+}
+
+.frm-historypupil .body {
+    width: auto;
+    overflow-x: scroll;
+    margin-right: 110px;
+    overflow-y: hidden;
+    border-left: 1px solid #ddd;
+}
+
+.frm-historypupil .headcol {
+    position: absolute;
+    top: auto;
+    right: 20px;
+    margin-left: 0px;
+    width: 111px;
+    text-align: left;   
+     border-right: 1px solid #ddd !important;
+}
+
+.frm-historypupil  table {
+    border-collapse: inherit;
+    border-spacing: 0em !important;
+    width: 1700px;
+}
+
+.frm-historypupil th, td {
+    border: 1px solid gray;
+}
+
+.frm-historypupil table th {
+    background-color: #ffd5d5;
+     border-right:0px !important;
+}
+.frm-historypupil table th.noborder_bottom{
+    border-bottom:0px !important;
+}
+.frm-historypupil  td {
+    border-width: 1px;
+}
+
+.frm-historypupil  tr:first-child td {
+    border-top-width: 0;
+}
+
+.frm-historypupil  tr:nth-child(even) {
+    background-color: #eee;
+}
+
+.frm-historypupil  .table>tbody>tr>td, .table>tfoot>tr>td, .table>tfoot>tr>th
+    {
+    border-top: 0px solid #ddd;
+    border-right: 0px solid #ddd;
+    line-height: 1.40857;
+    padding: 10px;
+    text-align: right;
+    vertical-align: middle;
+}
+
+.frm-historypupil .year{
+	border-top: 0px solid #ddd;
+    border-right: 1px solid #ddd;
+    line-height: 1.40857;
+    padding: 10px;
+    text-align: left !important;
+    vertical-align: middle;
+}
+
+.frm-historypupil  .table>tbody>tr>td p{
+    text-align: left;
+    margin-bottom: 0px;
+}
+
+.frm-historypupil .headcol {
+    border-left: 1px solid #898989 !important;
+}
+
+.frm-historypupil .long {
+    letter-spacing: 0em;
+}
+
+div.scrolltable .table {
+    margin-bottom: 0px;
+}
+
+.frm-historypupil .columEnd {
+    border-right: none;
+}
+
+.frm-historypupil .box-body {
+    border-radius: 0px;
+    padding: 5px 20px 20px 20px;
+}
+
+.modal-content .eikenhistory{
+	font-weight: 700;
+	font-size: 18px;
+}
+
+.table>tbody>tr>th{
+    text-align: center;
+  
+}
+.frm-historypupil table{
+      font-size: 14px !important;
+}
+.frm-historypupil th.headcol{
+	text-align: center; 		
+        line-height: 97px !important; 
+        height:92px;
+}
+
+/* -------------------Re-style*/
+.paging{
+    height:53px;
+}
+
+.frm-historypupil .pagination .active a {
+    background: #dddddd;
+    border: none;
+    border-bottom: 1px solid #dddddd;
+    border-top: 1px solid #dddddd;
+}
+
+.frm-historypupil .passfail1{
+	text-align:left !important;
+}
+.frm-historypupil .passfail2{
+    text-align:left !important;
+}
+.frm-historypupil .schoolyear-label{
+	width:55px;
+}
+.frm-historypupil .schoolyear-data{
+    width:140px;
+}
+.frm-historypupil .class-label{
+    width:72px;
+}
+.frm-historypupil .class-data{
+    width:70px;
+}
+.frm-historypupil .number-label{
+    width:60px;
+}
+.frm-historypupil .number-data{
+    width:120px;
+}
+.frm-historypupil .name-label{
+    width:60px;
+}
+.frm-historypupil .name-data{
+    width:190px;
+}
+.name-data p{
+    margin: 5px 0px 5px 0px;text-align:center;
+}
+.text-align-left {
+    text-align: left !important;
+    padding-left: 2px !important;
+}
+.backgroup-color-white{
+	background-color: #ffffff !important;
+}
+
+/* sub-table */
+.frm-historypupil .sub-table{
+	border:1px solid #ddd;
+}
+
+.frm-historypupil .schoolyear-label{
+	border-right:1px solid #ddd;background-color: #ffd5d5;width:90px;
+}
+.schoolyear-label label{
+	width:90px;margin: 5px 0px 5px 0px;text-align:center;
+}
+.frm-historypupil .schoolyear-data{
+    width:112px;
+}
+.schoolyear-data p{
+    width:112px;margin: 5px 0px 5px 0px;text-align:center;
+}
+
+.frm-historypupil .class-label, .frm-historypupil .number-label{
+    border-right:1px solid #ddd;border-left:1px solid #ddd;background-color: #ffd5d5;width:90px;
+}
+.class-label label, .number-label label{
+    width:90px;margin: 5px 0px 5px 0px;text-align:center;
+}
+.frm-historypupil .class-data, .frm-historypupil .number-data{
+    width:112px;
+}
+.class-data p, .number-data p{
+    width:112px;margin: 5px 0px 5px 0px;text-align:center;
+}
+
+.frm-historypupil .name-label{
+    border-right:1px solid #ddd;border-left:1px solid #ddd;background-color: #ffd5d5;width:90px;
+}
+.name-label label{
+    width:90px;margin: 5px 0px 5px 0px;text-align:center;
+}
+
+.frm-historypupil .marginleft
+{
+    margin-left: -7px;
+}

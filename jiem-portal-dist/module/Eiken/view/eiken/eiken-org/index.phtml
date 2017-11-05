@@ -1,0 +1,361 @@
+<?php
+$paging = $this->eikenPaginationHelper($paginator, $page, $this->url(null, array(
+    'controller' => 'eikenorg',
+    'action' => 'index'
+)), $numPerPage, (empty($param)) ? '' : '/search/' . $param);
+
+$this->headLink()->prependStylesheet($this->basePath('css/appeiken.css'));
+
+$this->headScript()->appendFile($this->basePath('js/jquery-ui.js'));
+$this->headScript()->appendFile($this->basePath('js/jiem.js'));
+
+$form->setAttribute('action', $this->url('eikenorg', array(
+    'controller' => 'eikenorg',
+    'action' => 'index'
+)));
+;
+?>
+<?php echo $this->form()->openTag($form); ?>
+<div class="eiken-form">
+    <div class="box frm-eiken-form-search" id="divSeachForm">
+        <div class="box-header"  data-toggle="collapse" data-target="#search-box">
+            <div class="search-header  sorting-field">
+                <i class="search-chevron-down"></i>
+                <b>検索条件</b>
+            </div>
+        </div>
+        <div id="search-box" aria-expanded="true" class="collapse in">
+            <div class="box-body height-110">
+                <div class="styled-select">
+                    <div class="col-sm-1 eikenname ">
+                        <b>検定名</b>
+                    </div>
+                    <div class="col-sm-2 eikenname-select font-eiken-exam styled-select"><?php
+                        echo $this->formrow($form->get('ddlExamName')
+                            ->setAttribute('onChange', 'showKai(false);'));
+                        ?></div>
+                    <div class="col-sm-1 eikenname ">
+                        <b>年度</b>
+                    </div>
+                    <div class="col-sm-2 nendo-select font-eiken-exam styled-select"><?php
+                        echo $this->formRow($form->get('ddlYear'));
+                        //        ->setAttribute('onChange', 'loadKai();'));
+                        ?></div>
+                    <div id="showSelectKai">
+                        <div class="col-sm-1 kai">
+                            <b>回</b>
+                        </div>
+                        <!--<div class="col-sm-2 txtkai"></div>-->
+                        <div class="col-sm-2 txtkai styled-select"><?php
+                            echo $this->formRow($form->get('ddlKai'));
+                            ?></div>
+                    </div>
+
+                </div>
+                <div class="row-eiken-2 styled-select">
+                    <div class="col-sm-1 jukenhi">
+                        <b>実施日</b>
+                    </div>
+                    <div class="col-sm-2 date-width"><?php
+                        echo $this->formRow($form->get('dtStartDate'));
+                        ?></div>
+                    <div class="col-sm-1 eiken-icon">
+                        <span class="icon-calendar" id="calendar1"
+                              onclick="showCalendar('dtStartDate')"></span>
+                    </div>
+                    <div class="col-sm-1 from-1">（から）</div>
+                    <div class="col-sm-2 date-width"><?php
+                        echo $this->formRow($form->get('dtEndDate'));
+                        ?></div>
+                    <div class="col-sm-1 eiken-icon">
+                        <span class="icon-calendar" id="calendar2"
+                              onclick="showCalendar('dtEndDate')"></span>
+                    </div>
+                    <div class="col-sm-1 to-2">（まで）</div>
+                </div>
+
+            </div>
+
+            <div class="box-footer">
+                <div class="col-sm-12 text-right">
+                    <a class="btn btn-clear-eikenExam1" href="/eiken/eikenorg/index"> <b>クリア</b>
+                    </a> <a id="btnSearch" class="btn btn-small" href="#"> <i
+                            class="fa fa-search"></i>検索
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="box">
+        <div class="box-header">団体申込情報</div>
+        <div class="box-body" id="list-container">
+            <div class="top-mark">
+                <label class="font-mark"> 団体で申込を行った検定の一覧となります。（ドラフト保存を含みます。）<br>
+                    申込内容を確認したい場合は「申込情報詳細」ボタンを押してください。<br>
+                    生徒の目標級の設定を確認したい場合は「目標級設定照会」ボタンを押してください。<br>
+                    支払状況を確認したい場合は「登録支払照会」ボタンを押してください。
+
+                </label>
+            </div>
+            <table class="table table-bordered tbl-striped">
+                <thead>
+                <tr class="eiken-title text-center">
+                    <th style="width: 80px" class="eiken-examname">検定名</th>
+                    <th style="width: 80px" class="eiken-year jyear">年度</th>
+                    <th style="width: 80px" class="eiken-times kai">回</th>
+                    <!--                        <th class="eiken-excuteDate">実施日</th>-->
+                    <!--                        <th class="eiken-status">突合状況</th>-->
+                    <!--                        <th class="eiken-numStuRegist">申込人数</th>-->
+                    <th class="eiken-action">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php
+                if (!empty($eikenschedule)) {
+                    foreach ($eikenschedule as $key => $value) :
+                        ?>
+
+                        <tr class="text-center">
+                            <td class="eiken-examName-text"><?php echo $value['examName'] == 'IBA' ? '英検' . $value['examName'] : $value['examName']; ?></td>
+                            <td style="text-align: center"><?php echo $value['examYear']; ?></td>
+                            <td style="text-align: center"><?php echo $value['examName'] != 'IBA' ? $value['examKai'] : '—'; ?></td>
+                            <td style="text-align: left;padding-left: 30px"><a id="btnDetails"
+                                   class="btn btn-eiken-action-choice btn-OrgRegistDetail <?php echo $value['orgId'] === NULL ? 'disabled' : ''; ?>"
+                                   href="<?php
+                                   $urlIBA = $this->url('i-b-a/default', array(
+                                       'controller' => 'iba',
+                                       'action' => 'show',
+                                       'id' => $value['scheId'],
+                                       'back' => 1
+                                   ));
+                                   $urlEiken = $value['orgId'] === NULL ? '#' : $this->url('eikenorg', array(
+                                       'controller' => 'eikenorg',
+                                       'action' => 'applyeikendetails',
+                                       'id' => $value['scheId']
+                                   ));
+                                   echo $value['examName'] != 'IBA' ? $urlEiken : $urlIBA;
+                                   ?>">申込情報詳細</a>
+                                <?php
+                                if ($value['examName'] != 'IBA') {
+                                    ?>
+                                    <a
+                                        class="btn btn-eiken-action-choice btn-RecommendlvList"
+                                        href="<?php
+                                        echo $this->url('invitation-mnt/default', array(
+                                            'controller' => 'recommended',
+                                            'action' => 'index',
+                                            'id' => '' . $value['scheId']
+                                        ));
+                                        ?>">目標級設定照会</a> <a
+                                        class="btn btn-PaymanList <?php
+                                        echo $value['examName'] === 'IBA' ? 'disabled' : '';
+                                        ?>"
+                                        href="<?php
+                                        echo $value['examName'] === 'IBA' ? '#' : $this->url('payment', array(
+                                                'controller' => 'payment',
+                                                'action' => 'paymentstatus',
+                                                'id' => $value['scheId']
+                                            )) . "?backUrl=4";
+                                        ?>">登録支払照会</a>
+                                    <?php if($value['isCurrentKai']):?>
+                                <a class = "btn apply-log "
+                                           href = "<?php
+                                           echo (empty(\Dantai\PublicSession::getRoleOfCurrentUser()))
+                                               ? 'javascript:void(0)'
+                                               : $this->url('logs/default',
+                                                   array(
+                                                       'controller' => 'apply-eiken',
+                                                       'action'     => 'index'),
+                                                   array(
+                                                       'query' => array(
+                                                           'scheId'=> $value['scheId'],
+                                                       ))
+                                               );
+                                           ?>">更新履歴</a>
+                                    <?php endif; ?>
+                                <?php } else { ?>
+                                    <a class="btn btn-eiken-action-choice btn-RecommendlvList disabled" href="#">目標級設定照会</a>
+                                    <a class="btn btn-PaymanList disabled" href="#">登録支払照会</a>
+                                <?php } ?>
+                            </td>
+                        </tr>
+                        <?php
+                    endforeach
+                    ;
+                    ?>
+                    <?php
+                } else {
+                    ?>
+
+                    <tr class="payment-row-45">
+                        <td colspan="7">
+                            <?php
+                            if (count($paginator) == 0) {
+                                echo '<p class="msgnull">' . $this->translate("MSGnoresult") . '</p>';
+                            }
+                            ?>
+                        </td>
+                    </tr>
+                    <?php
+                }
+                ?></tbody>
+
+            </table>
+            <?php
+            if (count($paginator) > $numPerPage) {
+                ?>
+                <div class="pagging1 text-center pagination_student_color">
+                    <nav>
+                        <ul class="pagination">
+                            <?php
+                            echo $paging;
+                            ?>
+                        </ul>
+                    </nav>
+                </div>
+                <?php
+            }
+            ?>
+
+        </div>
+    </div>
+</div>
+<?php echo $this->form()->closeTag(); ?>
+<script>
+    var jsMessEiken = <?php echo $jsMessages; ?>;
+    jQuery.validator.addMethod("comparedate",
+        function (value, element) {
+            var date1 = $("#dtStartDate").val();
+            date1 = Date.parse(date1);
+            var date2 = $("#dtEndDate").val();
+            date2 = Date.parse(date2);
+            if (value == "")
+                return true;
+            if (date2 < date1) {
+                return false;
+            } else {
+                return true;
+            }
+        }, '日付（から）と日付（まで）の前後関係がが正しくありません。');
+    jQuery.validator.addMethod("dateISO", function (value, element) {
+        if (value.length != 0) {
+            if (/^\d{4}[\/]\d{1,2}[\/]\d{1,2}$/.test(value) == false) {
+                return false;
+            }
+        }
+        var array = value.split("/");
+        var dtDay = parseInt(array[2]);
+        var dtMonth = parseInt(array[1]);
+        var dtYear = parseInt(array[0]);
+
+        if (dtMonth < 1 || dtMonth > 12) {
+            return false;
+        }
+        else if (dtDay < 1 || dtDay > 31) {
+            return false;
+        }
+        else if ((dtMonth == 4 || dtMonth == 6 || dtMonth == 9 || dtMonth == 11) && dtDay == 31) {
+            return false;
+        }
+        else if (dtMonth == 2) {
+            var isleap = (dtYear % 4 == 0 && (dtYear % 100 != 0 || dtYear % 400 == 0));
+            if (dtDay > 29 || (dtDay == 29 && !isleap)) {
+                return false;
+            }
+        }
+        return true;
+    }, "日付の形式はYYYY/MM/DDとしてください。");
+    var validator = $("#searcheikenexam").validate({
+        onfocusout: false,
+        onkeyup: false,
+        onclick: false,
+        focusInvalid: false,
+        rules: {
+            dtStartDate: {
+                dateISO: true
+            },
+            dtEndDate: {
+                dateISO: true,
+                comparedate: true
+            }
+        },
+        errorPlacement: function (error, element) {
+        },
+        showErrors: function (errorMap, errorList) {
+            this.defaultShowErrors();
+            ERROR_MESSAGE.show(errorList, function () {
+            }, 'inline');
+        }
+    });
+
+    $(document).ready(function () {
+        $('#ddlExamName').focus();
+        $('#dtStartDate').datepicker();
+        $('#dtEndDate').datepicker();
+        $('#divSeachForm input').bind('keypress', function (e) {
+            if (e.keyCode == 13) {
+                $('#searcheikenexam').submit();
+            }
+        });
+        $('#btnClear').click(function () {
+            $("#dtEndDate").val('');
+            $("#dtStartDate").val('');
+            $("#ddlExamName").val('');
+            $("#ddlYear option[value='" + COMMON.getCurrentYear() + "']").attr("selected", "selected");
+            $("#ddlKai").val('');
+            $('#searcheikenexam').submit();
+        });
+        $('#btnSearch').click(function () {
+            $('#searcheikenexam').submit();
+        });
+        showKai(true);
+    });
+    var ddlYearHtml = $("#ddlYear").html();
+    function showKai(flag)
+    {
+        var checkIba = $("#ddlExamName").val();
+        if (checkIba == "IBA")
+        {
+            //$("#ddlYear").attr('disabled', 'disabled');
+            //$("#ddlYear").val('');
+            $("#ddlKai").attr('disabled', 'disabled');
+            $("#ddlKai").val('');
+        }
+        else
+        {
+
+            //$("#ddlYear").removeAttr('disabled');
+            $("#ddlKai").removeAttr('disabled');
+        }
+    }
+
+    function showCalendar(name) {
+        $('#' + name).datepicker('show');
+    }
+    $(function () {
+        $.datepicker.regional['ja'] = {
+            clearText: 'クリア', clearStatus: '日付をクリアします',
+            closeText: '閉じる', closeStatus: '変更せずに閉じます',
+            prevText: '&#x3c;前', prevStatus: '前月を表示します',
+            prevBigText: '&#x3c;&#x3c;', prevBigStatus: '前年を表示します',
+            nextText: '次&#x3e;', nextStatus: '翌月を表示します',
+            nextBigText: '&#x3e;&#x3e;', nextBigStatus: '翌年を表示します',
+            currentText: '今日', currentStatus: '今月を表示します',
+            monthNames: ['1月', '2月', '3月', '4月', '5月', '6月',
+                '7月', '8月', '9月', '10月', '11月', '12月'],
+            monthNamesShort: ['1月', '2月', '3月', '4月', '5月', '6月',
+                '7月', '8月', '9月', '10月', '11月', '12月'],
+            monthStatus: '表示する月を変更します', yearStatus: '表示する年を変更します',
+            weekHeader: '週', weekStatus: '暦週で第何週目かを表します',
+            dayNames: ['日曜日', '月曜日', '火曜日', '水曜日', '木曜日', '金曜日', '土曜日'],
+            dayNamesShort: ['日', '月', '火', '水', '木', '金', '土'],
+            dayNamesMin: ['日', '月', '火', '水', '木', '金', '土'],
+            dayStatus: '週の始まりをDDにします', dateStatus: 'Md日(D)',
+            dateFormat: 'yy/mm/dd', firstDay: 0,
+            initStatus: '日付を選択します', isRTL: false,
+            showMonthAfterYear: true};
+        $.datepicker.setDefaults($.datepicker.regional['ja']);
+    });
+</script>

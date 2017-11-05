@@ -1,0 +1,55 @@
+.text-normal{
+    font-weight: normal;
+}
+
+.mr10{
+    margin-right: 10px;
+}
+
+.mr20{
+    margin-right: 20px;
+}
+
+.mw120{
+    width: 120px;
+}
+
+.label-column{
+    width: 40%;
+}
+
+.data-column{
+    width: 30%;
+}
+
+#test-side-exemption table{
+    margin-bottom: 0;
+}
+
+#test-side-exemption td{
+    vertical-align: top;
+}
+
+#test-side-exemption .box-footer .btn{
+    font-weight: bold;
+}
+
+#test-side-exemption li.error {
+    margin-left: 0;
+    padding-top: 0;
+    list-style-type: none;
+    text-align: left;
+}
+.table-bordered>thead>tr>td{
+   background-color: #ffd5d5; 
+}
+label .radio-box {
+    height: 13px;
+    position: relative;
+    top: 2px;
+    margin-right: 5px;
+}
+#test-side-exemption table thead td {
+    text-align: center;
+    font-weight: bold;
+}

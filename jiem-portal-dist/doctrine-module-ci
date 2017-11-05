@@ -1,0 +1,5 @@
+#!/usr/bin/env php
+<?php
+putenv('APP_ENV=ci');
+chdir(__DIR__);
+include('console/doctrine-module.php');

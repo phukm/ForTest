@@ -1,0 +1,324 @@
+<?php echo $this->headLink()->prependStylesheet($this->basePath('css/standard-level-recommended.css')); ?>
+<?php
+    $paging = $this->paginationHelper($paginator, $page, $this->url('invitation-mnt/default', array(
+        'controller' => 'recommended', 
+        'action' => 'index'
+    )), $numPerPage);
+    $escaper = new Zend\Escaper\Escaper('utf-8');
+	$isViewer = \Dantai\PublicSession::isViewerRole();
+?>
+<script type="text/javascript"> var msg = { MSG031: "<?php echo sprintf($this->translate('MSG031'),$data['ddbYear']) ?>", MSG001: "<?php echo $this->translate('MSG001') ?>", MSG037: "<?php echo $this->translate('MSG037') ?>", MSG038: "<?php echo $this->translate('MSG038') ?>", MSG035: "<?php echo $this->translate('MSG035') ?>"}; </script>
+<form method="post" id="frmSearchRecommend"
+	action="<?php echo $action->search; ?>">
+	<div class="box frm-rcm-search">
+           <div class="box-header collapsed" data-toggle="collapse" data-target="#search-box">
+                <div class="search-header  sorting-field">
+                    <i class="search-chevron-down"></i>
+                    <?php echo $this->translate('検索条件'); ?>
+                </div>
+            </div>
+        <div id="search-box" aria-expanded="true" class="collapse in">
+		<div class="box-body body-h110">
+			<div class="row firtrow">
+				<div class="col-sm-1">
+					<label>年度<span class="star">*</span></label>
+				</div>
+				<div class="col-sm-2 styled-select" id="ddlYear">
+					<select rel="<?php echo $data['ddbKai']; ?>" name="ddbYear"
+						class="form-control recmlvl-select-year inset-shadow" id="ddbYear">
+                        <?php foreach ($invYear as $year => $val) { ?>
+                                <option
+							<?php if ($year == $data['ddbYear']) { echo 'selected'; } ?>
+							value="<?php echo $year; ?>"
+							ref='<?php echo json_encode($val); ?>'><?php echo $year; ?></option>
+                        <?php } ?>
+                    </select>
+				</div>
+				<div class="col-sm-1 lbl-year">
+					<label>回<span class="star">*</span></label>
+				</div>
+				<div class="col-sm-2 styled-select" id="ddlKai">
+					<select name="ddbKai"
+						class="form-control recmlvl-select-year inset-shadow" id="ddbKai"></select>
+				</div>
+				<div class="col-sm-1">
+					<label>学年</label>
+				</div>
+
+				<div class="col-sm-2 styled-select width170" id="ddlSchoolYear">
+					<select name="ddbSchoolYear"
+						class="form-control recmlvl-select inset-shadow"
+						id="ddbSchoolYear">
+						<option value=""></option>
+                        <?php foreach($defaultOrgSchoolYear as $val){ ?>
+                        <option
+							<?php if($data['ddbSchoolYear'] == $val['id']) echo 'selected'; ?>
+							value="<?php echo $val['id']; ?>"><?php echo $escaper->escapeHtml($val['displayName']); ?></option>
+                        <?php } ?>
+                    </select>
+				</div>
+				<div class="col-sm-1">
+					<label>クラス</label>
+				</div>
+				<div class="col-sm-2 styled-select" id="ddlClass">
+					<select name="ddbClass"
+						class="form-control recmlvl-select inset-shadow" id="ddbClass">
+						<option value=""></option>
+                        <?php foreach($defaultClass as $val){ ?>
+                        <option
+							<?php if($data['ddbClass'] == $val['id']) echo 'selected'; ?>
+							value="<?php echo $val['id']; ?>"><?php echo $escaper->escapeHtml($val['className']); ?></option>
+                        <?php } ?>
+
+                    </select>
+				</div>
+			</div>
+			<div class="row lastrow">
+				<div class="col-sm-1">
+					<label>氏名</label>
+				</div>
+				<div class="col-sm-4 styled-select width280" id="txtName">
+					<input type="text" name="txtName"
+						class="form-control recmlvl-text inset-shadow" id="txtName"
+						value="<?php echo $data['txtName']; ?>">
+				</div>
+				<div class="col-sm-1 width65">
+					<label>目標級</label>
+				</div>
+				<div class="col-sm-4 styled-select" id="divTarger">
+					<select name="ddbRecommenLevel"
+						class="form-control recmlvl-select inset-shadow"
+						id="ddbRecommenLevel">
+						<option value=""></option>
+                        <?php foreach($EikenLevel as $val){ ?>
+                        <option
+							<?php if($data['ddbRecommenLevel'] == $val['id']) { echo 'selected'; } ?>
+							value="<?php echo $val['id']; ?>"><?php echo $val['levelName']; ?></option>
+                        <?php } ?>
+
+                    </select>
+				</div>
+			</div>
+		</div>
+		<div class="box-footer">
+			<div class="row">
+				<a class="btn btn-small-100 margin-right-10" id="btnClear"
+					href="<?php echo $action->clear; ?>">クリア</a>
+				<button type="button" class="btn btn-small-180" id="search">
+					<i class="fa-search"></i>検索
+				</button>
+			</div>
+		</div>
+            </div>
+	</div>
+</form>
+
+<form method="post" id="resuleRecommend">
+	<div class="box frm-rcm-list-search">
+		<div class="box-header">
+             <?php echo $this->translate('目標級設定').$mes_title; ?>
+        </div>
+		<div class="box-body">
+			<div class="top-mark">
+				<label class="font-mark">
+                                        個人別の目標級の一覧となります。<br/>
+                                        「目標級設定」を押すと、自動で計算されます。<br/>
+                                        内容を確認して、「保存」を押します。<br/>
+                                        <br/>
+                                        ・基準級：学年ごとに設定された取得すべき基準級です。<br/>
+                                        ・かんたん測定：かんたん測定の結果です。かんたん測定を実施している場合は「かんたん測定」を押してください。<br/>
+                                        ・IBA：英検IBAの結果です。英検級のレベルが表示されています。<br/>
+                                        ・英検：取得済の英検級です。<br/>
+                                        ・目標級：個人ごとの受験推奨級です。<br/>
+                                          ※複数の生徒を選択して、「一括更新」を押すと、一度に複数人の目標級を変更することができます。<br/>
+                                          ※「個別更新」欄にて個別に編集することもできます。
+				</label>
+
+			</div>
+
+
+			<div class="row row-btn">
+				<div class="col-sm-6">
+					<button type="button" class="btn btn-higher" id="EikenLevel" <?php echo $isViewer ? 'disabled' : '' ?>>
+						<i class="fa-star"></i> <?php echo $this->translate('目標級設定') ?>
+					</button>
+				</div>
+				<div class="col-sm-6 text-right">
+					<button type="button"  <?php echo $isViewer ? 'disabled' : '' ?>
+							class="btn btn-higher btnSimpletest margin-left" id="SimpleTest">
+						<i class="bar-chart"></i> <?php echo $this->translate('かんたん測定'); ?> </button>
+					<button type="button" id="updateLevel" <?php echo $isViewer ? 'disabled' : '' ?>
+							class="btn btnUpdatetarget btn-higher">
+						<i class="fa-chain"></i> <?php echo $this->translate('一括更新'); ?> </button>
+					<button type="button" id="reset" class="btn btn-higher margin-left" <?php echo $isViewer ? 'disabled' : '' ?>>
+						<i class="fa-times"></i> <?php echo $this->translate('クリア') ?> </button>
+				</div>
+			</div>
+
+
+			<div id="recom-index" class="row">
+				<table class="table table-bordered table-striped"
+					id="studentlist-table">
+					<thead>
+						<tr class="checkbox_list">
+							<th width="30"><input id="CheckAll" type="checkbox"></th>
+							<th class="jschool-year"><?php echo $this->translate('学年'); ?></th>
+							<th width="70"><?php echo $this->translate('クラス'); ?></th>
+							<th class="jnumber"><?php echo $this->translate('番号'); ?></th>
+							<th><?php echo $this->translate('氏名'); ?></th>
+							<th class="min-width64" width="64"><?php echo $this->translate('基準級'); ?></th>
+							<th class="min-width105" width="105"><?php echo $this->translate('かんたん測定'); ?></th>
+							<th width="58"><?php echo $this->translate('IBA'); ?></th>
+							<th width="58"><?php echo $this->translate('英検'); ?></th>
+							<th class="min-width64" width="64"><?php echo $this->translate('目標級'); ?></th>
+							<th width="101"><?php echo $this->translate('個別更新'); ?></th>
+						</tr>
+					</thead>
+					<tbody>
+					<?php
+					if (!empty($items)) {
+						$emptyStandardlevel = 1;
+						foreach ($items as $values) :
+							if (empty($values['standardlevelId'])) {
+								$emptyStandardlevel = 0;
+							}
+							?>
+							<tr class="styled-select">
+								<td>
+									<input name="ListEikenLevel[]" value="<?php echo $values['PupilId']; ?>" id ="checkbox-<?php echo $values['PupilId']; ?>"
+										   type="checkbox">
+								</td>
+								<td><?php echo $this->escapeHtml($values['displayName']) ?></td>
+								<td><?php echo $this->escapeHtml($values['className']) ?></td>
+								<td class="tb-text-right"><?php echo $this->escapeHtml($values['SerialID']) ?></td>
+								<td><?php echo $this->escapeHtml($values['nameKanji']) ?></td>
+								<td class="tb-text-right"><?php echo empty($values['standardlevelId']) ? '' : $mapEikenLevel[$values['standardlevelId']]; ?></td>
+								<td class="tb-text-right">
+									<?php
+									echo empty($values['resultVocabularyId']) ? '' : $mapEikenLevel[$values['resultVocabularyId']];
+									if (!empty($values['resultVocabularyId']) || !empty($values['resultGrammarId']))
+										echo '/';
+									echo empty($values['resultGrammarId']) ? '' : $mapEikenLevel[$values['resultGrammarId']];
+									?>
+								</td>
+								<td class="tb-text-right"><?php echo empty($values['IBA']) ? '' : $mapEikenLevel[$values['IBA']]; ?></td>
+								<td class="tb-text-right"><?php if ($values['EikenPassFailFlag'] == 1 && $values['EikenTestResultLevel']) {
+										echo $mapEikenLevel[$values['EikenTestResultLevel']];
+									} ?></td>
+								<td class="tb-text-right"><?php echo empty($values['resultLevel']) ? '' : $mapEikenLevel[$values['resultLevel']]; ?></td>
+								<td class="height-td-button">
+									<select name="ddbLevelChange[<?php echo $values['PupilId']; ?>]"
+										class="EikenLevel form-control rcm-invi-select inset-shadow"
+										<?php echo $isViewer ? 'disabled' : '' ?>
+										id="EikenLevel<?php echo $values['PupilId']; ?>">
+										<option value="0"></option>
+										<?php foreach ($EikenLevel as $val) { ?>
+											<option
+												value="<?php echo $val['id']; ?>"><?php echo $val['levelName']; ?>
+											</option>
+										<?php } ?>
+									</select>
+								</td>
+							</tr>
+							<?php
+						endforeach;
+					}
+					?>
+					</tbody>
+				</table>
+				<input type="hidden" id="emptyStandardlevel" value="<?php echo $vaildateStandardlevel; ?>" />
+                <?php if (!empty($messNotFound)) { echo $messNotFound; } ?>
+            </div>
+            <?php if ( count($paginator) > $numPerPage):?>
+                <div class="box_padding text-center pagination_student_color rcm-padding-top-5">
+    				<ul class="pagination ">
+    				    <?php echo $paging; ?>
+                    </ul>
+    			</div>
+            <?php endif ?>
+        </div>
+
+		<div class="box-footer text-right">
+			<div>
+				<button type="button" id="UpdateRecommendLevel" class="btn btn-red btn-large-180"
+					<?php echo $isViewer ? 'disabled' : '' ?>>
+					<i class="fa-download-w"></i><?php echo $this->translate('Save') ?>
+				</button>
+			</div>
+			<div class="row">
+			</div>
+			<div class="bottom-mark-1">
+				<label class="font-mark">
+					志願者個別の目標級設定登録が完了できましたら、案内状印刷を致します。受験案内状を作成・印刷するために、「<span>次へ</span>」を押してください。
+				</label>
+
+			</div>
+			<div>
+				<a class="btn btn-red btn-large-180"
+				   href="/invitation/generate/index"> <i class="arrow-circle-right-w"></i>
+					次へ
+				</a>
+			</div>
+		</div>
+	</div>
+	<input name="dbkai" type="hidden" id="dbkai"
+		value="<?php echo $data['ddbKai'] ?>"> <input name="dbyear"
+		type="hidden" id="dbyear" value="<?php echo $data['ddbYear'] ?>"> <input
+		name="dbschoolYear" type="hidden" id="dbschoolYear"
+		value="<?php echo $data['ddbSchoolYear']; ?>"> <input
+		name="localStorageRecommendLevel" type="hidden"
+		id="localStorageRecommendLevel" value=''>
+
+</form>
+<!-- MODAL -->
+<div id="setRcm" data-backdrop="static" class="modal fade" role="dialog">
+	<form method="post">
+		<div class="modal-dialog rcm-modal">
+			<div class="modal-content rcm-boder-radius-0">
+				<div class="box-header"> <?php echo $this->translate('一括更新'); ?> </div>
+				<div class="modal-body">
+					<div id="messages" class="red"></div>
+					<div class="row padding-left-rcm-5">
+						<div class="col-sm-2">
+							<label><?php echo $this->translate('目標級'); ?> <span class="star">*</span></label>
+						</div>
+						<div class="col-sm-4 styled-select" id="divTarger">
+							<select name="ddbLevelChange"
+								class="form-control rcm-invi-select inset-shadow"
+								id="ddbLevelChange">
+								<option value=""></option>
+                                <?php foreach($EikenLevel as $val){ ?>
+                                <option
+									value="<?php echo $val['id']; ?>"><?php echo $val['levelName']; ?></option>
+                                <?php } ?>
+                           </select>
+						</div>
+					</div>
+				</div>
+
+				<div class="modal-footer ptb20">
+					<a id="btnCancel" class="btn btn-large-180" data-dismiss="modal"
+						role="button"> <?php echo $this->translate('Cancel') ?> </a> <a
+						id="btnUpdateLevel" data-dismiss="modal"
+						class="btn btn-large-180 btn-red rcm-margin-right-30"><i
+						class="check-square"></i> <?php echo $this->translate('OK') ?> </a>
+
+
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<?php $this->headScript()->prependFile($this->basePath('js/recommend.invitation.js')); ?>
+<script type="text/javascript">
+    var errorMessages = <?php echo $error;?>;
+    var overWriteTargetKyu = '<?php echo $overWriteTargetKyu;?>';
+    if(typeof errorMessages != 'undefined' && !errorMessages.success)
+        ERROR_MESSAGE.show(errorMessages.messages, null , 'inline');
+    $(document).ready(function () {
+        RECOMMEND_INVITATION.init();
+        RECOMMEND_INVITATION.getEikenSchedule();
+	    RECOMMEND_INVITATION.historyLocalStorage();
+    });
+</script>
+

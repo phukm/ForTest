@@ -1,0 +1,56 @@
+<style type="text/css">
+    .no-box {margin: 0;padding: 0;}
+    p { margin: 0px;}
+    ul{list-style: none;margin: 0;padding: 0 0 0 10px;}
+    div.exam{margin-left: 10px;}
+</style>
+<p>----------------------------------------------------------------------------------------------</p>
+<p>このメールは、英検団体サポートにご登録いただいたメールアドレス宛に自動送信しています。</p>
+<p>そのため、お問合せ等のメッセージをご返信いただいても、回答できません。</p>
+<p>※お心当たりがない場合は、お手数ですがメールの破棄をお願いいたします。</p>
+<p>----------------------------------------------------------------------------------------------</p>
+<br>
+<p><?php echo $orgInfo['orgName'] . ' ' . $orgInfo['orgRepresentatives']; ?> 様 </p>
+<br/>
+<p>公益財団法人日本英語検定協会です。</p>
+<p>この度はお申込みいただき誠にありがとうございます。</p>
+<p>下記の内容でお申込みを受付けいたしましたのでご確認ください。</p>
+<br/>
+<p>《リスニングＣＤについてご注意ください》</p>
+<p>ＣＤは３枚で１セットとなっております。（ＣＤ１：２級 ＣＤ２：準２級／３級 ＣＤ３：４級／５級）</p>
+<p>級別の使用教室数をご確認の上、必要ＣＤセット数をご確認ください。</p>
+<p>ご申請のＣＤセット数は下記団体情報にてご確認ください。</p>
+<p>不備がある場合は至急英検サービスセンター（03-3266-8010）までご連絡ください。</p>
+<br/>
+<p class="no-box">================================================================</p>
+<p class="no-box">ご登録の詳細</p>
+<p class="no-box">================================================================</p>
+<p>受付日：<?php echo date('Y'); ?>年<?php echo date('m'); ?>月<?php echo date('d'); ?>日</p>
+<br/>
+<p class="no-box">-----------------------------------------------------------------</p>
+<p class="no-box">団体情報 </p>
+<p class="no-box">-----------------------------------------------------------------</p>
+<p>団体番号：<?php echo $orgInfo['orgNo']; ?></p>
+<p>団体名：<?php echo $orgInfo['orgName']; ?></p>
+<p>責任者名：<?php echo $orgInfo['orgRepresentatives']; ?></p>
+<p>メールアドレス：<?php echo $orgInfo['orgEmail']; ?></p>
+<p>郵便番号：<?php echo $orgInfo['orgPostalCode']; ?></p>
+<p>住所１：<?php echo $orgInfo['orgAddr1']; ?></p>
+<p>住所２：<?php echo $orgInfo['orgAdd2']; ?></p>
+<p>電話番号：<?php echo $orgInfo['orgPhoneNo']; ?></p>
+<p>会場区分：<?php echo $orgInfo['hallType']; ?></p>
+<?php if (!empty($eikenOrgDetail['cd']) && !empty($detailPrice['standardHall'])): ?>
+    <p>実施曜日：<?php echo $orgInfo['orgExamDate']; ?></p>
+    <p>ＣＤセット数：<?php echo $orgInfo['cdSet']; // CD number set      ?></p>
+    <p>実施区分：<?php echo $orgInfo['locationType'] ? '合同' : '単独'; // Implementation classification 単独／合同     ?></p>
+    <?php if ($orgInfo['locationType'] == 1): ?>
+        <p>合流実施区分：<?php echo $orgInfo['locationType1'] == 1 ? '他団体を吸収する' : '他団体に合流する'; //他団体に合流する／他団体を吸収する     ?></p>
+        <?php if ($orgInfo['locationType1'] == 2): ?>
+            <p>合流する団体番号：<?php echo $orgInfo['eikenOrgNo1']; ?></p>
+            <p>合流する団体名：<?php echo $orgInfo['eikenOrgNo123'] ?></p>
+        <?php else: ?>
+            <p>吸収する団体名：<?php echo $orgInfo['eikenOrgNo2']; ?></p>
+        <?php endif; ?>
+    <?php endif; ?>
+<?php endif; ?>
+            
